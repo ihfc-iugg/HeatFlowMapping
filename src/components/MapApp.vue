@@ -49,32 +49,6 @@ const visibleScrolling = ref(false);
 const setIsCollapsed = () => (isCollapsed.value = !isCollapsed.value);
 
 /**
- * @description
- */
-// function fetchSchemaLocal(path) {
-//   // /api/v1/schema/
-//   fetch(path)
-//     .then((response) => {
-//       if (!response.ok) {
-//         throw new Error("HTTP error " + response.status);
-//       }
-//       return response.text();
-//     })
-//     .then((yamlText) => {
-//       dataSchema.value = yaml.load(yamlText);
-//       heatFlowSchema.value = dataSchema.value.components.schemas.HeatFlow;
-//       // console.log("--------Send dohanna--------");
-//       // console.log(Object.keys(dataSchema.value.components.schemas.HeatFlow));
-//     })
-//     .catch(function (error) {
-//       console.log("Failed to fetch the YAML file.");
-//       console.error(error);
-//     });
-// }
-
-// fetchSchemaLocal("/ghfdb_API_copy.yaml");
-
-/**
  * @description get title of corresponding button and set it as title of sidepanel
  * @param {*} event
  */

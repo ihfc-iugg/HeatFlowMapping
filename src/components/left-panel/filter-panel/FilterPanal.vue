@@ -1,6 +1,13 @@
 <script setup>
 import { defineProps, ref, watch } from "vue";
 import { Map } from "maplibre-gl";
+import {
+  CButton,
+  // COffcanvasHeader,
+  // COffcanvasTitle,
+  // CCloseButton,
+  // COffcanvasBody,
+} from "@coreui/bootstrap-vue";
 
 import { useFilterStore } from "@/store/filter";
 
@@ -63,11 +70,27 @@ function writeFilterExpression() {
 
   Object.entries(filters.filterExpressions).forEach(([key]) => {
     if (filters.filterExpressions[key].length != 0) {
+      console.log("how does filertexpression look like");
+      console.log(filters.filterExpressions[key]);
       expression.push(filters.filterExpressions[key]);
     } else {
       console.log("Empty filterExpression for filter with key: " + key);
     }
   });
+  let polygon = {
+    type: "Polygon",
+    coordinates: [
+      [
+        [-45.87890625, 43.197167283],
+        [-40.394529104, -31.203404951],
+        [59.132888956, -31.533467254],
+        [59.27351181, 45.926810515],
+        [-45.87890625, 43.197167283],
+      ],
+    ],
+  };
+  let withinExpression = ["within", polygon];
+  expression.push(withinExpression);
   console.log(expression);
 
   return expression;
@@ -84,7 +107,33 @@ function applyFilterToMap() {
 </script>
 
 <template>
-  <div class="filters-panel">
+  <!-- Attribute Filter -->
+  <p class="d-grid gap-2">
+    <button
+      class="btn btn-primary"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#attributeFilter"
+      aria-expanded="false"
+      aria-controls="attributeFilter"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrows-expand"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2M8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"
+        />
+      </svg>
+      Attribute Filter
+    </button>
+  </p>
+  <div class="collapse" id="attributeFilter">
     <FilterElement
       v-for="id in filterIds"
       :key="id"
@@ -107,6 +156,38 @@ function applyFilterToMap() {
       >
         + Add Filter
       </button>
+    </div>
+  </div>
+
+  <!-- Location Filter -->
+  <p class="d-grid gap-2">
+    <button
+      class="btn btn-primary"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#locationFilter"
+      aria-expanded="false"
+      aria-controls="locationFilter"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="16"
+        height="16"
+        fill="currentColor"
+        class="bi bi-arrows-expand"
+        viewBox="0 0 16 16"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M1 8a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 8M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2M8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10"
+        />
+      </svg>
+      Location Filter
+    </button>
+  </p>
+  <div class="collapse" id="locationFilter">
+    <div class="filters-panel">
+      <CButton>start draw polygon</CButton>
     </div>
   </div>
 </template>

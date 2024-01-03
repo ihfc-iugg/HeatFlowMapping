@@ -219,7 +219,7 @@ function printOutValues(value) {
         >
         </VueMultiselect>
       </CCol>
-      <CCol xs="">
+      <CCol xs="1">
         <button class="btn btn-primary" @click="removeFilterElement()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
