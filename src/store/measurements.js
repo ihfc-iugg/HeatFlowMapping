@@ -14,6 +14,7 @@ export const useMeasurementStore = defineStore("measurements", () => {
   const geojson = ref(null);
   const dataSchema = ref(null);
   const selectableProperties = ref(null);
+  const isDataLoading = ref(null);
 
   /**
    * @description
@@ -52,7 +53,7 @@ export const useMeasurementStore = defineStore("measurements", () => {
         if (response.data.next != null) {
           // return fetchPagedAPIData(response.data.next, data);
         }
-        // return data;
+        return data;
       })
       .catch((err) => {
         console.log("rejected", err);
@@ -144,7 +145,9 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @param {String} url
    */
   async function fetchAPIData(url) {
+    isDataLoading.value = true;
     geojson.value = await convertAPIData2GeoJSON(url);
+    isDataLoading.value = false;
   }
 
   /**
@@ -215,6 +218,7 @@ export const useMeasurementStore = defineStore("measurements", () => {
     geojson,
     dataSchema,
     selectableProperties,
+    isDataLoading,
     fetchAPIData,
     fetchAPIDataSchema,
   };

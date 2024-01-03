@@ -21,6 +21,7 @@ import {
   COffcanvas,
   // CCloseButton,
   // COffcanvasBody,
+  CSpinner,
 } from "@coreui/bootstrap-vue";
 import CursorCoordinates from "./map/CursorCoordinates.vue";
 import DataSources from "./map/DataSources.vue";
@@ -33,7 +34,6 @@ import MapLegend from "./map/MapLegend.vue";
 import { useMeasurementStore } from "@/store/measurements";
 const measurements = useMeasurementStore();
 measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
-// measurements.setSelectableProperties();
 
 const mapContainer = ref();
 const map = ref();
@@ -192,6 +192,10 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="map-wrap">
+    <CButton v-if="measurements.isDataLoading">
+      <CSpinner component="span" size="sm" aria-hidden="true" />
+      Loading Data...
+    </CButton>
     <div class="map" ref="mapContainer" @mousemove="updateLatLng">
       <DataSources :map="map" />
       <DataLayer :map="map" />
