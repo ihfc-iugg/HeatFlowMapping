@@ -1,30 +1,22 @@
 <script setup>
 import { defineProps } from "vue";
-import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 import { CTooltip } from "@coreui/bootstrap-vue";
 
 import { useFilterStore } from "@/store/filter";
+import { useMapControlsStore } from "@/store/mapControls";
 
 const props = defineProps({ map: Map });
 
 const filters = useFilterStore();
-
-const mapBoxDraw = new MapboxDraw({
-  displayControlsDefault: false,
-  controls: {},
-});
-
-if (!props.map.hasControl(mapBoxDraw)) {
-  props.map.addControl(mapBoxDraw);
-}
+const mapControls = useMapControlsStore();
 
 function drawPolygon() {
-  mapBoxDraw.changeMode("draw_polygon");
+  mapControls.mapboxDraw.changeMode("draw_polygon");
 }
 
 function deletePolygon() {
-  mapBoxDraw.trash();
+  mapControls.mapboxDraw.trash();
 }
 
 function writeLocationFilterExpression(geoJSONObj) {

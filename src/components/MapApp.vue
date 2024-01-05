@@ -27,13 +27,15 @@ import {
 import CursorCoordinates from "./map/CursorCoordinates.vue";
 import DataSources from "./map/DataSources.vue";
 import LeftPanel from "./left-panel/LeftPanel.vue";
-import MapControls from "./map/MapControls.vue";
 import InfoPopup from "./map/InfoPopup.vue";
 import DataLayer from "./map/DataLayer.vue";
 import MapLegend from "./map/MapLegend.vue";
 
 import { useMeasurementStore } from "@/store/measurements";
+import { useMapControlsStore } from "@/store/mapControls";
+
 const measurements = useMeasurementStore();
+const mapControls = useMapControlsStore();
 measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
 
 const mapContainer = ref();
@@ -124,6 +126,12 @@ onMounted(() => {
   );
 
   map.value.once("load", async () => {
+    // add controls
+    map.value.addControl(mapControls.scale, "bottom-right");
+    map.value.addControl(mapControls.fullscreen, "top-right");
+    map.value.addControl(mapControls.navigation, "top-right");
+    map.value.addControl(mapControls.mapboxDraw);
+
     // add data source
     try {
       await measurements.fetchAPIData(
@@ -177,7 +185,6 @@ function toggleVisibleScrolling() {
       <DataSources :map="map" />
       <DataLayer :map="map" />
       <InfoPopup :map="map" />
-      <MapControls :map="map" />
       <MapLegend />
 
       <!-- Navigation buttons -->
@@ -215,7 +222,6 @@ function toggleVisibleScrolling() {
             :title="panelTitle"
             :map="map"
             :activeBaseLayer="activeBaseLayer"
-            :heatFlowSchema="heatFlowSchema"
             @collapse-event="setIsCollapsed()"
             @toggle-event="toggleVisibleScrolling()"
           />

@@ -38,7 +38,7 @@ const emit = defineEmits(["collapse-event", "toggle-event"]);
   <COffcanvasHeader class="bg-primary">
     <COffcanvasTitle class="text-white">{{ props.title }}</COffcanvasTitle>
     <CCloseButton
-      class="text-reset"
+      class="text-reset text-primary"
       @click="emit('collapse-event'), emit('toggle-event')"
     />
   </COffcanvasHeader>
