@@ -8,17 +8,9 @@ import {
   FullscreenControl,
   NavigationControl,
 } from "maplibre-gl";
-// import MapboxDraw from "@mapbox/mapbox-gl-draw";
 
 const props = defineProps({ map: Map });
 const map = ref(props.map);
-// const mapBoxDraw = new MapboxDraw({
-//   displayControlsDefault: false,
-//   controls: {
-//     polygon: true,
-//     trash: true,
-//   },
-// });
 
 watch(props, (newProps) => {
   map.value = newProps.map;
@@ -27,9 +19,6 @@ watch(props, (newProps) => {
   map.value.addControl(new ScaleControl(), "bottom-right");
   map.value.addControl(new FullscreenControl(), "top-right");
   map.value.addControl(new NavigationControl(), "top-right");
-
-  // add thrid-party controls
-  // map.value.addControl(mapBoxDraw);
 });
 </script>
 

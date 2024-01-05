@@ -1,19 +1,14 @@
 <script setup>
 import { defineProps, ref, watch } from "vue";
 import { Map } from "maplibre-gl";
-import {
-  CButton,
-  // COffcanvasHeader,
-  // COffcanvasTitle,
-  // CCloseButton,
-  // COffcanvasBody,
-} from "@coreui/bootstrap-vue";
 
 import { useFilterStore } from "@/store/filter";
 
 import FilterElement from "./FilterElement.vue";
+import FilterByLocation from "./FilterByLocation.vue";
+// import { CRow } from "@coreui/bootstrap-vue";
 
-const props = defineProps({ map: Map, heatFlowSchema: Object });
+const props = defineProps({ map: Map });
 
 const filters = useFilterStore();
 
@@ -77,20 +72,6 @@ function writeFilterExpression() {
       console.log("Empty filterExpression for filter with key: " + key);
     }
   });
-  let polygon = {
-    type: "Polygon",
-    coordinates: [
-      [
-        [-45.87890625, 43.197167283],
-        [-40.394529104, -31.203404951],
-        [59.132888956, -31.533467254],
-        [59.27351181, 45.926810515],
-        [-45.87890625, 43.197167283],
-      ],
-    ],
-  };
-  let withinExpression = ["within", polygon];
-  expression.push(withinExpression);
   console.log(expression);
 
   return expression;
@@ -104,6 +85,11 @@ function applyFilterToMap() {
 
   props.map.setFilter("sites", expression);
 }
+
+// function getRenderedFeatures() {
+//   console.log("inside getRenderesFeatures()");
+//   console.log(props.map.queryRenderedFeatures());
+// }
 </script>
 
 <template>
@@ -138,7 +124,6 @@ function applyFilterToMap() {
       v-for="id in filterIds"
       :key="id"
       :id="id"
-      :heatFlowSchema="heatFlowSchema"
       :map="map"
       @remove-filterElement="removeFilterElement($event)"
     >
@@ -185,11 +170,31 @@ function applyFilterToMap() {
       Location Filter
     </button>
   </p>
-  <div class="collapse" id="locationFilter">
-    <div class="filters-panel">
-      <CButton>start draw polygon</CButton>
-    </div>
-  </div>
+  <FilterByLocation :map="map" />
+
+  <!-- <CRow class="align-items-center"> -->
+  <!-- <button
+    class="btn btn-primary rounded-circle"
+    type="button"
+    @click="getRenderedFeatures()"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-download"
+      viewBox="0 0 16 16"
+    >
+      <path
+        d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"
+      />
+      <path
+        d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"
+      />
+    </svg>
+  </button> -->
+  <!-- </CRow> -->
 </template>
 
 <style scoped></style>

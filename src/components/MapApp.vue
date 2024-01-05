@@ -21,6 +21,7 @@ import {
   COffcanvas,
   // CCloseButton,
   // COffcanvasBody,
+  CRow,
   CSpinner,
 } from "@coreui/bootstrap-vue";
 import CursorCoordinates from "./map/CursorCoordinates.vue";
@@ -166,10 +167,12 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="map-wrap">
-    <CButton v-if="measurements.isDataLoading">
-      <CSpinner component="span" size="sm" aria-hidden="true" />
-      Loading Data...
-    </CButton>
+    <CRow class="align-items-center">
+      <CButton v-if="measurements.isDataLoading">
+        <CSpinner component="span" size="sm" aria-hidden="true" />
+        Loading Data...
+      </CButton>
+    </CRow>
     <div class="map" ref="mapContainer" @mousemove="updateLatLng">
       <DataSources :map="map" />
       <DataLayer :map="map" />
