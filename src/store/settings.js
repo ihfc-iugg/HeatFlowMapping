@@ -9,6 +9,7 @@ export const useSettingsStore = defineStore("settings", () => {
    */
 
   const activeBaseLayer = ref("");
+  const circleRadius = ref(4);
 
-  return { activeBaseLayer };
+  return { activeBaseLayer, circleRadius };
 });

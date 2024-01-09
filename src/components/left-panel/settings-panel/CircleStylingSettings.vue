@@ -2,6 +2,7 @@
 import { defineProps, ref, watch } from "vue";
 import { useMeasurementStore } from "@/store/measurements";
 import { useLegendStore } from "@/store/legend";
+import { useSettingsStore } from "@/store/settings";
 
 import VueMultiselect from "vue-multiselect";
 import { CPopover, CButton } from "@coreui/bootstrap-vue";
@@ -17,8 +18,7 @@ const props = defineProps({ map: Map });
 
 const measurements = useMeasurementStore();
 const legend = useLegendStore();
-
-const circleRadius = ref(5);
+const settings = useSettingsStore();
 
 const selectedProperty = ref(null);
 const selectedPropertyDataType = ref();
@@ -46,19 +46,20 @@ const classificationTypes = ref([
 const selectedClassificationType = ref(classificationTypes.value[0]);
 
 /**
- * If user changes size of circles, the watch method keeps track of it and adjust it synchron
- */
-watch(circleRadius, (currentValue) => {
-  // change circle radius whene user changes value at input element
-  props.map.setPaintProperty("sites", "circle-radius", parseInt(currentValue));
-});
-
-/**
  * set new color options when amount of classes (colorSteps) is changing
  */
 watch(colorSteps, (newColorSteps) => {
   setColorPaletteOptions(newColorSteps);
 });
+
+/**
+ *
+ * @param {*} circleRadius
+ * @description If user changes size of circles, the watch method keeps track of it and adjust it synchron
+ */
+function setCircleRadius(circleRadius) {
+  props.map.setPaintProperty("sites", "circle-radius", parseInt(circleRadius));
+}
 
 /**
  * @description set Circle color
@@ -328,9 +329,10 @@ function dataDrivenColorisation() {
         min="0"
         step="1"
         max="10"
-        v-model="circleRadius"
+        v-model="settings.circleRadius"
+        @change="setCircleRadius(settings.circleRadius)"
       />
-      <span class="text-muted text-center">{{ circleRadius }} px</span>
+      <span class="text-muted text-center">{{ settings.circleRadius }} px</span>
     </div>
   </div>
 

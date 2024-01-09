@@ -153,7 +153,7 @@ onMounted(() => {
       source: "sites",
       paint: {
         "circle-color": defaultCircleColor.value,
-        "circle-radius": 4,
+        "circle-radius": settings.circleRadius,
         "circle-stroke-width": 0.5,
         "circle-stroke-color": "#a1dab4",
       },
