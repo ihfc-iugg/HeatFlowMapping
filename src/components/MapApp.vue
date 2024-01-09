@@ -31,17 +31,18 @@ import MapLegend from "./map/MapLegend.vue";
 
 import { useMeasurementStore } from "@/store/measurements";
 import { useMapControlsStore } from "@/store/mapControls";
+import { useSettingsStore } from "@/store/settings";
 
 const measurements = useMeasurementStore();
-const mapControls = useMapControlsStore();
 measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
+const mapControls = useMapControlsStore();
+const settings = useSettingsStore();
 
 const mapContainer = ref();
 const map = ref();
 const navbarTitles = ref(["Settings", "Filter", "Statistics", "Analysis"]); // TODO: change to object and add key with bootstrap related icon class https://icons.getbootstrap.com/
 const panelTitle = ref("");
 const basemaps = ref(maps);
-const activeBaseLayer = ref("");
 
 const defaultCircleColor = ref("#41b6c4");
 const isCollapsed = ref(true);
@@ -91,7 +92,7 @@ function setBaseMapsLayer(basemaps) {
       source: baseMapLayer.id,
     };
     if (ix == 0) {
-      activeBaseLayer.value = baseMapLayer.id;
+      settings.activeBaseLayer = baseMapLayer.id;
       // first object in maps.json will be default base map
       layerObject.layout = {
         visibility: "visible",
@@ -219,7 +220,6 @@ function toggleVisibleScrolling() {
           <LeftPanel
             :title="panelTitle"
             :map="map"
-            :activeBaseLayer="activeBaseLayer"
             @collapse-event="setIsCollapsed()"
             @toggle-event="toggleVisibleScrolling()"
           />

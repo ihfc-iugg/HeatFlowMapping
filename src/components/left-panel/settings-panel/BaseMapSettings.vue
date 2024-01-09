@@ -4,10 +4,13 @@ import { ref, defineProps } from "vue";
 import baseMapsObject from "./maps.json";
 import { Map } from "maplibre-gl";
 
-const props = defineProps({ title: String, map: Map, activeBaseLayer: String });
+import { useSettingsStore } from "@/store/settings";
+
+const settings = useSettingsStore();
+
+const props = defineProps({ title: String, map: Map });
 
 const baseMaps = ref(baseMapsObject);
-const activeBaseLayer = ref(props.activeBaseLayer);
 
 function changeBaseLayer(oldBaseLayer, newBaseLayer) {
   // change base map on click
@@ -16,7 +19,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
   } else {
     props.map.setLayoutProperty(oldBaseLayer, "visibility", "none");
     props.map.setLayoutProperty(newBaseLayer, "visibility", "visible");
-    activeBaseLayer.value = newBaseLayer;
+    settings.activeBaseLayer = newBaseLayer;
   }
 }
 </script>
@@ -56,7 +59,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
           role="button"
           v-for="baseMap in baseMaps"
           :key="baseMap.id"
-          @click="changeBaseLayer(activeBaseLayer, baseMap.id)"
+          @click="changeBaseLayer(settings.activeBaseLayer, baseMap.id)"
         >
           <img
             class="card-img-top"
