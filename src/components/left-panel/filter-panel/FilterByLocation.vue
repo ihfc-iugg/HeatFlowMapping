@@ -11,14 +11,24 @@ const props = defineProps({ map: Map });
 const filters = useFilterStore();
 const mapControls = useMapControlsStore();
 
+/**
+ *
+ */
 function drawPolygon() {
   mapControls.mapboxDraw.changeMode("draw_polygon");
 }
 
+/**
+ *
+ */
 function deletePolygon() {
   mapControls.mapboxDraw.trash();
 }
 
+/**
+ *
+ * @param {*} geoJSONObj
+ */
 function writeLocationFilterExpression(geoJSONObj) {
   let expression = [];
 
@@ -28,15 +38,24 @@ function writeLocationFilterExpression(geoJSONObj) {
   return expression;
 }
 
+/**
+ *
+ */
 props.map.on("draw.create", function (e) {
   const expression = writeLocationFilterExpression(e.features[0].geometry);
   filters.addFilterExpression(expression, e.features[0].id);
 });
 
+/**
+ *
+ */
 props.map.on("draw.delete", function (e) {
   filters.removeFilterExpression(e.features[0].id);
 });
 
+/**
+ *
+ */
 props.map.on("draw.update", function (e) {
   filters.filterExpressions[e.features[0].id][1] = e.features[0].geometry;
 });
@@ -44,7 +63,9 @@ props.map.on("draw.update", function (e) {
 
 <template>
   <div class="collapse" id="locationFilter">
-    <CTooltip content="Draw a polygon on the map" placement="bottom">
+    <p>Filter points within a custom drawn polygon</p>
+
+    <CTooltip content="Draw polygon" placement="bottom">
       <template #toggler="{ on }">
         <button
           id="draw-polygon-btn"
@@ -67,7 +88,8 @@ props.map.on("draw.update", function (e) {
         </button>
       </template>
     </CTooltip>
-    <CTooltip content="Delete a selected polygon" placement="bottom">
+
+    <CTooltip content="Delete selected polygon" placement="bottom">
       <template #toggler="{ on }">
         <button
           id="delte-polygon-btn"

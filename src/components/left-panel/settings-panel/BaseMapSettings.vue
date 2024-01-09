@@ -64,7 +64,6 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
             alt="Card image cap"
           />
           <p class="text-center">{{ baseMap.title }}</p>
-          <!-- <h5 class="card-title">{{ baseMap.title }}</h5> -->
         </div>
       </div>
     </div>

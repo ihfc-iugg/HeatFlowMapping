@@ -25,10 +25,8 @@ import {
   CSpinner,
 } from "@coreui/bootstrap-vue";
 import CursorCoordinates from "./map/CursorCoordinates.vue";
-import DataSources from "./map/DataSources.vue";
 import LeftPanel from "./left-panel/LeftPanel.vue";
 import InfoPopup from "./map/InfoPopup.vue";
-import DataLayer from "./map/DataLayer.vue";
 import MapLegend from "./map/MapLegend.vue";
 
 import { useMeasurementStore } from "@/store/measurements";
