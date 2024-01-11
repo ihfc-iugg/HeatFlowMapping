@@ -34,7 +34,10 @@ import { useMapControlsStore } from "@/store/mapControls";
 import { useSettingsStore } from "@/store/settings";
 
 const measurements = useMeasurementStore();
-measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
+// measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
+import dataURL from "@/assets/data/heatflow_sample_data.geojson";
+import schemaURL from "@/assets/data/api_schema.json";
+measurements.fetchAPIDataSchema(schemaURL);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
 
@@ -44,7 +47,6 @@ const navbarTitles = ref(["Settings", "Filter", "Statistics", "Analysis"]); // T
 const panelTitle = ref("");
 const basemaps = ref(maps);
 
-const defaultCircleColor = ref("#41b6c4");
 const isCollapsed = ref(true);
 const visibleScrolling = ref(false);
 
@@ -132,13 +134,15 @@ onMounted(() => {
     map.value.addControl(mapControls.mapboxDraw);
 
     // add data source
-    try {
-      await measurements.fetchAPIData(
-        "http://139.17.54.176:8010/api/v1/measurements/heat-flow/?format=json"
-      );
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await measurements.fetchAPIData(
+    //     "http://139.17.54.176:8010/api/v1/measurements/heat-flow/?format=json"
+    //   );
+    // } catch (error) {
+    //   console.log(error);
+    // }
+
+    measurements.geojson = dataURL;
 
     map.value.addSource("sites", {
       type: "geojson",
@@ -152,7 +156,7 @@ onMounted(() => {
       type: "circle",
       source: "sites",
       paint: {
-        "circle-color": defaultCircleColor.value,
+        "circle-color": settings.circleColor,
         "circle-radius": settings.circleRadius,
         "circle-stroke-width": 0.5,
         "circle-stroke-color": "#a1dab4",
