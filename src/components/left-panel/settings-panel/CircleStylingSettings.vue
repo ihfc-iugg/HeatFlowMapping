@@ -71,6 +71,7 @@ function setCircleColor(colorHEX) {
     return;
   } else {
     props.map.setPaintProperty("sites", "circle-color", colorHEX);
+    settings.circleColor = colorHEX;
   }
 }
 
