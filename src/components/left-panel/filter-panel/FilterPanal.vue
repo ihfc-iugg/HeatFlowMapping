@@ -1,11 +1,13 @@
 <script setup>
-import { defineProps, watch } from "vue";
+import { defineProps, defineAsyncComponent, watch } from "vue";
 import { Map } from "maplibre-gl";
 
 import { useFilterStore } from "@/store/filter";
 
 import FilterElement from "./FilterElement.vue";
-import FilterByLocation from "./FilterByLocation.vue";
+const FilterByLocation = defineAsyncComponent(() =>
+  import("./FilterByLocation.vue")
+);
 
 const props = defineProps({ map: Map });
 
@@ -23,9 +25,12 @@ watch(filter.filters, () => {
  * @description Is called when btn gets clicked. New entry added to array with the current date when btn gets clicked (as id for filterElement).
  */
 function addFilterElement() {
-  if (Object.keys(filter.filters).length <= filter.maxNumberOfFilters) {
+  if (
+    Object.keys(filter.filters["attributeFilter"]).length <=
+    filter.maxNumberOfFilters
+  ) {
     const filterID = "attrFilter" + Date.now();
-    filter.addFilter(filterID);
+    filter.addFilter(filterID, "attributeFilter");
   } else {
     filter.reachedLimit = true;
     console.log("You reached the maximum number of filters");
@@ -39,14 +44,16 @@ function addFilterElement() {
 function writeFilterExpression() {
   let expression = ["all"];
 
-  Object.entries(filter.filters).forEach(([key]) => {
-    if (filter.filters[key].expression != null) {
-      console.log("how does filertexpression look like");
-      console.log(filter.filters[key].expression);
-      expression.push(filter.filters[key].expression);
-    } else {
-      console.log("Empty filterExpression for filter with key: " + key);
-    }
+  Object.entries(filter.filters).forEach(([category]) => {
+    Object.entries(filter.filters[category]).forEach(([key]) => {
+      if (filter.filters[category][key].expression != null) {
+        console.log("how does filertexpression look like");
+        console.log(filter.filters[category][key].expression);
+        expression.push(filter.filters[category][key].expression);
+      } else {
+        console.log("Empty filterExpression for filter with key: " + key);
+      }
+    });
   });
   console.log(expression);
 
@@ -97,7 +104,7 @@ function applyFilterToMap() {
   </p>
   <div class="collapse" id="attributeFilter">
     <FilterElement
-      v-for="id in Object.keys(filter.filters)"
+      v-for="id in Object.keys(filter.filters.attributeFilter)"
       :key="id"
       :id="id"
       :map="map"

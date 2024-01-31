@@ -8,6 +8,9 @@ import { useMapControlsStore } from "@/store/mapControls";
 
 const props = defineProps({ map: Map });
 
+console.log("inside filter by location");
+console.log(props.map);
+
 const filter = useFilterStore();
 const mapControls = useMapControlsStore();
 
@@ -42,24 +45,27 @@ function writeLocationFilterExpression(geoJSONObj) {
  *
  */
 props.map.on("draw.create", function (e) {
-  filter.addFilter(e.features[0].id);
-  filter.filters[e.features[0].id].expression = writeLocationFilterExpression(
-    e.features[0].geometry
-  );
+  filter.addFilter(e.features[0].id, "locationFilter");
+  filter.filters.locationFilter[e.features[0].id].expression =
+    writeLocationFilterExpression(e.features[0].geometry);
+  console.log("geojson output");
+  console.log(e.features);
+  console.log(mapControls);
 });
 
 /**
  *
  */
 props.map.on("draw.delete", function (e) {
-  filter.removeFilterElement(e.features[0].id);
+  filter.removeFilterElement(e.features[0].id, "locationFilter");
 });
 
 /**
  *
  */
 props.map.on("draw.update", function (e) {
-  filter.filters[e.features[0].id].expression[1] = e.features[0].geometry;
+  filter.filters.locationFilter[e.features[0].id].expression[1] =
+    e.features[0].geometry;
 });
 </script>
 

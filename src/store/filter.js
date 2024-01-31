@@ -8,7 +8,7 @@ export const useFilterStore = defineStore("filter", () => {
    * function()s become actions
    */
   // const filterIDs = ref([]);
-  const filters = ref({});
+  const filters = ref({ attributeFilter: {}, locationFilter: {} });
   const maxNumberOfFilters = ref(5);
   const reachedLimit = ref(false);
 
@@ -16,8 +16,8 @@ export const useFilterStore = defineStore("filter", () => {
    *
    * @param {*} filterId
    */
-  function addFilter(filterId) {
-    filters.value[filterId] = {
+  function addFilter(filterId, category) {
+    filters.value[category][filterId] = {
       selectedProperty: null,
       selectedPropertyType: null,
       selectedValues: null,
@@ -29,8 +29,8 @@ export const useFilterStore = defineStore("filter", () => {
    *
    * @param {*} id
    */
-  function removeFilterElement(id) {
-    delete filters.value[id];
+  function removeFilterElement(filterId, category) {
+    delete filters.value[category][filterId];
     setReachedLimit();
   }
 

@@ -12,7 +12,7 @@ const props = defineProps({ id: Number, map: Map });
 const measurements = useMeasurementStore();
 const filter = useFilterStore();
 
-const filterElement = ref(filter.filters[props.id]);
+const filterElement = ref(filter.filters.attributeFilter[props.id]);
 
 /**
  * TODO: wenn filterElement bereits besteht, werden valueOptions nicht gesetzt.
@@ -216,7 +216,7 @@ function setFilterExpression(property, values) {
       <CCol xs="1">
         <button
           class="btn btn-primary"
-          @click="filter.removeFilterElement(props.id)"
+          @click="filter.removeFilterElement(props.id, 'attributeFilter')"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -295,7 +295,7 @@ function setFilterExpression(property, values) {
           @click="
             resetSelectedValues();
             resetFilterExpression();
-            filter.removeFilterExpression(id);
+            filter.removeFilterElement(id, 'attributeFilter');
           "
         >
           <svg
