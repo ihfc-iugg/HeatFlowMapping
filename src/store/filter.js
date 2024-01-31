@@ -7,15 +7,47 @@ export const useFilterStore = defineStore("filter", () => {
    * computed()s become getters
    * function()s become actions
    */
-  const filterExpressions = ref({});
+  // const filterIDs = ref([]);
+  const filters = ref({});
+  const maxNumberOfFilters = ref(5);
+  const reachedLimit = ref(false);
 
-  function addFilterExpression(filterExpression, filterId) {
-    filterExpressions.value[filterId] = filterExpression;
+  /**
+   *
+   * @param {*} filterId
+   */
+  function addFilter(filterId) {
+    filters.value[filterId] = {
+      selectedProperty: null,
+      selectedPropertyType: null,
+      selectedValues: null,
+      expression: null,
+    };
   }
 
-  function removeFilterExpression(filterId) {
-    delete filterExpressions.value[filterId];
+  /**
+   *
+   * @param {*} id
+   */
+  function removeFilterElement(id) {
+    delete filters.value[id];
+    setReachedLimit();
   }
 
-  return { filterExpressions, addFilterExpression, removeFilterExpression };
+  /**
+   *
+   */
+  function setReachedLimit() {
+    if (Object.keys(filters.value).length <= maxNumberOfFilters.value) {
+      reachedLimit.value = false;
+    }
+  }
+
+  return {
+    filters,
+    maxNumberOfFilters,
+    reachedLimit,
+    addFilter,
+    removeFilterElement,
+  };
 });

@@ -1,7 +1,7 @@
 <script setup>
 // import simplebar from "simplebar-vue";
 
-import { defineEmits, defineProps, ref, watch } from "vue";
+import { defineEmits, defineProps } from "vue";
 
 import {
   COffcanvasHeader,
@@ -21,14 +21,6 @@ const props = defineProps({
   title: String,
   map: Map,
   activeBaseLayer: String,
-  heatFlowSchema: Object,
-});
-const heatFlowSchema = ref(props.heatFlowSchema);
-
-watch(props, (newProps) => {
-  heatFlowSchema.value = newProps.heatFlowSchema;
-  // console.log("--------Yes Leftpanel-------");
-  // console.log(heatFlowSchema.value);
 });
 
 const emit = defineEmits(["collapse-event", "toggle-event"]);

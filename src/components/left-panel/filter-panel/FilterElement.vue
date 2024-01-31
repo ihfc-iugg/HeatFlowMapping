@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, defineEmits, ref, watch } from "vue";
+import { defineProps, ref, watch } from "vue";
 import VueMultiselect from "vue-multiselect";
 import VueSlider from "vue-slider-component";
 import { CRow, CCol } from "@coreui/bootstrap-vue";
@@ -8,35 +8,30 @@ import { useMeasurementStore } from "@/store/measurements";
 import { useFilterStore } from "@/store/filter";
 
 const props = defineProps({ id: Number, map: Map });
-const emit = defineEmits(["send-filterExpression", "remove-filterElement"]);
 
 const measurements = useMeasurementStore();
 const filter = useFilterStore();
 
-const selectedProperty = ref(null);
-const selectedPropertyType = ref(null);
-
-const valueOptions = ref(null);
-const selectedValues = ref([]);
-const filterExpression = ref([]);
+const filterElement = ref(filter.filters[props.id]);
 
 /**
- * @description remove filterElement and corresponding filterExpression from filterPanel
+ * TODO: wenn filterElement bereits besteht, werden valueOptions nicht gesetzt.
+ * Problem: valueOptions wird gesetzt, wenn ein property ausgewählt wird, was nicht der Fall ist, wenn filterElement bereits existiert
  */
-const removeFilterElement = () => {
-  emit("remove-filterElement", { id: props.id });
-};
+const valueOptions = ref(null);
 
 /**
  * @description
  */
-watch(selectedValues, () => {
-  console.log(selectedValues.value);
-  if (selectedValues.value.length > 0) {
-    setFilterExpression(selectedProperty.value, selectedValues.value);
-  } else if (selectedValues.value.length == 0) {
-    // props.map.setFilter("sites", undefined);
+watch(filterElement.value.selectedValues, () => {
+  console.log(filterElement.value.selectedValues);
+  if (filterElement.value.selectedValues.length > 0) {
+    setFilterExpression(
+      filterElement.value.selectedProperty,
+      filterElement.value.selectedValues
+    );
   }
+  // else if (filterElement.value.selectedValues.length == 0) {  }
 });
 
 /**
@@ -44,7 +39,7 @@ watch(selectedValues, () => {
  * @param {String} selectedProperty
  */
 function setSelectedPropertyType(selectedProperty) {
-  selectedPropertyType.value =
+  filterElement.value.selectedPropertyType =
     measurements.dataSchema.properties[selectedProperty].type;
 }
 
@@ -53,17 +48,20 @@ function setSelectedPropertyType(selectedProperty) {
  */
 function resetSelectedValues() {
   if (
-    selectedPropertyType.value == "number" &&
+    filterElement.value.selectedPropertyType == "number" &&
     valueOptions.value.length != 0
   ) {
-    selectedValues.value = [valueOptions.value[0], valueOptions.value[1]];
+    filterElement.value.selectedValues = [
+      valueOptions.value[0],
+      valueOptions.value[1],
+    ];
   } else {
-    selectedValues.value = [];
+    filterElement.value.selectedValues = [];
   }
 }
 
 function resetFilterExpression() {
-  filterExpression.value = [];
+  filterElement.value.expression = [];
 }
 
 /**
@@ -128,12 +126,15 @@ function getRange(geoJson, property) {
  * @param {String} selectedProperty
  */
 function setValueOptions(selectedProperty) {
-  if (selectedPropertyType.value == undefined) {
+  if (filterElement.value.selectedPropertyType == undefined) {
     valueOptions.value = getEnumClasses(selectedProperty);
-  } else if (selectedPropertyType.value == "number") {
+  } else if (filterElement.value.selectedPropertyType == "number") {
     const geoJson = measurements.geojson;
     valueOptions.value = getRange(geoJson, selectedProperty);
-    selectedValues.value = [valueOptions.value[0], valueOptions.value[1]];
+    filterElement.value.selectedValues = [
+      valueOptions.value[0],
+      valueOptions.value[1],
+    ];
   } else {
     console.log("Data type of property is not defined");
   }
@@ -182,22 +183,15 @@ function writeContinuousFilter(property, values) {
  * @returns {Void}
  */
 function setFilterExpression(property, values) {
-  if (!selectedProperty.value) {
+  if (filterElement.value.selectedPropertyType == undefined) {
+    filterElement.value.expression = writeEnumFilter(property, values);
+  } else if (filterElement.value.selectedPropertyType == "number") {
+    filterElement.value.expression = writeContinuousFilter(property, values);
+  } else if (!filterElement.value.selectedPropertyType) {
     console.error("no property selected");
+    console.log(filterElement.value.selectedPropertyType);
     return;
-  } else if (selectedPropertyType.value == undefined) {
-    filterExpression.value = writeEnumFilter(property, values);
-  } else if (selectedPropertyType.value == "number") {
-    filterExpression.value = writeContinuousFilter(property, values);
   }
-}
-
-/**
- * Helper function
- */
-function printOutValues(value) {
-  console.log("hier selectedValue");
-  console.log(value);
 }
 </script>
 
@@ -206,21 +200,24 @@ function printOutValues(value) {
     <CRow class="d-felx justify-content-start">
       <CCol xs="10">
         <VueMultiselect
-          v-model="selectedProperty"
+          v-model="filterElement.selectedProperty"
           :options="measurements.selectableProperties"
           label="title"
           :allow-empty="false"
           placeholder="Select property"
           @select="
-            setSelectedPropertyType(selectedProperty.key);
-            setValueOptions(selectedProperty.key);
+            setSelectedPropertyType(filterElement.selectedProperty.key);
+            setValueOptions(filterElement.selectedProperty.key);
             resetSelectedValues();
           "
         >
         </VueMultiselect>
       </CCol>
       <CCol xs="1">
-        <button class="btn btn-primary" @click="removeFilterElement()">
+        <button
+          class="btn btn-primary"
+          @click="filter.removeFilterElement(props.id)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -240,22 +237,26 @@ function printOutValues(value) {
       </CCol>
     </CRow>
 
-    <div class="filter-values" v-if="selectedProperty">
+    <div class="filter-values" v-if="filterElement.selectedProperty">
       <div class="filter-controller">
-        <div v-if="selectedPropertyType === undefined">
+        <div v-if="filterElement.selectedPropertyType === undefined">
           <VueMultiselect
-            v-model="selectedValues"
+            v-model="filterElement.selectedValues"
             :options="valueOptions"
+            :modelValue="filterElement.selectedValues"
             :multiple="true"
             placeholder="Select value(s)"
             @select="
-              printOutValues();
-              setFilterExpression(selectedProperty.key, selectedValues);
-              filter.addFilterExpression(filterExpression, id);
+              setFilterExpression(
+                filterElement.selectedProperty.key,
+                filterElement.selectedValues
+              )
             "
             @remove="
-              setFilterExpression(selectedProperty.key, selectedValues);
-              filter.addFilterExpression(filterExpression, id);
+              setFilterExpression(
+                filterElement.selectedProperty.key,
+                filterElement.selectedValues
+              )
             "
           >
           </VueMultiselect>
@@ -265,23 +266,30 @@ function printOutValues(value) {
         Slider:
         https://www.npmjs.com/package/vue-slider-component 
         -->
-        <div class="slider" v-if="selectedPropertyType === 'number'">
+        <div
+          class="slider"
+          v-if="filterElement.selectedPropertyType === 'number'"
+        >
           <vue-slider
-            v-model="selectedValues"
+            v-model="filterElement.selectedValues"
             :min="valueOptions[0]"
             :max="valueOptions[1]"
             :interval="0.01"
             @change="
-              printOutValues(valueOptions);
-              setFilterExpression(selectedProperty.key, selectedValues);
-              filter.addFilterExpression(filterExpression, id);
+              setFilterExpression(
+                filterElement.selectedProperty.key,
+                filterElement.selectedValues
+              )
             "
           ></vue-slider>
 
           <!-- TODO: Include null value OR select only null values as filter criteria -->
         </div>
       </div>
-      <div class="reset-filter-btn" v-if="selectedValues.length > 0">
+      <div
+        class="reset-filter-btn"
+        v-if="filterElement.selectedValues.length > 0"
+      >
         <button
           class="btn btn-primary"
           @click="

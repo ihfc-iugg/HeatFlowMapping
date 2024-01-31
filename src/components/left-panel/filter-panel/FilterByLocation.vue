@@ -8,7 +8,7 @@ import { useMapControlsStore } from "@/store/mapControls";
 
 const props = defineProps({ map: Map });
 
-const filters = useFilterStore();
+const filter = useFilterStore();
 const mapControls = useMapControlsStore();
 
 /**
@@ -42,22 +42,24 @@ function writeLocationFilterExpression(geoJSONObj) {
  *
  */
 props.map.on("draw.create", function (e) {
-  const expression = writeLocationFilterExpression(e.features[0].geometry);
-  filters.addFilterExpression(expression, e.features[0].id);
+  filter.addFilter(e.features[0].id);
+  filter.filters[e.features[0].id].expression = writeLocationFilterExpression(
+    e.features[0].geometry
+  );
 });
 
 /**
  *
  */
 props.map.on("draw.delete", function (e) {
-  filters.removeFilterExpression(e.features[0].id);
+  filter.removeFilterElement(e.features[0].id);
 });
 
 /**
  *
  */
 props.map.on("draw.update", function (e) {
-  filters.filterExpressions[e.features[0].id][1] = e.features[0].geometry;
+  filter.filters[e.features[0].id].expression[1] = e.features[0].geometry;
 });
 </script>
 
