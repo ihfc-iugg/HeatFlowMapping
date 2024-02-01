@@ -17,7 +17,6 @@ const filter = useFilterStore();
  * @description Watches changes in filterExpressions object and set the filter to map.
  */
 watch(filter.filters, () => {
-  console.log("jo wird gecheckt wenn sich was ändert");
   applyFilterToMap();
 });
 
@@ -47,8 +46,6 @@ function writeFilterExpression() {
   Object.entries(filter.filters).forEach(([category]) => {
     Object.entries(filter.filters[category]).forEach(([key]) => {
       if (filter.filters[category][key].expression != null) {
-        console.log("how does filertexpression look like");
-        console.log(filter.filters[category][key].expression);
         expression.push(filter.filters[category][key].expression);
       } else {
         console.log("Empty filterExpression for filter with key: " + key);
@@ -107,7 +104,6 @@ function applyFilterToMap() {
       v-for="id in Object.keys(filter.filters.attributeFilter)"
       :key="id"
       :id="id"
-      :map="map"
     >
     </FilterElement>
 

@@ -7,7 +7,7 @@ import { CRow, CCol } from "@coreui/bootstrap-vue";
 import { useMeasurementStore } from "@/store/measurements";
 import { useFilterStore } from "@/store/filter";
 
-const props = defineProps({ id: Number, map: Map });
+const props = defineProps({ id: String });
 
 const measurements = useMeasurementStore();
 const filter = useFilterStore();
@@ -24,7 +24,8 @@ const valueOptions = ref(null);
  * @description
  */
 watch(filterElement.value.selectedValues, () => {
-  console.log(filterElement.value.selectedValues);
+  console.log("inside wtach filterElement");
+  console.log(filterElement);
   if (filterElement.value.selectedValues.length > 0) {
     setFilterExpression(
       filterElement.value.selectedProperty,
@@ -165,9 +166,6 @@ function writeEnumFilter(property, values) {
 function writeContinuousFilter(property, values) {
   const minValue = values[0];
   const maxValue = values[1];
-
-  console.log("writeContinuousFilter");
-  console.log(property + " : " + values + " type of: " + typeof values[1]);
 
   let filterExpression = [
     "all",

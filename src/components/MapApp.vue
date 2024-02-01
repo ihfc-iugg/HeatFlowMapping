@@ -185,8 +185,6 @@ function toggleVisibleScrolling() {
       </CButton>
     </CRow>
     <div class="map" ref="mapContainer" @mousemove="updateLatLng">
-      <DataSources :map="map" />
-      <DataLayer :map="map" />
       <InfoPopup :map="map" />
       <MapLegend />
 
