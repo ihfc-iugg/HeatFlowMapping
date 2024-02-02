@@ -20,7 +20,6 @@ import { Map } from "maplibre-gl";
 const props = defineProps({
   title: String,
   map: Map,
-  activeBaseLayer: String,
 });
 
 const emit = defineEmits(["collapse-event", "toggle-event"]);
@@ -35,14 +34,18 @@ const emit = defineEmits(["collapse-event", "toggle-event"]);
     />
   </COffcanvasHeader>
   <COffcanvasBody>
-    <SettingsPanel
-      v-if="props.title === 'Settings'"
-      :map="props.map"
-      :activeBaseLayer="props.activeBaseLayer"
-    />
-    <FilterPanal v-if="props.title === 'Filter'" :map="props.map" />
-    <StatisticsPanal v-if="props.title === 'Statistics'" />
-    <AnalysisPanal v-if="props.title === 'Analysis'" />
+    <KeepAlive>
+      <SettingsPanel v-if="props.title === 'Settings'" :map="props.map" />
+    </KeepAlive>
+    <KeepAlive>
+      <FilterPanal v-if="props.title === 'Filter'" :map="props.map" />
+    </KeepAlive>
+    <KeepAlive>
+      <StatisticsPanal v-if="props.title === 'Statistics'" />
+    </KeepAlive>
+    <KeepAlive>
+      <AnalysisPanal v-if="props.title === 'Analysis'" />
+    </KeepAlive>
   </COffcanvasBody>
 </template>
 

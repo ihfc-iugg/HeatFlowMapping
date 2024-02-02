@@ -15,6 +15,7 @@ export const useMeasurementStore = defineStore("measurements", () => {
   const dataSchema = ref(null);
   const selectableProperties = ref(null);
   const isDataLoading = ref(null);
+  const isSchemaLoading = ref(null);
 
   /**
    * @description
@@ -22,12 +23,15 @@ export const useMeasurementStore = defineStore("measurements", () => {
    */
   async function fetchAPIDataSchema(url) {
     //   /api/v1/schema/
+    isSchemaLoading.value = true;
+    console.log("API Data Schema");
     try {
       let parser = new SwaggerParser();
       await parser.dereference(url).then((apiSchema) => {
         dataSchema.value = apiSchema.components.schemas.Measurement;
         console.log(dataSchema.value);
         setSelectableProperties();
+        isSchemaLoading.value = false;
       });
     } catch (e) {
       console.log("error in fetching data schema" + e);
@@ -219,6 +223,7 @@ export const useMeasurementStore = defineStore("measurements", () => {
     dataSchema,
     selectableProperties,
     isDataLoading,
+    isSchemaLoading,
     fetchAPIData,
     fetchAPIDataSchema,
   };

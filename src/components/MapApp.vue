@@ -16,11 +16,7 @@ import maps from "./left-panel/settings-panel/maps.json";
 import {
   CButton,
   CButtonGroup,
-  // COffcanvasHeader,
-  // COffcanvasTitle,
   COffcanvas,
-  // CCloseButton,
-  // COffcanvasBody,
   CRow,
   CSpinner,
 } from "@coreui/bootstrap-vue";
@@ -35,7 +31,8 @@ import { useSettingsStore } from "@/store/settings";
 
 const measurements = useMeasurementStore();
 // measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
-import dataURL from "@/assets/data/heatflow_sample_data.geojson";
+
+// import dataURL from "@/assets/data/heatflow_sample_data.geojson";
 import schemaURL from "@/assets/data/api_schema.json";
 measurements.fetchAPIDataSchema(schemaURL);
 const mapControls = useMapControlsStore();
@@ -134,15 +131,15 @@ onMounted(() => {
     map.value.addControl(mapControls.mapboxDraw);
 
     // add data source
-    // try {
-    //   await measurements.fetchAPIData(
-    //     "http://139.17.54.176:8010/api/v1/measurements/heat-flow/?format=json"
-    //   );
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await measurements.fetchAPIData(
+        "http://139.17.54.176:8010/api/v1/measurements/heat-flow/?format=json"
+      );
+    } catch (error) {
+      console.log(error);
+    }
 
-    measurements.geojson = dataURL;
+    // measurements.geojson = dataURL;
 
     map.value.addSource("sites", {
       type: "geojson",
