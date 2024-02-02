@@ -27,11 +27,11 @@ watch(props, (newProps) => {
   });
 
   // use selected point coord as center
-  map.value.on("click", "sites", (e) => {
-    map.value.flyTo({
-      center: e.features[0].geometry.coordinates,
-    });
-  });
+  // map.value.on("click", "sites", (e) => {
+  //   map.value.flyTo({
+  //     center: e.features[0].geometry.coordinates,
+  //   });
+  // });
 
   // Change the cursor to a pointer when the mouse is over the places layer.
   map.value.on("mouseenter", "sites", () => {
