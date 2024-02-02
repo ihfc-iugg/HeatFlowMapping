@@ -8,7 +8,7 @@ import { useSettingsStore } from "@/store/settings";
 
 const settings = useSettingsStore();
 
-const props = defineProps({ title: String, map: Map });
+const props = defineProps({ map: Map });
 
 const baseMaps = ref(baseMapsObject);
 
@@ -54,7 +54,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
     <div class="collapse" id="baseMaps">
       <div class="maps-content d-flex">
         <div
-          class="card"
+          class="card mx-1"
           style="width: 9rem"
           role="button"
           v-for="baseMap in baseMaps"

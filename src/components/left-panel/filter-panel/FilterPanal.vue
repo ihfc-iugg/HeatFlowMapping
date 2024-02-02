@@ -1,13 +1,11 @@
 <script setup>
-import { defineProps, defineAsyncComponent, watch } from "vue";
+import { defineProps, watch } from "vue";
 import { Map } from "maplibre-gl";
 
 import { useFilterStore } from "@/store/filter";
 
 import FilterElement from "./FilterElement.vue";
-const FilterByLocation = defineAsyncComponent(() =>
-  import("./FilterByLocation.vue")
-);
+import FilterByLocation from "./FilterByLocation.vue";
 
 const props = defineProps({ map: Map });
 
@@ -66,15 +64,15 @@ function applyFilterToMap() {
   props.map.setFilter("sites", expression);
 }
 
-// function getRenderedFeatures() {
-//   console.log("inside getRenderesFeatures()");
-//   console.log(props.map.queryRenderedFeatures());
-// }
+function getRenderedFeatures() {
+  console.log("inside getRenderesFeatures()");
+  console.log(props.map.queryRenderedFeatures());
+}
 </script>
 
 <template>
   <!-- Attribute Filter -->
-  <p class="d-grid gap-2">
+  <p class="mt-1 d-grid gap-2">
     <button
       class="btn btn-primary"
       type="button"
@@ -123,7 +121,7 @@ function applyFilterToMap() {
   </div>
 
   <!-- Location Filter -->
-  <p class="d-grid gap-2">
+  <p class="mt-1 d-grid gap-2">
     <button
       class="btn btn-primary"
       type="button"
@@ -152,7 +150,7 @@ function applyFilterToMap() {
 
   <!-- Download Features -->
   <button
-    class="btn btn-primary rounded-pill bg-white text-primary"
+    class="btn btn-primary rounded-pill bg-white text-primary position-absolute bottom-0 start-0 mx-2 my-2"
     @click="getRenderedFeatures()"
   >
     <button class="btn btn-primary rounded-circle" type="button">

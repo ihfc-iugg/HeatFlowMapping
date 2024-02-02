@@ -296,7 +296,7 @@ function dataDrivenColorisation() {
 
 <template>
   <!-- Circle Size  -->
-  <p class="d-grid gap-2">
+  <p class="mt-1 d-grid gap-2">
     <button
       class="btn btn-primary"
       type="button"
@@ -338,7 +338,7 @@ function dataDrivenColorisation() {
   </div>
 
   <!-- Circle color -->
-  <p class="d-grid gap-2">
+  <p class="mt-1 d-grid gap-2">
     <button
       class="btn btn-primary"
       type="button"
@@ -380,7 +380,7 @@ function dataDrivenColorisation() {
 
   <!-- Data Driven Coloring -->
   <!-- Property selection -->
-  <p class="d-grid gap-2">
+  <p class="mt-1 d-grid gap-2">
     <button
       class="btn btn-primary"
       type="button"

@@ -42,7 +42,7 @@ function writeLocationFilterExpression(geoJSONObj) {
 }
 
 /**
- *
+ * TODO: only one or multiple areas?
  */
 props.map.on("draw.create", function (e) {
   filter.addFilter(e.features[0].id, "locationFilter");
@@ -77,7 +77,7 @@ props.map.on("draw.update", function (e) {
       <template #toggler="{ on }">
         <button
           id="draw-polygon-btn"
-          class="btn btn-primary"
+          class="btn btn-primary mx-1"
           v-on="on"
           @click="drawPolygon()"
         >
@@ -101,7 +101,7 @@ props.map.on("draw.update", function (e) {
       <template #toggler="{ on }">
         <button
           id="delte-polygon-btn"
-          class="btn btn-primary"
+          class="btn btn-primary mx-1"
           v-on="on"
           @click="deletePolygon()"
         >
