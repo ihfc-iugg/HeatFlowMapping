@@ -24,15 +24,12 @@ const valueOptions = ref(null);
  * @description
  */
 watch(filterElement.value.selectedValues, () => {
-  console.log("inside wtach filterElement");
-  console.log(filterElement);
   if (filterElement.value.selectedValues.length > 0) {
     setFilterExpression(
       filterElement.value.selectedProperty,
       filterElement.value.selectedValues
     );
   }
-  // else if (filterElement.value.selectedValues.length == 0) {  }
 });
 
 /**
@@ -78,8 +75,6 @@ function getEnumClasses(enumProperty) {
       enumSchema.enum.forEach((enumClass) => {
         if (enumClass) {
           classes.push(enumClass);
-        } else {
-          // classes.push("null");
         }
       });
     }

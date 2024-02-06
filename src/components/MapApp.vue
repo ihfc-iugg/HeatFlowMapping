@@ -30,11 +30,11 @@ import { useMapControlsStore } from "@/store/mapControls";
 import { useSettingsStore } from "@/store/settings";
 
 const measurements = useMeasurementStore();
-// measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
+measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
 
 // import dataURL from "@/assets/data/heatflow_sample_data.geojson";
-import schemaURL from "@/assets/data/api_schema.json";
-measurements.fetchAPIDataSchema(schemaURL);
+// import schemaURL from "@/assets/data/api_schema.json";
+// measurements.fetchAPIDataSchema(schemaURL);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
 

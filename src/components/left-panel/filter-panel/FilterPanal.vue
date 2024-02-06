@@ -64,9 +64,35 @@ function applyFilterToMap() {
   props.map.setFilter("sites", expression);
 }
 
+/**
+ * method code from https://docs.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
+ * @param {*} features
+ * @param {*} comparatorProperty
+ */
+function getUniqueFeatures(features, comparatorProperty) {
+  const uniqueIds = new Set();
+  const uniqueFeatures = [];
+  for (const feature of features) {
+    const id = feature.properties[comparatorProperty];
+    if (!uniqueIds.has(id)) {
+      uniqueIds.add(id);
+      uniqueFeatures.push(feature);
+    }
+  }
+  return uniqueFeatures;
+}
+
+/**
+ *
+ */
 function getRenderedFeatures() {
-  console.log("inside getRenderesFeatures()");
-  console.log(props.map.queryRenderedFeatures());
+  let filterExpression = writeFilterExpression();
+  let queriedFeatures = props.map.querySourceFeatures("sites", {
+    sourceLayer: "sites",
+    filter: filterExpression,
+  });
+  const uniqueFeatures = getUniqueFeatures(queriedFeatures, "id");
+  console.log(uniqueFeatures);
 }
 </script>
 

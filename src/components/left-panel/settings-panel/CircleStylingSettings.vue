@@ -119,8 +119,6 @@ function getEnumClasses(enumProperty) {
       enumSchema.enum.forEach((enumClass) => {
         if (enumClass) {
           classes.push(enumClass);
-        } else {
-          // classes.push("null");
         }
       });
     }
