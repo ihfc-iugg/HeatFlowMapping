@@ -329,7 +329,7 @@ function dataDrivenColorisation() {
         step="1"
         max="10"
         v-model="settings.circleRadius"
-        @change="setCircleRadius(settings.circleRadius)"
+        @input="setCircleRadius(settings.circleRadius)"
       />
       <span class="text-muted text-center">{{ settings.circleRadius }} px</span>
     </div>
