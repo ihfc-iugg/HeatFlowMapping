@@ -15,7 +15,7 @@ const filter = useFilterStore();
  * @description Watches changes in filterExpressions object and set the filter to map.
  */
 watch(filter.filters, () => {
-  applyFilterToMap();
+  filter.applyFilterToMap(props.map);
 });
 
 /**
@@ -32,67 +32,6 @@ function addFilterElement() {
     filter.reachedLimit = true;
     console.log("You reached the maximum number of filters");
   }
-}
-
-/**
- * @description combine multiple filter expressions to one. All filter expressions have to be true.
- * @returns {Array} containing filter expressions
- */
-function writeFilterExpression() {
-  let expression = ["all"];
-
-  Object.entries(filter.filters).forEach(([category]) => {
-    Object.entries(filter.filters[category]).forEach(([key]) => {
-      if (filter.filters[category][key].expression != null) {
-        expression.push(filter.filters[category][key].expression);
-      } else {
-        console.log("Empty filterExpression for filter with key: " + key);
-      }
-    });
-  });
-  console.log(expression);
-
-  return expression;
-}
-
-/**
- * @description set Filter to map via internal maplibre function.
- */
-function applyFilterToMap() {
-  const expression = writeFilterExpression();
-
-  props.map.setFilter("sites", expression);
-}
-
-/**
- * method code from https://docs.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
- * @param {*} features
- * @param {*} comparatorProperty
- */
-function getUniqueFeatures(features, comparatorProperty) {
-  const uniqueIds = new Set();
-  const uniqueFeatures = [];
-  for (const feature of features) {
-    const id = feature.properties[comparatorProperty];
-    if (!uniqueIds.has(id)) {
-      uniqueIds.add(id);
-      uniqueFeatures.push(feature);
-    }
-  }
-  return uniqueFeatures;
-}
-
-/**
- *
- */
-function getRenderedFeatures() {
-  let filterExpression = writeFilterExpression();
-  let queriedFeatures = props.map.querySourceFeatures("sites", {
-    sourceLayer: "sites",
-    filter: filterExpression,
-  });
-  const uniqueFeatures = getUniqueFeatures(queriedFeatures, "id");
-  console.log(uniqueFeatures);
 }
 </script>
 
@@ -177,7 +116,7 @@ function getRenderedFeatures() {
   <!-- Download Features -->
   <button
     class="btn btn-primary rounded-pill bg-white text-primary position-absolute bottom-0 start-0 mx-2 my-2"
-    @click="getRenderedFeatures()"
+    @click="filter.getFilteredFeatures(props.map)"
   >
     <button class="btn btn-primary rounded-circle" type="button">
       <svg
