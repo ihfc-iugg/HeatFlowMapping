@@ -22,8 +22,14 @@ serve -s dist
 npm run lint
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Publish new package to npm
+[How to Publish a Package on npm](https://www.makeuseof.com/npm-publish-package-how/)
+
+### Update package version number
+[Updating your published package version number](https://docs.npmjs.com/updating-your-published-package-version-number)
+
+### Unpublish package
+[npm Unpublish Policy](https://docs.npmjs.com/policies/unpublish)
 
 ## Third party libraries
 | Name                 | Version | Licence      | Repo                                                                          |
