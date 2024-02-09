@@ -59,7 +59,7 @@ function resetSelectedValues() {
 }
 
 function resetFilterExpression() {
-  filterElement.value.expression = [];
+  filterElement.value.expression = null;
 }
 
 /**
@@ -288,7 +288,6 @@ function setFilterExpression(property, values) {
           @click="
             resetSelectedValues();
             resetFilterExpression();
-            filter.removeFilterElement(id, 'attributeFilter');
           "
         >
           <svg
