@@ -41,7 +41,7 @@ const emit = defineEmits(["collapse-event", "toggle-event"]);
       <FilterPanal v-if="props.title === 'Filter'" :map="props.map" />
     </KeepAlive>
     <KeepAlive>
-      <StatisticsPanal v-if="props.title === 'Statistics'" />
+      <StatisticsPanal v-if="props.title === 'Statistics'" :map="props.map" />
     </KeepAlive>
     <KeepAlive>
       <AnalysisPanal v-if="props.title === 'Analysis'" />
