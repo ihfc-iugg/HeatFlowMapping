@@ -1,7 +1,8 @@
 <script setup>
-import { ref } from "vue";
+import { ref, defineProps } from "vue";
 import { newPlot } from "plotly.js-dist";
-import { mean } from "mathjs";
+import { mean, std, median } from "mathjs";
+import Statistics from "statistics.js";
 
 import VueMultiselect from "vue-multiselect";
 import {
@@ -14,26 +15,46 @@ import {
 } from "@coreui/bootstrap-vue";
 
 import { useMeasurementStore } from "@/store/measurements";
+import { useFilterStore } from "@/store/filter";
+
+const props = defineProps({ map: Map });
 
 const measurements = useMeasurementStore();
+const filter = useFilterStore();
 
 const options = ref(["GHFDB", "Filtered GHFDB"]);
 const selectedSourceTitle = ref(null);
-const selectedSource = ref(null);
+const selectedSource = ref(measurements.geojson);
 const selectedProperty = ref(null);
-const table = ref({ min: null, max: null, mean: null });
+const table = ref({
+  min: null,
+  max: null,
+  mean: null,
+  std: null,
+  median: null,
+  skewness: null,
+  kurtosis: null,
+});
 
+/**
+ *
+ */
 function setDataSource() {
-  if (!selectedSourceTitle.value) {
-    console.log("No source selected in statistic panel");
-    return;
-  } else if (selectedSourceTitle.value == "GHFDB") {
+  if (selectedSourceTitle.value == "GHFDB") {
     selectedSource.value = measurements.geojson;
   } else if (selectedSourceTitle.value == "Filtered GHFDB") {
-    // set whole dataset as source
+    const filteredFeatures = {
+      type: "FeatureCollection",
+      features: filter.getFilteredFeatures(props.map),
+    };
+    selectedSource.value = filteredFeatures;
   }
 }
 
+/**
+ *
+ * @param {*} property
+ */
 function plotGraph(property) {
   let dataArr = getPropertyValues(property);
   console.log("plotGraph");
@@ -46,6 +67,10 @@ function plotGraph(property) {
   newPlot("statisticGraph", data);
 }
 
+/**
+ *
+ * @param {*} property
+ */
 function getPropertyValues(property) {
   let values = selectedSource.value.features.map(
     (feature) => feature.properties[property]
@@ -54,19 +79,81 @@ function getPropertyValues(property) {
   return values;
 }
 
-function setMin(property) {
-  const values = getPropertyValues(property);
+/**
+ *
+ * @param {*} values
+ */
+function setMin(values) {
   table.value.min = Math.floor(Math.min.apply(null, values));
 }
 
-function setMax(property) {
-  const values = getPropertyValues(property);
+/**
+ *
+ * @param {*} values
+ */
+function setMax(values) {
   table.value.max = Math.ceil(Math.max.apply(null, values));
 }
 
-function setMean(property) {
-  const values = getPropertyValues(property);
+/**
+ *
+ * @param {*} values
+ */
+function setMean(values) {
   table.value.mean = mean(values);
+}
+
+/**
+ *
+ * @param {*} values
+ */
+function setStd(values) {
+  table.value.std = std(values);
+}
+
+/**
+ *
+ * @param {*} values
+ */
+function setMedian(values) {
+  table.value.median = median(values);
+}
+
+/**
+ *
+ * @param {*} values
+ */
+function setSkewness(values) {
+  const stats = new Statistics([]);
+  table.value.skewness = stats.skewness(values);
+  console.log("----skewness");
+  console.log(table.value.skewness);
+}
+
+/**
+ *
+ * @param {*} values
+ */
+function setKurtosis(values) {
+  const stats = new Statistics([]);
+  table.value.kurtosis = stats.kurtosis(values);
+  console.log("----kurtosis");
+  console.log(table.value.kurtosis);
+}
+
+/**
+ *
+ * @param {*} property
+ */
+function setTableValues(property) {
+  const values = getPropertyValues(property);
+  setMin(values);
+  setMax(values);
+  setMean(values);
+  setStd(values);
+  setMedian(values);
+  setSkewness(values);
+  setKurtosis(values);
 }
 
 function printOut(value) {
@@ -148,9 +235,7 @@ function printOut(value) {
         @select="
           printOut(selectedProperty),
             plotGraph(selectedProperty.key),
-            setMin(selectedProperty.key),
-            setMax(selectedProperty.key),
-            setMean(selectedProperty.key)
+            setTableValues(selectedProperty.key)
         "
       >
       </VueMultiselect>
@@ -161,20 +246,42 @@ function printOut(value) {
     <CTable v-if="selectedProperty">
       <CTableHead>
         <CTableRow>
-          <!-- <CTableHeaderCell scope="col">Property</CTableHeaderCell> -->
-          <CTableHeaderCell scope="col">Minimum</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Maximum</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Mean</CTableHeaderCell>
+          <CTableHeaderCell scope="col">Measure</CTableHeaderCell>
+          <CTableHeaderCell scope="col">Values</CTableHeaderCell>
         </CTableRow>
       </CTableHead>
       <CTableBody>
         <CTableRow>
-          <!-- <CTableHeaderCell scope="row">{{
-            selectedProperty.title
-          }}</CTableHeaderCell> -->
+          <CTableHeaderCell scope="row">Min</CTableHeaderCell>
           <CTableDataCell>{{ table.min }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Max</CTableHeaderCell>
           <CTableDataCell>{{ table.max }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Mean</CTableHeaderCell>
           <CTableDataCell>{{ table.mean }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Median</CTableHeaderCell>
+          <CTableDataCell>{{ table.median }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Std</CTableHeaderCell>
+          <CTableDataCell>{{ table.std }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Skewness</CTableHeaderCell>
+          <CTableDataCell>{{ table.skewness }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Kurtosis</CTableHeaderCell>
+          <CTableDataCell>{{ table.kurtosis }}</CTableDataCell>
+        </CTableRow>
+        <CTableRow>
+          <CTableHeaderCell scope="row">Count</CTableHeaderCell>
+          <CTableDataCell>{{ selectedSource.features.length }}</CTableDataCell>
         </CTableRow>
       </CTableBody>
     </CTable>

@@ -42,6 +42,7 @@
     "popper.js": "^1.16.1",
     "simplebar-vue": "^2.3.3",
     "simplebar-vue3": "^0.2.0",
+    "statistics.js": "^1.0.0",
     "stream-http": "^3.2.0",
     "swagger-parser": "^10.0.3",
     "url": "^0.11.3",
