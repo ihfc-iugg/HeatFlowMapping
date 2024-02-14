@@ -102,6 +102,7 @@ export const useFilterStore = defineStore("filter", () => {
     });
     const uniqueFeatures = getUniqueFeatures(queriedFeatures, "id");
     console.log(uniqueFeatures);
+    return uniqueFeatures;
   }
 
   return {
