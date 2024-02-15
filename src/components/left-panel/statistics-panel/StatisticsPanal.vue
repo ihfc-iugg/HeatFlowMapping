@@ -53,7 +53,7 @@ function setDataSource() {
 
 /**
  *
- * @param {*} property
+ * @param {String} property
  */
 function plotGraph(property) {
   let dataArr = getPropertyValues(property);
@@ -69,7 +69,7 @@ function plotGraph(property) {
 
 /**
  *
- * @param {*} property
+ * @param {Sting} property
  */
 function getPropertyValues(property) {
   let values = selectedSource.value.features.map(
@@ -81,7 +81,7 @@ function getPropertyValues(property) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setMin(values) {
   table.value.min = Math.floor(Math.min.apply(null, values));
@@ -89,7 +89,7 @@ function setMin(values) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setMax(values) {
   table.value.max = Math.ceil(Math.max.apply(null, values));
@@ -97,7 +97,7 @@ function setMax(values) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setMean(values) {
   table.value.mean = mean(values);
@@ -105,7 +105,7 @@ function setMean(values) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setStd(values) {
   table.value.std = std(values);
@@ -113,7 +113,7 @@ function setStd(values) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setMedian(values) {
   table.value.median = median(values);
@@ -121,7 +121,7 @@ function setMedian(values) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setSkewness(values) {
   const stats = new Statistics([]);
@@ -132,7 +132,7 @@ function setSkewness(values) {
 
 /**
  *
- * @param {*} values
+ * @param {Array} values
  */
 function setKurtosis(values) {
   const stats = new Statistics([]);
@@ -143,7 +143,7 @@ function setKurtosis(values) {
 
 /**
  *
- * @param {*} property
+ * @param {Array} property
  */
 function setTableValues(property) {
   const values = getPropertyValues(property);
