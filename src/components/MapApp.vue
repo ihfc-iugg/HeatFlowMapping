@@ -7,9 +7,6 @@ import { onMounted, onUnmounted, markRaw, ref } from "vue";
 // map viewer
 import { Map } from "maplibre-gl";
 
-// data
-import maps from "./left-panel/settings-panel/maps.json";
-
 // components
 // import AttributeTable from "./common/AttributeTable.vue";
 import {
@@ -27,6 +24,7 @@ import MapLegend from "./map/MapLegend.vue";
 import { useMeasurementStore } from "@/store/measurements";
 import { useMapControlsStore } from "@/store/mapControls";
 import { useSettingsStore } from "@/store/settings";
+import { useBaseMapsStore } from "@/store/baseMaps";
 
 const measurements = useMeasurementStore();
 // measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
@@ -36,12 +34,12 @@ import schemaURL from "@/assets/data/api_schema.json";
 measurements.fetchAPIDataSchema(schemaURL);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
+const bm = useBaseMapsStore();
 
 const mapContainer = ref();
 const map = ref();
 const navbarTitles = ref(["Settings", "Filter", "Statistics", "Analysis"]); // TODO: change to object and add key with bootstrap related icon class https://icons.getbootstrap.com/
 const panelTitle = ref("");
-const basemaps = ref(maps);
 
 const isCollapsed = ref(true);
 const visibleScrolling = ref(false);
@@ -58,12 +56,11 @@ function setPanelTitle(event) {
 
 /**
  * @description create object for base map sources
- * @param {Object} basemaps
  */
-function setBaseMapsSource(basemaps) {
+function setBaseMapsSource() {
   let bmSourceObject = {};
 
-  basemaps.forEach((baseMapSource) => {
+  bm.baseMaps.forEach((baseMapSource) => {
     bmSourceObject[baseMapSource.id] = {
       type: "raster",
       tiles: [baseMapSource.tiles],
@@ -78,12 +75,11 @@ function setBaseMapsSource(basemaps) {
 
 /**
  * @description create object for base map layers
- * @param {Object} basemaps
  */
-function setBaseMapsLayer(basemaps) {
+function setBaseMapsLayer() {
   let layerObjects = [];
 
-  basemaps.forEach((baseMapLayer, ix) => {
+  bm.baseMaps.forEach((baseMapLayer, ix) => {
     let layerObject = {
       id: baseMapLayer.id,
       type: "raster",
@@ -115,8 +111,8 @@ onMounted(() => {
       attributionControl: true,
       style: {
         version: 8,
-        sources: setBaseMapsSource(basemaps.value),
-        layers: setBaseMapsLayer(basemaps.value),
+        sources: setBaseMapsSource(),
+        layers: setBaseMapsLayer(),
         glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf", // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
       },
     })

@@ -1,16 +1,15 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { defineProps } from "vue";
 
-import baseMapsObject from "./maps.json";
 import { Map } from "maplibre-gl";
 
 import { useSettingsStore } from "@/store/settings";
+import { useBaseMapsStore } from "@/store/baseMaps";
 
 const settings = useSettingsStore();
+const bm = useBaseMapsStore();
 
 const props = defineProps({ map: Map });
-
-const baseMaps = ref(baseMapsObject);
 
 function changeBaseLayer(oldBaseLayer, newBaseLayer) {
   // change base map on click
@@ -57,7 +56,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
           class="card mx-1"
           style="width: 9rem"
           role="button"
-          v-for="baseMap in baseMaps"
+          v-for="baseMap in bm.baseMaps"
           :key="baseMap.id"
           @click="changeBaseLayer(settings.activeBaseLayer, baseMap.id)"
         >
