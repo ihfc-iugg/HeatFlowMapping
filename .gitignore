@@ -24,3 +24,6 @@ pnpm-debug.log*
 # Local test data
 src/assets/data
 src/assets/schema
+
+# not allowed character under win
+dist/icon.ico:Zone.Identifier
