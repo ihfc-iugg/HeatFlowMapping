@@ -19,5 +19,9 @@ module.exports = defineConfig({
         chunks: "all",
       },
     },
+    externals: {
+      // Exclude Bootstrap from the standard build
+      bootstrap: "bootstrap",
+    },
   },
 });
