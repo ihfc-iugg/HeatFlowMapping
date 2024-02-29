@@ -84,7 +84,7 @@ function getPropertyValues(property) {
  * @param {Array} values
  */
 function setMin(values) {
-  table.value.min = Math.floor(Math.min.apply(null, values));
+  table.value.min = Math.min.apply(null, values).toFixed(5);
 }
 
 /**
@@ -92,7 +92,7 @@ function setMin(values) {
  * @param {Array} values
  */
 function setMax(values) {
-  table.value.max = Math.ceil(Math.max.apply(null, values));
+  table.value.max = Math.max.apply(null, values).toFixed(5);
 }
 
 /**
@@ -100,7 +100,7 @@ function setMax(values) {
  * @param {Array} values
  */
 function setMean(values) {
-  table.value.mean = mean(values);
+  table.value.mean = mean(values).toFixed(5);
 }
 
 /**
@@ -108,7 +108,7 @@ function setMean(values) {
  * @param {Array} values
  */
 function setStd(values) {
-  table.value.std = std(values);
+  table.value.std = std(values).toFixed(5);
 }
 
 /**
@@ -116,7 +116,7 @@ function setStd(values) {
  * @param {Array} values
  */
 function setMedian(values) {
-  table.value.median = median(values);
+  table.value.median = median(values).toFixed(5);
 }
 
 /**
@@ -125,7 +125,7 @@ function setMedian(values) {
  */
 function setSkewness(values) {
   const stats = new Statistics([]);
-  table.value.skewness = stats.skewness(values);
+  table.value.skewness = stats.skewness(values).toFixed(5);
   console.log("----skewness");
   console.log(table.value.skewness);
 }
@@ -136,7 +136,7 @@ function setSkewness(values) {
  */
 function setKurtosis(values) {
   const stats = new Statistics([]);
-  table.value.kurtosis = stats.kurtosis(values);
+  table.value.kurtosis = stats.kurtosis(values).toFixed(5);
   console.log("----kurtosis");
   console.log(table.value.kurtosis);
 }
