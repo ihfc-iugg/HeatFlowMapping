@@ -24,7 +24,7 @@ watch(filter.filters, () => {
 function addFilterElement() {
   if (
     Object.keys(filter.filters["attributeFilter"]).length <=
-    filter.maxNumberOfFilters
+    filter.maxAttributeFilter
   ) {
     const filterID = "attrFilter" + Date.now();
     filter.addFilter(filterID, "attributeFilter");
