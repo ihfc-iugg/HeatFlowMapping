@@ -9,15 +9,15 @@ export const useFilterStore = defineStore("filter", () => {
    */
   // const filterIDs = ref([]);
   const filters = ref({ attributeFilter: {}, locationFilter: {} });
-  const maxNumberOfFilters = ref(5);
+  const maxAttributeFilter = ref(10);
   const reachedLimit = ref(false);
 
   /**
    *
-   * @param {*} filterId
+   * @returns new value for filter object
    */
-  function addFilter(filterId, category) {
-    filters.value[category][filterId] = {
+  function getNewFilterObject() {
+    return {
       selectedProperty: null,
       selectedPropertyType: null,
       selectedValues: null,
@@ -27,20 +27,33 @@ export const useFilterStore = defineStore("filter", () => {
 
   /**
    *
-   * @param {*} id
+   * @param {*} filterId
    */
-  function removeFilterElement(filterId, category) {
-    delete filters.value[category][filterId];
-    setReachedLimit();
+  function addFilter(filterId, category) {
+    if (category == "locationFilter") {
+      filters.value[category][filterId] = getNewFilterObject();
+      return;
+    }
+    const nrAttributeFilter = Object.keys(filters.value[category]).length;
+    if (
+      category == "attributeFilter" &&
+      nrAttributeFilter < maxAttributeFilter.value
+    ) {
+      filters.value[category][filterId] = getNewFilterObject();
+      return;
+    } else {
+      reachedLimit.value = true;
+      console.log("You reached the maximum number of attribute filters");
+    }
   }
 
   /**
    *
+   * @param {*} id
    */
-  function setReachedLimit() {
-    if (Object.keys(filters.value).length <= maxNumberOfFilters.value) {
-      reachedLimit.value = false;
-    }
+  function removeFilterElement(filterId, category) {
+    delete filters.value[category][filterId];
+    reachedLimit.value = false;
   }
 
   /**
@@ -107,8 +120,9 @@ export const useFilterStore = defineStore("filter", () => {
 
   return {
     filters,
-    maxNumberOfFilters,
+    maxAttributeFilter,
     reachedLimit,
+    getNewFilterObject,
     addFilter,
     removeFilterElement,
     applyFilterToMap,
