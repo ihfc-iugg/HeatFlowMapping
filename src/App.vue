@@ -1,9 +1,9 @@
 <script setup>
-import MapComponent from "./components/MapApp.vue";
+import MapApp from "./components/MapApp.vue";
 </script>
 
 <template>
-  <MapComponent />
+  <MapApp />
 </template>
 
 <style>
