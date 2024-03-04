@@ -26,12 +26,24 @@ import { useMapControlsStore } from "@/store/mapControls";
 import { useSettingsStore } from "@/store/settings";
 import { useBaseMapsStore } from "@/store/baseMaps";
 
-const measurements = useMeasurementStore();
-// measurements.fetchAPIDataSchema("http://139.17.54.176:8010/api/v1/schema/");
+// get access to html element with dataset attributes
+const el = document.querySelector("#whfd-mapping");
 
-import dataURL from "@/assets/data/heatflow_sample_data.geojson";
-import schemaURL from "@/assets/data/api_schema.json";
-measurements.fetchAPIDataSchema(schemaURL);
+// pass/write dataset attributes to config object
+const configMapApp = ref({
+  dataURL: el.dataset.dataUrl,
+  schemaURL: el.dataset.schemaUrl,
+});
+
+console.log("inside mapApp dataset pass data from html to js");
+console.log(configMapApp);
+
+const measurements = useMeasurementStore();
+measurements.fetchAPIDataSchema(configMapApp.value.schemaURL);
+
+// import dataURL from "@/assets/data/heatflow_sample_data.geojson";
+// import schemaURL from "@/assets/data/api_schema.json";
+// measurements.fetchAPIDataSchema(schemaURL);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
 const bm = useBaseMapsStore();
@@ -126,15 +138,13 @@ onMounted(() => {
     map.value.addControl(mapControls.mapboxDraw);
 
     // add data source
-    // try {
-    //   await measurements.fetchAPIData(
-    //     "http://139.17.54.176:8010/api/v1/measurements/heat-flow/?format=json"
-    //   );
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await measurements.fetchAPIData(configMapApp.value.dataURL);
+    } catch (error) {
+      console.log(error);
+    }
 
-    measurements.geojson = dataURL;
+    // measurements.geojson = dataURL;
 
     map.value.addSource("sites", {
       type: "geojson",
