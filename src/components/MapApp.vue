@@ -39,11 +39,11 @@ console.log("inside mapApp dataset pass data from html to js");
 console.log(configMapApp);
 
 const measurements = useMeasurementStore();
-measurements.fetchAPIDataSchema(configMapApp.value.schemaURL);
+// measurements.fetchAPIDataSchema(configMapApp.value.schemaURL);
 
-// import dataURL from "@/assets/data/heatflow_sample_data.geojson";
-// import schemaURL from "@/assets/data/api_schema.json";
-// measurements.fetchAPIDataSchema(schemaURL);
+import dataURL from "@/assets/data/heatflow_sample_data.geojson";
+import schemaURL from "@/assets/data/api_schema.json";
+measurements.fetchAPIDataSchema(schemaURL);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
 const bm = useBaseMapsStore();
@@ -138,13 +138,13 @@ onMounted(() => {
     map.value.addControl(mapControls.mapboxDraw);
 
     // add data source
-    try {
-      await measurements.fetchAPIData(configMapApp.value.dataURL);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await measurements.fetchAPIData(configMapApp.value.dataURL);
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
-    // measurements.geojson = dataURL;
+    measurements.geojson = dataURL;
 
     map.value.addSource("sites", {
       type: "geojson",

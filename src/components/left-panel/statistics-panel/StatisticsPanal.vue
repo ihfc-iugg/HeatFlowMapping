@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from "vue";
+import { ref, defineProps, watch } from "vue";
 import { newPlot } from "plotly.js-dist";
 import { mean, std, median } from "mathjs";
 import Statistics from "statistics.js";
@@ -26,6 +26,7 @@ const options = ref(["GHFDB", "Filtered GHFDB"]);
 const selectedSourceTitle = ref(null);
 const selectedSource = ref(measurements.geojson);
 const selectedProperty = ref(null);
+const selectedPropertyDataType = ref(null);
 const table = ref({
   min: null,
   max: null,
@@ -34,6 +35,12 @@ const table = ref({
   median: null,
   skewness: null,
   kurtosis: null,
+});
+
+watch(selectedPropertyDataType, (newValue) => {
+  if (newValue == "number") {
+    setTableValues(selectedProperty.value.key);
+  }
 });
 
 /**
@@ -77,6 +84,15 @@ function getPropertyValues(property) {
   );
 
   return values;
+}
+
+/**
+ * @description
+ * @param {Object} property
+ */
+function setPropertyDataType(property) {
+  selectedPropertyDataType.value =
+    measurements.dataSchema.properties[property.key].type;
 }
 
 /**
@@ -233,9 +249,8 @@ function printOut(value) {
         :allow-empty="false"
         placeholder="2. select property"
         @select="
-          printOut(selectedProperty),
-            plotGraph(selectedProperty.key),
-            setTableValues(selectedProperty.key)
+          printOut(selectedProperty), setPropertyDataType(selectedProperty);
+          plotGraph(selectedProperty.key);
         "
       >
       </VueMultiselect>
@@ -243,7 +258,7 @@ function printOut(value) {
 
     <div class="w-100 h-100 d-inline-block" id="statisticGraph"></div>
 
-    <CTable v-if="selectedProperty">
+    <CTable v-if="selectedPropertyDataType == 'number'">
       <CTableHead>
         <CTableRow>
           <CTableHeaderCell scope="col">Measure</CTableHeaderCell>
