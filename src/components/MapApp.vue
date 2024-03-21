@@ -1,5 +1,3 @@
-<!-- Main component -->
-
 <script setup>
 // vue
 import { onMounted, onUnmounted, markRaw, ref } from "vue";
