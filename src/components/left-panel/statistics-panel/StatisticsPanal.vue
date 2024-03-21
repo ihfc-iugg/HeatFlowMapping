@@ -59,7 +59,7 @@ function setDataSource() {
 }
 
 /**
- *
+ * TODO: eventuell D3 histogram einbauen https://d3-graph-gallery.com/graph/histogram_binSize.html
  * @param {String} property
  */
 function plotGraph(property) {
@@ -79,9 +79,13 @@ function plotGraph(property) {
  * @param {Sting} property
  */
 function getPropertyValues(property) {
+  console.log("----before----");
+  console.log(selectedSource.value.features);
   let values = selectedSource.value.features.map(
     (feature) => feature.properties[property]
   );
+  console.log("----after----");
+  console.log(values);
 
   return values;
 }
