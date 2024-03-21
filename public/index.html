@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <link rel="icon" href="<%= BASE_URL %>icon.ico" />
     <title><%= htmlWebpackPlugin.options.title %></title>
+    <!-- import bootstrap in there relativ directory script tag -->
   </head>
   <body>
     <noscript>
@@ -18,8 +19,8 @@
     <div
       class="whfd-mapping"
       id="whfd-mapping"
-      data-data-url="http://139.17.54.176:8010/api/v1/measurements/heat-flow/?format=json"
-      data-schema-url="http://139.17.54.176:8010/api/v1/schema/"
+      data-data-url="/src/assets/data/heatflow_sample_data.geojson"
+      data-schema-url="/src/assets/data/api_schema.json"
     ></div>
     <!-- built files will be auto injected -->
   </body>
