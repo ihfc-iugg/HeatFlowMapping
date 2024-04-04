@@ -5,7 +5,13 @@ import { useLegendStore } from "@/store/legend";
 import { useSettingsStore } from "@/store/settings";
 
 import VueMultiselect from "vue-multiselect";
-import { CPopover, CButton } from "@coreui/bootstrap-vue";
+import {
+  CPopover,
+  CButton,
+  CFormInput,
+  CTableRow,
+  CTableDataCell,
+} from "@coreui/bootstrap-vue";
 
 // Extern Libraries
 import geostats from "geostats";
@@ -71,7 +77,6 @@ function setCircleColor(colorHEX) {
     return;
   } else {
     props.map.setPaintProperty("sites", "circle-color", colorHEX);
-    settings.circleColor = colorHEX;
   }
 }
 
@@ -296,7 +301,7 @@ function dataDrivenColorisation() {
   <!-- Circle Size  -->
   <p class="mt-1 d-grid gap-2">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary text-start"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#circleSize"
@@ -338,7 +343,7 @@ function dataDrivenColorisation() {
   <!-- Circle color -->
   <p class="mt-1 d-grid gap-2">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary text-start"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#circleFillColor"
@@ -363,7 +368,7 @@ function dataDrivenColorisation() {
   </p>
   <div class="collapse" id="circleFillColor">
     <div class="card card-body">
-      <div class="btn-group" role="group" aria-label="Color Selection">
+      <!-- <div class="btn-group" role="group" aria-label="Color Selection">
         <button
           type="button"
           class="btn btn-secondary"
@@ -372,7 +377,20 @@ function dataDrivenColorisation() {
           :style="{ 'background-color': colorHEX }"
           @click="setCircleColor(colorHEX), legend.setLegendToNull()"
         ></button>
-      </div>
+      </div> -->
+      <CTableRow>
+        <CTableDataCell>
+          <CFormInput
+            v-model="settings.circleColor"
+            type="color"
+            id="exampleColorInput"
+            :value="settings.circleColor"
+            title="Choose your color"
+            @input="setCircleColor(settings.circleColor)"
+          />
+        </CTableDataCell>
+        <CTableDataCell>{{ settings.circleColor }}</CTableDataCell>
+      </CTableRow>
     </div>
   </div>
 
@@ -380,7 +398,7 @@ function dataDrivenColorisation() {
   <!-- Property selection -->
   <p class="mt-1 d-grid gap-2">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary text-start"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#dataDrivenColoring"
