@@ -40,7 +40,7 @@ function addFilterElement() {
   <!-- Attribute Filter -->
   <p class="mt-1 d-grid gap-2">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary text-start"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#attributeFilter"
@@ -89,7 +89,7 @@ function addFilterElement() {
   <!-- Location Filter -->
   <p class="mt-1 d-grid gap-2">
     <button
-      class="btn btn-primary"
+      class="btn btn-primary text-start"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#locationFilter"

@@ -27,7 +27,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
   <div class="base-map-settings">
     <p class="d-grid gap-2">
       <button
-        class="btn btn-primary"
+        class="btn btn-primary text-start"
         type="button"
         data-bs-toggle="collapse"
         data-bs-target="#baseMaps"
