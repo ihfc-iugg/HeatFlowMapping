@@ -55,15 +55,14 @@ export const useMeasurementStore = defineStore("measurements", () => {
         });
 
         if (response.data.next != null) {
-          // return fetchPagedAPIData(response.data.next, data);
+          return fetchPagedAPIData(response.data.next, data);
         }
         return data;
       })
       .catch((err) => {
         console.log("rejected", err);
       });
-    console.log("return data");
-    console.log(data);
+
     return data;
   }
 
