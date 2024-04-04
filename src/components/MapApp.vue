@@ -23,25 +23,16 @@ import { useMeasurementStore } from "@/store/measurements";
 import { useMapControlsStore } from "@/store/mapControls";
 import { useSettingsStore } from "@/store/settings";
 import { useBaseMapsStore } from "@/store/baseMaps";
+import { useMapAppConfig } from "@/store/mapAppConfig";
 
-// get access to html element with dataset attributes
-const el = document.querySelector("#whfd-mapping");
-
-// pass/write dataset attributes to config object
-const configMapApp = ref({
-  dataURL: el.dataset.dataUrl,
-  schemaURL: el.dataset.schemaUrl,
-});
-
-console.log("inside mapApp dataset pass data from html to js");
-console.log(configMapApp);
+const mapAppConfig = useMapAppConfig();
+mapAppConfig.printOutMapAppConfig();
 
 const measurements = useMeasurementStore();
-// measurements.fetchAPIDataSchema(configMapApp.value.schemaURL);
 
-import dataURL from "@/assets/data/heatflow_sample_data.geojson";
-import schemaURL from "@/assets/data/api_schema.json";
-measurements.fetchAPIDataSchema(schemaURL);
+// import dataURL from "@/assets/data/heatflow_sample_data.geojson";
+// import schemaURL from "@/assets/data/api_schema.json";
+measurements.fetchAPIDataSchema(mapAppConfig.schemaUrl);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
 const bm = useBaseMapsStore();
@@ -136,13 +127,13 @@ onMounted(() => {
     map.value.addControl(mapControls.mapboxDraw);
 
     // add data source
-    // try {
-    //   await measurements.fetchAPIData(configMapApp.value.dataURL);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await measurements.fetchAPIData(mapAppConfig.dataUrl);
+    } catch (error) {
+      console.log(error);
+    }
 
-    measurements.geojson = dataURL;
+    // measurements.geojson = dataURL;
 
     map.value.addSource("sites", {
       type: "geojson",
@@ -181,7 +172,7 @@ function toggleVisibleScrolling() {
     <CRow class="align-items-center">
       <CButton v-if="measurements.isDataLoading">
         <CSpinner component="span" size="sm" aria-hidden="true" />
-        Loading Data...
+        Loading Data ...
       </CButton>
     </CRow>
     <div class="map" ref="mapContainer" @mousemove="updateLatLng">
