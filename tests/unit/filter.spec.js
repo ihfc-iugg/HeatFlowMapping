@@ -60,9 +60,20 @@ describe("Filter Store", () => {
     expect(Object.keys(filter.filters.locationFilter).length).toBe(0);
   });
 
-  // it("sum up filter expressions of single filters to joint MapLibre filter expression", () => {
-  //   const filter = useFilterStore();
-  //   filter.addFilter("test1", "attributeFilter");
-  //   filter.filters.test1.expression =
-  // });
+  it("sum up filter expressions of single filters to joint MapLibre filter expression", () => {
+    const filter = useFilterStore();
+    filter.addFilter("test1", "attributeFilter");
+    filter.filters.attributeFilter["test1"].expression = [
+      "all",
+      [">=", ["get", "q"], -3.85],
+      ["<=", ["get", "q"], 136.01],
+    ];
+    const expression = filter.writeFilterExpression();
+    expect(expression).toEqual(
+      expect.arrayContaining(
+        ["all"],
+        ["all", [">=", ["get", "q"], -3.85], ["<=", ["get", "q"], 136.01]]
+      )
+    );
+  });
 });
