@@ -7,11 +7,28 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
    * computed()s become getters
    * function()s become actions
    */
-  const el = ref(document.querySelector("#whfd-mapping"));
-  const dataUrl = ref(getDataAttributes("dataUrl"));
-  const schemaUrl = ref(getDataAttributes("schemaUrl"));
+  const el = ref(null);
+  const dataUrl = ref(null);
+  const schemaUrl = ref(null);
 
-  function getDataAttributes(attributeName) {
+  /**
+   *
+   * @param {*} htmlElement
+   */
+  function setElement(htmlElement) {
+    try {
+      el.value = htmlElement;
+    } catch (error) {
+      console.log("Error in setElement: " + error);
+    }
+  }
+
+  /**
+   *
+   * @param {*} attributeName
+   * @returns
+   */
+  function getElementDataAttribut(attributeName) {
     try {
       return el.value.dataset[attributeName];
     } catch (error) {
@@ -19,11 +36,38 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
     }
   }
 
+  /**
+   *
+   * @param {*} attributeNAme
+   */
+  function setDataURL(attributeNAme) {
+    dataUrl.value = getElementDataAttribut(attributeNAme);
+  }
+
+  /**
+   *
+   * @param {*} attributeNAme
+   */
+  function setSchemaURL(attributeNAme) {
+    schemaUrl.value = getElementDataAttribut(attributeNAme);
+  }
+
+  /**
+   *
+   */
   function printOutMapAppConfig() {
     console.log("Map app config:");
     console.log("Data url: " + dataUrl.value);
     console.log("Schema url: " + schemaUrl.value);
   }
 
-  return { dataUrl, schemaUrl, printOutMapAppConfig };
+  return {
+    el,
+    dataUrl,
+    schemaUrl,
+    setElement,
+    setDataURL,
+    setSchemaURL,
+    printOutMapAppConfig,
+  };
 });
