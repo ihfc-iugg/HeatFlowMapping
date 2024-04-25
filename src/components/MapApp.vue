@@ -25,17 +25,18 @@ import { useSettingsStore } from "@/store/settings";
 import { useBaseMapsStore } from "@/store/baseMaps";
 import { useMapAppConfig } from "@/store/mapAppConfig";
 
-const mapAppConfig = useMapAppConfig();
-mapAppConfig.printOutMapAppConfig();
-
 const measurements = useMeasurementStore();
 
-// import dataURL from "@/assets/data/heatflow_sample_data.geojson";
+import dataURL from "@/assets/data/heatflow_sample_data.geojson";
 // import schemaURL from "@/assets/data/api_schema.json";
-measurements.fetchAPIDataSchema(mapAppConfig.schemaUrl);
 const mapControls = useMapControlsStore();
 const settings = useSettingsStore();
 const bm = useBaseMapsStore();
+const mapAppConfig = useMapAppConfig();
+mapAppConfig.setElement(document.querySelector("#whfd-mapping"));
+mapAppConfig.setDataURL("dataUrl");
+mapAppConfig.setSchemaURL("schemaUrl");
+mapAppConfig.printOutMapAppConfig();
 
 const mapContainer = ref();
 const map = ref();
@@ -127,13 +128,14 @@ onMounted(() => {
     map.value.addControl(mapControls.mapboxDraw);
 
     // add data source
-    try {
-      await measurements.fetchAPIData(mapAppConfig.dataUrl);
-    } catch (error) {
-      console.log(error);
-    }
+    // try {
+    //   await measurements.fetchAPIData(mapAppConfig.dataUrl);
+    // } catch (error) {
+    //   console.log(error);
+    // }
 
-    // measurements.geojson = dataURL;
+    measurements.fetchAPIDataSchema(mapAppConfig.schemaUrl);
+    measurements.geojson = dataURL;
 
     map.value.addSource("sites", {
       type: "geojson",
