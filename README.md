@@ -1,13 +1,59 @@
 # whfd-mapping
 
-## Project setup
-```
+This template should help get you started developing with Vue 3 in Vite.
+
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
 ```
-npm run serve
+
+### Compile and Minify for Production
+
+```sh
+npm run build
+```
+
+### Run Unit Tests with [Vitest](https://vitest.dev/)
+
+```sh
+npm run test:unit
+```
+
+### Run End-to-End Tests with [Cypress](https://www.cypress.io/)
+
+```sh
+npm run test:e2e:dev
+```
+
+This runs the end-to-end tests against the Vite development server.
+It is much faster than the production build.
+
+But it's still recommended to test the production build with `test:e2e` before deploying (e.g. in CI environments):
+
+```sh
+npm run build
+npm run test:e2e
+```
+
+### Lint with [ESLint](https://eslint.org/)
+
+```sh
+npm run lint
 ```
 
 ### Compiles and minifies for production
@@ -17,10 +63,8 @@ npm run build
 serve -s dist
 ```
 
-### Lints and fixes files
-```
-npm run lint
-```
+## Migration from VueCLI to Vite
+[How to Migrate from Vue CLI to Vite](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/)
 
 ### Publish new package to npm
 [How to Publish a Package on npm](https://www.makeuseof.com/npm-publish-package-how/)
@@ -30,15 +74,3 @@ npm run lint
 
 ### Unpublish package
 [npm Unpublish Policy](https://docs.npmjs.com/policies/unpublish)
-
-## Third party libraries
-| Name                 | Version | Licence      | Repo                                                                          |
-| -------------------- | ------- | ------------ | ----------------------------------------------------------------------------- |
-| mapbox-gl-draw       | 1.4.1   | ISC license  | [mapbox/mapbox-gl-draw](https://github.com/mapbox/mapbox-gl-draw)             |
-| json-loader          | 0.5.7   | MIT          | [webpack-contrib/json-loader](https://github.com/webpack-contrib/json-loader) |
-| maplibre-gl          | 2.4.0   | BSD-3-Clause | [maplibre/maplibre-gl-js](https://github.com/maplibre/maplibre-gl-js)         |
-| vue                  | 3.2.47  | MIT          | [vuejs](https://github.com/vuejs)                                             |
-| vue-multiselect      | 2.1.7   | MIT          | [vue-multiselect](https://github.com/shentao/vue-multiselect)                 |
-| vue-slider-component | 3.2.24  | MIT          | [vue-slider-component](https://github.com/NightCatSama/vue-slider-component)  |
-| swagger-parser       | 10.0.3  | MIT          | [APIDevTools/swagger-parser](https://github.com/APIDevTools/swagger-parser)   |
-| geojson-validation   | 1.0.2   | LGPL-3       | [GeoJSON-Validation](https://gitlab.com/mjbecze/GeoJSON-Validation)           |
