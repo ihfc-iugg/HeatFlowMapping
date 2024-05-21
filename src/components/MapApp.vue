@@ -1,131 +1,126 @@
 <script setup>
 // vue
-import { onMounted, onUnmounted, markRaw, ref } from "vue";
+import { onMounted, onUnmounted, markRaw, ref } from 'vue'
 
 // map viewer
-import { Map } from "maplibre-gl";
+import { Map } from 'maplibre-gl'
 
 // components
 // import AttributeTable from "./common/AttributeTable.vue";
-import {
-  CButton,
-  CButtonGroup,
-  COffcanvas,
-  CRow,
-  CSpinner,
-} from "@coreui/bootstrap-vue";
-import CursorCoordinates from "./map/CursorCoordinates.vue";
-import LeftPanel from "./left-panel/LeftPanel.vue";
-import InfoPopup from "./map/InfoPopup.vue";
-import MapLegend from "./map/MapLegend.vue";
+import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
+import CursorCoordinates from './map/CursorCoordinates.vue'
+import LeftPanel from './left-panel/LeftPanel.vue'
+import InfoPopup from './map/InfoPopup.vue'
+import MapLegend from './map/MapLegend.vue'
 
-import { useMeasurementStore } from "@/store/measurements";
-import { useMapControlsStore } from "@/store/mapControls";
-import { useSettingsStore } from "@/store/settings";
-import { useBaseMapsStore } from "@/store/baseMaps";
-import { useMapAppConfig } from "@/store/mapAppConfig";
+import { useMeasurementStore } from '@/store/measurements'
+import { useMapControlsStore } from '@/store/mapControls'
+import { useSettingsStore } from '@/store/settings'
+import { useBaseMapsStore } from '@/store/baseMaps'
+import { useMapAppConfig } from '@/store/mapAppConfig'
 
-const measurements = useMeasurementStore();
+import dataURL from '@/assets/data/heatflow_sample_data.json'
+import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
 
-import dataURL from "@/assets/data/heatflow_sample_data.geojson";
-// import schemaURL from "@/assets/data/api_schema.json";
-const mapControls = useMapControlsStore();
-const settings = useSettingsStore();
-const bm = useBaseMapsStore();
-const mapAppConfig = useMapAppConfig();
-mapAppConfig.setElement(document.querySelector("#whfd-mapping"));
-mapAppConfig.setDataURL("dataUrl");
-mapAppConfig.setSchemaURL("schemaUrl");
-mapAppConfig.printOutMapAppConfig();
+const measurements = useMeasurementStore()
+measurements.fetchAPIDataSchema(schemaURL)
+const mapControls = useMapControlsStore()
+const settings = useSettingsStore()
+const bm = useBaseMapsStore()
+const mapAppConfig = useMapAppConfig()
+mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
+mapAppConfig.setDataURL('dataUrl')
+mapAppConfig.setSchemaURL('schemaUrl')
+mapAppConfig.printOutMapAppConfig()
 
-const mapContainer = ref();
-const map = ref();
-const navbarTitles = ref(["Settings", "Filter", "Statistics", "Analysis"]); // TODO: change to object and add key with bootstrap related icon class https://icons.getbootstrap.com/
-const panelTitle = ref("");
+const mapContainer = ref()
+const map = ref()
+const navbarTitles = ref(['Settings', 'Filter', 'Statistics', 'Analysis']) // TODO: change to object and add key with bootstrap related icon class https://icons.getbootstrap.com/
+const panelTitle = ref('')
 
-const isCollapsed = ref(true);
-const visibleScrolling = ref(false);
+const isCollapsed = ref(true)
+const visibleScrolling = ref(false)
 
-const setIsCollapsed = () => (isCollapsed.value = !isCollapsed.value);
+const setIsCollapsed = () => (isCollapsed.value = !isCollapsed.value)
 
 /**
  * @description get title of corresponding button and set it as title of sidepanel
  * @param {*} event
  */
 function setPanelTitle(event) {
-  panelTitle.value = event.srcElement.innerHTML;
+  panelTitle.value = event.srcElement.innerHTML
 }
 
 /**
  * @description create object for base map sources
  */
 function setBaseMapsSource() {
-  let bmSourceObject = {};
+  let bmSourceObject = {}
 
   bm.baseMaps.forEach((baseMapSource) => {
     bmSourceObject[baseMapSource.id] = {
-      type: "raster",
+      type: 'raster',
       tiles: [baseMapSource.tiles],
       tileSize: 256,
       attribution: baseMapSource.attribution,
       minzoom: 0,
-      maxzoom: 22,
-    };
-  });
-  return bmSourceObject;
+      maxzoom: 22
+    }
+  })
+  return bmSourceObject
 }
 
 /**
  * @description create object for base map layers
  */
 function setBaseMapsLayer() {
-  let layerObjects = [];
+  let layerObjects = []
 
   bm.baseMaps.forEach((baseMapLayer, ix) => {
     let layerObject = {
       id: baseMapLayer.id,
-      type: "raster",
-      source: baseMapLayer.id,
-    };
+      type: 'raster',
+      source: baseMapLayer.id
+    }
     if (ix == 0) {
-      settings.activeBaseLayer = baseMapLayer.id;
+      settings.activeBaseLayer = baseMapLayer.id
       // first object in maps.json will be default base map
       layerObject.layout = {
-        visibility: "visible",
-      };
+        visibility: 'visible'
+      }
     } else {
       // others are already added but not visible
       layerObject.layout = {
-        visibility: "none",
-      };
+        visibility: 'none'
+      }
     }
-    layerObjects.push(layerObject);
-  });
-  return layerObjects;
+    layerObjects.push(layerObject)
+  })
+  return layerObjects
 }
 
 onMounted(() => {
   // instantiate map object
   map.value = markRaw(
     new Map({
-      mapId: "map_1",
+      mapId: 'map_1',
       container: mapContainer.value,
       attributionControl: true,
       style: {
         version: 8,
         sources: setBaseMapsSource(),
         layers: setBaseMapsLayer(),
-        glyphs: "https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf", // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
-      },
+        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf' // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
+      }
     })
-  );
+  )
 
-  map.value.once("load", async () => {
+  map.value.once('load', async () => {
     // add controls
-    map.value.addControl(mapControls.scale, "bottom-right");
-    map.value.addControl(mapControls.fullscreen, "top-right");
-    map.value.addControl(mapControls.navigation, "top-right");
-    map.value.addControl(mapControls.mapboxDraw);
+    map.value.addControl(mapControls.scale, 'bottom-right')
+    map.value.addControl(mapControls.fullscreen, 'top-right')
+    map.value.addControl(mapControls.navigation, 'top-right')
+    map.value.addControl(mapControls.mapboxDraw)
 
     // add data source
     // try {
@@ -134,38 +129,39 @@ onMounted(() => {
     //   console.log(error);
     // }
 
-    measurements.fetchAPIDataSchema(mapAppConfig.schemaUrl);
-    measurements.geojson = dataURL;
+    // measurements.fetchAPIDataSchema(mapAppConfig.schemaUrl);
 
-    map.value.addSource("sites", {
-      type: "geojson",
-      data: measurements.geojson,
+    measurements.geojson = dataURL
+
+    map.value.addSource('sites', {
+      type: 'geojson',
+      data: measurements.geojson
       // data: sites.value,
-    });
+    })
 
     // add data layer
     map.value.addLayer({
-      id: "sites",
-      type: "circle",
-      source: "sites",
+      id: 'sites',
+      type: 'circle',
+      source: 'sites',
       paint: {
-        "circle-color": settings.circleColor,
-        "circle-radius": settings.circleRadius,
-        "circle-stroke-width": 0.5,
-        "circle-stroke-color": "#a1dab4",
+        'circle-color': settings.circleColor,
+        'circle-radius': settings.circleRadius,
+        'circle-stroke-width': 0.5,
+        'circle-stroke-color': '#a1dab4'
       },
       layout: {
-        visibility: "visible",
-      },
-    });
-  });
+        visibility: 'visible'
+      }
+    })
+  })
 }),
   onUnmounted(() => {
-    map.value?.remove();
-  });
+    map.value?.remove()
+  })
 
 function toggleVisibleScrolling() {
-  visibleScrolling.value = !visibleScrolling.value;
+  visibleScrolling.value = !visibleScrolling.value
 }
 </script>
 
@@ -208,7 +204,7 @@ function toggleVisibleScrolling() {
           :visible="visibleScrolling"
           @hide="
             () => {
-              visibleScrolling = !visibleScrolling;
+              visibleScrolling = !visibleScrolling
             }
           "
         >
@@ -247,8 +243,8 @@ function toggleVisibleScrolling() {
 </template>
 
 <style scoped>
-@import "~maplibre-gl/dist/maplibre-gl.css";
-@import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
+@import url('maplibre-gl/dist/maplibre-gl.css');
+@import url('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
 
 .map-wrap {
   position: absolute;

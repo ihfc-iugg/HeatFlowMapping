@@ -1,15 +1,15 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useMapAppConfig = defineStore("mapAppConfig", () => {
+export const useMapAppConfig = defineStore('mapAppConfig', () => {
   /**
    * ref()s become state properties
    * computed()s become getters
    * function()s become actions
    */
-  const el = ref(null);
-  const dataUrl = ref(null);
-  const schemaUrl = ref(null);
+  const el = ref(null)
+  const dataUrl = ref(null)
+  const schemaUrl = ref(null)
 
   /**
    *
@@ -17,9 +17,9 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
    */
   function setElement(htmlElement) {
     try {
-      el.value = htmlElement;
+      el.value = htmlElement
     } catch (error) {
-      console.log("Error in setElement: " + error);
+      console.log('Error in setElement: ' + error)
     }
   }
 
@@ -30,9 +30,9 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
    */
   function getElementDataAttribut(attributeName) {
     try {
-      return el.value.dataset[attributeName];
+      return el.value.dataset[attributeName]
     } catch (error) {
-      console.log("Attribute " + attributeName + " not found; " + error);
+      console.log('Attribute ' + attributeName + ' not found; ' + error)
     }
   }
 
@@ -41,7 +41,7 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
    * @param {*} attributeNAme
    */
   function setDataURL(attributeNAme) {
-    dataUrl.value = getElementDataAttribut(attributeNAme);
+    dataUrl.value = getElementDataAttribut(attributeNAme)
   }
 
   /**
@@ -49,16 +49,16 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
    * @param {*} attributeNAme
    */
   function setSchemaURL(attributeNAme) {
-    schemaUrl.value = getElementDataAttribut(attributeNAme);
+    schemaUrl.value = getElementDataAttribut(attributeNAme)
   }
 
   /**
    *
    */
   function printOutMapAppConfig() {
-    console.log("Map app config:");
-    console.log("Data url: " + dataUrl.value);
-    console.log("Schema url: " + schemaUrl.value);
+    console.log('Map app config:')
+    console.log('Data url: ' + dataUrl.value)
+    console.log('Schema url: ' + schemaUrl.value)
   }
 
   return {
@@ -68,6 +68,6 @@ export const useMapAppConfig = defineStore("mapAppConfig", () => {
     setElement,
     setDataURL,
     setSchemaURL,
-    printOutMapAppConfig,
-  };
-});
+    printOutMapAppConfig
+  }
+})

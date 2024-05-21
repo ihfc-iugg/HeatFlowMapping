@@ -1,36 +1,33 @@
 <script setup>
-import { defineProps, ref, watch } from "vue";
-import VueMultiselect from "vue-multiselect";
-import VueSlider from "vue-slider-component";
-import { CRow, CCol } from "@coreui/bootstrap-vue";
+import { defineProps, ref, watch } from 'vue'
+import VueMultiselect from 'vue-multiselect'
+import VueSlider from 'vue-slider-component'
+import { CRow, CCol } from '@coreui/bootstrap-vue'
 
-import { useMeasurementStore } from "@/store/measurements";
-import { useFilterStore } from "@/store/filter";
+import { useMeasurementStore } from '@/store/measurements'
+import { useFilterStore } from '@/store/filter'
 
-const props = defineProps({ id: String });
+const props = defineProps({ id: String })
 
-const measurements = useMeasurementStore();
-const filter = useFilterStore();
+const measurements = useMeasurementStore()
+const filter = useFilterStore()
 
-const filterElement = ref(filter.filters.attributeFilter[props.id]);
+const filterElement = ref(filter.filters.attributeFilter[props.id])
 
 /**
  * TODO: wenn filterElement bereits besteht, werden valueOptions nicht gesetzt.
  * Problem: valueOptions wird gesetzt, wenn ein property ausgewählt wird, was nicht der Fall ist, wenn filterElement bereits existiert
  */
-const valueOptions = ref(null);
+const valueOptions = ref(null)
 
 /**
  * @description
  */
 watch(filterElement.value.selectedValues, () => {
   if (filterElement.value.selectedValues.length > 0) {
-    setFilterExpression(
-      filterElement.value.selectedProperty,
-      filterElement.value.selectedValues
-    );
+    setFilterExpression(filterElement.value.selectedProperty, filterElement.value.selectedValues)
   }
-});
+})
 
 /**
  * @description Store data type of selected property
@@ -38,28 +35,22 @@ watch(filterElement.value.selectedValues, () => {
  */
 function setSelectedPropertyType(selectedProperty) {
   filterElement.value.selectedPropertyType =
-    measurements.dataSchema.properties[selectedProperty].type;
+    measurements.dataSchema.properties[selectedProperty].type
 }
 
 /**
  * @description Resets the array with the selected filter values
  */
 function resetSelectedValues() {
-  if (
-    filterElement.value.selectedPropertyType == "number" &&
-    valueOptions.value.length != 0
-  ) {
-    filterElement.value.selectedValues = [
-      valueOptions.value[0],
-      valueOptions.value[1],
-    ];
+  if (filterElement.value.selectedPropertyType == 'number' && valueOptions.value.length != 0) {
+    filterElement.value.selectedValues = [valueOptions.value[0], valueOptions.value[1]]
   } else {
-    filterElement.value.selectedValues = [];
+    filterElement.value.selectedValues = []
   }
 }
 
 function resetFilterExpression() {
-  filterElement.value.expression = null;
+  filterElement.value.expression = null
 }
 
 /**
@@ -68,19 +59,17 @@ function resetFilterExpression() {
  * @returns {Array}
  */
 function getEnumClasses(enumProperty) {
-  let classes = [];
+  let classes = []
 
-  measurements.dataSchema.properties[enumProperty].oneOf.forEach(
-    (enumSchema) => {
-      enumSchema.enum.forEach((enumClass) => {
-        if (enumClass) {
-          classes.push(enumClass);
-        }
-      });
-    }
-  );
+  measurements.dataSchema.properties[enumProperty].oneOf.forEach((enumSchema) => {
+    enumSchema.enum.forEach((enumClass) => {
+      if (enumClass) {
+        classes.push(enumClass)
+      }
+    })
+  })
 
-  return classes;
+  return classes
 }
 
 /**
@@ -90,13 +79,13 @@ function getEnumClasses(enumProperty) {
  * @returns {Array}
  */
 function propertyValuesToArray(geoJson, property) {
-  let values = [];
+  let values = []
 
   geoJson.features.forEach((feature) => {
-    values.push(feature.properties[property]);
-  });
+    values.push(feature.properties[property])
+  })
 
-  return values;
+  return values
 }
 
 /**
@@ -107,14 +96,14 @@ function propertyValuesToArray(geoJson, property) {
  * @returns {Array}
  */
 function getRange(geoJson, property) {
-  const values = propertyValuesToArray(geoJson, property).filter(Boolean);
+  const values = propertyValuesToArray(geoJson, property).filter(Boolean)
 
-  const min = Math.floor(Math.min.apply(null, values));
-  const max = Math.ceil(Math.max.apply(null, values));
+  const min = Math.floor(Math.min.apply(null, values))
+  const max = Math.ceil(Math.max.apply(null, values))
 
-  const bounds = [min, max];
+  const bounds = [min, max]
 
-  return bounds;
+  return bounds
 }
 
 /**
@@ -123,16 +112,13 @@ function getRange(geoJson, property) {
  */
 function setValueOptions(selectedProperty) {
   if (filterElement.value.selectedPropertyType == undefined) {
-    valueOptions.value = getEnumClasses(selectedProperty);
-  } else if (filterElement.value.selectedPropertyType == "number") {
-    const geoJson = measurements.geojson;
-    valueOptions.value = getRange(geoJson, selectedProperty);
-    filterElement.value.selectedValues = [
-      valueOptions.value[0],
-      valueOptions.value[1],
-    ];
+    valueOptions.value = getEnumClasses(selectedProperty)
+  } else if (filterElement.value.selectedPropertyType == 'number') {
+    const geoJson = measurements.geojson
+    valueOptions.value = getRange(geoJson, selectedProperty)
+    filterElement.value.selectedValues = [valueOptions.value[0], valueOptions.value[1]]
   } else {
-    console.log("Data type of property is not defined");
+    console.log('Data type of property is not defined')
   }
 }
 
@@ -143,13 +129,13 @@ function setValueOptions(selectedProperty) {
  * @returns {Array}
  */
 function writeEnumFilter(property, values) {
-  let filterExpression = ["any"];
+  let filterExpression = ['any']
 
   values.forEach((value) => {
-    filterExpression.push(["in", ["get", property], value]);
-  });
+    filterExpression.push(['in', ['get', property], value])
+  })
 
-  return filterExpression;
+  return filterExpression
 }
 
 /**
@@ -159,16 +145,16 @@ function writeEnumFilter(property, values) {
  * @returns {Array}
  */
 function writeContinuousFilter(property, values) {
-  const minValue = values[0];
-  const maxValue = values[1];
+  const minValue = values[0]
+  const maxValue = values[1]
 
   let filterExpression = [
-    "all",
-    [">=", ["get", property], minValue],
-    ["<=", ["get", property], maxValue],
-  ];
+    'all',
+    ['>=', ['get', property], minValue],
+    ['<=', ['get', property], maxValue]
+  ]
 
-  return filterExpression;
+  return filterExpression
 }
 
 /**
@@ -177,13 +163,13 @@ function writeContinuousFilter(property, values) {
  */
 function setFilterExpression(property, values) {
   if (filterElement.value.selectedPropertyType == undefined) {
-    filterElement.value.expression = writeEnumFilter(property, values);
-  } else if (filterElement.value.selectedPropertyType == "number") {
-    filterElement.value.expression = writeContinuousFilter(property, values);
+    filterElement.value.expression = writeEnumFilter(property, values)
+  } else if (filterElement.value.selectedPropertyType == 'number') {
+    filterElement.value.expression = writeContinuousFilter(property, values)
   } else if (!filterElement.value.selectedPropertyType) {
-    console.error("no property selected");
-    console.log(filterElement.value.selectedPropertyType);
-    return;
+    console.error('no property selected')
+    console.log(filterElement.value.selectedPropertyType)
+    return
   }
 }
 </script>
@@ -199,9 +185,9 @@ function setFilterExpression(property, values) {
           :allow-empty="false"
           placeholder="Select property"
           @select="
-            setSelectedPropertyType(filterElement.selectedProperty.key);
-            setValueOptions(filterElement.selectedProperty.key);
-            resetSelectedValues();
+            setSelectedPropertyType(filterElement.selectedProperty.key),
+              setValueOptions(filterElement.selectedProperty.key),
+              resetSelectedValues()
           "
         >
         </VueMultiselect>
@@ -240,16 +226,10 @@ function setFilterExpression(property, values) {
             :multiple="true"
             placeholder="Select value(s)"
             @select="
-              setFilterExpression(
-                filterElement.selectedProperty.key,
-                filterElement.selectedValues
-              )
+              setFilterExpression(filterElement.selectedProperty.key, filterElement.selectedValues)
             "
             @remove="
-              setFilterExpression(
-                filterElement.selectedProperty.key,
-                filterElement.selectedValues
-              )
+              setFilterExpression(filterElement.selectedProperty.key, filterElement.selectedValues)
             "
           >
           </VueMultiselect>
@@ -259,37 +239,22 @@ function setFilterExpression(property, values) {
         Slider:
         https://www.npmjs.com/package/vue-slider-component 
         -->
-        <div
-          class="slider"
-          v-if="filterElement.selectedPropertyType === 'number'"
-        >
+        <div class="slider" v-if="filterElement.selectedPropertyType === 'number'">
           <vue-slider
             v-model="filterElement.selectedValues"
             :min="valueOptions[0]"
             :max="valueOptions[1]"
             :interval="0.01"
             @change="
-              setFilterExpression(
-                filterElement.selectedProperty.key,
-                filterElement.selectedValues
-              )
+              setFilterExpression(filterElement.selectedProperty.key, filterElement.selectedValues)
             "
           ></vue-slider>
 
           <!-- TODO: Include null value OR select only null values as filter criteria -->
         </div>
       </div>
-      <div
-        class="reset-filter-btn"
-        v-if="filterElement.selectedValues.length > 0"
-      >
-        <button
-          class="btn btn-primary"
-          @click="
-            resetSelectedValues();
-            resetFilterExpression();
-          "
-        >
+      <div class="reset-filter-btn" v-if="filterElement.selectedValues.length > 0">
+        <button class="btn btn-primary" @click="resetSelectedValues(), resetFilterExpression()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -312,8 +277,8 @@ function setFilterExpression(property, values) {
 </template>
 
 <style scoped>
-@import "vue-multiselect/dist/vue-multiselect.css";
-@import "vue-slider-component/theme/default.css";
+@import 'vue-multiselect/dist/vue-multiselect.css';
+@import 'vue-slider-component/theme/default.css';
 .filter-element {
   border-bottom: 4px inset;
 }

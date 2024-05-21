@@ -1,31 +1,31 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps } from 'vue'
 
-import { CTooltip } from "@coreui/bootstrap-vue";
+import { CTooltip } from '@coreui/bootstrap-vue'
 
-import { useFilterStore } from "@/store/filter";
-import { useMapControlsStore } from "@/store/mapControls";
+import { useFilterStore } from '@/store/filter'
+import { useMapControlsStore } from '@/store/mapControls'
 
-const props = defineProps({ map: Map });
+const props = defineProps({ map: Map })
 
-console.log("inside filter by location");
-console.log(props.map);
+console.log('inside filter by location')
+console.log(props.map)
 
-const filter = useFilterStore();
-const mapControls = useMapControlsStore();
+const filter = useFilterStore()
+const mapControls = useMapControlsStore()
 
 /**
  *
  */
 function drawPolygon() {
-  mapControls.mapboxDraw.changeMode("draw_polygon");
+  mapControls.mapboxDraw.changeMode('draw_polygon')
 }
 
 /**
  *
  */
 function deletePolygon() {
-  mapControls.mapboxDraw.trash();
+  mapControls.mapboxDraw.trash()
 }
 
 /**
@@ -33,40 +33,40 @@ function deletePolygon() {
  * @param {*} geoJSONObj
  */
 function writeLocationFilterExpression(geoJSONObj) {
-  let expression = [];
+  let expression = []
 
-  expression.push("within");
-  expression.push(geoJSONObj);
+  expression.push('within')
+  expression.push(geoJSONObj)
 
-  return expression;
+  return expression
 }
 
 /**
  * TODO: only one or multiple areas?
  */
-props.map.on("draw.create", function (e) {
-  filter.addFilter(e.features[0].id, "locationFilter");
-  filter.filters.locationFilter[e.features[0].id].expression =
-    writeLocationFilterExpression(e.features[0].geometry);
-  console.log("geojson output");
-  console.log(e.features);
-  console.log(mapControls);
-});
+props.map.on('draw.create', function (e) {
+  filter.addFilter(e.features[0].id, 'locationFilter')
+  filter.filters.locationFilter[e.features[0].id].expression = writeLocationFilterExpression(
+    e.features[0].geometry
+  )
+  console.log('geojson output')
+  console.log(e.features)
+  console.log(mapControls)
+})
 
 /**
  *
  */
-props.map.on("draw.delete", function (e) {
-  filter.removeFilterElement(e.features[0].id, "locationFilter");
-});
+props.map.on('draw.delete', function (e) {
+  filter.removeFilterElement(e.features[0].id, 'locationFilter')
+})
 
 /**
  *
  */
-props.map.on("draw.update", function (e) {
-  filter.filters.locationFilter[e.features[0].id].expression[1] =
-    e.features[0].geometry;
-});
+props.map.on('draw.update', function (e) {
+  filter.filters.locationFilter[e.features[0].id].expression[1] = e.features[0].geometry
+})
 </script>
 
 <template>
@@ -75,12 +75,7 @@ props.map.on("draw.update", function (e) {
 
     <CTooltip content="Draw polygon" placement="bottom">
       <template #toggler="{ on }">
-        <button
-          id="draw-polygon-btn"
-          class="btn btn-primary mx-1"
-          v-on="on"
-          @click="drawPolygon()"
-        >
+        <button id="draw-polygon-btn" class="btn btn-primary mx-1" v-on="on" @click="drawPolygon()">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

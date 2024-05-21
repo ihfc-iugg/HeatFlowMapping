@@ -1,32 +1,32 @@
 <script setup>
-import { ref, defineProps, watch } from "vue";
-import { newPlot } from "plotly.js-dist";
-import { mean, std, median } from "mathjs";
-import Statistics from "statistics.js";
+import { ref, defineProps, watch } from 'vue'
+import { newPlot } from 'plotly.js-dist'
+import { mean, std, median } from 'mathjs'
+import Statistics from 'statistics.js'
 
-import VueMultiselect from "vue-multiselect";
+import VueMultiselect from 'vue-multiselect'
 import {
   CTable,
   CTableHead,
   CTableBody,
   CTableHeaderCell,
   CTableRow,
-  CTableDataCell,
-} from "@coreui/bootstrap-vue";
+  CTableDataCell
+} from '@coreui/bootstrap-vue'
 
-import { useMeasurementStore } from "@/store/measurements";
-import { useFilterStore } from "@/store/filter";
+import { useMeasurementStore } from '@/store/measurements'
+import { useFilterStore } from '@/store/filter'
 
-const props = defineProps({ map: Map });
+const props = defineProps({ map: Map })
 
-const measurements = useMeasurementStore();
-const filter = useFilterStore();
+const measurements = useMeasurementStore()
+const filter = useFilterStore()
 
-const options = ref(["GHFDB", "Filtered GHFDB"]);
-const selectedSourceTitle = ref(null);
-const selectedSource = ref(measurements.geojson);
-const selectedProperty = ref(null);
-const selectedPropertyDataType = ref(null);
+const options = ref(['GHFDB', 'Filtered GHFDB'])
+const selectedSourceTitle = ref(null)
+const selectedSource = ref(measurements.geojson)
+const selectedProperty = ref(null)
+const selectedPropertyDataType = ref(null)
 const table = ref({
   min: null,
   max: null,
@@ -34,27 +34,27 @@ const table = ref({
   std: null,
   median: null,
   skewness: null,
-  kurtosis: null,
-});
+  kurtosis: null
+})
 
 watch(selectedPropertyDataType, (newValue) => {
-  if (newValue == "number") {
-    setTableValues(selectedProperty.value.key);
+  if (newValue == 'number') {
+    setTableValues(selectedProperty.value.key)
   }
-});
+})
 
 /**
  *
  */
 function setDataSource() {
-  if (selectedSourceTitle.value == "GHFDB") {
-    selectedSource.value = measurements.geojson;
-  } else if (selectedSourceTitle.value == "Filtered GHFDB") {
+  if (selectedSourceTitle.value == 'GHFDB') {
+    selectedSource.value = measurements.geojson
+  } else if (selectedSourceTitle.value == 'Filtered GHFDB') {
     const filteredFeatures = {
-      type: "FeatureCollection",
-      features: filter.getFilteredFeatures(props.map),
-    };
-    selectedSource.value = filteredFeatures;
+      type: 'FeatureCollection',
+      features: filter.getFilteredFeatures(props.map)
+    }
+    selectedSource.value = filteredFeatures
   }
 }
 
@@ -63,15 +63,15 @@ function setDataSource() {
  * @param {String} property
  */
 function plotGraph(property) {
-  let dataArr = getPropertyValues(property);
-  console.log("plotGraph");
-  console.log(dataArr);
+  let dataArr = getPropertyValues(property)
+  console.log('plotGraph')
+  console.log(dataArr)
   const trace = {
     x: dataArr,
-    type: "histogram",
-  };
-  const data = [trace];
-  newPlot("statisticGraph", data);
+    type: 'histogram'
+  }
+  const data = [trace]
+  newPlot('statisticGraph', data)
 }
 
 /**
@@ -79,15 +79,13 @@ function plotGraph(property) {
  * @param {Sting} property
  */
 function getPropertyValues(property) {
-  console.log("----before----");
-  console.log(selectedSource.value.features);
-  let values = selectedSource.value.features.map(
-    (feature) => feature.properties[property]
-  );
-  console.log("----after----");
-  console.log(values);
+  console.log('----before----')
+  console.log(selectedSource.value.features)
+  let values = selectedSource.value.features.map((feature) => feature.properties[property])
+  console.log('----after----')
+  console.log(values)
 
-  return values;
+  return values
 }
 
 /**
@@ -95,8 +93,7 @@ function getPropertyValues(property) {
  * @param {Object} property
  */
 function setPropertyDataType(property) {
-  selectedPropertyDataType.value =
-    measurements.dataSchema.properties[property.key].type;
+  selectedPropertyDataType.value = measurements.dataSchema.properties[property.key].type
 }
 
 /**
@@ -104,7 +101,7 @@ function setPropertyDataType(property) {
  * @param {Array} values
  */
 function setMin(values) {
-  table.value.min = Math.min.apply(null, values).toFixed(5);
+  table.value.min = Math.min.apply(null, values).toFixed(5)
 }
 
 /**
@@ -112,7 +109,7 @@ function setMin(values) {
  * @param {Array} values
  */
 function setMax(values) {
-  table.value.max = Math.max.apply(null, values).toFixed(5);
+  table.value.max = Math.max.apply(null, values).toFixed(5)
 }
 
 /**
@@ -120,7 +117,7 @@ function setMax(values) {
  * @param {Array} values
  */
 function setMean(values) {
-  table.value.mean = mean(values).toFixed(5);
+  table.value.mean = mean(values).toFixed(5)
 }
 
 /**
@@ -128,7 +125,7 @@ function setMean(values) {
  * @param {Array} values
  */
 function setStd(values) {
-  table.value.std = std(values).toFixed(5);
+  table.value.std = std(values).toFixed(5)
 }
 
 /**
@@ -136,7 +133,7 @@ function setStd(values) {
  * @param {Array} values
  */
 function setMedian(values) {
-  table.value.median = median(values).toFixed(5);
+  table.value.median = median(values).toFixed(5)
 }
 
 /**
@@ -144,10 +141,10 @@ function setMedian(values) {
  * @param {Array} values
  */
 function setSkewness(values) {
-  const stats = new Statistics([]);
-  table.value.skewness = stats.skewness(values).toFixed(5);
-  console.log("----skewness");
-  console.log(table.value.skewness);
+  const stats = new Statistics([])
+  table.value.skewness = stats.skewness(values).toFixed(5)
+  console.log('----skewness')
+  console.log(table.value.skewness)
 }
 
 /**
@@ -155,10 +152,10 @@ function setSkewness(values) {
  * @param {Array} values
  */
 function setKurtosis(values) {
-  const stats = new Statistics([]);
-  table.value.kurtosis = stats.kurtosis(values).toFixed(5);
-  console.log("----kurtosis");
-  console.log(table.value.kurtosis);
+  const stats = new Statistics([])
+  table.value.kurtosis = stats.kurtosis(values).toFixed(5)
+  console.log('----kurtosis')
+  console.log(table.value.kurtosis)
 }
 
 /**
@@ -166,19 +163,19 @@ function setKurtosis(values) {
  * @param {Array} property
  */
 function setTableValues(property) {
-  const values = getPropertyValues(property);
-  setMin(values);
-  setMax(values);
-  setMean(values);
-  setStd(values);
-  setMedian(values);
-  setSkewness(values);
-  setKurtosis(values);
+  const values = getPropertyValues(property)
+  setMin(values)
+  setMax(values)
+  setMean(values)
+  setStd(values)
+  setMedian(values)
+  setSkewness(values)
+  setKurtosis(values)
 }
 
 function printOut(value) {
-  console.log("--------statistics panel---------");
-  console.log(value);
+  console.log('--------statistics panel---------')
+  console.log(value)
 }
 </script>
 
@@ -253,8 +250,9 @@ function printOut(value) {
         :allow-empty="false"
         placeholder="2. select property"
         @select="
-          printOut(selectedProperty), setPropertyDataType(selectedProperty);
-          plotGraph(selectedProperty.key);
+          printOut(selectedProperty),
+            setPropertyDataType(selectedProperty),
+            plotGraph(selectedProperty.key)
         "
       >
       </VueMultiselect>

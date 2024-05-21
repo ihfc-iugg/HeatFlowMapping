@@ -1,24 +1,24 @@
 <script setup>
-import { defineProps } from "vue";
+import { defineProps } from 'vue'
 
-import { Map } from "maplibre-gl";
+import { Map } from 'maplibre-gl'
 
-import { useSettingsStore } from "@/store/settings";
-import { useBaseMapsStore } from "@/store/baseMaps";
+import { useSettingsStore } from '@/store/settings'
+import { useBaseMapsStore } from '@/store/baseMaps'
 
-const settings = useSettingsStore();
-const bm = useBaseMapsStore();
+const settings = useSettingsStore()
+const bm = useBaseMapsStore()
 
-const props = defineProps({ map: Map });
+const props = defineProps({ map: Map })
 
 function changeBaseLayer(oldBaseLayer, newBaseLayer) {
   // change base map on click
   if (newBaseLayer == oldBaseLayer) {
-    return;
+    return
   } else {
-    props.map.setLayoutProperty(oldBaseLayer, "visibility", "none");
-    props.map.setLayoutProperty(newBaseLayer, "visibility", "visible");
-    settings.activeBaseLayer = newBaseLayer;
+    props.map.setLayoutProperty(oldBaseLayer, 'visibility', 'none')
+    props.map.setLayoutProperty(newBaseLayer, 'visibility', 'visible')
+    settings.activeBaseLayer = newBaseLayer
   }
 }
 </script>
@@ -60,11 +60,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
           :key="baseMap.id"
           @click="changeBaseLayer(settings.activeBaseLayer, baseMap.id)"
         >
-          <img
-            class="card-img-top"
-            :src="baseMap.cardImage"
-            alt="Card image cap"
-          />
+          <img class="card-img-top" :src="baseMap.cardImage" alt="Card image cap" />
           <p class="text-center">{{ baseMap.title }}</p>
         </div>
       </div>

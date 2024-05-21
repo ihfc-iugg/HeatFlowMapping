@@ -1,21 +1,21 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-import * as SwaggerParser from "@apidevtools/swagger-parser";
-import axios from "axios";
-import gjv from "geojson-validation";
+import $RefParser from '@apidevtools/json-schema-ref-parser'
+import axios from 'axios'
+import gjv from 'geojson-validation'
 
-export const useMeasurementStore = defineStore("measurements", () => {
+export const useMeasurementStore = defineStore('measurements', () => {
   /**
    * ref()s become state properties
    * computed()s become getters
    * function()s become actions
    */
-  const geojson = ref(null);
-  const dataSchema = ref(null);
-  const selectableProperties = ref(null);
-  const isDataLoading = ref(null);
-  const isSchemaLoading = ref(null);
+  const geojson = ref(null)
+  const dataSchema = ref(null)
+  const selectableProperties = ref(null)
+  const isDataLoading = ref(null)
+  const isSchemaLoading = ref(null)
 
   /**
    * @description
@@ -23,18 +23,18 @@ export const useMeasurementStore = defineStore("measurements", () => {
    */
   async function fetchAPIDataSchema(url) {
     //   /api/v1/schema/
-    isSchemaLoading.value = true;
-    console.log("API Data Schema");
+    isSchemaLoading.value = true
+    console.log('API Data Schema')
+
     try {
-      let parser = new SwaggerParser();
-      await parser.dereference(url).then((apiSchema) => {
-        dataSchema.value = apiSchema.components.schemas.Measurement;
-        console.log(dataSchema.value);
-        setSelectableProperties();
-        isSchemaLoading.value = false;
-      });
-    } catch (e) {
-      console.log("error in fetching data schema" + e);
+      await $RefParser.dereference(url).then((apiSchema) => {
+        dataSchema.value = apiSchema.components.schemas.Measurement
+        console.log(dataSchema.value)
+        setSelectableProperties()
+        isSchemaLoading.value = false
+      })
+    } catch (error) {
+      console.log('Error in dereferencing api schema: ' + error)
     }
   }
 
@@ -45,25 +45,25 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @returns {Array}
    */
   async function fetchPagedAPIData(url, data) {
-    data = data || [];
+    data = data || []
 
     await axios
       .get(url)
       .then((response) => {
         response.data.results.forEach((entry) => {
-          data.push(entry);
-        });
+          data.push(entry)
+        })
 
         if (response.data.next != null) {
-          return fetchPagedAPIData(response.data.next, data);
+          return fetchPagedAPIData(response.data.next, data)
         }
-        return data;
+        return data
       })
       .catch((err) => {
-        console.log("rejected", err);
-      });
+        console.log('rejected', err)
+      })
 
-    return data;
+    return data
   }
 
   /**
@@ -71,23 +71,23 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @param {Object} siteObject
    */
   function collectPntAttributes(siteObject) {
-    const featKeys = Object.keys(siteObject);
+    const featKeys = Object.keys(siteObject)
 
-    let coord = null;
-    let property = {};
+    let coord = null
+    let property = {}
 
     featKeys.forEach((key) => {
-      if (key == "sample") {
+      if (key == 'sample') {
         if (siteObject[key].location != null) {
-          coord = siteObject[key].location.point;
+          coord = siteObject[key].location.point
         }
       } else {
         // console.log("hat keine location");
-        property[key] = siteObject[key];
+        property[key] = siteObject[key]
       }
-    });
+    })
 
-    return [coord, property];
+    return [coord, property]
   }
 
   /**
@@ -99,15 +99,15 @@ export const useMeasurementStore = defineStore("measurements", () => {
   function writePntFeature(pntAttributes) {
     const feature = {
       id: pntAttributes[1].id,
-      type: "Feature",
+      type: 'Feature',
       geometry: pntAttributes[0],
-      properties: pntAttributes[1],
-    };
+      properties: pntAttributes[1]
+    }
 
     if (gjv.isFeature(feature, true)) {
-      return feature;
+      return feature
     } else {
-      console.log(gjv.isFeature(feature, true));
+      console.log(gjv.isFeature(feature, true))
     }
   }
 
@@ -117,30 +117,30 @@ export const useMeasurementStore = defineStore("measurements", () => {
    */
   function convertAPIData2GeoJSON(url) {
     return fetchPagedAPIData(url).then((value) => {
-      console.log("measurments");
-      console.log(value);
+      console.log('measurments')
+      console.log(value)
 
-      let featuresArray = [];
+      let featuresArray = []
 
       value.forEach((siteObject) => {
         // console.log(siteObject);
-        const pntAttributes = collectPntAttributes(siteObject);
-        featuresArray.push(writePntFeature(pntAttributes));
-      });
+        const pntAttributes = collectPntAttributes(siteObject)
+        featuresArray.push(writePntFeature(pntAttributes))
+      })
 
       const featureCollection = {
-        type: "FeatureCollection",
-        features: featuresArray,
-      };
+        type: 'FeatureCollection',
+        features: featuresArray
+      }
 
       if (gjv.isFeatureCollection(featureCollection)) {
-        console.log("inside async func");
-        console.log(featureCollection);
-        return featureCollection;
+        console.log('inside async func')
+        console.log(featureCollection)
+        return featureCollection
       } else {
-        console.log(gjv.isFeatureCollection(featureCollection, true));
+        console.log(gjv.isFeatureCollection(featureCollection, true))
       }
-    });
+    })
   }
 
   /**
@@ -148,9 +148,9 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @param {String} url
    */
   async function fetchAPIData(url) {
-    isDataLoading.value = true;
-    geojson.value = await convertAPIData2GeoJSON(url);
-    isDataLoading.value = false;
+    isDataLoading.value = true
+    geojson.value = await convertAPIData2GeoJSON(url)
+    isDataLoading.value = false
   }
 
   /**
@@ -159,28 +159,28 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @returns {Boolean}
    */
   function isPropertySelectable(property) {
-    let isSelectable = null;
+    let isSelectable = null
 
     if (
-      dataSchema.value.properties[property].type == "string" &&
+      dataSchema.value.properties[property].type == 'string' &&
       !dataSchema.value.properties[property].enum
     ) {
-      console.log(property + " is not suitable for data driven coloring");
-      isSelectable = false;
+      console.log(property + ' is not suitable for data driven coloring')
+      isSelectable = false
     } else if (
-      dataSchema.value.properties[property].type == "integer" &&
+      dataSchema.value.properties[property].type == 'integer' &&
       (!dataSchema.value.properties[property].minimum ||
         !dataSchema.value.properties[property].maximum)
     ) {
-      console.log(property + " is not suitable for data driven coloring");
-      isSelectable = false;
-    } else if (dataSchema.value.properties[property].type == "object") {
-      console.log(property + " is not suitable for data driven coloring");
-      isSelectable = false;
+      console.log(property + ' is not suitable for data driven coloring')
+      isSelectable = false
+    } else if (dataSchema.value.properties[property].type == 'object') {
+      console.log(property + ' is not suitable for data driven coloring')
+      isSelectable = false
     } else {
-      isSelectable = true;
+      isSelectable = true
     }
-    return isSelectable;
+    return isSelectable
   }
 
   /**
@@ -189,12 +189,12 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @returns {Object}
    */
   function createVueMultiselectOption(propertyName) {
-    const propertyObj = dataSchema.value.properties[propertyName];
-    let optionsObject = {};
-    optionsObject["title"] = propertyObj.title;
-    optionsObject["key"] = propertyName;
+    const propertyObj = dataSchema.value.properties[propertyName]
+    let optionsObject = {}
+    optionsObject['title'] = propertyObj.title
+    optionsObject['key'] = propertyName
 
-    return optionsObject;
+    return optionsObject
   }
 
   /**
@@ -203,18 +203,18 @@ export const useMeasurementStore = defineStore("measurements", () => {
    * @returns {Array}
    */
   function setSelectableProperties() {
-    const propertiesKey = Object.keys(dataSchema.value.properties);
-    let selection = [];
+    const propertiesKey = Object.keys(dataSchema.value.properties)
+    let selection = []
 
     propertiesKey.forEach((propertyName) => {
       if (isPropertySelectable(propertyName)) {
-        selection.push(createVueMultiselectOption(propertyName));
+        selection.push(createVueMultiselectOption(propertyName))
       }
-    });
+    })
 
-    selectableProperties.value = selection;
-    console.log("check selectable properties");
-    console.log(selectableProperties.value);
+    selectableProperties.value = selection
+    console.log('check selectable properties')
+    console.log(selectableProperties.value)
   }
 
   return {
@@ -224,6 +224,6 @@ export const useMeasurementStore = defineStore("measurements", () => {
     isDataLoading,
     isSchemaLoading,
     fetchAPIData,
-    fetchAPIDataSchema,
-  };
-});
+    fetchAPIDataSchema
+  }
+})

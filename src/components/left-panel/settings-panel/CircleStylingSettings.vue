@@ -1,62 +1,56 @@
 <script setup>
-import { defineProps, ref, watch } from "vue";
-import { useMeasurementStore } from "@/store/measurements";
-import { useLegendStore } from "@/store/legend";
-import { useSettingsStore } from "@/store/settings";
+import { defineProps, ref, watch } from 'vue'
+import { useMeasurementStore } from '@/store/measurements'
+import { useLegendStore } from '@/store/legend'
+import { useSettingsStore } from '@/store/settings'
 
-import VueMultiselect from "vue-multiselect";
-import {
-  CPopover,
-  CButton,
-  CFormInput,
-  CTableRow,
-  CTableDataCell,
-} from "@coreui/bootstrap-vue";
+import VueMultiselect from 'vue-multiselect'
+import { CPopover, CButton, CFormInput, CTableRow, CTableDataCell } from '@coreui/bootstrap-vue'
 
 // Extern Libraries
-import geostats from "geostats";
-import { quantileSeq } from "mathjs";
-import { Map } from "maplibre-gl";
-import colorbrewer from "colorbrewer";
+import geostats from 'geostats'
+import { quantileSeq } from 'mathjs'
+import { Map } from 'maplibre-gl'
+import colorbrewer from 'colorbrewer'
 
 // Variables
-const props = defineProps({ map: Map });
+const props = defineProps({ map: Map })
 
-const measurements = useMeasurementStore();
-const legend = useLegendStore();
-const settings = useSettingsStore();
+const measurements = useMeasurementStore()
+const legend = useLegendStore()
+const settings = useSettingsStore()
 
-const selectedProperty = ref(null);
-const selectedPropertyDataType = ref();
+const selectedProperty = ref(null)
+const selectedPropertyDataType = ref()
 
-const legalSteps = ref([3, 4, 5, 6, 7, 8, 9, 10, 11]);
-const colorSteps = ref(4);
-const colorPaletteOptions = ref(null);
-setColorPaletteOptions(colorSteps.value);
-const selectedColorPalette = ref(colorPaletteOptions.value[0]);
+const legalSteps = ref([3, 4, 5, 6, 7, 8, 9, 10, 11])
+const colorSteps = ref(4)
+const colorPaletteOptions = ref(null)
+setColorPaletteOptions(colorSteps.value)
+const selectedColorPalette = ref(colorPaletteOptions.value[0])
 
 const classificationTypes = ref([
   {
-    name: "quantil",
-    title: "Quantil",
-    desc: "Each class contains an equal number of features",
-    src: "https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_1BDD383C17164B948BF546CEADDA70E9",
+    name: 'quantil',
+    title: 'Quantil',
+    desc: 'Each class contains an equal number of features',
+    src: 'https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_1BDD383C17164B948BF546CEADDA70E9'
   },
   {
-    name: "jenks",
-    title: "Jenks",
-    desc: "Class breaks are created in a way that best groups similar values together and maximizes the differences between classes",
-    src: "https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_B47C458CFF6A4EEC933A8C7612DA558B",
-  },
-]);
-const selectedClassificationType = ref(classificationTypes.value[0]);
+    name: 'jenks',
+    title: 'Jenks',
+    desc: 'Class breaks are created in a way that best groups similar values together and maximizes the differences between classes',
+    src: 'https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_B47C458CFF6A4EEC933A8C7612DA558B'
+  }
+])
+const selectedClassificationType = ref(classificationTypes.value[0])
 
 /**
  * set new color options when amount of classes (colorSteps) is changing
  */
 watch(colorSteps, (newColorSteps) => {
-  setColorPaletteOptions(newColorSteps);
-});
+  setColorPaletteOptions(newColorSteps)
+})
 
 /**
  *
@@ -64,7 +58,7 @@ watch(colorSteps, (newColorSteps) => {
  * @description If user changes size of circles, the watch method keeps track of it and adjust it synchron
  */
 function setCircleRadius(circleRadius) {
-  props.map.setPaintProperty("sites", "circle-radius", parseInt(circleRadius));
+  props.map.setPaintProperty('sites', 'circle-radius', parseInt(circleRadius))
 }
 
 /**
@@ -73,10 +67,10 @@ function setCircleRadius(circleRadius) {
  * @returns {Void}
  */
 function setCircleColor(colorHEX) {
-  if (props.map.getPaintProperty("sites", "circle-color") == colorHEX) {
-    return;
+  if (props.map.getPaintProperty('sites', 'circle-color') == colorHEX) {
+    return
   } else {
-    props.map.setPaintProperty("sites", "circle-color", colorHEX);
+    props.map.setPaintProperty('sites', 'circle-color', colorHEX)
   }
 }
 
@@ -86,20 +80,20 @@ function setCircleColor(colorHEX) {
  */
 function setColorPaletteOptions(classes) {
   if (classes >= 12) {
-    console.log("Number of classes out of range");
-    return;
+    console.log('Number of classes out of range')
+    return
   }
-  let schemaGroup = [];
+  let schemaGroup = []
 
   colorbrewer.schemeGroups.diverging.forEach((schema) => {
     const value = {
       name: schema,
-      colors: colorbrewer[schema][classes],
-    };
-    schemaGroup.push(value);
-  });
+      colors: colorbrewer[schema][classes]
+    }
+    schemaGroup.push(value)
+  })
 
-  colorPaletteOptions.value = schemaGroup;
+  colorPaletteOptions.value = schemaGroup
 }
 
 /**
@@ -107,8 +101,7 @@ function setColorPaletteOptions(classes) {
  * @param {Object} property
  */
 function setPropertyDataType(property) {
-  selectedPropertyDataType.value =
-    measurements.dataSchema.properties[property.key].type;
+  selectedPropertyDataType.value = measurements.dataSchema.properties[property.key].type
 }
 
 /**
@@ -117,19 +110,17 @@ function setPropertyDataType(property) {
  * @returns {Array}
  */
 function getEnumClasses(enumProperty) {
-  let classes = [];
+  let classes = []
 
-  measurements.dataSchema.properties[enumProperty].oneOf.forEach(
-    (enumSchema) => {
-      enumSchema.enum.forEach((enumClass) => {
-        if (enumClass) {
-          classes.push(enumClass);
-        }
-      });
-    }
-  );
+  measurements.dataSchema.properties[enumProperty].oneOf.forEach((enumSchema) => {
+    enumSchema.enum.forEach((enumClass) => {
+      if (enumClass) {
+        classes.push(enumClass)
+      }
+    })
+  })
 
-  return classes;
+  return classes
 }
 
 /**
@@ -139,11 +130,11 @@ function getEnumClasses(enumProperty) {
  * @returns {Array} [minValue, break1, ..., breakN, maxValue]
  */
 function getJenksNaturalBreaks(geoJson, property, steps) {
-  const values = propertyValuesToArray(geoJson, property).filter(Boolean);
-  let classifier = new geostats(values);
-  let breaks = classifier.getJenks(steps);
+  const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+  let classifier = new geostats(values)
+  let breaks = classifier.getJenks(steps)
 
-  return breaks;
+  return breaks
 }
 
 /**
@@ -153,13 +144,13 @@ function getJenksNaturalBreaks(geoJson, property, steps) {
  * @returns {Array}
  */
 function propertyValuesToArray(geoJson, property) {
-  let values = [];
+  let values = []
 
   geoJson.features.forEach((feature) => {
-    values.push(feature.properties[property]);
-  });
+    values.push(feature.properties[property])
+  })
 
-  return values;
+  return values
 }
 
 /**
@@ -170,16 +161,16 @@ function propertyValuesToArray(geoJson, property) {
  * @returns {Array}
  */
 function getQuantilBreaks(geoJson, property, steps) {
-  const values = propertyValuesToArray(geoJson, property).filter(Boolean);
-  const breaks = quantileSeq(values, steps - 1);
+  const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+  const breaks = quantileSeq(values, steps - 1)
 
   // add min value to beginning of array
-  breaks.unshift(Math.min.apply(null, values));
+  breaks.unshift(Math.min.apply(null, values))
 
   // add max value to end of array
-  breaks.push(Math.max.apply(null, values));
+  breaks.push(Math.max.apply(null, values))
 
-  return breaks;
+  return breaks
 }
 
 /**
@@ -190,18 +181,10 @@ function getQuantilBreaks(geoJson, property, steps) {
  * @returns {Array} [minValue, break1, ..., breakN, maxValue]
  */
 function getNumberBreaks(property) {
-  if (selectedClassificationType.value.name == "jenks") {
-    return getJenksNaturalBreaks(
-      props.map.getSource("sites")._data,
-      property,
-      colorSteps.value
-    );
+  if (selectedClassificationType.value.name == 'jenks') {
+    return getJenksNaturalBreaks(props.map.getSource('sites')._data, property, colorSteps.value)
   } else {
-    return getQuantilBreaks(
-      props.map.getSource("sites")._data,
-      property,
-      colorSteps.value
-    );
+    return getQuantilBreaks(props.map.getSource('sites')._data, property, colorSteps.value)
   }
 }
 
@@ -213,19 +196,19 @@ function getNumberBreaks(property) {
  * @returns {Array} ["match", ["get", "property"], class, #color, ..., #colorOthers] --> https://docs.mapbox.com/mapbox-gl-js/example/data-driven-circle-colors/
  */
 function generateEnumPaintProperty(property, classes, colors) {
-  let paintProperty = [];
+  let paintProperty = []
 
-  paintProperty.push("match");
-  paintProperty.push(["get", property]);
+  paintProperty.push('match')
+  paintProperty.push(['get', property])
 
   classes.forEach((value, index) => {
-    paintProperty.push(value, colors[index]);
-  });
+    paintProperty.push(value, colors[index])
+  })
 
   // others
-  paintProperty.push("#ccc");
+  paintProperty.push('#ccc')
 
-  return paintProperty;
+  return paintProperty
 }
 
 /**
@@ -236,21 +219,21 @@ function generateEnumPaintProperty(property, classes, colors) {
  * @returns {Array} ["step", ["get", "property"], #color, NUMBER, #color, ...]
  */
 function generateContinuousPaintProperty(property, classes, colors) {
-  let paintProperty = [];
-  let k = 1;
+  let paintProperty = []
+  let k = 1
 
-  paintProperty.push("step");
-  paintProperty.push(["get", property]);
+  paintProperty.push('step')
+  paintProperty.push(['get', property])
 
   for (var i = 0; i < colors.length; i++) {
-    paintProperty.push(colors[i]);
+    paintProperty.push(colors[i])
     if (i < colors.length - 1) {
-      paintProperty.push(classes[k]);
-      k++;
+      paintProperty.push(classes[k])
+      k++
     }
   }
 
-  return paintProperty;
+  return paintProperty
 }
 
 /**
@@ -259,40 +242,34 @@ function generateContinuousPaintProperty(property, classes, colors) {
  */
 function dataDrivenColorisation() {
   if (!selectedProperty.value) {
-    console.error("no property selected");
-  } else if (selectedPropertyDataType.value == "number") {
+    console.error('no property selected')
+  } else if (selectedPropertyDataType.value == 'number') {
     // TODO: Fallunterscheidung Sequential/Diverging
     // handling properties of data type number
-    let classes = getNumberBreaks(selectedProperty.value.key);
+    let classes = getNumberBreaks(selectedProperty.value.key)
     const paintProperty = generateContinuousPaintProperty(
       selectedProperty.value.key,
       classes,
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
-    );
-    props.map.setPaintProperty("sites", "circle-color", paintProperty);
-    legend.setLegendObject(
-      classes,
-      colorbrewer[selectedColorPalette.value.name][colorSteps.value]
-    );
+    )
+    props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == undefined) {
     // TODO: Qualitativ Farbpalette
     // handling properties of data type string + enum
-    let classes = getEnumClasses(selectedProperty.value.key);
-    colorSteps.value = classes.length;
+    let classes = getEnumClasses(selectedProperty.value.key)
+    colorSteps.value = classes.length
     const paintProperty = generateEnumPaintProperty(
       selectedProperty.value.key,
       classes,
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
-    );
-    props.map.setPaintProperty("sites", "circle-color", paintProperty);
-    legend.setLegendObject(
-      classes,
-      colorbrewer[selectedColorPalette.value.name][colorSteps.value]
-    );
-  } else if (selectedPropertyDataType.value == "boolean") {
+    )
+    props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
+  } else if (selectedPropertyDataType.value == 'boolean') {
     // TODO: generateBooleanPaintProperty() method
-    console.log(selectedProperty.value.key + " is boolean");
-    return;
+    console.log(selectedProperty.value.key + ' is boolean')
+    return
   }
 }
 </script>
@@ -430,9 +407,7 @@ function dataDrivenColorisation() {
         label="title"
         placeholder="Property"
         :allow-empty="false"
-        @select="
-          setPropertyDataType(selectedProperty), dataDrivenColorisation()
-        "
+        @select="setPropertyDataType(selectedProperty), dataDrivenColorisation()"
       >
       </VueMultiselect>
       <!-- Select classification method for number values -->
@@ -462,9 +437,7 @@ function dataDrivenColorisation() {
                   fill="currentColor"
                   class="bi bi-info-circle"
                 >
-                  <path
-                    d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
-                  />
+                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
                   <path
                     d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
                   />

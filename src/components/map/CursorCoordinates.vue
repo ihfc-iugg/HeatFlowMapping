@@ -1,24 +1,24 @@
 <!-- Show coordinates of cursor position on map -->
 <script setup>
-import { ref } from "vue";
-import { defineProps } from "vue";
-import { watch } from "vue";
-import { Map } from "maplibre-gl";
+import { ref } from 'vue'
+import { defineProps } from 'vue'
+import { watch } from 'vue'
+import { Map } from 'maplibre-gl'
 
-const props = defineProps({ map: Map });
-const map = ref(props.map);
+const props = defineProps({ map: Map })
+const map = ref(props.map)
 
-const lat = ref();
-const lng = ref();
+const lat = ref()
+const lng = ref()
 
 watch(props, (newProps) => {
-  map.value = newProps.map;
+  map.value = newProps.map
 
-  map.value.on("mousemove", function (e) {
-    lat.value = e.lngLat.wrap().lat.toFixed(5);
-    lng.value = e.lngLat.wrap().lng.toFixed(5);
-  });
-});
+  map.value.on('mousemove', function (e) {
+    lat.value = e.lngLat.wrap().lat.toFixed(5)
+    lng.value = e.lngLat.wrap().lng.toFixed(5)
+  })
+})
 </script>
 
 <template>

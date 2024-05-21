@@ -1,16 +1,16 @@
-import { defineStore } from "pinia";
-import { ref } from "vue";
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
 
-export const useFilterStore = defineStore("filter", () => {
+export const useFilterStore = defineStore('filter', () => {
   /**
    * ref()s become state properties
    * computed()s become getters
    * function()s become actions
    */
   // const filterIDs = ref([]);
-  const filters = ref({ attributeFilter: {}, locationFilter: {} });
-  const maxAttributeFilter = ref(10);
-  const reachedLimit = ref(false);
+  const filters = ref({ attributeFilter: {}, locationFilter: {} })
+  const maxAttributeFilter = ref(10)
+  const reachedLimit = ref(false)
 
   /**
    *
@@ -21,8 +21,8 @@ export const useFilterStore = defineStore("filter", () => {
       selectedProperty: null,
       selectedPropertyType: null,
       selectedValues: null,
-      expression: null,
-    };
+      expression: null
+    }
   }
 
   /**
@@ -30,20 +30,17 @@ export const useFilterStore = defineStore("filter", () => {
    * @param {*} filterId
    */
   function addFilter(filterId, category) {
-    if (category == "locationFilter") {
-      filters.value[category][filterId] = getNewFilterObject();
-      return;
+    if (category == 'locationFilter') {
+      filters.value[category][filterId] = getNewFilterObject()
+      return
     }
-    const nrAttributeFilter = Object.keys(filters.value[category]).length;
-    if (
-      category == "attributeFilter" &&
-      nrAttributeFilter < maxAttributeFilter.value
-    ) {
-      filters.value[category][filterId] = getNewFilterObject();
-      return;
+    const nrAttributeFilter = Object.keys(filters.value[category]).length
+    if (category == 'attributeFilter' && nrAttributeFilter < maxAttributeFilter.value) {
+      filters.value[category][filterId] = getNewFilterObject()
+      return
     } else {
-      reachedLimit.value = true;
-      console.log("You reached the maximum number of attribute filters");
+      reachedLimit.value = true
+      console.log('You reached the maximum number of attribute filters')
     }
   }
 
@@ -52,8 +49,8 @@ export const useFilterStore = defineStore("filter", () => {
    * @param {*} id
    */
   function removeFilterElement(filterId, category) {
-    delete filters.value[category][filterId];
-    reachedLimit.value = false;
+    delete filters.value[category][filterId]
+    reachedLimit.value = false
   }
 
   /**
@@ -61,29 +58,29 @@ export const useFilterStore = defineStore("filter", () => {
    * @returns {Array} containing filter expressions
    */
   function writeFilterExpression() {
-    let expression = ["all"];
+    let expression = ['all']
 
     Object.entries(filters.value).forEach(([category]) => {
       Object.entries(filters.value[category]).forEach(([key]) => {
         if (filters.value[category][key].expression != null) {
-          expression.push(filters.value[category][key].expression);
+          expression.push(filters.value[category][key].expression)
         } else {
-          console.log("Empty filterExpression for filter with key: " + key);
+          console.log('Empty filterExpression for filter with key: ' + key)
         }
-      });
-    });
-    console.log(expression);
+      })
+    })
+    console.log(expression)
 
-    return expression;
+    return expression
   }
 
   /**
    * @description set Filter to map via internal maplibre function.
    */
   function applyFilterToMap(mapObject) {
-    const expression = writeFilterExpression();
+    const expression = writeFilterExpression()
 
-    mapObject.setFilter("sites", expression);
+    mapObject.setFilter('sites', expression)
   }
 
   /**
@@ -92,30 +89,30 @@ export const useFilterStore = defineStore("filter", () => {
    * @param {*} comparatorProperty
    */
   function getUniqueFeatures(features, comparatorProperty) {
-    const uniqueIds = new Set();
-    const uniqueFeatures = [];
+    const uniqueIds = new Set()
+    const uniqueFeatures = []
     for (const feature of features) {
-      const id = feature.properties[comparatorProperty];
+      const id = feature.properties[comparatorProperty]
       if (!uniqueIds.has(id)) {
-        uniqueIds.add(id);
-        uniqueFeatures.push(feature);
+        uniqueIds.add(id)
+        uniqueFeatures.push(feature)
       }
     }
-    return uniqueFeatures;
+    return uniqueFeatures
   }
 
   /**
    *
    */
   function getFilteredFeatures(mapObject) {
-    let filterExpression = writeFilterExpression();
-    let queriedFeatures = mapObject.querySourceFeatures("sites", {
-      sourceLayer: "sites",
-      filter: filterExpression,
-    });
-    const uniqueFeatures = getUniqueFeatures(queriedFeatures, "id");
-    console.log(uniqueFeatures);
-    return uniqueFeatures;
+    let filterExpression = writeFilterExpression()
+    let queriedFeatures = mapObject.querySourceFeatures('sites', {
+      sourceLayer: 'sites',
+      filter: filterExpression
+    })
+    const uniqueFeatures = getUniqueFeatures(queriedFeatures, 'id')
+    console.log(uniqueFeatures)
+    return uniqueFeatures
   }
 
   return {
@@ -126,6 +123,6 @@ export const useFilterStore = defineStore("filter", () => {
     addFilter,
     removeFilterElement,
     applyFilterToMap,
-    getFilteredFeatures,
-  };
-});
+    getFilteredFeatures
+  }
+})

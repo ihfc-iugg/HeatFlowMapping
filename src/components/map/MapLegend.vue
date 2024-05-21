@@ -1,21 +1,13 @@
 <!-- Map Legend -->
 <script setup>
-import { ref } from "vue";
-import { useLegendStore } from "@/store/legend";
+import { ref } from 'vue'
+import { useLegendStore } from '@/store/legend'
 
-import {
-  CButton,
-  CCollapse,
-  CCard,
-  CCardBody,
-  CContainer,
-  CRow,
-  CCol,
-} from "@coreui/bootstrap-vue";
+import { CButton, CCollapse, CCard, CCardBody, CContainer, CRow, CCol } from '@coreui/bootstrap-vue'
 
-const legend = useLegendStore();
+const legend = useLegendStore()
 
-const visible = ref(false);
+const visible = ref(false)
 </script>
 
 <template>
@@ -30,15 +22,11 @@ const visible = ref(false);
       <CCollapse :visible="visible">
         <CCard class="mt-3">
           <CCardBody>
-            <CRow
-              class="align-items-start"
-              v-for="entry in legend.legend"
-              :key="entry.id"
-            >
+            <CRow class="align-items-start" v-for="entry in legend.legend" :key="entry.id">
               <CCol class="align-self-start" xs="2">
                 <CButton
                   :style="{
-                    'background-color': entry.colorHEX,
+                    'background-color': entry.colorHEX
                   }"
                   @click="visible = !visible"
                 ></CButton>

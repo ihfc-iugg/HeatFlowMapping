@@ -1,25 +1,25 @@
 <script setup>
-import { defineProps } from "vue";
-import { useFilterStore } from "@/store/filter";
-import { Map } from "maplibre-gl";
+import { defineProps } from 'vue'
+import { useFilterStore } from '@/store/filter'
+import { Map } from 'maplibre-gl'
 
-const props = defineProps({ map: Map });
+const props = defineProps({ map: Map })
 
-const filter = useFilterStore();
+const filter = useFilterStore()
 
 /**
  * @description
  */
 function downloadFeatures(data, filename) {
   const blob = new Blob([JSON.stringify(data, null, 2)], {
-    type: "application/json",
-  });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = `${filename}.geojson`;
-  a.click();
-  URL.revokeObjectURL(url);
+    type: 'application/json'
+  })
+  const url = URL.createObjectURL(blob)
+  const a = document.createElement('a')
+  a.href = url
+  a.download = `${filename}.geojson`
+  a.click()
+  URL.revokeObjectURL(url)
 }
 </script>
 
