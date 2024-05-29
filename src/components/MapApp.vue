@@ -9,6 +9,7 @@ import { Map } from 'maplibre-gl'
 // import AttributeTable from "./common/AttributeTable.vue";
 import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
 import CursorCoordinates from './map/CursorCoordinates.vue'
+import DataLoadingModal from './common/DataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
 import InfoPopup from './map/InfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
@@ -167,13 +168,8 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="map-wrap">
-    <CRow class="align-items-center">
-      <CButton v-if="measurements.isDataLoading">
-        <CSpinner component="span" size="sm" aria-hidden="true" />
-        Loading Data ...
-      </CButton>
-    </CRow>
     <div class="map" ref="mapContainer" @mousemove="updateLatLng">
+      <DataLoadingModal />
       <InfoPopup :map="map" />
       <MapLegend />
 
