@@ -1,8 +1,11 @@
 <script setup>
 import { defineProps, ref, watch } from 'vue'
-import VueMultiselect from 'vue-multiselect'
-import VueSlider from 'vue-slider-component'
+import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
+import 'vue-multiselect/dist/vue-multiselect.css'
 import { CRow, CCol } from '@coreui/bootstrap-vue'
+
+import HistogramSlider from 'vue3-histogram-slider'
+import 'vue3-histogram-slider/dist/histogram-slider.css'
 
 import { useMeasurementStore } from '@/store/measurements'
 import { useFilterStore } from '@/store/filter'
@@ -19,6 +22,7 @@ const filterElement = ref(filter.filters.attributeFilter[props.id])
  * Problem: valueOptions wird gesetzt, wenn ein property ausgewählt wird, was nicht der Fall ist, wenn filterElement bereits existiert
  */
 const valueOptions = ref(null)
+const arrayOfPropertyValues = ref(null)
 
 /**
  * @description
@@ -78,13 +82,14 @@ function getEnumClasses(enumProperty) {
  * @param {String} property
  * @returns {Array}
  */
-function propertyValuesToArray(geoJson, property) {
+function getArrayOfPropertyValues(geoJson, property) {
   let values = []
 
   geoJson.features.forEach((feature) => {
-    values.push(feature.properties[property])
+    if (feature.properties[property]) {
+      values.push(feature.properties[property])
+    }
   })
-
   return values
 }
 
@@ -95,15 +100,11 @@ function propertyValuesToArray(geoJson, property) {
  * @param {Number} steps
  * @returns {Array}
  */
-function getRange(geoJson, property) {
-  const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+function getRange(numberArray) {
+  const min = Math.floor(Math.min.apply(null, numberArray))
+  const max = Math.ceil(Math.max.apply(null, numberArray))
 
-  const min = Math.floor(Math.min.apply(null, values))
-  const max = Math.ceil(Math.max.apply(null, values))
-
-  const bounds = [min, max]
-
-  return bounds
+  return [min, max]
 }
 
 /**
@@ -115,7 +116,9 @@ function setValueOptions(selectedProperty) {
     valueOptions.value = getEnumClasses(selectedProperty)
   } else if (filterElement.value.selectedPropertyType == 'number') {
     const geoJson = measurements.geojson
-    valueOptions.value = getRange(geoJson, selectedProperty)
+    arrayOfPropertyValues.value = getArrayOfPropertyValues(geoJson, selectedProperty)
+    valueOptions.value = getRange(arrayOfPropertyValues.value)
+    console.log('value')
     filterElement.value.selectedValues = [valueOptions.value[0], valueOptions.value[1]]
   } else {
     console.log('Data type of property is not defined')
@@ -235,20 +238,28 @@ function setFilterExpression(property, values) {
           </VueMultiselect>
         </div>
 
-        <!-- 
-        Slider:
-        https://www.npmjs.com/package/vue-slider-component 
-        -->
         <div class="slider" v-if="filterElement.selectedPropertyType === 'number'">
-          <vue-slider
+          <HistogramSlider
             v-model="filterElement.selectedValues"
+            :bar-height="100"
+            :data="arrayOfPropertyValues"
             :min="valueOptions[0]"
             :max="valueOptions[1]"
-            :interval="0.01"
+            :barGap="3"
+            :resettable="true"
+            style="width: 100%"
             @change="
-              setFilterExpression(filterElement.selectedProperty.key, filterElement.selectedValues)
+              (filterElement.selectedValues[0] = $event.from),
+                (filterElement.selectedValues[1] = $event.to)
             "
-          ></vue-slider>
+            @finish="
+              console.log('from: ' + $event.from + '; to: ' + $event.to),
+                setFilterExpression(
+                  filterElement.selectedProperty.key,
+                  filterElement.selectedValues
+                )
+            "
+          />
 
           <!-- TODO: Include null value OR select only null values as filter criteria -->
         </div>
@@ -277,8 +288,6 @@ function setFilterExpression(property, values) {
 </template>
 
 <style scoped>
-@import 'vue-multiselect/dist/vue-multiselect.css';
-@import 'vue-slider-component/theme/default.css';
 .filter-element {
   border-bottom: 4px inset;
 }
