@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     define: {
       'process.env': env
     },
-    assetsInclude: ['**/*.yaml'],
+    assetsInclude: ['**/*.yaml', '**/*.geojson'],
     plugins: [vue(), VueDevTools()],
     resolve: {
       alias: {
