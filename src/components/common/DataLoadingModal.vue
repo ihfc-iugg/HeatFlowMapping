@@ -1,14 +1,5 @@
 <script setup>
-import {
-  CButton,
-  CModal,
-  CModalBody,
-  CRow,
-  CSpinner,
-  CModalHeader,
-  CModalTitle,
-  CModalFooter
-} from '@coreui/bootstrap-vue'
+import { CButton, CModal, CModalBody, CRow, CSpinner, CCol } from '@coreui/bootstrap-vue'
 import { ref } from 'vue'
 import { useMeasurementStore } from '@/store/measurements'
 
@@ -18,19 +9,29 @@ const measurements = useMeasurementStore()
 </script>
 
 <template>
+  <!-- 
+    :visible="measurments.isDataLoading" 
+    shows Modal while data is loading
+  -->
   <CModal
     class="show d-block align-middle"
+    :size="sm"
     :backdrop="static"
     transition="true"
     :alignment="center"
     :visible="false"
   >
     <CModalBody>
-      <CRow class="align-items-center">
-        <CButton>
+      <CRow class="d-flex justify-content-center">
+        <CCol class="col-auto">
           <CSpinner component="span" size="sm" aria-hidden="true" />
-          Loading Data ...
-        </CButton>
+        </CCol>
+        <CCol class="col-auto"><p class="h6 my-auto">Loading Data ...</p></CCol>
+      </CRow>
+      <CRow>
+        <CCol class="d-flex justify-content-center">
+          <p class="mx-auto my-auto">The initial loading might take a few seconds</p>
+        </CCol>
       </CRow>
     </CModalBody>
   </CModal>
