@@ -13,6 +13,7 @@ export const useMeasurementStore = defineStore('measurements', () => {
    */
   const geojson = ref(null)
   const dataSchema = ref(null)
+  const dataVersion = ref(null)
   const selectableProperties = ref(null)
   const isDataLoading = ref(null)
   const isSchemaLoading = ref(null)
@@ -30,6 +31,8 @@ export const useMeasurementStore = defineStore('measurements', () => {
       await $RefParser.dereference(url).then((apiSchema) => {
         dataSchema.value = apiSchema.components.schemas.Measurement
         console.log(dataSchema.value)
+        dataVersion.value = 'ghfdb' + apiSchema.info.version
+        console.log(dataVersion.value)
         setSelectableProperties()
         isSchemaLoading.value = false
       })
@@ -149,7 +152,17 @@ export const useMeasurementStore = defineStore('measurements', () => {
    */
   async function fetchAPIData(url) {
     isDataLoading.value = true
-    geojson.value = await convertAPIData2GeoJSON(url)
+    try {
+      if (!localStorage.getItem(dataVersion)) {
+        geojson.value = await convertAPIData2GeoJSON(url)
+        localStorage.setItem(dataVersion, geojson)
+      } else {
+        geojson.value = localStorage.getItem(dataVersion)
+        console.log('Data release in localStorage is uptodate')
+      }
+    } catch (error) {
+      console.log('Data fetching: ' + error)
+    }
     isDataLoading.value = false
   }
 
