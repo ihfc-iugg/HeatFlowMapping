@@ -11,10 +11,10 @@ const visible = ref(false)
 </script>
 
 <template>
-  <div class="legend-container" v-if="legend.legend">
+  <div class="dropup legend-container" v-if="legend.legend">
     <CContainer>
       <CButton
-        class="position-absolute top-0 end-0 translate-middle btn btn-sm btn-primary"
+        class="position-absolute top-0 end-0 translate-middle btn btn-sm btn-primary dropdown-toggle"
         color="primary"
         @click="visible = !visible"
         >Legend</CButton
