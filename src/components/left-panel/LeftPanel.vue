@@ -7,7 +7,9 @@ import {
   COffcanvasHeader,
   COffcanvasTitle,
   CCloseButton,
-  COffcanvasBody
+  COffcanvasBody,
+  CRow,
+  CCol
 } from '@coreui/bootstrap-vue'
 
 import SettingsPanel from './settings-panel/SettingsPanel.vue'
@@ -19,6 +21,7 @@ import { Map } from 'maplibre-gl'
 
 const props = defineProps({
   title: String,
+  icon: String,
   map: Map
 })
 
@@ -27,11 +30,15 @@ const emit = defineEmits(['collapse-event', 'toggle-event'])
 
 <template>
   <COffcanvasHeader class="bg-primary">
-    <COffcanvasTitle class="text-white">{{ props.title }}</COffcanvasTitle>
-    <CCloseButton
-      class="text-reset text-primary"
-      @click="emit('collapse-event'), emit('toggle-event')"
-    />
+    <CRow>
+      <CCol><div class="text-white col-md-auto" v-html="props.icon"></div></CCol>
+      <CCol class="col-md-auto"
+        ><COffcanvasTitle class="text-white">
+          {{ props.title }}
+        </COffcanvasTitle></CCol
+      >
+    </CRow>
+    <CCloseButton white class="text-reset" @click="emit('collapse-event'), emit('toggle-event')" />
   </COffcanvasHeader>
   <COffcanvasBody>
     <KeepAlive>

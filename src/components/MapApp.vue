@@ -6,10 +6,9 @@ import { onMounted, onUnmounted, markRaw, ref } from 'vue'
 import { Map } from 'maplibre-gl'
 
 // components
-// import AttributeTable from "./common/AttributeTable.vue";
 import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
 import CursorCoordinates from './map/CursorCoordinates.vue'
-import DataLoadingModal from './common/DataLoadingModal.vue'
+import DataLoadingModal from './map/DataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
 import InfoPopup from './map/InfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
@@ -19,8 +18,10 @@ import { useMapControlsStore } from '@/store/mapControls'
 import { useSettingsStore } from '@/store/settings'
 import { useBaseMapsStore } from '@/store/baseMaps'
 import { useMapAppConfig } from '@/store/mapAppConfig'
+import { useNavigationBarStore } from '@/store/navigationBar'
 
-import dataURL from '@/assets/data/heatflow_sample_data.json'
+// import dataURL from '@/assets/data/heatflow_sample_data.json'
+import dataURL from '@/assets/data/parent_elements.json'
 import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
 
 const measurements = useMeasurementStore()
@@ -36,8 +37,9 @@ mapAppConfig.printOutMapAppConfig()
 
 const mapContainer = ref()
 const map = ref()
-const navbarTitles = ref(['Settings', 'Filter', 'Statistics', 'Analysis']) // TODO: change to object and add key with bootstrap related icon class https://icons.getbootstrap.com/
-const panelTitle = ref('')
+const navBar = useNavigationBarStore()
+const panelTitle = ref(null)
+const panelIcon = ref(null)
 
 const isCollapsed = ref(true)
 const visibleScrolling = ref(false)
@@ -48,8 +50,16 @@ const setIsCollapsed = () => (isCollapsed.value = !isCollapsed.value)
  * @description get title of corresponding button and set it as title of sidepanel
  * @param {*} event
  */
-function setPanelTitle(event) {
-  panelTitle.value = event.srcElement.innerHTML
+function setPanelTitle(title) {
+  panelTitle.value = title
+}
+
+/**
+ *
+ * @param {String} htmlIcon
+ */
+function setPanelIcon(htmlIcon) {
+  panelIcon.value = htmlIcon
 }
 
 /**
@@ -107,6 +117,7 @@ onMounted(() => {
       mapId: 'map_1',
       container: mapContainer.value,
       attributionControl: true,
+      zoom: 3,
       style: {
         version: 8,
         sources: setBaseMapsSource(),
@@ -123,12 +134,14 @@ onMounted(() => {
     map.value.addControl(mapControls.navigation, 'top-right')
     map.value.addControl(mapControls.mapboxDraw)
 
+    console.log(map.value)
+
     // add data source
-    // try {
-    //   await measurements.fetchAPIData(mapAppConfig.dataUrl);
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    try {
+      await measurements.fetchAPIData(dataURL)
+    } catch (error) {
+      console.log(error)
+    }
 
     // measurements.fetchAPIDataSchema(mapAppConfig.schemaUrl);
 
@@ -178,18 +191,20 @@ function toggleVisibleScrolling() {
         <CButtonGroup role="group" aria-label="Basic example">
           <CButton
             color="primary"
-            v-for="title in navbarTitles"
-            :key="title"
+            v-for="item in navBar.navigationElements"
+            :key="item.title"
+            panelTitle="{item.title}"
             @click="
-              isCollapsed ? setPanelTitle($event) : 0,
+              isCollapsed ? setPanelTitle(item.title) : 0,
+                setPanelIcon(item.svgElement),
                 // toggleSidebar(),
                 setIsCollapsed(),
                 toggleVisibleScrolling()
             "
             type="button"
             class="btn btn-primary"
-          >
-            {{ title }}
+            ><div v-html="item.svgElement"></div>
+            {{ item.title }}
           </CButton>
         </CButtonGroup>
 
@@ -206,42 +221,22 @@ function toggleVisibleScrolling() {
         >
           <LeftPanel
             :title="panelTitle"
+            :icon="panelIcon"
             :map="map"
             @collapse-event="setIsCollapsed()"
             @toggle-event="toggleVisibleScrolling()"
           />
         </COffcanvas>
-
-        <div class="cursor-div">
-          <CursorCoordinates :map="map" />
-        </div>
+        <CursorCoordinates :map="map" />
       </div>
-
-      <!-- <div class="trigger-data-table">
-        <button
-          type="button"
-          class="btn-trigger-data-table btn btn-primary"
-          @click="
-            toggleDataTable();
-            printHeatFlowSchema();
-          "
-        >
-          Show Data Table
-        </button>
-      </div> -->
     </div>
   </div>
-  <!-- <AttributeTable
-    v-if="showsDataTable"
-    @toggle-dt-event="toggleDataTable()"
-    :map="map"
-  /> -->
 </template>
 
 <style scoped>
-@import url('maplibre-gl/dist/maplibre-gl.css');
-@import url('@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css');
-
+.offcanvas {
+  --bs-offcanvas-width: 600px;
+}
 .map-wrap {
   position: absolute;
   width: 100%;
@@ -249,7 +244,6 @@ function toggleVisibleScrolling() {
 }
 
 .map {
-  /* position: relative; */
   width: 100%;
   height: 100%;
 }
@@ -259,11 +253,6 @@ function toggleVisibleScrolling() {
   width: fit-content;
   height: fit-content;
   margin: 0 auto;
-  z-index: 1;
-}
-
-.cursor-position {
-  background: rgba(255, 255, 255, 0.5);
   z-index: 1;
 }
 </style>
