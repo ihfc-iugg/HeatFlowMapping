@@ -51,7 +51,7 @@ const emit = defineEmits(['collapse-event', 'toggle-event'])
       <StatisticsPanal v-if="props.title === 'Statistics'" :map="props.map" />
     </KeepAlive>
     <KeepAlive>
-      <AnalysisPanal v-if="props.title === 'Analysis'" />
+      <AnalysisPanal v-if="props.title === 'Analysis'" :map="props.map" />
     </KeepAlive>
   </COffcanvasBody>
 </template>
