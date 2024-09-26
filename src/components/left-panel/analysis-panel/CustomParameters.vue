@@ -2,7 +2,6 @@
 import { useDigitalBoreholeStore } from '@/store/digitalBorehole'
 
 import {
-  CFormInput,
   CTable,
   CTableBody,
   CTableHead,
@@ -27,37 +26,39 @@ const dB = useDigitalBoreholeStore()
     <CTableBody>
       <CTableRow v-for="layer in dB.layers" :key="dB.layers.indexOf(layer)">
         <CTableHeaderCell scope="row">{{ dB.layers.indexOf(layer) + 1 }}</CTableHeaderCell>
-        <CTableDataCell
-          ><CFormInput
-            :id="dB.layers.indexOf(layer)"
-            placeholder="Thickness"
-            aria-label="Thickness"
-            aria-describedby="basic-addon1"
-            v-model.number="layer.dZ"
-            type="number"
-            @input="console.log('layer ' + dB.layers.indexOf(layer) + '; dZ: ' + layer.dZ)"
-          />
+        <CTableDataCell>
+          <div class="input-group mb-3">
+            <input
+              :id="dB.layers.indexOf(layer)"
+              class="form-control"
+              v-model.number="layer.dZ"
+              type="number"
+              step="1"
+            />
+          </div>
         </CTableDataCell>
-        <CTableDataCell
-          ><CFormInput
-            :id="dB.layers.indexOf(layer)"
-            placeholder="Heat Production"
-            aria-label="Heat Production"
-            aria-describedby="basic-addon1"
-            v-model.number="layer.a"
-            type="number"
-            @input="console.log('layer ' + dB.layers.indexOf(layer) + '; a: ' + layer.a)"
-        /></CTableDataCell>
-        <CTableDataCell
-          ><CFormInput
-            :id="dB.layers.indexOf(layer)"
-            placeholder="Thermal Conductivity"
-            aria-label="Thermal Conductivity"
-            aria-describedby="basic-addon1"
-            v-model.number="layer.k"
-            type="number"
-            @input="console.log('layer ' + dB.layers.indexOf(layer) + '; k: ' + layer.k)"
-        /></CTableDataCell>
+        <CTableDataCell>
+          <div class="input-group mb-3">
+            <input
+              :id="dB.layers.indexOf(layer)"
+              class="form-control"
+              v-model.number="layer.a"
+              type="number"
+              step="0.01"
+            />
+          </div>
+        </CTableDataCell>
+        <CTableDataCell>
+          <div class="input-group mb-3">
+            <input
+              :id="dB.layers.indexOf(layer)"
+              class="form-control"
+              v-model.number="layer.k"
+              type="number"
+              step="0.01"
+            />
+          </div>
+        </CTableDataCell>
       </CTableRow>
     </CTableBody>
   </CTable>
