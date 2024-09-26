@@ -3,27 +3,22 @@ import { ref, defineProps, watch } from 'vue'
 import { Map } from 'maplibre-gl'
 import * as turf from '@turf/turf'
 import { newPlot } from 'plotly.js-dist'
-import datapoints from '@/assets/data/heatflow_sample_data.json'
 import { useMapControlsStore } from '@/store/mapControls.js'
 import { useDigitalBoreholeStore } from '@/store/digitalBorehole'
 import { useMeasurementStore } from '@/store/measurements.js'
-import {
-  CTable,
-  CTableHead,
-  CTableBody,
-  CTableHeaderCell,
-  CTableRow,
-  CTableDataCell,
-  CTooltip
-} from '@coreui/bootstrap-vue'
+import { useSettingsStore } from '@/store/settings.js'
+import { CTooltip } from '@coreui/bootstrap-vue'
 import CustomParameters from '@/components/left-panel/analysis-panel/CustomParameters.vue'
+import AboutBootstrapping from '@/components/left-panel/analysis-panel/AboutBootstrapping.vue'
 
 const props = defineProps({ map: Map })
 const mapControls = useMapControlsStore()
 const dB = useDigitalBoreholeStore()
 const measurements = useMeasurementStore()
-const dataSchema = ref(measurements.dataSchema)
+const dataPoints = ref(measurements.geojson)
+const settings = useSettingsStore()
 
+const drawnReferencePnt = ref(null)
 const closestPointfeatures = ref(null)
 
 dB.setLayer(null, null, null, null, 2.3, 100, 0.029, 'sediment')
@@ -31,56 +26,127 @@ dB.setLayer(null, null, null, null, 5, 200, 0.2, 'dolomite')
 dB.setLayer(null, null, null, null, 1.4, 300, 0.003, 'anhydrite')
 dB.setLayer(null, null, null, null, 1.5, 200, 0.23, 'sample')
 
+/**
+ * triggers recalculation when users change parameters of layers
+ */
 watch(dB.layers, () => {
   dB.bootstrapping(dB.layers, 20, 10)
-  drawChart(dB.layers)
+  drawChart(dB.layers, dB.t0)
 })
 
+/**
+ * @description change mode to draw points
+ */
 function drawPoint() {
   mapControls.mapboxDraw.changeMode('draw_point')
 }
 
+/**
+ * @description trash selected point feature
+ */
 function deletePoint() {
   console.log(mapControls.mapboxDraw)
   mapControls.mapboxDraw.trash()
 }
 
-props.map.on('draw.create', (e) => {
-  console.log(mapControls.mapboxDraw)
-  if (e.features[0].geometry.type == 'Point') {
-    console.log('len features: ' + e.features.length)
-    const referencePoint = e.features[0].geometry.coordinates
-    const t0 = 20
-    let minDistance = Infinity
+/**
+ * @description deletes other drawn point features, so only one is allowed
+ * @param {String} pointToKeepID
+ */
+function deletePreviosDrawnPoints(pointToKeepID) {
+  const features = mapControls.mapboxDraw.getAll().features
 
-    datapoints.features.forEach((feature) => {
-      const neighborePooint = feature.geometry.coordinates
-      const distance = turf.distance(referencePoint, neighborePooint)
-      if (distance < minDistance) {
-        minDistance = distance
-        closestPointfeatures.value = feature
-      }
-    })
-    const q = closestPointfeatures.value.properties.q
-    dB.bootstrapping(dB.layers, t0, q)
-    drawChart(dB.layers)
-    e.features = []
-  }
-})
-
-props.map.on('draw.delete', () => {
-  closestPointfeatures.value = null
-})
-
-props.map.on('draw.update', () => {})
+  features.forEach((feature) => {
+    if (feature.geometry.type == 'Point' && feature.id != pointToKeepID) {
+      console.log('id ' + pointToKeepID)
+      mapControls.mapboxDraw.delete(feature.id)
+    }
+  })
+}
 
 /**
- *
+ * @description returns nearest point feature respectively to reference point
+ * @param {Array} referencePointCoordinates
+ * @param {Array} dataPoints
+ * @returns {Object} GeoJSON Point Feature
+ */
+function getNearestNeighbor(referencePointCoordinates, dataPoints) {
+  let minDistance = Infinity
+  let closestPoint = null
+
+  dataPoints.forEach((feature) => {
+    const pointCoordinates = feature.geometry.coordinates
+    const distance = turf.distance(referencePointCoordinates, pointCoordinates)
+    if (distance < minDistance) {
+      minDistance = distance
+      closestPoint = feature
+    }
+  })
+  return closestPoint
+}
+
+/**
+ * @description colors nearest neighbor red
+ * @param {String} pointID
+ */
+function highlightNearestNeighbor(pointID) {
+  const paintProperty = [
+    'case',
+    ['==', ['get', 'ID'], closestPointfeatures.value.properties.ID],
+    'red',
+    settings.circleColor
+  ]
+
+  props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+}
+
+/**
+ * @description sequence of functions when new point gets drawn
+ */
+props.map.on('draw.create', (e) => {
+  drawnReferencePnt.value = e.features[0]
+  deletePreviosDrawnPoints(drawnReferencePnt.value.id)
+  closestPointfeatures.value = getNearestNeighbor(
+    drawnReferencePnt.value.geometry.coordinates,
+    dataPoints.value.features
+  )
+  highlightNearestNeighbor(closestPointfeatures.value.properties.ID)
+  dB.bootstrapping(dB.layers, dB.t0, closestPointfeatures.value.properties.q)
+  drawChart(dB.layers, dB.t0)
+})
+
+/**
+ * @description sequence of functions when point gets deleted
+ */
+props.map.on('draw.delete', (e) => {
+  if (e.features[0] == drawnReferencePnt.value) {
+    closestPointfeatures.value = null
+    drawnReferencePnt.value = null
+  }
+  props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+})
+
+/**
+ * @description sequence of functions when existing point gets moved
+ */
+props.map.on('draw.update', (e) => {
+  drawnReferencePnt.value = e.features[0]
+  closestPointfeatures.value = getNearestNeighbor(
+    drawnReferencePnt.value.geometry.coordinates,
+    dataPoints.value.features
+  )
+  highlightNearestNeighbor(closestPointfeatures.value.properties.ID)
+  dB.bootstrapping(dB.layers, dB.t0, closestPointfeatures.value.properties.q)
+  drawChart(dB.layers, dB.t0)
+})
+
+/**
+ * @description logic for drawing graph of temperature as function of depth
  * @param {Array} layers
  * @param {number} t0
  */
 function drawChart(layers, t0) {
-  const temperature = layers.map((layer) => layer.tTop)
+  const temperature = layers.map((layer) => layer.tBot)
   temperature.unshift(t0)
   const depth = layers
     .map((layer) => layer.dZ)
@@ -91,21 +157,34 @@ function drawChart(layers, t0) {
       )(0)
     )
   depth.unshift(0)
-  console.log('temp: ' + temperature)
-  console.log('depth: ' + depth)
 
-  const plotData = [
-    {
-      x: temperature,
-      y: depth,
-      type: 'scatter',
-      mode: 'lines+markers',
-      marker: { color: 'blue' },
-      textposition: 'top center',
-      hoverinfo: 'text+x+y'
+  // Data
+  const plotData = {
+    x: temperature,
+    y: depth,
+    type: 'scatter',
+    mode: 'lines+markers',
+    marker: { color: 'blue' },
+    textposition: 'top center',
+    hoverinfo: 'text+x+y'
+  }
+
+  // Annotation of layer within graph
+  const annotations = depth.map((d) => {
+    if (depth.indexOf(d) != 0) {
+      return {
+        showarrow: false,
+        text: 'layer ' + depth.indexOf(d) + '<br>' + dB.layers[depth.indexOf(d) - 1].layerType,
+        align: 'right',
+        x: 0,
+        xanchor: 'right',
+        y: d,
+        yanchor: 'bottom'
+      }
     }
-  ]
+  })
 
+  // Boundary of layer within graph
   const shapes = depth.map((d) => ({
     type: 'line',
     xref: 'paper',
@@ -120,25 +199,29 @@ function drawChart(layers, t0) {
     }
   }))
 
+  // styling
   const layout = {
     title: '',
     xaxis: {
       title: 'Temperature (°C)',
       side: 'top',
-      range: [Math.min(...temperature) - 5, Math.max(...temperature) + 5]
+      autorange: true
     },
     yaxis: {
       title: 'Depth (m)',
+      // autorange: true
       range: [Math.max(...depth) + 10, 0]
     },
-    shapes: shapes
+    shapes: shapes,
+    annotations: annotations
   }
 
-  newPlot('lineChart', plotData, layout)
+  newPlot('lineChart', [plotData], layout)
 }
 </script>
 
 <template>
+  <p>Draw a point where your digital borehole should be calculated</p>
   <CTooltip content="Draw Point" placement="bottom">
     <template #toggler="{ on }">
       <button id="draw-point-btn" class="btn btn-primary mx-1" v-on="on" @click="drawPoint()">
@@ -181,6 +264,8 @@ function drawChart(layers, t0) {
     </template>
   </CTooltip>
 
+  <AboutBootstrapping />
+
   <!-- <div v-if="closestPointfeatures">
     <h3>Nearest-Neighbor</h3>
     <CTable>
@@ -201,7 +286,7 @@ function drawChart(layers, t0) {
     </CTable>
   </div> -->
 
-  <div id="lineChart" style="width: 100%; height: 500px"></div>
+  <div id="lineChart" sclass="w-100 h-100 d-inline-block"></div>
 
-  <CustomParameters v-if="closestPointfeatures" :map="props.map" />
+  <CustomParameters v-if="closestPointfeatures" />
 </template>
