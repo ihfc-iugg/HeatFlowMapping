@@ -1,8 +1,13 @@
-<script setup></script>
+<script setup>
+import { defineProps } from 'vue'
+import { Map } from 'maplibre-gl'
+import DigitalBorehole from '@/components/left-panel/analysis-panel/DigitalBorehole.vue'
+
+const props = defineProps({ map: Map })
+</script>
 
 <template>
   <div>
-    <p>This panel is gooing to be developed.</p>
     <p class="mt-1 d-grid gap-2">
       <button
         class="btn btn-primary text-start dropdown-toggle"
@@ -16,12 +21,7 @@
       </button>
     </p>
     <div class="collapse" id="digitalBorehole">
-      <p>
-        This feature should allow you to draw a point on the map and get a graph with the
-        temperature depending on the depth. The values are derived from neighborhood relationships
-        to existing data points.
-      </p>
-      <img src="@/assets/img/digital_borehole_example.png" alt="Digital Borehole" />
+      <DigitalBorehole :map="map" />
     </div>
 
     <p class="mt-1 d-grid gap-2">
@@ -36,14 +36,7 @@
         2D Profile
       </button>
     </p>
-    <div class="collapse" id="profile">
-      <p>
-        This feature allows you to draw a line on the map and visualize the course of a selected
-        attribute along the line. The values along the line are derived from neighborhood
-        relationships to existing data points.
-      </p>
-      <img src="@/assets/img/2D_profile.png" alt="2D Profile" width="100%" />
-    </div>
+    <div class="collapse" id="profile"></div>
   </div>
 </template>
 
