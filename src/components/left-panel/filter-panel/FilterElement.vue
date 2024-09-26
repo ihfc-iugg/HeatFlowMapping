@@ -45,9 +45,13 @@ function setSelectedPropertyType(selectedProperty) {
 /**
  * @description Resets the array with the selected filter values
  */
-function resetSelectedValues() {
-  if (filterElement.value.selectedPropertyType == 'number' && valueOptions.value.length != 0) {
+function resetSelectedValues(selectedProperty) {
+  if (filterElement.value.selectedPropertyType == 'number') {
+    // TODO: adjust to new slider lib, not working right now
+    console.log('befor reset: ' + filterElement.value.selectedValues)
     filterElement.value.selectedValues = [valueOptions.value[0], valueOptions.value[1]]
+    console.log('after reset: ' + filterElement.value.selectedValues)
+    // arrayOfPropertyValues.value = getArrayOfPropertyValues(measurements.geojson, selectedProperty)
   } else {
     filterElement.value.selectedValues = []
   }
@@ -186,7 +190,7 @@ function setFilterExpression(property, values) {
           :options="measurements.selectableProperties"
           label="title"
           :allow-empty="false"
-          placeholder="Select property"
+          placeholder="Select Property"
           @select="
             setSelectedPropertyType(filterElement.selectedProperty.key),
               setValueOptions(filterElement.selectedProperty.key),
@@ -243,6 +247,7 @@ function setFilterExpression(property, values) {
             v-model="filterElement.selectedValues"
             :bar-height="100"
             :data="arrayOfPropertyValues"
+            step="0.1"
             :min="valueOptions[0]"
             :max="valueOptions[1]"
             :barGap="3"
@@ -265,7 +270,10 @@ function setFilterExpression(property, values) {
         </div>
       </div>
       <div class="reset-filter-btn" v-if="filterElement.selectedValues.length > 0">
-        <button class="btn btn-primary" @click="resetSelectedValues(), resetFilterExpression()">
+        <button
+          class="btn btn-primary"
+          @click="resetSelectedValues(filterElement.selectedProperty.key), resetFilterExpression()"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

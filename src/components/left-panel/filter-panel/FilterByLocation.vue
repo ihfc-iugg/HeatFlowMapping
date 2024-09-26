@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
+import { Map } from 'maplibre-gl'
 
 import { CTooltip } from '@coreui/bootstrap-vue'
 
@@ -45,13 +46,12 @@ function writeLocationFilterExpression(geoJSONObj) {
  * TODO: only one or multiple areas?
  */
 props.map.on('draw.create', function (e) {
-  filter.addFilter(e.features[0].id, 'locationFilter')
-  filter.filters.locationFilter[e.features[0].id].expression = writeLocationFilterExpression(
-    e.features[0].geometry
-  )
-  console.log('geojson output')
-  console.log(e.features)
-  console.log(mapControls)
+  if (e.features[0].geometry.type == 'Polygon') {
+    filter.addFilter(e.features[0].id, 'locationFilter')
+    filter.filters.locationFilter[e.features[0].id].expression = writeLocationFilterExpression(
+      e.features[0].geometry
+    )
+  }
 })
 
 /**

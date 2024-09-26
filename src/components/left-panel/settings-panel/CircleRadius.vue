@@ -1,5 +1,6 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue'
+import { defineProps } from 'vue'
+import { Map } from 'maplibre-gl'
 import { useSettingsStore } from '@/store/settings'
 
 const settings = useSettingsStore()

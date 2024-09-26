@@ -13,7 +13,7 @@ import {
   CTableDataCell
 } from '@coreui/bootstrap-vue'
 
-const props = defineProps({ map: { type: Map, required: true } })
+const props = defineProps({ map: Map })
 const map = ref(props.map)
 
 const popupInfoContent = ref(null)

@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps } from 'vue'
+import { Map } from 'maplibre-gl'
 import { useSettingsStore } from '@/store/settings'
 
 import { CFormInput, CTableRow, CTableDataCell } from '@coreui/bootstrap-vue'

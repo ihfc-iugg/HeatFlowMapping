@@ -1,6 +1,7 @@
 <script setup>
 import { ref, defineProps } from 'vue'
 import { newPlot } from 'plotly.js-dist'
+import { Map } from 'maplibre-gl'
 
 import VueMultiselect from 'vue-multiselect'
 import TableNumericValues from './TableNumericValues.vue'
@@ -36,7 +37,6 @@ function setDataSource() {
 }
 
 /**
- * TODO: eventuell D3 histogram einbauen https://d3-graph-gallery.com/graph/histogram_binSize.html
  * @param {String} property
  */
 function plotGraph(property) {

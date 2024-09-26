@@ -16,8 +16,8 @@ const measurements = useMeasurementStore()
   <CModal
     class="show d-block align-middle"
     :backdrop="true"
-    transition="true"
-    :alignment="center"
+    :transition="true"
+    alignment="center"
     :visible="false"
   >
     <CModalBody>
