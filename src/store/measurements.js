@@ -12,32 +12,7 @@ export const useMeasurementStore = defineStore('measurements', () => {
    * function()s become actions
    */
   const geojson = ref(null)
-  const dataSchema = ref(null)
-  const dataVersion = ref(null)
-  const selectableProperties = ref([])
   const isDataLoading = ref(null)
-  const isSchemaLoading = ref(null)
-
-  /**
-   * @description
-   * @param {String} url
-   */
-  async function fetchAPIDataSchema(url) {
-    isSchemaLoading.value = true
-    console.log('API Data Schema')
-
-    try {
-      await $RefParser.dereference(url).then((apiSchema) => {
-        dataSchema.value = apiSchema.components.schemas.Measurement
-        dataVersion.value = 'ghfdb' + apiSchema.info.version //TODO: has to be adjusted with some real key describing the versioning
-        console.log(dataVersion.value)
-        _setSelectableProperties(dataSchema.value)
-        isSchemaLoading.value = false
-      })
-    } catch (error) {
-      console.log('Error in dereferencing api schema: ' + error)
-    }
-  }
 
   /**
    * @description recursiv function, navigation through paged api results. If no next page is linked, the collected results are retruned as array
@@ -177,74 +152,12 @@ export const useMeasurementStore = defineStore('measurements', () => {
     isDataLoading.value = false
   }
 
-  /**
-   * @description
-   * @param {*} property
-   * @returns {Boolean}
-   */
-  function _isPropertySelectable(schema, property) {
-    let isSelectable = null
-
-    if (schema.properties[property].type == 'string' && !schema.properties[property].enum) {
-      console.log(property + ' is not suitable for data driven coloring')
-      isSelectable = false
-    } else if (
-      schema.properties[property].type == 'integer' &&
-      (!schema.properties[property].minimum || !schema.properties[property].maximum)
-    ) {
-      console.log(property + ' is not suitable for data driven coloring')
-      isSelectable = false
-    } else if (schema.properties[property].type == 'object') {
-      console.log(property + ' is not suitable for data driven coloring')
-      isSelectable = false
-    } else {
-      isSelectable = true
-    }
-    return isSelectable
-  }
-
-  /**
-   * @description Takes property name and brings it to structure necessary for VueMultiselect component
-   * @param {String} propertyName
-   * @returns {Object}
-   */
-  function _createVueMultiselectOption(schema, propertyName) {
-    const propertyObj = schema.properties[propertyName]
-    let optionsObject = {}
-    optionsObject['title'] = propertyObj.title
-    optionsObject['key'] = propertyName
-
-    return optionsObject
-  }
-
-  /**
-   * @description Throw out all properties options which are not suitable for the data driven coloring e.g. name,
-   * data points either be already classified (enum) or should be able to classify (continouse numerbs). The attribute builds also the link between schema and a selection of users.
-   * They see the readable title and through the link of title corresponding key the selected attributes can easily be found in the schema like: dataSchema.properties[attributeKey]
-   */
-  function _setSelectableProperties(schema) {
-    const propertyKeys = Object.keys(schema.properties)
-
-    propertyKeys.forEach((propertyName) => {
-      if (_isPropertySelectable(schema, propertyName)) {
-        selectableProperties.value.push(_createVueMultiselectOption(schema, propertyName))
-      }
-    })
-  }
-
   return {
     geojson,
-    dataSchema,
-    selectableProperties,
     isDataLoading,
-    isSchemaLoading,
     _collectPntAttributes,
     _writePntFeature,
     _writeFeatureCollection,
-    _setSelectableProperties,
-    _isPropertySelectable,
-    _createVueMultiselectOption,
-    fetchAPIData,
-    fetchAPIDataSchema
+    fetchAPIData
   }
 })

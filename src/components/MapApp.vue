@@ -14,6 +14,7 @@ import InfoPopup from './map/InfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
 
 import { useMeasurementStore } from '@/store/measurements'
+import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapControlsStore } from '@/store/mapControls'
 import { useSettingsStore } from '@/store/settings'
 import { useBaseMapsStore } from '@/store/baseMaps'
@@ -25,7 +26,9 @@ import dataURL from '@/assets/data/parent_elements.json'
 import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
 
 const measurements = useMeasurementStore()
-measurements.fetchAPIDataSchema(schemaURL)
+const dataSchema = useDataSchemaStore()
+dataSchema.fetchAPIDataSchema(schemaURL)
+// measurements.fetchAPIDataSchema(schemaURL)
 const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
 const bm = useBaseMapsStore()

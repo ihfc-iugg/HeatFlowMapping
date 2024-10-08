@@ -8,11 +8,13 @@ import TableNumericValues from './TableNumericValues.vue'
 import TableEnumValues from './TableEnumValues.vue'
 
 import { useMeasurementStore } from '@/store/measurements'
+import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useFilterStore } from '@/store/filter'
 
 const props = defineProps({ map: Map })
 
 const measurements = useMeasurementStore()
+const dataSchema = useDataSchemaStore()
 const filter = useFilterStore()
 
 const options = ref(['GHFDB', 'Filtered GHFDB'])
@@ -61,7 +63,7 @@ function setPropertyValues(property) {
  * @param {Object} property
  */
 function setPropertyDataType(property) {
-  selectedPropertyDataType.value = measurements.dataSchema.properties[property].type
+  selectedPropertyDataType.value = dataSchema.dataSchema.properties[property].type
 }
 </script>
 
@@ -105,7 +107,7 @@ function setPropertyDataType(property) {
     <div class="collapse" id="propertySelection">
       <VueMultiselect
         v-model="selectedProperty"
-        :options="measurements.selectableProperties"
+        :options="dataSchema.selectableProperties"
         label="title"
         :allow-empty="false"
         placeholder="Select Property"

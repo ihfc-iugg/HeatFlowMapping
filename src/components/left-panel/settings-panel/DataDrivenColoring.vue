@@ -1,6 +1,7 @@
 <script setup>
 import { defineProps, ref, watch } from 'vue'
 import { useMeasurementStore } from '@/store/measurements'
+import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useLegendStore } from '@/store/legend'
 
 import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
@@ -16,6 +17,7 @@ import colorbrewer from 'colorbrewer'
 const props = defineProps({ map: Map })
 
 const measurements = useMeasurementStore()
+const dataSchema = useDataSchemaStore()
 const legend = useLegendStore()
 
 const selectedProperty = ref(null)
@@ -77,7 +79,7 @@ function setColorPaletteOptions(classes) {
  * @param {Object} property
  */
 function setPropertyDataType(property) {
-  selectedPropertyDataType.value = measurements.dataSchema.properties[property.key].type
+  selectedPropertyDataType.value = dataSchema.dataSchema.properties[property.key].type
 }
 
 /**
@@ -88,7 +90,7 @@ function setPropertyDataType(property) {
 function getEnumClasses(enumProperty) {
   let classes = []
 
-  measurements.dataSchema.properties[enumProperty].oneOf.forEach((enumSchema) => {
+  dataSchema.dataSchema.properties[enumProperty].oneOf.forEach((enumSchema) => {
     enumSchema.enum.forEach((enumClass) => {
       if (enumClass) {
         classes.push(enumClass)
@@ -270,7 +272,7 @@ function dataDrivenColorisation() {
       <!-- Select property for coloring -->
       <VueMultiselect
         v-model="selectedProperty"
-        :options="measurements.selectableProperties"
+        :options="dataSchema.selectableProperties"
         label="title"
         placeholder="Select Property"
         :allow-empty="false"

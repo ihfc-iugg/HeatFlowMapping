@@ -8,11 +8,13 @@ import HistogramSlider from 'vue3-histogram-slider'
 import 'vue3-histogram-slider/dist/histogram-slider.css'
 
 import { useMeasurementStore } from '@/store/measurements'
+import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useFilterStore } from '@/store/filter'
 
 const props = defineProps({ id: String })
 
 const measurements = useMeasurementStore()
+const dataSchema = useDataSchemaStore()
 const filter = useFilterStore()
 
 const filterElement = ref(filter.filters.attributeFilter[props.id])
@@ -38,8 +40,7 @@ watch(filterElement.value.selectedValues, () => {
  * @param {String} selectedProperty
  */
 function setSelectedPropertyType(selectedProperty) {
-  filterElement.value.selectedPropertyType =
-    measurements.dataSchema.properties[selectedProperty].type
+  filterElement.value.selectedPropertyType = dataSchema.dataSchema.properties[selectedProperty].type
 }
 
 /**
@@ -69,7 +70,7 @@ function resetFilterExpression() {
 function getEnumClasses(enumProperty) {
   let classes = []
 
-  measurements.dataSchema.properties[enumProperty].oneOf.forEach((enumSchema) => {
+  dataSchema.dataSchema.properties[enumProperty].oneOf.forEach((enumSchema) => {
     enumSchema.enum.forEach((enumClass) => {
       if (enumClass) {
         classes.push(enumClass)
@@ -187,7 +188,7 @@ function setFilterExpression(property, values) {
       <CCol xs="10">
         <VueMultiselect
           v-model="filterElement.selectedProperty"
-          :options="measurements.selectableProperties"
+          :options="dataSchema.selectableProperties"
           label="title"
           :allow-empty="false"
           placeholder="Select Property"
