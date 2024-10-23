@@ -39,6 +39,7 @@ watch(dB.layers, () => {
  */
 function drawPoint() {
   mapControls.mapboxDraw.changeMode('draw_point')
+  console.log('mode: ' + mapControls.mapboxDraw.getMode())
 }
 
 /**
@@ -104,15 +105,17 @@ function highlightNearestNeighbor(pointID) {
  * @description sequence of functions when new point gets drawn
  */
 props.map.on('draw.create', (e) => {
-  drawnReferencePnt.value = e.features[0]
-  deletePreviosDrawnPoints(drawnReferencePnt.value.id)
-  closestPointfeatures.value = getNearestNeighbor(
-    drawnReferencePnt.value.geometry.coordinates,
-    dataPoints.value.features
-  )
-  highlightNearestNeighbor(closestPointfeatures.value.properties.ID)
-  dB.bootstrapping(dB.layers, dB.t0, closestPointfeatures.value.properties.q)
-  drawChart(dB.layers, dB.t0)
+  if (e.features[0].geometry.type == 'Point') {
+    drawnReferencePnt.value = e.features[0]
+    deletePreviosDrawnPoints(drawnReferencePnt.value.id)
+    closestPointfeatures.value = getNearestNeighbor(
+      drawnReferencePnt.value.geometry.coordinates,
+      dataPoints.value.features
+    )
+    highlightNearestNeighbor(closestPointfeatures.value.properties.ID)
+    dB.bootstrapping(dB.layers, dB.t0, closestPointfeatures.value.properties.q)
+    drawChart(dB.layers, dB.t0)
+  }
 })
 
 /**
@@ -130,14 +133,16 @@ props.map.on('draw.delete', (e) => {
  * @description sequence of functions when existing point gets moved
  */
 props.map.on('draw.update', (e) => {
-  drawnReferencePnt.value = e.features[0]
-  closestPointfeatures.value = getNearestNeighbor(
-    drawnReferencePnt.value.geometry.coordinates,
-    dataPoints.value.features
-  )
-  highlightNearestNeighbor(closestPointfeatures.value.properties.ID)
-  dB.bootstrapping(dB.layers, dB.t0, closestPointfeatures.value.properties.q)
-  drawChart(dB.layers, dB.t0)
+  if (e.features[0].geometry.type == 'Point') {
+    drawnReferencePnt.value = e.features[0]
+    closestPointfeatures.value = getNearestNeighbor(
+      drawnReferencePnt.value.geometry.coordinates,
+      dataPoints.value.features
+    )
+    highlightNearestNeighbor(closestPointfeatures.value.properties.ID)
+    dB.bootstrapping(dB.layers, dB.t0, closestPointfeatures.value.properties.q)
+    drawChart(dB.layers, dB.t0)
+  }
 })
 
 /**

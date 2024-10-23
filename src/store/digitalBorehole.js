@@ -10,6 +10,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
    */
 
   const layers = ref([])
+  const t0 = ref(20)
 
   /**
    *
@@ -69,7 +70,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       l.qBot = l.qTop - l.a * l.dZ
       temp = temp + calculateTemperature(l.qTop, l.dZ, l.k, l.a)
       l.tBot = temp
-      console.log('akk temp: ' + temp)
+      // console.log('akk temp: ' + temp)
       if (ix < layers.length - 1) {
         layers[ix + 1].tTop = l.tBot
         layers[ix + 1].qTop = l.qBot
@@ -77,5 +78,5 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     }
   }
 
-  return { layers, addEmptyLayer, setLayer, calculateTemperature, bootstrapping }
+  return { layers, t0, addEmptyLayer, setLayer, calculateTemperature, bootstrapping }
 })

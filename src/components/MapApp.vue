@@ -12,6 +12,7 @@ import DataLoadingModal from './map/DataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
 import InfoPopup from './map/InfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
+import RightPanel from '@/components/right-panel/RightPanel.vue'
 
 import { useMeasurementStore } from '@/store/measurements'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
@@ -184,7 +185,7 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="map-wrap">
-    <div class="map" ref="mapContainer" @mousemove="updateLatLng">
+    <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
       <DataLoadingModal />
       <InfoPopup :map="map" />
       <MapLegend />
@@ -233,6 +234,9 @@ function toggleVisibleScrolling() {
         <CursorCoordinates :map="map" />
       </div>
     </div>
+    <div class="column chart-panel">
+      <RightPanel @close-event="setIsClosed()" :map="map" />
+    </div>
   </div>
 </template>
 
@@ -257,5 +261,15 @@ function toggleVisibleScrolling() {
   height: fit-content;
   margin: 0 auto;
   z-index: 1;
+}
+
+.chart-panel {
+  max-width: 600px;
+}
+
+@media all and (min-width: 500px) {
+  .map-wrap {
+    display: flex;
+  }
 }
 </style>

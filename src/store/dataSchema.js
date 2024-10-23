@@ -13,28 +13,8 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
   const dataSchema = ref(null)
   const dataVersion = ref(null)
   const selectableProperties = ref([])
+  const numberProperties = ref([])
   const isSchemaLoading = ref(null)
-
-  /**
-   * @description
-   * @param {String} url
-   */
-  async function fetchAPIDataSchema(url) {
-    isSchemaLoading.value = true
-    console.log('API Data Schema')
-
-    try {
-      await $RefParser.dereference(url).then((apiSchema) => {
-        dataSchema.value = apiSchema.components.schemas.Measurement
-        dataVersion.value = 'ghfdb' + apiSchema.info.version //TODO: has to be adjusted with some real key describing the versioning
-        console.log(dataVersion.value)
-        _setSelectableProperties(dataSchema.value)
-        isSchemaLoading.value = false
-      })
-    } catch (error) {
-      console.log('Error in dereferencing api schema: ' + error)
-    }
-  }
 
   /**
    * @description
@@ -91,13 +71,51 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
     })
   }
 
+  /**
+   * @description
+   * @param {Object} properties
+   */
+  function _setNumericProperties(properties) {
+    for (var property in properties) {
+      if ('type' in properties[property]) {
+        if (properties[property].type == 'number') {
+          numberProperties.value.push(_createVueMultiselectOption(dataSchema.value, property))
+        }
+      }
+    }
+  }
+
+  /**
+   * @description
+   * @param {String} url
+   */
+  async function fetchAPIDataSchema(url) {
+    isSchemaLoading.value = true
+    console.log('API Data Schema')
+
+    try {
+      await $RefParser.dereference(url).then((apiSchema) => {
+        dataSchema.value = apiSchema.components.schemas.Measurement
+        dataVersion.value = 'ghfdb' + apiSchema.info.version //TODO: has to be adjusted with some real key describing the versioning
+        console.log(dataVersion.value)
+        _setSelectableProperties(dataSchema.value)
+        _setNumericProperties(dataSchema.value.properties)
+        isSchemaLoading.value = false
+      })
+    } catch (error) {
+      console.log('Error in dereferencing api schema: ' + error)
+    }
+  }
+
   return {
     dataSchema,
     selectableProperties,
+    numberProperties,
     isSchemaLoading,
-    _setSelectableProperties,
-    _isPropertySelectable,
     _createVueMultiselectOption,
+    _isPropertySelectable,
+    _setSelectableProperties,
+    _setNumericProperties,
     fetchAPIDataSchema
   }
 })

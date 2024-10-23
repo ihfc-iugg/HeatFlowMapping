@@ -2,6 +2,7 @@
 import { defineProps } from 'vue'
 import { Map } from 'maplibre-gl'
 import DigitalBorehole from '@/components/left-panel/analysis-panel/DigitalBorehole.vue'
+import LineProfile from '@/components/left-panel/analysis-panel/LineProfile.vue'
 
 const props = defineProps({ map: Map })
 </script>
@@ -36,7 +37,9 @@ const props = defineProps({ map: Map })
         2D Profile
       </button>
     </p>
-    <div class="collapse" id="profile"></div>
+    <div class="collapse" id="profile">
+      <LineProfile :map="map" />
+    </div>
   </div>
 </template>
 

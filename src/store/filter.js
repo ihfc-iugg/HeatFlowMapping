@@ -1,3 +1,4 @@
+import { Map } from 'maplibre-gl'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -75,6 +76,7 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
+   * @param {}
    * @description set Filter to map via internal maplibre function.
    */
   function applyFilterToMap(mapObject) {
@@ -103,6 +105,8 @@ export const useFilterStore = defineStore('filter', () => {
 
   /**
    *
+   * @param {Map} mapObject
+   * @returns
    */
   function getFilteredFeatures(mapObject) {
     let filterExpression = writeFilterExpression()
@@ -110,8 +114,9 @@ export const useFilterStore = defineStore('filter', () => {
       sourceLayer: 'sites',
       filter: filterExpression
     })
-    const uniqueFeatures = getUniqueFeatures(queriedFeatures, 'id')
-    console.log(uniqueFeatures)
+    const uniqueFeatures = getUniqueFeatures(queriedFeatures, 'ID')
+    console.log('queried features')
+    console.log(queriedFeatures)
     return uniqueFeatures
   }
 
@@ -123,6 +128,7 @@ export const useFilterStore = defineStore('filter', () => {
     addFilter,
     removeFilterElement,
     applyFilterToMap,
-    getFilteredFeatures
+    getFilteredFeatures,
+    writeFilterExpression
   }
 })
