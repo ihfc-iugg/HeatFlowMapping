@@ -27,3 +27,6 @@ src/assets/schema
 
 # statistics about bundeled packages
 dist/
+
+# config
+vite.config-chatgpt.js
