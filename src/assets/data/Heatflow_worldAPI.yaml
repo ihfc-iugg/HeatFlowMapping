@@ -1,0 +1,1605 @@
+openapi: 3.0.3
+info:
+  title: Heatflow.world API
+  version: 1.0.0
+  termsOfService: /api/v1/tos/
+  contact:
+    name: International Heat Flow Commission
+    url: https://www.ihfc-iugg.org
+    email: ''
+  license:
+    name: CC BY 4.0
+    url: https://creativecommons.org/licenses/by/4.0/
+paths:
+  /api/v1/projects/:
+    get:
+      operationId: projects_list
+      description: '
+
+
+
+        ### Paginated Project List:
+
+        This response provides a paginated list of projects available within the database.
+        It includes metadata about the pagination, such as the total count of projects,
+        links to the next and previous pages if applicable, and an array of project
+        objects.
+
+
+        - `count`: Total count of projects available in the database.
+
+        - `next`: A link to the next page of projects. This field is nullable if there
+        is no next page.
+
+        - `previous`: A link to the previous page of projects. This field is nullable
+        if there is no previous page.
+
+        - `results`: An array containing project objects.
+
+
+        '
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - projects
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProjectList'
+          description: ''
+  /api/v1/projects/{uuid}/:
+    get:
+      operationId: projects_retrieve
+      description: |-
+        A project is a collection of datasets and associated metadata. The Project model
+        is the top level model in the Geoluminate schema heirarchy and all datasets, samples,
+        sites and measurements should relate back to a project.
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            description: Universally unique identifier for this record.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - projects
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Project'
+          description: ''
+  /api/v1/datasets/:
+    get:
+      operationId: datasets_list
+      description: '
+
+
+
+        ### Paginated Dataset List:
+
+        This response provides a paginated list of datasets available within the database.
+        It includes metadata about the pagination, such as the total count of datasets,
+        links to the next and previous pages if applicable, and an array of dataset
+        objects.
+
+
+        - `count`: Total count of datasets available in the database.
+
+        - `next`: A link to the next page of datasets. This field is nullable if there
+        is no next page.
+
+        - `previous`: A link to the previous page of datasets. This field is nullable
+        if there is no previous page.
+
+        - `results`: An array containing dataset objects.
+
+
+        '
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - datasets
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDatasetList'
+          description: ''
+  /api/v1/datasets/{uuid}/:
+    get:
+      operationId: datasets_retrieve
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            description: Universally unique identifier for this record.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - datasets
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Dataset'
+          description: ''
+  /api/v1/samples/:
+    get:
+      operationId: samples_list
+      description: '
+
+
+
+        ### Paginated Sample List:
+
+        This response provides a paginated list of samples available within the database.
+        It includes metadata about the pagination, such as the total count of samples,
+        links to the next and previous pages if applicable, and an array of sample
+        objects.
+
+
+        - `count`: Total count of samples available in the database.
+
+        - `next`: A link to the next page of samples. This field is nullable if there
+        is no next page.
+
+        - `previous`: A link to the previous page of samples. This field is nullable
+        if there is no previous page.
+
+        - `results`: An array containing sample objects.
+
+
+        '
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - samples
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSampleList'
+          description: ''
+  /api/v1/samples/{uuid}/:
+    get:
+      operationId: samples_retrieve
+      parameters:
+        - in: path
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            description: Universally unique identifier for this record.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - samples
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sample'
+          description: ''
+  /api/v1/projects/{project_uuid}/datasets/:
+    get:
+      operationId: projects_datasets_retrieve
+      description: '
+
+
+
+        ### Paginated Dataset List:
+
+        This response provides a paginated list of datasets available within the database.
+        It includes metadata about the pagination, such as the total count of datasets,
+        links to the next and previous pages if applicable, and an array of dataset
+        objects.
+
+
+        - `count`: Total count of datasets available in the database.
+
+        - `next`: A link to the next page of datasets. This field is nullable if there
+        is no next page.
+
+        - `previous`: A link to the previous page of datasets. This field is nullable
+        if there is no previous page.
+
+        - `results`: An array containing dataset objects.
+
+
+        '
+      parameters:
+        - in: path
+          name: project_uuid
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - projects
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/projects/{project_uuid}/datasets/{uuid}/:
+    get:
+      operationId: projects_datasets_retrieve_2
+      description: Adds the NestedViewSetMixin to the DatasetViewset to make sure
+        that the queryset on nested routes is correctly filtered by the parent lookup
+        fields.
+      parameters:
+        - in: path
+          name: project_uuid
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            description: Universally unique identifier for this record.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - projects
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/projects/{project_uuid}/samples/:
+    get:
+      operationId: projects_samples_retrieve
+      description: '
+
+
+
+        ### Paginated Sample List:
+
+        This response provides a paginated list of samples available within the database.
+        It includes metadata about the pagination, such as the total count of samples,
+        links to the next and previous pages if applicable, and an array of sample
+        objects.
+
+
+        - `count`: Total count of samples available in the database.
+
+        - `next`: A link to the next page of samples. This field is nullable if there
+        is no next page.
+
+        - `previous`: A link to the previous page of samples. This field is nullable
+        if there is no previous page.
+
+        - `results`: An array containing sample objects.
+
+
+        '
+      parameters:
+        - in: path
+          name: project_uuid
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - projects
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/projects/{project_uuid}/samples/{uuid}/:
+    get:
+      operationId: projects_samples_retrieve_2
+      description: Adds the NestedViewSetMixin to the SampleViewset to make sure that
+        the queryset on nested routes is correctly filtered by the parent lookup fields.
+      parameters:
+        - in: path
+          name: project_uuid
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            description: Universally unique identifier for this record.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - projects
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/datasets/{dataset_uuid}/samples/:
+    get:
+      operationId: datasets_samples_retrieve
+      description: '
+
+
+
+        ### Paginated Sample List:
+
+        This response provides a paginated list of samples available within the database.
+        It includes metadata about the pagination, such as the total count of samples,
+        links to the next and previous pages if applicable, and an array of sample
+        objects.
+
+
+        - `count`: Total count of samples available in the database.
+
+        - `next`: A link to the next page of samples. This field is nullable if there
+        is no next page.
+
+        - `previous`: A link to the previous page of samples. This field is nullable
+        if there is no previous page.
+
+        - `results`: An array containing sample objects.
+
+
+        '
+      parameters:
+        - in: path
+          name: dataset_uuid
+          schema:
+            type: string
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - datasets
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/datasets/{dataset_uuid}/samples/{uuid}/:
+    get:
+      operationId: datasets_samples_retrieve_2
+      description: Adds the NestedViewSetMixin to the SampleViewset to make sure that
+        the queryset on nested routes is correctly filtered by the parent lookup fields.
+      parameters:
+        - in: path
+          name: dataset_uuid
+          schema:
+            type: string
+          required: true
+        - in: path
+          name: uuid
+          schema:
+            type: string
+            format: uuid
+            description: Universally unique identifier for this record.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - datasets
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/measurements/:
+    get:
+      operationId: measurements_retrieve
+      description: Returns metadata that specificly describes each type of meaurement
+        collected within this database. This is supplemental to the OpenAPI schema
+        available at /api/v1/schema/.
+      parameters:
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - measurements
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/v1/measurements/heat-flow/:
+    get:
+      operationId: measurements_heat_flow_list
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - measurements
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMeasurementList'
+          description: ''
+  /api/v1/measurements/heat-flow/{id}/:
+    get:
+      operationId: measurements_heat_flow_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this Heat Flow.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - measurements
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Measurement'
+          description: ''
+  /api/v1/measurements/heat-flow-child/:
+    get:
+      operationId: measurements_heat_flow_child_list
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - measurements
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedMeasurementList'
+          description: ''
+  /api/v1/measurements/heat-flow-child/{id}/:
+    get:
+      operationId: measurements_heat_flow_child_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this Heat Flow (Child).
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - measurements
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Measurement'
+          description: ''
+  /api/v1/literature/literature/:
+    get:
+      operationId: literature_literature_list
+      description: API endpoint that allows literature to be viewed or edited.
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - literature
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedLiteratureList'
+          description: ''
+  /api/v1/literature/literature/{id}/:
+    get:
+      operationId: literature_literature_retrieve
+      description: API endpoint that allows literature to be viewed or edited.
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this literature.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - literature
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Literature'
+          description: ''
+  /api/v1/contributors/:
+    get:
+      operationId: contributors_list
+      parameters:
+        - name: page
+          required: false
+          in: query
+          description: A page number within the paginated result set.
+          schema:
+            type: integer
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - contributors
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProfileList'
+          description: ''
+  /api/v1/contributors/{id}/:
+    get:
+      operationId: contributors_retrieve
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: integer
+          description: A unique integer value identifying this contributor.
+          required: true
+        - in: query
+          name: format
+          schema:
+            type: string
+            enum:
+              - geojson
+              - json
+      tags:
+        - contributors
+      security:
+        - cookieAuth: []
+        - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+          description: ''
+components:
+  schemas:
+    BlankEnum:
+      enum:
+        - ''
+    Dataset:
+      type: object
+      description: |-
+        A ModelSerializer that takes additional arguments for
+        "fields", "omit" and "expand" in order to
+        control which fields are displayed, and whether to replace simple
+        values with complex, nested serializations
+      properties:
+        approved_by:
+          type: string
+          format: uri
+          nullable: true
+          description: The user who approved this dataset.
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was created.
+        details:
+          type: string
+          format: uri
+          readOnly: true
+        funding:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: Related funding information.
+        image:
+          type: string
+          format: uri
+          nullable: true
+          title: Bild
+          description: Upload an image that represents your project.
+        license:
+          type: string
+          format: uri
+          nullable: true
+          description: the license under which this content is published
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was last modified.
+        project:
+          type: string
+          format: uri
+          nullable: true
+          description: The project that this dataset belongs to.
+        reference:
+          type: string
+          format: uri
+          nullable: true
+          description: The data publication to which this dataset belongs. If the
+            dataset has not been formally published, leave this field blank.
+        related_literature:
+          type: array
+          items:
+            type: string
+            format: uri
+          description: Any literature that is related to this dataset.
+        summary:
+          type: string
+          nullable: true
+          description: A short (max 512 characters) plain-language summary.
+          maxLength: 512
+        title:
+          type: string
+          title: Name
+          description: The title of the object.
+          maxLength: 255
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Universally unique identifier for this record.
+      required:
+        - created
+        - details
+        - modified
+        - title
+        - uuid
+    EnvironmentEnum:
+      enum:
+        - Onshore (continental)
+        - Onshore (lake, river, etc.)
+        - Offshore (continental)
+        - Offshore (marine)
+        - unspecified
+      type: string
+      description: |-
+        * `Onshore (continental)` - Onshore (continental)
+        * `Onshore (lake, river, etc.)` - Onshore (lake, river, etc.)
+        * `Offshore (continental)` - Offshore (continental)
+        * `Offshore (marine)` - Offshore (marine)
+        * `unspecified` - Unspecified
+    ExploMethodEnum:
+      enum:
+        - Drilling
+        - Mining
+        - Tunneling
+        - Probing (onshore/lake, river, etc.)
+        - Probing (offshore/ocean)
+        - Other (specify in comments)
+        - unspecified
+      type: string
+      description: |-
+        * `Drilling` - Drilling
+        * `Mining` - Mining
+        * `Tunneling` - Tunneling
+        * `Probing (onshore/lake, river, etc.)` - Probing (onshore/lake, river, etc.)
+        * `Probing (offshore/ocean)` - Probing (offshore/ocean)
+        * `Other (specify in comments)` - Other (specify in comments)
+        * `unspecified` - Unspecified
+    ExploPurposeEnum:
+      enum:
+        - Hydrocarbon
+        - Underground storage
+        - Geothermal
+        - Groundwater
+        - Mapping
+        - Mining
+        - Research
+        - Tunneling
+        - Other (specify in comments)
+        - unspecified
+      type: string
+      description: |-
+        * `Hydrocarbon` - Hydrocarbon
+        * `Underground storage` - Underground storage
+        * `Geothermal` - Geothermal
+        * `Groundwater` - Groundwater
+        * `Mapping` - Mapping
+        * `Mining` - Mining
+        * `Research` - Research
+        * `Tunneling` - Tunneling
+        * `Other (specify in comments)` - Other (specify in comments)
+        * `unspecified` - Unspecified
+    FeatureTypeEnum:
+      enum:
+        - http://vocabulary.odm2.org/samplingfeaturetype/weatherStation
+        - http://vocabulary.odm2.org/samplingfeaturetype/observationWell
+        - http://vocabulary.odm2.org/samplingfeaturetype/fieldArea
+        - http://vocabulary.odm2.org/samplingfeaturetype/streamGage
+        - http://vocabulary.odm2.org/samplingfeaturetype/transect
+        - http://vocabulary.odm2.org/samplingfeaturetype/soilPitSection
+        - http://vocabulary.odm2.org/samplingfeaturetype/scene
+        - http://vocabulary.odm2.org/samplingfeaturetype/borehole
+        - http://vocabulary.odm2.org/samplingfeaturetype/interval
+        - http://vocabulary.odm2.org/samplingfeaturetype/traverse
+        - http://vocabulary.odm2.org/samplingfeaturetype/ecologicalLandClassification
+        - http://vocabulary.odm2.org/samplingfeaturetype/profile
+        - http://vocabulary.odm2.org/samplingfeaturetype/shipsTrack
+        - http://vocabulary.odm2.org/samplingfeaturetype/crossSection
+        - http://vocabulary.odm2.org/samplingfeaturetype/specimen
+        - http://vocabulary.odm2.org/samplingfeaturetype/CTD
+        - http://vocabulary.odm2.org/samplingfeaturetype/excavation
+        - http://vocabulary.odm2.org/samplingfeaturetype/flightline
+        - http://vocabulary.odm2.org/samplingfeaturetype/quadrat
+        - http://vocabulary.odm2.org/samplingfeaturetype/trajectory
+        - http://vocabulary.odm2.org/samplingfeaturetype/waterQualityStation
+        - http://vocabulary.odm2.org/samplingfeaturetype/depthInterval
+        - http://vocabulary.odm2.org/samplingfeaturetype/site
+      type: string
+      description: |-
+        * `http://vocabulary.odm2.org/samplingfeaturetype/weatherStation` - Weather station
+        * `http://vocabulary.odm2.org/samplingfeaturetype/observationWell` - Observation well
+        * `http://vocabulary.odm2.org/samplingfeaturetype/fieldArea` - Field area
+        * `http://vocabulary.odm2.org/samplingfeaturetype/streamGage` - Stream gage
+        * `http://vocabulary.odm2.org/samplingfeaturetype/transect` - Transect
+        * `http://vocabulary.odm2.org/samplingfeaturetype/soilPitSection` - Soil pit section
+        * `http://vocabulary.odm2.org/samplingfeaturetype/scene` - Scene
+        * `http://vocabulary.odm2.org/samplingfeaturetype/borehole` - Borehole
+        * `http://vocabulary.odm2.org/samplingfeaturetype/interval` - Interval
+        * `http://vocabulary.odm2.org/samplingfeaturetype/traverse` - Traverse
+        * `http://vocabulary.odm2.org/samplingfeaturetype/ecologicalLandClassification` - Ecological land classification
+        * `http://vocabulary.odm2.org/samplingfeaturetype/profile` - Profile
+        * `http://vocabulary.odm2.org/samplingfeaturetype/shipsTrack` - Ships track
+        * `http://vocabulary.odm2.org/samplingfeaturetype/crossSection` - Cross section
+        * `http://vocabulary.odm2.org/samplingfeaturetype/specimen` - Specimen
+        * `http://vocabulary.odm2.org/samplingfeaturetype/CTD` - CTD
+        * `http://vocabulary.odm2.org/samplingfeaturetype/excavation` - Excavation
+        * `http://vocabulary.odm2.org/samplingfeaturetype/flightline` - Flightline
+        * `http://vocabulary.odm2.org/samplingfeaturetype/quadrat` - Quadrat
+        * `http://vocabulary.odm2.org/samplingfeaturetype/trajectory` - Trajectory
+        * `http://vocabulary.odm2.org/samplingfeaturetype/waterQualityStation` - Water quality station
+        * `http://vocabulary.odm2.org/samplingfeaturetype/depthInterval` - Depth interval
+        * `http://vocabulary.odm2.org/samplingfeaturetype/site` - Site
+    Literature:
+      type: object
+      properties:
+        CSL:
+          type: object
+          additionalProperties: {}
+          title: Citation Style Language
+    Location:
+      type: object
+      description: |-
+        A ModelSerializer that takes additional arguments for
+        "fields", "omit" and "expand" in order to
+        control which fields are displayed, and whether to replace simple
+        values with complex, nested serializations
+      properties:
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was last modified.
+        name:
+          type: string
+          nullable: true
+          description: The name of the location.
+          maxLength: 255
+        point:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+                - Point
+            coordinates:
+              type: array
+              items:
+                type: number
+                format: float
+              example:
+                - 12.9721
+                - 77.5933
+              minItems: 2
+              maxItems: 3
+          nullable: true
+        polygon:
+          type: string
+          nullable: true
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Universally unique identifier for this record.
+      required:
+        - modified
+        - uuid
+    Measurement:
+      type: object
+      description: |-
+        A ModelSerializer that takes additional arguments for
+        "fields", "omit" and "expand" in order to
+        control which fields are displayed, and whether to replace simple
+        values with complex, nested serializations
+      properties:
+        corr_HP_flag:
+          type: boolean
+          nullable: true
+          title: HP correction flag
+          description: Specifies if corrections to the calculated heat flow considers
+            the contribution of the heat production of the overburden to the terrestrial
+            surface heat flow q.
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was created.
+        environment:
+          nullable: true
+          title: Basic geographical environment
+          description: |-
+            Describes the general geographical setting of the heat-flow site (not the applied methodology).
+
+            * `Onshore (continental)` - Onshore (continental)
+            * `Onshore (lake, river, etc.)` - Onshore (lake, river, etc.)
+            * `Offshore (continental)` - Offshore (continental)
+            * `Offshore (marine)` - Offshore (marine)
+            * `unspecified` - Unspecified
+          oneOf:
+            - $ref: '#/components/schemas/EnvironmentEnum'
+            - $ref: '#/components/schemas/BlankEnum'
+            - $ref: '#/components/schemas/NullEnum'
+        explo_method:
+          nullable: true
+          title: Exploration method
+          description: |-
+            Specification of the general means by which the rock was accessed by temperature sensors for the respective data entry.
+
+            * `Drilling` - Drilling
+            * `Mining` - Mining
+            * `Tunneling` - Tunneling
+            * `Probing (onshore/lake, river, etc.)` - Probing (onshore/lake, river, etc.)
+            * `Probing (offshore/ocean)` - Probing (offshore/ocean)
+            * `Other (specify in comments)` - Other (specify in comments)
+            * `unspecified` - Unspecified
+          oneOf:
+            - $ref: '#/components/schemas/ExploMethodEnum'
+            - $ref: '#/components/schemas/BlankEnum'
+            - $ref: '#/components/schemas/NullEnum'
+        explo_purpose:
+          nullable: true
+          title: Exploration purpose
+          description: |-
+            Main purpose of the reconnaissance target providing access for the temperature sensors.
+
+            * `Hydrocarbon` - Hydrocarbon
+            * `Underground storage` - Underground storage
+            * `Geothermal` - Geothermal
+            * `Groundwater` - Groundwater
+            * `Mapping` - Mapping
+            * `Mining` - Mining
+            * `Research` - Research
+            * `Tunneling` - Tunneling
+            * `Other (specify in comments)` - Other (specify in comments)
+            * `unspecified` - Unspecified
+          oneOf:
+            - $ref: '#/components/schemas/ExploPurposeEnum'
+            - $ref: '#/components/schemas/BlankEnum'
+            - $ref: '#/components/schemas/NullEnum'
+        id:
+          type: integer
+          readOnly: true
+          title: 'ID'
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was last modified.
+        q:
+          type: number
+          format: double
+          maximum: 1000000
+          minimum: -1000000
+          title: Heat flow
+          description: Heat-flow density for the location after all corrections for
+            instrumental and environmental effects.
+          units: mW / m^2
+        q_uncertainty:
+          type: number
+          format: double
+          maximum: 1000000
+          minimum: 0
+          nullable: true
+          title: Heat flow uncertainty
+          description: Uncertainty (one standard deviation) of the heat-flow value
+            [q] estimated by an error propagation from uncertainty in thermal conductivity
+            and temperature gradient, standard deviation from the average of the heat
+            flow intervals or deviation from the linear regression of the Bullard
+            plot.
+          units: mW / m^2
+        sample:
+          $ref: '#/components/schemas/Sample'
+        total_depth_MD:
+          type: number
+          format: double
+          maximum: 9000
+          minimum: -12000
+          nullable: true
+          title: Total measured depth
+          description: Total measured depth (MD) of the borehole.
+          units: m
+        total_depth_TVD:
+          type: number
+          format: double
+          maximum: 9000
+          minimum: -12000
+          nullable: true
+          title: Total true vertical depth
+          description: Specification of the total true vertical depth below mean sea
+            level.
+          units: m
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Universally unique identifier for this record.
+      required:
+        - created
+        - id
+        - modified
+        - q
+        - sample
+        - uuid
+    MediumEnum:
+      enum:
+        - http://vocabulary.odm2.org/medium/gas
+        - http://vocabulary.odm2.org/medium/soil
+        - http://vocabulary.odm2.org/medium/liquidAqueous
+        - http://vocabulary.odm2.org/medium/air
+        - http://vocabulary.odm2.org/medium/organism
+        - http://vocabulary.odm2.org/medium/notApplicable
+        - http://vocabulary.odm2.org/medium/equipment
+        - http://vocabulary.odm2.org/medium/particulate
+        - http://vocabulary.odm2.org/medium/mineral
+        - http://vocabulary.odm2.org/medium/rock
+        - http://vocabulary.odm2.org/medium/vegetation
+        - http://vocabulary.odm2.org/medium/liquidOrganic
+        - http://vocabulary.odm2.org/medium/tissue
+        - http://vocabulary.odm2.org/medium/snow
+        - http://vocabulary.odm2.org/medium/other
+        - http://vocabulary.odm2.org/medium/habitat
+        - http://vocabulary.odm2.org/medium/regolith
+        - http://vocabulary.odm2.org/medium/ice
+        - http://vocabulary.odm2.org/medium/unknown
+        - http://vocabulary.odm2.org/medium/sediment
+      type: string
+      description: |-
+        * `http://vocabulary.odm2.org/medium/gas` - Gas
+        * `http://vocabulary.odm2.org/medium/soil` - Soil
+        * `http://vocabulary.odm2.org/medium/liquidAqueous` - Liquid aqueous
+        * `http://vocabulary.odm2.org/medium/air` - Air
+        * `http://vocabulary.odm2.org/medium/organism` - Organism
+        * `http://vocabulary.odm2.org/medium/notApplicable` - Not applicable
+        * `http://vocabulary.odm2.org/medium/equipment` - Equipment
+        * `http://vocabulary.odm2.org/medium/particulate` - Particulate
+        * `http://vocabulary.odm2.org/medium/mineral` - Mineral
+        * `http://vocabulary.odm2.org/medium/rock` - Rock
+        * `http://vocabulary.odm2.org/medium/vegetation` - Vegetation
+        * `http://vocabulary.odm2.org/medium/liquidOrganic` - Liquid organic
+        * `http://vocabulary.odm2.org/medium/tissue` - Tissue
+        * `http://vocabulary.odm2.org/medium/snow` - Snow
+        * `http://vocabulary.odm2.org/medium/other` - Other
+        * `http://vocabulary.odm2.org/medium/habitat` - Habitat
+        * `http://vocabulary.odm2.org/medium/regolith` - Regolith
+        * `http://vocabulary.odm2.org/medium/ice` - Ice
+        * `http://vocabulary.odm2.org/medium/unknown` - Unknown
+        * `http://vocabulary.odm2.org/medium/sediment` - Sediment
+    NullEnum:
+      enum:
+        - null
+    PaginatedDatasetList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Dataset'
+    PaginatedLiteratureList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Literature'
+    PaginatedMeasurementList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Measurement'
+    PaginatedProfileList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    PaginatedProjectList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Project'
+    PaginatedSampleList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Sample'
+    Profile:
+      type: object
+      description: |-
+        A type of `ModelSerializer` that uses hyperlinked relationships with compound keys instead
+        of primary key relationships.  Specifically:
+
+        * A 'url' field is included instead of the 'id' field.
+        * Relationships to other instances are hyperlinks, instead of primary keys.
+
+        NOTE: this only works with DRF 3.1.0 and above.
+      properties:
+        name:
+          type: string
+          title: Anzeigename
+          description: This name is displayed publicly within the website.
+          maxLength: 512
+      required:
+        - name
+    Project:
+      type: object
+      description: |-
+        A ModelSerializer that takes additional arguments for
+        "fields", "omit" and "expand" in order to
+        control which fields are displayed, and whether to replace simple
+        values with complex, nested serializations
+      properties:
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was created.
+        details:
+          type: string
+          format: uri
+          readOnly: true
+        funding:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: Related funding information.
+        image:
+          type: string
+          format: uri
+          nullable: true
+          title: Bild
+          description: Upload an image that represents your project.
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was last modified.
+        status:
+          allOf:
+            - $ref: '#/components/schemas/ProjectStatusEnum'
+          minimum: -2147483648
+          maximum: 2147483647
+        summary:
+          type: string
+          nullable: true
+          description: A short (max 512 characters) plain-language summary.
+          maxLength: 512
+        title:
+          type: string
+          title: Name
+          description: The title of the object.
+          maxLength: 255
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Universally unique identifier for this record.
+      required:
+        - created
+        - details
+        - modified
+        - title
+        - uuid
+    ProjectStatusEnum:
+      enum:
+        - 0
+        - 1
+        - 2
+        - 3
+        - 4
+      type: integer
+      description: |-
+        * `0` - Concept
+        * `1` - Planning
+        * `2` - In progress
+        * `3` - Complete
+        * `4` - Unbekannt
+    Sample:
+      type: object
+      description: |-
+        A ModelSerializer that takes additional arguments for
+        "fields", "omit" and "expand" in order to
+        control which fields are displayed, and whether to replace simple
+        values with complex, nested serializations
+      properties:
+        absolute_url:
+          type: string
+          readOnly: true
+        comment:
+          type: string
+          nullable: true
+          description: General comments regarding the site and/or measurement
+        created:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was created.
+        dataset:
+          type: string
+          format: uri
+          description: The dataset to which this sample belongs.
+        description:
+          type: string
+          nullable: true
+          description: A description of the sample.
+        details:
+          type: string
+          format: uri
+          readOnly: true
+        feature_type:
+          allOf:
+            - $ref: '#/components/schemas/FeatureTypeEnum'
+          format: uri
+        funding:
+          type: object
+          additionalProperties: {}
+          nullable: true
+          description: Related funding information.
+        image:
+          type: string
+          format: uri
+          nullable: true
+          title: Bild
+          description: Upload an image that represents your project.
+        location:
+          $ref: '#/components/schemas/Location'
+        medium:
+          allOf:
+            - $ref: '#/components/schemas/MediumEnum'
+          title: Sampling medium
+          format: uri
+        modified:
+          type: string
+          format: date-time
+          readOnly: true
+          description: When this record was last modified.
+        parent:
+          type: string
+          format: uri
+          nullable: true
+          description: Parent sample
+        specimen_type:
+          allOf:
+            - $ref: '#/components/schemas/SpecimenTypeEnum'
+          format: uri
+        status:
+          allOf:
+            - $ref: '#/components/schemas/SampleStatusEnum'
+          title: Collection status
+          format: uri
+        summary:
+          type: string
+          nullable: true
+          description: A short (max 512 characters) plain-language summary.
+          maxLength: 512
+        title:
+          type: string
+          title: Name
+          description: The title of the object.
+          maxLength: 255
+        uuid:
+          type: string
+          format: uuid
+          readOnly: true
+          description: Universally unique identifier for this record.
+        visibility:
+          allOf:
+            - $ref: '#/components/schemas/VisibilityEnum'
+          description: |-
+            Visibility within the application.
+
+            * `0` - Private
+            * `1` - Public
+          minimum: -2147483648
+          maximum: 2147483647
+      required:
+        - absolute_url
+        - created
+        - dataset
+        - details
+        - location
+        - modified
+        - title
+        - uuid
+    SampleStatusEnum:
+      enum:
+        - http://vocabulary.odm2.org/status/unknown
+        - http://vocabulary.odm2.org/status/ongoing
+        - http://vocabulary.odm2.org/status/planned
+        - http://vocabulary.odm2.org/status/complete
+      type: string
+      description: |-
+        * `http://vocabulary.odm2.org/status/unknown` - Unknown
+        * `http://vocabulary.odm2.org/status/ongoing` - Ongoing
+        * `http://vocabulary.odm2.org/status/planned` - Planned
+        * `http://vocabulary.odm2.org/status/complete` - Complete
+    SpecimenTypeEnum:
+      enum:
+        - http://vocabulary.odm2.org/specimentype/corePiece
+        - http://vocabulary.odm2.org/specimentype/individualSample
+        - http://vocabulary.odm2.org/specimentype/standardReferenceSpecimen
+        - http://vocabulary.odm2.org/specimentype/grab
+        - http://vocabulary.odm2.org/specimentype/rockPowder
+        - http://vocabulary.odm2.org/specimentype/cuttings
+        - http://vocabulary.odm2.org/specimentype/dredge
+        - http://vocabulary.odm2.org/specimentype/coreSection
+        - http://vocabulary.odm2.org/specimentype/coreSectionHalf
+        - http://vocabulary.odm2.org/specimentype/coreQuarterRound
+        - http://vocabulary.odm2.org/specimentype/forestFloorDigestion
+        - http://vocabulary.odm2.org/specimentype/theSpecimenTypeIsUnknown
+        - http://vocabulary.odm2.org/specimentype/orientedCore
+        - http://vocabulary.odm2.org/specimentype/other
+        - http://vocabulary.odm2.org/specimentype/litterFallDigestion
+        - http://vocabulary.odm2.org/specimentype/coreSub-Piece
+        - http://vocabulary.odm2.org/specimentype/precipitationBulk
+        - http://vocabulary.odm2.org/specimentype/automated
+        - http://vocabulary.odm2.org/specimentype/foliageDigestion
+        - http://vocabulary.odm2.org/specimentype/petriDishDryDeposition
+        - http://vocabulary.odm2.org/specimentype/coreWholeRound
+        - http://vocabulary.odm2.org/specimentype/coreHalfRound
+        - http://vocabulary.odm2.org/specimentype/biota
+        - http://vocabulary.odm2.org/specimentype/core
+        - http://vocabulary.odm2.org/specimentype/terrestrialSection
+        - http://vocabulary.odm2.org/specimentype/foliageLeaching
+        - http://vocabulary.odm2.org/specimentype/thinSection
+      type: string
+      description: |-
+        * `http://vocabulary.odm2.org/specimentype/corePiece` - Core piece
+        * `http://vocabulary.odm2.org/specimentype/individualSample` - Individual sample
+        * `http://vocabulary.odm2.org/specimentype/standardReferenceSpecimen` - Standard reference specimen
+        * `http://vocabulary.odm2.org/specimentype/grab` - Grab
+        * `http://vocabulary.odm2.org/specimentype/rockPowder` - Rock powder
+        * `http://vocabulary.odm2.org/specimentype/cuttings` - Cuttings
+        * `http://vocabulary.odm2.org/specimentype/dredge` - Dredge
+        * `http://vocabulary.odm2.org/specimentype/coreSection` - Core section
+        * `http://vocabulary.odm2.org/specimentype/coreSectionHalf` - Core section half
+        * `http://vocabulary.odm2.org/specimentype/coreQuarterRound` - Core quarter round
+        * `http://vocabulary.odm2.org/specimentype/forestFloorDigestion` - Forest floor digestion
+        * `http://vocabulary.odm2.org/specimentype/theSpecimenTypeIsUnknown` - The specimen type is unknown
+        * `http://vocabulary.odm2.org/specimentype/orientedCore` - Oriented core
+        * `http://vocabulary.odm2.org/specimentype/other` - Other
+        * `http://vocabulary.odm2.org/specimentype/litterFallDigestion` - Litter fall digestion
+        * `http://vocabulary.odm2.org/specimentype/coreSub-Piece` - Core sub-piece
+        * `http://vocabulary.odm2.org/specimentype/precipitationBulk` - Precipitation bulk
+        * `http://vocabulary.odm2.org/specimentype/automated` - Automated
+        * `http://vocabulary.odm2.org/specimentype/foliageDigestion` - Foliage digestion
+        * `http://vocabulary.odm2.org/specimentype/petriDishDryDeposition` - Petri dish (dry deposition)
+        * `http://vocabulary.odm2.org/specimentype/coreWholeRound` - Core whole round
+        * `http://vocabulary.odm2.org/specimentype/coreHalfRound` - Core half round
+        * `http://vocabulary.odm2.org/specimentype/biota` - Biota
+        * `http://vocabulary.odm2.org/specimentype/core` - Core
+        * `http://vocabulary.odm2.org/specimentype/terrestrialSection` - Terrestrial section
+        * `http://vocabulary.odm2.org/specimentype/foliageLeaching` - Foliage leaching
+        * `http://vocabulary.odm2.org/specimentype/thinSection` - Thin section
+    VisibilityEnum:
+      enum:
+        - 0
+        - 1
+      type: integer
+      description: |-
+        * `0` - Private
+        * `1` - Public
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"
+tags:
+  - heat flow
+  - geothermal
+  - geoenergy
