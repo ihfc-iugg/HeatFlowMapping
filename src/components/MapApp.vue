@@ -141,11 +141,11 @@ onMounted(() => {
     console.log(map.value)
 
     // add data source
-    try {
-      await measurements.fetchAPIData(dataURL)
-    } catch (error) {
-      console.log(error)
-    }
+    // try {
+    //   await measurements.fetchAPIData(dataURL)
+    // } catch (error) {
+    //   console.log(error)
+    // }
 
     // measurements.geojson = dataURL
     measurements.geojson = {
