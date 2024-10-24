@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import $RefParser from '@apidevtools/json-schema-ref-parser'
 import axios from 'axios'
 import gjv from 'geojson-validation'
 

@@ -16,7 +16,7 @@
     "format": "prettier --write src/"
   },
   "dependencies": {
-    "@apidevtools/json-schema-ref-parser": "^11.6.1",
+    "@apidevtools/json-schema-ref-parser": "^11.7.2",
     "@coreui/bootstrap-vue": "^1.0.0-beta.0",
     "@mapbox/mapbox-gl-draw": "^1.4.1",
     "@popperjs/core": "^2.11.6",
@@ -67,6 +67,7 @@
     "sass": "^1.26.11",
     "start-server-and-test": "^2.0.3",
     "vite": "^5.2.8",
+    "vite-plugin-compression": "^0.5.1",
     "vite-plugin-vue-devtools": "^7.0.25",
     "vitest": "^1.6.0"
   }
