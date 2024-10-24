@@ -22,10 +22,12 @@ RUN npm run build
 FROM nginx:alpine AS production-stage
 
 # this will allow nginx to serve at a subdirectory (e.g. heatflow.world/map)
-ARG SUBDIR=
 ENV SUBDIR=$SUBDIR
 
-COPY --from=build-stage /app/dist /usr/share/nginx/html$SUBDIR
+# Copy a custom Nginx configuration file if you need one (optional)
+# COPY nginx.conf /etc/nginx/nginx.conf
+
+COPY --from=build-stage /app/dist /usr/share/nginx/html/map
 # default port for nginx
 EXPOSE 80
 
