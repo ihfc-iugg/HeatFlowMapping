@@ -1,15 +1,14 @@
 import { fileURLToPath, URL } from 'node:url'
 
-import { defineConfig, loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import VueDevTools from 'vite-plugin-vue-devtools'
-import viteCompression from 'vite-plugin-compression'
 import { polyfillNode } from 'esbuild-plugin-polyfill-node'
+import { defineConfig, loadEnv } from 'vite'
+import viteCompression from 'vite-plugin-compression'
+import VueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
-  // eslint-disable-next-line no-undef
-  // const env = loadEnv(mode, process.cwd(), '')
+  const env = loadEnv(mode, process.cwd())
   return {
     // define: {
     //   'process.env': env

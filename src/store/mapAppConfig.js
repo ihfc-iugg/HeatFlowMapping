@@ -55,11 +55,7 @@ export const useMapAppConfig = defineStore('mapAppConfig', () => {
   /**
    *
    */
-  function printOutMapAppConfig() {
-    console.log('Map app config:')
-    console.log('Data url: ' + dataUrl.value)
-    console.log('Schema url: ' + schemaUrl.value)
-  }
+
 
   return {
     el,
@@ -68,6 +64,5 @@ export const useMapAppConfig = defineStore('mapAppConfig', () => {
     setElement,
     setDataURL,
     setSchemaURL,
-    printOutMapAppConfig
   }
 })
