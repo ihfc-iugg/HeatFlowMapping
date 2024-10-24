@@ -20,8 +20,12 @@ RUN npm run build
 
 # copy from previos stage only dist/
 FROM nginx:alpine AS production-stage
-COPY --from=build-stage /app/dist /usr/share/nginx/html
 
+# this will allow nginx to serve at a subdirectory (e.g. heatflow.world/map)
+ARG SUBDIR=
+ENV SUBDIR=$SUBDIR
+
+COPY --from=build-stage /app/dist /usr/share/nginx/html$SUBDIR
 # default port for nginx
 EXPOSE 80
 
