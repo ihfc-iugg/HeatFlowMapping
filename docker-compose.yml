@@ -1,0 +1,13 @@
+version: "3.7"
+name: webmapp
+
+services:
+  map:
+    image: tanzwutgandalf/whfdb-map:latest
+    build:
+      context: .
+    ports:
+      - "4173:80"
+    environment:
+      - VITE_ROOT_API_DOMAIN=http://127.0.0.1:8000
+      - VITE_APP_NAME=Global Heat Flow Database
