@@ -24,7 +24,7 @@ import { useNavigationBarStore } from '@/store/navigationBar'
 import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
 
 // import dataURL from '@/assets/data/heatflow_sample_data.json'
-import dataURL from '@/assets/data/parent_elements.json'
+// import dataURL from '@/assets/data/parent_elements.json'
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
 
