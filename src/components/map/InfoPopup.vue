@@ -19,7 +19,7 @@ const map = ref(props.map)
 const popupInfoContent = ref(null)
 const hasInfoPopup = ref(false)
 const infoProperties = ref({
-  id: null,
+  ID: null,
   q: null,
   q_uncertainty: null,
   lithology: null,
@@ -92,7 +92,7 @@ watch(props, (newProps) => {
 <template>
   <KeepAlive>
     <div class="infoPopup" id="infoPopup">
-      <h2>{{ infoProperties.id }}</h2>
+      <h2>{{ infoProperties.ID }}</h2>
       <CTable v-if="hasInfoPopup">
         <CTableHead>
           <CTableRow>
