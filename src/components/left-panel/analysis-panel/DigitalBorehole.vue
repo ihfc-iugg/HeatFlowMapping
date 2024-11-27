@@ -221,7 +221,7 @@ function drawChart(layers, t0) {
     annotations: annotations
   }
 
-  newPlot('lineChart', [plotData], layout)
+  newPlot('digitalBoreholeChart', [plotData], layout)
 }
 </script>
 
@@ -291,7 +291,7 @@ function drawChart(layers, t0) {
     </CTable>
   </div> -->
 
-  <div id="lineChart" sclass="w-100 h-100 d-inline-block"></div>
+  <div id="digitalBoreholeChart" sclass="w-100 h-100 d-inline-block"></div>
 
   <CustomParameters v-if="closestPointfeatures" />
 </template>
