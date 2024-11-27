@@ -147,30 +147,30 @@ onMounted(() => {
     //   console.log(error)
     // }
 
-    measurements.geojson = dataURL
-    // measurements.geojson = {
-    //   type: 'FeatureCollection',
-    //   name: 'parent_elements',
-    //   crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-    //   features: [
-    //     {
-    //       type: 'Feature',
-    //       properties: {
-    //         q: 366.0,
-    //         q_uncertainty: null,
-    //         environment: '[offshore (continental)]',
-    //         corr_HP_flag: null,
-    //         total_depth_MD: null,
-    //         total_depth_TVD: null,
-    //         explo_method: null,
-    //         explo_purpose: null,
-    //         geo_lithology: null,
-    //         ID: 'R24-000001'
-    //       },
-    //       geometry: { type: 'Point', coordinates: [-129.981, 49.615] }
-    //     }
-    //   ]
-    // }
+    // measurements.geojson = dataURL
+    measurements.geojson = {
+      type: 'FeatureCollection',
+      name: 'parent_elements',
+      crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+      features: [
+        {
+          type: 'Feature',
+          properties: {
+            q: 366.0,
+            q_uncertainty: null,
+            environment: '[offshore (continental)]',
+            corr_HP_flag: null,
+            total_depth_MD: null,
+            total_depth_TVD: null,
+            explo_method: null,
+            explo_purpose: null,
+            geo_lithology: null,
+            ID: 'R24-000001'
+          },
+          geometry: { type: 'Point', coordinates: [-129.981, 49.615] }
+        }
+      ]
+    }
 
     map.value.addSource('sites', {
       type: 'geojson',
