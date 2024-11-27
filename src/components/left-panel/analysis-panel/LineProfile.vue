@@ -1,9 +1,9 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { Map } from 'maplibre-gl'
-import { CTooltip } from '@coreui/bootstrap-vue'
 import LineDrawToolbox from '@/components/left-panel/analysis-panel/LineDrawToolbox.vue'
 import LineSetup from '@/components/left-panel/analysis-panel/LineSetup.vue'
+import LineChartPopup from '@/components/left-panel/analysis-panel/LineChartPopup.vue'
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useMeasurementStore } from '@/store/measurements'
 
@@ -12,14 +12,16 @@ const measurements = useMeasurementStore()
 
 const props = defineProps({ map: Map })
 const activeTab = ref('setup')
+const hasChartPopup = ref(false)
 
+/**
+ * add or remove disable for calculation btn
+ */
 watch(profile, () => {
   const element = document.getElementById('startCalculationBtn')
   if (profile.selectedProperty1 && profile.threshold && profile.line) {
     element.classList.remove('disabled')
-    // element.classList.add('btn-success')
   } else {
-    // element.classList.remove('btn-success')
     element.classList.add('disabled')
   }
 })
@@ -30,6 +32,13 @@ watch(profile, () => {
  */
 function setActiveTab(tab) {
   activeTab.value = tab
+}
+
+/**
+ * @description
+ */
+function togglehasChartPopup() {
+  hasChartPopup.value = !hasChartPopup.value
 }
 </script>
 
@@ -130,11 +139,18 @@ function setActiveTab(tab) {
               profile.line,
               profile.threshold
             ),
-              profile.highlightPointsWithinDistance(props.map, profile.pointsWithinDistance)
+              // profile.highlightPointsWithinDistance(props.map, profile.pointsWithinDistance),
+              props.map.setPaintProperty(
+                'sites',
+                'circle-color',
+                profile.generatePaintProperty(profile.pointsWithinDistance)
+              ),
+              togglehasChartPopup()
           "
         >
           Calculate 2D Profile
         </button>
+        <LineChartPopup :map="props.map" :hasPopup="hasChartPopup" />
       </div>
     </div>
   </div>
