@@ -1,8 +1,16 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { featureCollection, lineString, point, pointToLineDistance } from '@turf/turf'
+import {
+  distance,
+  featureCollection,
+  lineString,
+  point,
+  pointToLineDistance,
+  radiansToLength
+} from '@turf/turf'
 import { Map } from 'maplibre-gl'
 import { useSettingsStore } from './settings.js'
+import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
 
 export const use2DProfileStore = defineStore('2DProfile', () => {
   /**
@@ -12,11 +20,12 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    */
 
   const selectedProperty1 = ref(null)
-  const selectedProperty2 = ref(null)
+  // const selectedProperty2 = ref(null)
   const threshold = ref(null)
   const line = ref(null)
   const pointsWithinDistance = ref([])
   const settings = useSettingsStore()
+  const calculationTools = useSphericalTrigonometry()
 
   /**
    * @description
@@ -43,35 +52,9 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    * @param {Array} pntWithinDistance
    * @param {Map} mapObject
    */
-  function highlightPointsWithinDistance(mapObject, pntWithinDistance) {
+  function generatePaintProperty(pntWithinDistance) {
     const pntIds = pntWithinDistance.map((pnt) => pnt.properties.ID)
-    const paintProperty = [
-      'case',
-      ['in', ['get', 'ID'], ['literal', pntIds]],
-      '#FCC480',
-      settings.circleColor
-    ]
-    mapObject.setPaintProperty('sites', 'circle-color', paintProperty)
-  }
-
-  /**
-   *
-   * @param {*} lat1
-   * @param {*} lon1
-   * @param {*} lat2
-   * @param {*} lon2
-   * @returns
-   */
-  function haversine(lat1, lon1, lat2, lon2) {
-    if (lat1 == lat2 && lon1 == lon2) {
-      return 0
-    } else {
-      var p1 = turf.point([lon1, lat1])
-      var p2 = turf.point([lon2, lat2])
-      var options = { units: 'kilometers' }
-      var dist = turf.distance(p1, p2, options)
-      return dist
-    }
+    return ['case', ['in', ['get', 'ID'], ['literal', pntIds]], '#FCC480', settings.circleColor]
   }
 
   /**
@@ -81,7 +64,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    */
   function lineStringToPointFeatureCollection(lineStringCoordinates) {
     const pnt1 = point(lineStringCoordinates[0], { title: 'A' })
-    const pnt2 = point(lineStringCoordinates.at(-1), { title: 'B' })
+    const pnt2 = point(lineStringCoordinates.at(-1), { title: 'C' })
     return featureCollection([pnt1, pnt2])
   }
 
@@ -91,31 +74,74 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    * @param {Object} featureCollection
    */
   function addLineLabelToMap(mapObject, featureCollection) {
-    mapObject.addSource('lineLable', {
-      type: 'geojson',
-      data: featureCollection
+    if (!mapObject.getSource('lineLable')) {
+      mapObject.addSource('lineLable', {
+        type: 'geojson',
+        data: featureCollection
+      })
+
+      mapObject.addLayer({
+        id: 'lineLable',
+        type: 'symbol',
+        source: 'lineLable',
+        layout: {
+          'text-field': ['get', 'title'],
+          'text-offset': [0, 1.0]
+        }
+      })
+    }
+  }
+
+  /**
+   *
+   * @param {*} referenceLine
+   * @param {*} pnts
+   * @returns
+   */
+  function projectingDataOnLine(referenceLine, pnts) {
+    let projectedPnts = []
+    // A and C are start and end point of lineString
+    const pntA = point(referenceLine.geometry.coordinates[0])
+    const pntC = point(referenceLine.geometry.coordinates[1])
+    // bT, T is shortcut for triangle
+    const bT = distance(pntA, pntC, { units: 'radians' }) // length of drawn line
+    pnts.forEach((pnt) => {
+      // B is point within threshold
+      const pntB = point(pnt.geometry.coordinates)
+      const aT = distance(pntC, pntB, { units: 'radians' })
+      const c = distance(pntB, pntA, { units: 'radians' })
+      const alpha = calculationTools.calculateAlpha(aT, bT, c)
+      // right triangle (RT)
+      // aRT vertical distance to lineString
+      const aRT = calculationTools.calculateA(alpha, c)
+      // bRT distance along lineString where pntB is projected verticaly
+      const bRT = calculationTools.calculateB(alpha, c)
+      let pointData = {
+        id: pnt.properties.ID,
+        b: radiansToLength(bRT),
+        a: radiansToLength(aRT)
+      }
+      pointData[selectedProperty1.value] = pnt.properties[selectedProperty1.value]
+      projectedPnts.push(pointData)
     })
 
-    mapObject.addLayer({
-      id: 'lineLable',
-      type: 'symbol',
-      source: 'lineLable',
-      layout: {
-        'text-field': ['get', 'title'],
-        'text-offset': [0, 1.0]
-      }
+    projectedPnts.sort((obj1, obj2) => {
+      return obj1.b - obj2.b
     })
+
+    return projectedPnts
   }
 
   return {
     selectedProperty1,
-    selectedProperty2,
+    // selectedProperty2,
     threshold,
     line,
     pointsWithinDistance,
     setPointsWithinDistance,
-    highlightPointsWithinDistance,
+    generatePaintProperty,
     lineStringToPointFeatureCollection,
-    addLineLabelToMap
+    addLineLabelToMap,
+    projectingDataOnLine
   }
 })
