@@ -1,9 +1,6 @@
 <script setup>
 // vue
-import { onMounted, onUnmounted, markRaw, ref } from 'vue'
-
-// map viewer
-import { Map } from 'maplibre-gl'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 // components
 import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
@@ -14,6 +11,7 @@ import InfoPopup from './map/InfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
 // import RightPanel from '@/components/right-panel/RightPanel.vue'
 
+import { useMapStore } from '@/store/map.js'
 import { useMeasurementStore } from '@/store/measurements'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapControlsStore } from '@/store/mapControls'
@@ -24,23 +22,22 @@ import { useNavigationBarStore } from '@/store/navigationBar'
 import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
 
 // import dataURL from '@/assets/data/heatflow_sample_data.json'
-// import dataURL from '@/assets/data/parent_elements.json'
+import dataURL from '@/assets/data/parent_elements.json'
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
 
+const mapStore = useMapStore()
 const measurements = useMeasurementStore()
 const dataSchema = useDataSchemaStore()
 dataSchema.fetchAPIDataSchema(schemaURL)
 const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
-const bm = useBaseMapsStore()
 const mapAppConfig = useMapAppConfig()
 mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
 mapAppConfig.setDataURL('dataUrl')
 mapAppConfig.setSchemaURL('schemaUrl')
 
 const mapContainer = ref()
-const map = ref()
 const navBar = useNavigationBarStore()
 const panelTitle = ref(null)
 const panelIcon = ref(null)
@@ -66,79 +63,17 @@ function setPanelIcon(htmlIcon) {
   panelIcon.value = htmlIcon
 }
 
-/**
- * @description create object for base map sources
- */
-function setBaseMapsSource() {
-  let bmSourceObject = {}
-
-  bm.baseMaps.forEach((baseMapSource) => {
-    bmSourceObject[baseMapSource.id] = {
-      type: 'raster',
-      tiles: [baseMapSource.tiles],
-      tileSize: 256,
-      attribution: baseMapSource.attribution,
-      minzoom: 0,
-      maxzoom: 22
-    }
-  })
-  return bmSourceObject
-}
-
-/**
- * @description create object for base map layers
- */
-function setBaseMapsLayer() {
-  let layerObjects = []
-
-  bm.baseMaps.forEach((baseMapLayer, ix) => {
-    let layerObject = {
-      id: baseMapLayer.id,
-      type: 'raster',
-      source: baseMapLayer.id
-    }
-    if (ix == 0) {
-      settings.activeBaseLayer = baseMapLayer.id
-      // first object in maps.json will be default base map
-      layerObject.layout = {
-        visibility: 'visible'
-      }
-    } else {
-      // others are already added but not visible
-      layerObject.layout = {
-        visibility: 'none'
-      }
-    }
-    layerObjects.push(layerObject)
-  })
-  return layerObjects
-}
-
 onMounted(() => {
-  // instantiate map object
-  map.value = markRaw(
-    new Map({
-      mapId: 'map_1',
-      container: mapContainer.value,
-      attributionControl: true,
-      zoom: 3,
-      style: {
-        version: 8,
-        sources: setBaseMapsSource(),
-        layers: setBaseMapsLayer(),
-        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf' // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
-      }
-    })
-  )
+  mapStore.setMap(mapContainer.value)
 
-  map.value.once('load', async () => {
+  mapStore.map.once('load', async () => {
     // add controls
-    map.value.addControl(mapControls.scale, 'bottom-right')
-    map.value.addControl(mapControls.fullscreen, 'top-right')
-    map.value.addControl(mapControls.navigation, 'top-right')
-    map.value.addControl(mapControls.mapboxDraw)
+    mapStore.map.addControl(mapControls.scale, 'bottom-right')
+    mapStore.map.addControl(mapControls.fullscreen, 'top-right')
+    mapStore.map.addControl(mapControls.navigation, 'top-right')
+    mapStore.map.addControl(mapControls.mapboxDraw)
 
-    console.log(map.value)
+    console.log(mapStore.map)
 
     // add data source
     // try {
@@ -147,39 +82,39 @@ onMounted(() => {
     //   console.log(error)
     // }
 
-    // measurements.geojson = dataURL
-    measurements.geojson = {
-      type: 'FeatureCollection',
-      name: 'parent_elements',
-      crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-      features: [
-        {
-          type: 'Feature',
-          properties: {
-            q: 366.0,
-            q_uncertainty: null,
-            environment: '[offshore (continental)]',
-            corr_HP_flag: null,
-            total_depth_MD: null,
-            total_depth_TVD: null,
-            explo_method: null,
-            explo_purpose: null,
-            geo_lithology: null,
-            ID: 'R24-000001'
-          },
-          geometry: { type: 'Point', coordinates: [-129.981, 49.615] }
-        }
-      ]
-    }
+    measurements.geojson = dataURL
+    // measurements.geojson = {
+    //   type: 'FeatureCollection',
+    //   name: 'parent_elements',
+    //   crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
+    //   features: [
+    //     {
+    //       type: 'Feature',
+    //       properties: {
+    //         q: 366.0,
+    //         q_uncertainty: null,
+    //         environment: '[offshore (continental)]',
+    //         corr_HP_flag: null,
+    //         total_depth_MD: null,
+    //         total_depth_TVD: null,
+    //         explo_method: null,
+    //         explo_purpose: null,
+    //         geo_lithology: null,
+    //         ID: 'R24-000001'
+    //       },
+    //       geometry: { type: 'Point', coordinates: [-129.981, 49.615] }
+    //     }
+    //   ]
+    // }
 
-    map.value.addSource('sites', {
+    mapStore.map.addSource('sites', {
       type: 'geojson',
       data: measurements.geojson
       // data: sites.value,
     })
 
     // add data layer
-    map.value.addLayer({
+    mapStore.map.addLayer({
       id: 'sites',
       type: 'circle',
       source: 'sites',
@@ -201,7 +136,7 @@ onMounted(() => {
   })
 }),
   onUnmounted(() => {
-    map.value?.remove()
+    mapStore.map?.remove()
   })
 
 function toggleVisibleScrolling() {
@@ -213,7 +148,7 @@ function toggleVisibleScrolling() {
   <div class="map-wrap">
     <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
       <DataLoadingModal />
-      <InfoPopup :map="map" />
+      <InfoPopup :map="mapStore.map" />
       <MapLegend />
 
       <!-- Navigation buttons -->
@@ -252,12 +187,12 @@ function toggleVisibleScrolling() {
           <LeftPanel
             :title="panelTitle"
             :icon="panelIcon"
-            :map="map"
+            :map="mapStore.map"
             @collapse-event="setIsCollapsed()"
             @toggle-event="toggleVisibleScrolling()"
           />
         </COffcanvas>
-        <CursorCoordinates :map="map" />
+        <CursorCoordinates :map="mapStore.map" />
       </div>
     </div>
     <!-- <div class="column chart-panel">
