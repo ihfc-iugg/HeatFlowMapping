@@ -1,0 +1,83 @@
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+import { Map } from 'maplibre-gl'
+import { useBaseMapsStore } from './baseMaps'
+import { useSettingsStore } from '@/store/settings'
+
+export const useMapStore = defineStore('map', () => {
+  /**
+   * ref()s become state properties
+   * computed()s become getters
+   * function()s become actions
+   */
+
+  const bm = useBaseMapsStore()
+  const settings = useSettingsStore()
+
+  const map = ref(null)
+
+  function setMap(containerElem) {
+    map.value = new Map({
+      mapId: 'map_1',
+      container: containerElem,
+      attributionControl: true,
+      zoom: 3,
+      style: {
+        version: 8,
+        sources: setBaseMapsSource(bm),
+        layers: setBaseMapsLayer(bm),
+        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf' // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
+      }
+    })
+  }
+
+  /**
+   * @description create object for base map sources
+   */
+  function setBaseMapsSource(bm) {
+    let bmSourceObject = {}
+
+    bm.baseMaps.forEach((baseMapSource) => {
+      bmSourceObject[baseMapSource.id] = {
+        type: 'raster',
+        tiles: [baseMapSource.tiles],
+        tileSize: 256,
+        attribution: baseMapSource.attribution,
+        minzoom: 0,
+        maxzoom: 22
+      }
+    })
+    return bmSourceObject
+  }
+
+  /**
+   * @description create object for base map layers
+   */
+  function setBaseMapsLayer(bm) {
+    let layerObjects = []
+
+    bm.baseMaps.forEach((baseMapLayer, ix) => {
+      let layerObject = {
+        id: baseMapLayer.id,
+        type: 'raster',
+        source: baseMapLayer.id
+      }
+      if (ix == 0) {
+        settings.activeBaseLayer = baseMapLayer.id
+        // first object in maps.json will be default base map
+        layerObject.layout = {
+          visibility: 'visible'
+        }
+      } else {
+        // others are already added but not visible
+        layerObject.layout = {
+          visibility: 'none'
+        }
+      }
+      layerObjects.push(layerObject)
+    })
+    return layerObjects
+  }
+
+  return { map, setMap }
+})
