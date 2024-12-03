@@ -18,9 +18,9 @@ const dB = useDigitalBoreholeStore()
     <CTableHead>
       <CTableRow>
         <CTableHeaderCell scope="col">Layer</CTableHeaderCell>
-        <CTableHeaderCell scope="col">Thickness (dZ)</CTableHeaderCell>
-        <CTableHeaderCell scope="col">Heat Production (A)</CTableHeaderCell>
-        <CTableHeaderCell scope="col">Thermal Conductivity (K)</CTableHeaderCell>
+        <CTableHeaderCell scope="col">Thickness (m)</CTableHeaderCell>
+        <CTableHeaderCell scope="col">Heat Production (muW/m^3)</CTableHeaderCell>
+        <CTableHeaderCell scope="col">Thermal Conductivity (W/m/k)</CTableHeaderCell>
       </CTableRow>
     </CTableHead>
     <CTableBody>
@@ -38,6 +38,7 @@ const dB = useDigitalBoreholeStore()
           </div>
         </CTableDataCell>
         <CTableDataCell>
+          <!-- TODO: Change values to more reabable -->
           <div class="input-group mb-3">
             <input
               :id="dB.layers.indexOf(layer)"
@@ -49,6 +50,7 @@ const dB = useDigitalBoreholeStore()
           </div>
         </CTableDataCell>
         <CTableDataCell>
+          <!-- TODO: Change values to more reabable -->
           <div class="input-group mb-3">
             <input
               :id="dB.layers.indexOf(layer)"
