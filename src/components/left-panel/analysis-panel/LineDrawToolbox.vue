@@ -84,6 +84,27 @@ props.map.on('draw.delete', (e) => {
     props.map.removeSource('lineLable')
   }
 })
+
+// TODO: add something like this to code to avoid lineSTrings with more than two coordinates
+// map.on('draw.create', function (e) {
+//   const feature = e.features[0] // The newly created feature
+//   if (feature.geometry.type === 'LineString' && feature.geometry.coordinates.length !== 2) {
+//     // If it's a LineString but not exactly two coordinates
+//     // Remove the last created feature
+//     draw.delete(feature.id)
+//     alert('You can only create a LineString with exactly two coordinates!')
+//   }
+// })
+
+// // Optionally, listen for the draw.update event if you want to restrict updates
+// map.on('draw.update', function (e) {
+//   const feature = e.features[0]
+//   if (feature.geometry.type === 'LineString' && feature.geometry.coordinates.length !== 2) {
+//     // If the updated LineString doesn't have exactly two coordinates, reset it
+//     draw.delete(feature.id)
+//     alert('A LineString must always have exactly two coordinates!')
+//   }
+// })
 </script>
 
 <template>
