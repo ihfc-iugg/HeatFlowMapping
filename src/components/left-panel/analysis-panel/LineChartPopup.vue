@@ -54,7 +54,6 @@ function highlightHoveredPoint(mapObject, pntId, pntsWithinThresholdPaintPropert
 }
 
 let observer = null
-let hoveredStateId = null
 
 onMounted(() => {
   observer = new MutationObserver((mutationRecords) => {
@@ -156,8 +155,6 @@ function drawProfile() {
   }
   profilePlot.value = newPlot('popupProfileChart', [trace1, trace2], layout)
   console.log(profilePlot.value)
-
-  // profilePlot.value.
 }
 
 /**
