@@ -6,7 +6,7 @@ const visibleInfos = ref(false)
 </script>
 
 <template>
-  <button
+  <!-- <button
     class="btn btn-primary rounded-pill bg-white text-primary btn-sm"
     @click="visibleInfos = !visibleInfos"
   >
@@ -29,136 +29,38 @@ const visibleInfos = ref(false)
       </svg>
     </button>
     About this graph
-  </button>
-
-  <CRow>
-    <CCol>
-      <CCollapse :visible="visibleInfos">
-        <CCard>
-          <CCardBody>
-            <p>
-              This graph is calculated with bootstrapping method. Lorem ipsum dolor sit amet,
-              consectetur adipiscing elit. Vivamus elementum sapien sed vulputate luctus. Proin
-              volutpat vestibulum lacus, non hendrerit. Based on the following equation
-            </p>
-            <math display="block">
-              <mi>T</mi>
+  </button> -->
+  <div class="card-body">
+    <CRow>
+      <h6>About this Graph</h6>
+      <p>
+        This graph is calculated with bootstrapping method. Lorem ipsum dolor sit amet, consectetur
+        adipiscing elit. Vivamus elementum sapien sed vulputate luctus. Proin volutpat vestibulum
+        lacus, non hendrerit. Based on the following equation
+      </p>
+      <math display="block">
+        <mi>T</mi>
+        <mo>=</mo>
+        <mrow>
+          <mmultiscripts>
+            <mn>T</mn>
+            <mn>0</mn>
+          </mmultiscripts>
+          <mo>+</mo>
+          <munderover>
+            <mo>∑</mo>
+            <mrow>
+              <mi>i</mi>
               <mo>=</mo>
-              <mrow>
-                <mmultiscripts>
-                  <mn>T</mn>
-                  <mn>0</mn>
-                </mmultiscripts>
-                <mo>+</mo>
-                <munderover>
-                  <mo>∑</mo>
-                  <mrow>
-                    <mi>i</mi>
-                    <mo>=</mo>
-                    <mn>1</mn>
-                  </mrow>
-                  <mrow>
-                    <mo>n</mo>
-                  </mrow>
-                </munderover>
-                <mo>(</mo>
-                <mfrac>
-                  <mrow>
-                    <msup>
-                      <mrow>
-                        <msub>
-                          <mn>q</mn>
-                          <mn
-                            ><mmultiscripts>
-                              <mn>i-1</mn>
-                            </mmultiscripts>
-                          </mn>
-                        </msub>
-                      </mrow>
-                    </msup>
-                    <msup>
-                      <mrow>
-                        <msub>
-                          <mn>&Delta;</mn>
-                          <mn
-                            ><mmultiscripts>
-                              <mn>Z</mn>
-                              <mn>i</mn>
-                            </mmultiscripts>
-                          </mn>
-                        </msub>
-                      </mrow>
-                    </msup>
-                  </mrow>
-                  <msup>
-                    <munder>
-                      <msup>
-                        <mrow>
-                          <msub>
-                            <mn>k</mn>
-                            <mn
-                              ><mmultiscripts>
-                                <mn>i</mn>
-                              </mmultiscripts>
-                            </mn>
-                          </msub>
-                        </mrow>
-                      </msup>
-                    </munder>
-                  </msup>
-                </mfrac>
-                <mo>-</mo>
-                <mfrac>
-                  <mrow>
-                    <msup>
-                      <mrow>
-                        <msub>
-                          <mn>A</mn>
-                          <mn
-                            ><mmultiscripts>
-                              <mn>i</mn>
-                            </mmultiscripts>
-                          </mn>
-                        </msub>
-                      </mrow>
-                    </msup>
-                    <msup>
-                      <mrow>
-                        <msub>
-                          <mn>&Delta;</mn>
-                          <mn
-                            ><mmultiscripts>
-                              <mn>Z</mn>
-                              <mn>i</mn>
-                            </mmultiscripts>
-                          </mn>
-                        </msub>
-                      </mrow>
-                      <mn>2</mn>
-                    </msup>
-                  </mrow>
-                  <msup>
-                    <msup>
-                      <mrow>
-                        <msub>
-                          <mn>2k</mn>
-                          <mn
-                            ><mmultiscripts>
-                              <mn>i</mn>
-                            </mmultiscripts>
-                          </mn>
-                        </msub>
-                      </mrow>
-                    </msup>
-                  </msup>
-                </mfrac>
-                <mo>)</mo>
-              </mrow>
-            </math>
-
-            <p></p>
-
-            <math display="block">
+              <mn>1</mn>
+            </mrow>
+            <mrow>
+              <mo>n</mo>
+            </mrow>
+          </munderover>
+          <mo>(</mo>
+          <mfrac>
+            <mrow>
               <msup>
                 <mrow>
                   <msub>
@@ -171,20 +73,40 @@ const visibleInfos = ref(false)
                   </msub>
                 </mrow>
               </msup>
-              <mo>=</mo>
               <msup>
                 <mrow>
                   <msub>
-                    <mn>q</mn>
+                    <mn>&Delta;</mn>
                     <mn
                       ><mmultiscripts>
+                        <mn>Z</mn>
                         <mn>i</mn>
                       </mmultiscripts>
                     </mn>
                   </msub>
                 </mrow>
               </msup>
-              <mo>+</mo>
+            </mrow>
+            <msup>
+              <munder>
+                <msup>
+                  <mrow>
+                    <msub>
+                      <mn>k</mn>
+                      <mn
+                        ><mmultiscripts>
+                          <mn>i</mn>
+                        </mmultiscripts>
+                      </mn>
+                    </msub>
+                  </mrow>
+                </msup>
+              </munder>
+            </msup>
+          </mfrac>
+          <mo>-</mo>
+          <mfrac>
+            <mrow>
               <msup>
                 <mrow>
                   <msub>
@@ -209,104 +131,176 @@ const visibleInfos = ref(false)
                     </mn>
                   </msub>
                 </mrow>
+                <mn>2</mn>
               </msup>
-            </math>
+            </mrow>
+            <msup>
+              <msup>
+                <mrow>
+                  <msub>
+                    <mn>2k</mn>
+                    <mn
+                      ><mmultiscripts>
+                        <mn>i</mn>
+                      </mmultiscripts>
+                    </mn>
+                  </msub>
+                </mrow>
+              </msup>
+            </msup>
+          </mfrac>
+          <mo>)</mo>
+        </mrow>
+      </math>
 
-            <!-- Variables -->
-            <CTable>
-              <CTableRow>
-                <math>
-                  <mi>T</mi>
-                  <mo>Temperature</mo>
-                </math>
-              </CTableRow>
-              <CTableRow>
-                <math>
-                  <mmultiscripts>
-                    <mn>T</mn>
-                    <mn>0</mn>
-                  </mmultiscripts>
-                  <mo>Ground surface temperature</mo>
-                </math>
-              </CTableRow>
-              <!-- qi-1 -->
-              <CTableRow>
-                <math
-                  ><mmultiscripts>
-                    <mn>q</mn>
-                    <mn>i-1</mn>
-                  </mmultiscripts>
-                  <mo>Heat flow at the base of the i-th depth interval</mo>
-                </math>
-              </CTableRow>
-              <CTableRow>
-                <math>
-                  <mmultiscripts>
-                    <mn>q</mn>
-                    <mn>i</mn>
-                  </mmultiscripts>
-                  <mo>Heat flow at the top of the i-th depth interval</mo>
-                </math>
-              </CTableRow>
-              <!-- Delta -->
-              <CTableRow>
-                <math>
-                  <msup>
-                    <mrow>
-                      <msub>
-                        <mn>&Delta;</mn>
-                        <mn
-                          ><mmultiscripts>
-                            <mn>Z</mn>
-                            <mn>i</mn>
-                          </mmultiscripts>
-                        </mn>
-                      </msub>
-                    </mrow>
-                  </msup>
-                  <mo>Thickness of the i-th depth interval</mo>
-                </math>
-              </CTableRow>
-              <!-- ki -->
-              <CTableRow>
-                <math>
-                  <msup>
-                    <mrow>
-                      <msub>
-                        <mn>k</mn>
-                        <mn
-                          ><mmultiscripts>
-                            <mn>i</mn>
-                          </mmultiscripts>
-                        </mn>
-                      </msub>
-                    </mrow>
-                  </msup>
-                  <mo>In situ thermal conductivity</mo>
-                </math>
-              </CTableRow>
-              <!-- Ai -->
-              <CTableRow>
-                <math>
-                  <msup>
-                    <mrow>
-                      <msub>
-                        <mn>A</mn>
-                        <mn
-                          ><mmultiscripts>
-                            <mn>i</mn>
-                          </mmultiscripts>
-                        </mn>
-                      </msub>
-                    </mrow>
-                  </msup>
-                  <mo>Heat production</mo>
-                </math>
-              </CTableRow>
-            </CTable>
-          </CCardBody>
-        </CCard>
-      </CCollapse>
-    </CCol>
-  </CRow>
+      <p></p>
+
+      <math display="block">
+        <msup>
+          <mrow>
+            <msub>
+              <mn>q</mn>
+              <mn
+                ><mmultiscripts>
+                  <mn>i-1</mn>
+                </mmultiscripts>
+              </mn>
+            </msub>
+          </mrow>
+        </msup>
+        <mo>=</mo>
+        <msup>
+          <mrow>
+            <msub>
+              <mn>q</mn>
+              <mn
+                ><mmultiscripts>
+                  <mn>i</mn>
+                </mmultiscripts>
+              </mn>
+            </msub>
+          </mrow>
+        </msup>
+        <mo>+</mo>
+        <msup>
+          <mrow>
+            <msub>
+              <mn>A</mn>
+              <mn
+                ><mmultiscripts>
+                  <mn>i</mn>
+                </mmultiscripts>
+              </mn>
+            </msub>
+          </mrow>
+        </msup>
+        <msup>
+          <mrow>
+            <msub>
+              <mn>&Delta;</mn>
+              <mn
+                ><mmultiscripts>
+                  <mn>Z</mn>
+                  <mn>i</mn>
+                </mmultiscripts>
+              </mn>
+            </msub>
+          </mrow>
+        </msup>
+      </math>
+
+      <!-- Variables -->
+      <CTable>
+        <CTableRow>
+          <math>
+            <mi>T</mi>
+            <mo>Temperature</mo>
+          </math>
+        </CTableRow>
+        <CTableRow>
+          <math>
+            <mmultiscripts>
+              <mn>T</mn>
+              <mn>0</mn>
+            </mmultiscripts>
+            <mo>Ground surface temperature</mo>
+          </math>
+        </CTableRow>
+        <!-- qi-1 -->
+        <CTableRow>
+          <math
+            ><mmultiscripts>
+              <mn>q</mn>
+              <mn>i-1</mn>
+            </mmultiscripts>
+            <mo>Heat flow at the base of the i-th depth interval</mo>
+          </math>
+        </CTableRow>
+        <CTableRow>
+          <math>
+            <mmultiscripts>
+              <mn>q</mn>
+              <mn>i</mn>
+            </mmultiscripts>
+            <mo>Heat flow at the top of the i-th depth interval</mo>
+          </math>
+        </CTableRow>
+        <!-- Delta -->
+        <CTableRow>
+          <math>
+            <msup>
+              <mrow>
+                <msub>
+                  <mn>&Delta;</mn>
+                  <mn
+                    ><mmultiscripts>
+                      <mn>Z</mn>
+                      <mn>i</mn>
+                    </mmultiscripts>
+                  </mn>
+                </msub>
+              </mrow>
+            </msup>
+            <mo>Thickness of the i-th depth interval</mo>
+          </math>
+        </CTableRow>
+        <!-- ki -->
+        <CTableRow>
+          <math>
+            <msup>
+              <mrow>
+                <msub>
+                  <mn>k</mn>
+                  <mn
+                    ><mmultiscripts>
+                      <mn>i</mn>
+                    </mmultiscripts>
+                  </mn>
+                </msub>
+              </mrow>
+            </msup>
+            <mo>In situ thermal conductivity</mo>
+          </math>
+        </CTableRow>
+        <!-- Ai -->
+        <CTableRow>
+          <math>
+            <msup>
+              <mrow>
+                <msub>
+                  <mn>A</mn>
+                  <mn
+                    ><mmultiscripts>
+                      <mn>i</mn>
+                    </mmultiscripts>
+                  </mn>
+                </msub>
+              </mrow>
+            </msup>
+            <mo>Heat production</mo>
+          </math>
+        </CTableRow>
+      </CTable>
+    </CRow>
+  </div>
 </template>
