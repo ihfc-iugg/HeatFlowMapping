@@ -4,7 +4,7 @@ import { defineProps, ref, watch, onMounted, onUnmounted } from 'vue'
 
 import { Map, Popup, Marker } from 'maplibre-gl'
 import { point, midpoint } from '@turf/turf'
-import { newPlot, relayout } from 'plotly.js-dist'
+import { newPlot } from 'plotly.js-dist'
 
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useDataSchemaStore } from '@/store/dataSchema'
@@ -13,9 +13,7 @@ const profile = use2DProfileStore()
 const schema = useDataSchemaStore()
 
 const props = defineProps({ map: Map, hasPopup: Boolean })
-const profilePlot = ref(null)
 
-// div for popup
 const elPopup = document.createElement('div')
 elPopup.id = 'popupProfileChart'
 elPopup.classList.add('mh-100')
@@ -32,9 +30,9 @@ const marker = ref(new Marker({ draggable: true, element: elMarker }).setPopup(p
 watch(
   () => props.hasPopup,
   () => {
-    console.log('1 inside watch linechartpopup')
     setUpPopup()
     drawProfile()
+    appendCountPointsInfos('popupProfileChart', profile.pointsWithinDistance)
   }
 )
 
@@ -46,7 +44,7 @@ watch(
 function highlightHoveredPoint(mapObject, pntId, pntsWithinThresholdPaintProperty) {
   let hoverPaintProperty = [
     'case',
-    ['==', ['get', 'ID'], pntId],
+    ['==', ['get', 'id'], pntId],
     'red',
     pntsWithinThresholdPaintProperty
   ]
@@ -94,7 +92,7 @@ function drawProfile() {
   const projectedPoinsts = profile.projectingDataOnLine(profile.line, profile.pointsWithinDistance)
 
   const alongLineDdistance = projectedPoinsts.map((pnt) => pnt.b)
-  const verticalDistance = projectedPoinsts.map((pnt) => pnt.a)
+  const offset = projectedPoinsts.map((pnt) => pnt.a)
   const propertyValues = projectedPoinsts.map((pnt) => pnt[profile.selectedProperty1])
   const pntIds = projectedPoinsts.map((pnt) => pnt.id)
   console.log(pntIds)
@@ -112,49 +110,66 @@ function drawProfile() {
     marker: {
       size: new Array(alongLineDdistance.length).fill(10), // Initialize all points with size 10
       color: new Array(alongLineDdistance.length).fill('blue') // Initialize all points with color blue
-    }
+    },
+    xaxis: 'x',
+    yaxis: 'y1'
   }
 
   // Data vertical distance of point to line
   const trace2 = {
     x: alongLineDdistance,
-    y: verticalDistance,
-    name: 'Vertical distance',
+    y: offset,
+    name: 'Offset [km]',
     type: 'bar',
     hovertemplate: '<b>%{text}</b>' + '<br><b>x</b>: %{x}' + '<br><b>y</b>: %{y}',
     text: pntIds,
-    yaxis: 'y2'
+    xaxis: 'x',
+    yaxis: 'y2',
+    width: 20
   }
 
   // styling
   const layout = {
     title: { text: '2D Profile' },
     xaxis: {
-      title: 'Distance along line [km]',
-      side: 'bottom',
-      range: [Math.max(alongLineDdistance) + 10, Math.min(alongLineDdistance) - 10]
+      anchor: 'free',
+      title: {
+        text: 'Segment length [km]'
+      }
     },
     yaxis: {
+      anchor: 'x',
       title: {
         text:
           schema.dataSchema.properties[profile.selectedProperty1].title +
           ' [' +
           schema.dataSchema.properties[profile.selectedProperty1].units +
           ']'
-      }
+      },
+      domain: [0.2, 1],
+      position: 0.05
     },
     yaxis2: {
+      anchor: 'x',
       title: {
-        text: 'Vertical distance [km]'
+        text: 'Offset [km]'
       },
-      overlaying: 'y',
-      side: 'right'
+      domain: [0, 0.2],
+      position: 0.95
     },
-    legend: { x: 1.2, y: 1 },
-    hovermode: 'closest'
+    // legend: { x: 1.2, y: 1 },
+    hovermode: 'closest',
+    grid: {
+      rows: 2,
+      columns: 1,
+      roworder: 'bottom to top'
+    }
   }
-  profilePlot.value = newPlot('popupProfileChart', [trace1, trace2], layout)
-  console.log(profilePlot.value)
+
+  let data = [trace1, trace2]
+
+  profile.plot = newPlot('popupProfileChart', data, layout)
+  console.log(profile.plot)
 }
 
 /**
@@ -169,7 +184,14 @@ function appendCountPointsInfos(elementIdBefore, pointsWithinDistance) {
   const p = document.createElement('p')
   p.id = 'popup-info-counter'
   p.classList.add('text-center')
-  p.innerHTML = 'Points within threshold ' + '<b>' + pointsWithinDistance.length + '</b>'
+  p.innerHTML =
+    'Points within threshold ' +
+    '(' +
+    profile.threshold +
+    'km) ' +
+    '<b>' +
+    pointsWithinDistance.length +
+    '</b>'
   document.getElementById(elementIdBefore).after(p)
 }
 
@@ -185,11 +207,6 @@ function setUpPopup() {
   marker.value.addTo(props.map)
   // default open popup
   marker.value.togglePopup()
-
-  // generate new plotly plot
-  drawProfile()
-  // append number of points
-  appendCountPointsInfos('popupProfileChart', profile.pointsWithinDistance)
 }
 </script>
 
