@@ -1,7 +1,6 @@
 <!-- Show popup containing infos of point (on click) -->
 <script setup>
 import { defineProps, onMounted, ref, watch } from 'vue'
-
 import { Map, Popup } from 'maplibre-gl'
 
 import {
@@ -15,32 +14,10 @@ import {
 
 const props = defineProps({ map: Map })
 const map = ref(props.map)
+const selectedPnt = ref(null)
 
 const popupInfoContent = ref(null)
 const hasInfoPopup = ref(false)
-const infoProperties = ref({
-  ID: null,
-  q: null,
-  q_uncertainty: null,
-  lithology: null,
-  lng: null,
-  lat: null
-})
-
-/**
- *
- * @param {Object} feature
- */
-function setFeatureInfoPropies(feature) {
-  infoProperties.value.id = feature.id
-  infoProperties.value.lng = feature.geometry.coordinates[0].toFixed(5)
-  infoProperties.value.lat = feature.geometry.coordinates[1].toFixed(5)
-  Object.keys(infoProperties.value).forEach((key) => {
-    if (feature.properties[key]) {
-      infoProperties.value[key] = feature.properties[key]
-    }
-  })
-}
 
 /**
  * @description
@@ -58,8 +35,10 @@ watch(props, (newProps) => {
 
   // source: https://maplibre.org/maplibre-gl-js/docs/examples/popup-on-click/
   map.value.on('click', 'sites', (e) => {
+    console.log('infopopup')
+    console.log(e.features)
+    selectedPnt.value = e.features[0]
     const coordinates = e.features[0].geometry.coordinates.slice()
-    setFeatureInfoPropies(e.features[0])
 
     // Ensure that if the map is zoomed out such that multiple
     // copies of the feature are visible, the popup appears
@@ -92,21 +71,23 @@ watch(props, (newProps) => {
 <template>
   <KeepAlive>
     <div class="infoPopup" id="infoPopup">
-      <h2>{{ infoProperties.ID }}</h2>
-      <CTable v-if="hasInfoPopup">
-        <CTableHead>
-          <CTableRow>
-            <CTableHeaderCell scope="col">Property</CTableHeaderCell>
-            <CTableHeaderCell scope="col">Value</CTableHeaderCell>
-          </CTableRow>
-        </CTableHead>
-        <CTableBody>
-          <CTableRow v-for="key in Object.keys(infoProperties)" :key="key">
-            <CTableHeaderCell scope="row">{{ key }}</CTableHeaderCell>
-            <CTableDataCell>{{ infoProperties[key] }}</CTableDataCell>
-          </CTableRow>
-        </CTableBody>
-      </CTable>
+      <div v-if="hasInfoPopup">
+        <h2>{{ selectedPnt.properties.ID }}</h2>
+        <CTable>
+          <CTableHead>
+            <CTableRow>
+              <CTableHeaderCell scope="col">Property</CTableHeaderCell>
+              <CTableHeaderCell scope="col">Value</CTableHeaderCell>
+            </CTableRow>
+          </CTableHead>
+          <CTableBody>
+            <CTableRow v-for="key in Object.keys(selectedPnt.properties)" :key="key">
+              <CTableHeaderCell scope="row">{{ key }}</CTableHeaderCell>
+              <CTableDataCell>{{ selectedPnt.properties[key] }}</CTableDataCell>
+            </CTableRow>
+          </CTableBody>
+        </CTable>
+      </div>
     </div>
   </KeepAlive>
 </template>

@@ -72,7 +72,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
    * @param {number} q0 mW/m^2 10^-3
    */
   function bootstrapping(layers, t0, q0) {
-    // q0 mW 10^-3
+    // q0 mW 10^-3 (Milliwatt)
     // ground surface temperature == top temperature of the first layer
     layers[0].tTop = t0
     // q at surface from mW to W
