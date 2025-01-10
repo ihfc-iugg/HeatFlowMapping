@@ -1,12 +1,15 @@
 <script setup>
+import { ref } from 'vue'
 import { Map } from 'maplibre-gl'
 import { CTooltip } from '@coreui/bootstrap-vue'
 // import { useDataSchemaStore } from '@/store/dataSchema'
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useMapControlsStore } from '@/store/mapControls.js'
+import { useSettingsStore } from '@/store/settings.js'
 
 const profile = use2DProfileStore()
 const mapControls = useMapControlsStore()
+const settings = useSettingsStore()
 
 const props = defineProps({ map: Map })
 
@@ -41,15 +44,31 @@ function deletePreviosDrawnPoints(lineToKeepID) {
   })
 }
 
+function allowOnlyTwoPoints(feature, originalFeature) {
+  if (feature.geometry.coordinates.length > 2) {
+    // If there are more than 2 coordinates, slice the coordinates array to keep only the first 2
+    feature.geometry.coordinates = feature.geometry.coordinates.slice(0, 2)
+
+    // Remove the original feature and add the modified one with only 2 coordinates
+    mapControls.mapboxDraw.delete(originalFeature.id) // Delete the original feature
+    mapControls.mapboxDraw.add(feature) // Add the modified feature with only 2 coordinates
+
+    // Optionally, you can alert or notify the user that only 2 points are allowed
+    alert('You can only draw a LineString with 2 points.')
+  } else {
+    return
+  }
+}
+
 /**
  * @description
  */
 props.map.on('draw.create', (e) => {
-  if (e.features[0].geometry.type == 'LineString') {
-    profile.line = e.features[0]
-    const collection = profile.lineStringToPointFeatureCollection(
-      e.features[0].geometry.coordinates
-    )
+  const feature = e.features[0]
+  if (feature.geometry.type == 'LineString') {
+    allowOnlyTwoPoints(feature, e.features[0])
+    profile.line = feature
+    const collection = profile.lineStringToPointFeatureCollection(feature.geometry.coordinates)
     profile.addLineLabelToMap(props.map, collection)
     deletePreviosDrawnPoints(profile.line.id)
   }
@@ -78,10 +97,15 @@ props.map.on('draw.update', (e) => {
  */
 props.map.on('draw.delete', (e) => {
   if (e.features[0].geometry.type == 'LineString') {
+    console.log('läuft')
     profile.line = null
     profile.pointsWithinDistance = []
+    // profile.popup.remove()
+    // profile.marker.remove()
+    profile.plot = ref(null)
     props.map.removeLayer('lineLable')
     props.map.removeSource('lineLable')
+    props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
   }
 })
 
