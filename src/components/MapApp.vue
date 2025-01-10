@@ -12,22 +12,24 @@ import MapLegend from './map/MapLegend.vue'
 // import RightPanel from '@/components/right-panel/RightPanel.vue'
 
 import { useMapStore } from '@/store/map.js'
-import { useMeasurementStore } from '@/store/measurements'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapControlsStore } from '@/store/mapControls'
 import { useSettingsStore } from '@/store/settings'
 import { useBaseMapsStore } from '@/store/baseMaps'
 import { useMapAppConfig } from '@/store/mapAppConfig'
 import { useNavigationBarStore } from '@/store/navigationBar'
+import { useGHFDBStore } from '@/store/ghfdb'
 import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
 
 // import dataURL from '@/assets/data/heatflow_sample_data.json'
-import dataURL from '@/assets/data/parent_elements.json'
+// import dataURL from '@/assets/data/parent_elements.json'
+import dataURL from '@/assets/data/geojsonFromCSV.json'
+
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
 
+const ghfdb = useGHFDBStore()
 const mapStore = useMapStore()
-const measurements = useMeasurementStore()
 const dataSchema = useDataSchemaStore()
 dataSchema.fetchAPIDataSchema(schemaURL)
 const mapControls = useMapControlsStore()
@@ -75,41 +77,21 @@ onMounted(() => {
 
     console.log(mapStore.map)
 
-    // add data source
-    // try {
-    //   await measurements.fetchAPIData(dataURL)
-    // } catch (error) {
-    //   console.log(error)
-    // }
-
-    measurements.geojson = dataURL
-    // measurements.geojson = {
-    //   type: 'FeatureCollection',
-    //   name: 'parent_elements',
-    //   crs: { type: 'name', properties: { name: 'urn:ogc:def:crs:OGC:1.3:CRS84' } },
-    //   features: [
-    //     {
-    //       type: 'Feature',
-    //       properties: {
-    //         q: 366.0,
-    //         q_uncertainty: null,
-    //         environment: '[offshore (continental)]',
-    //         corr_HP_flag: null,
-    //         total_depth_MD: null,
-    //         total_depth_TVD: null,
-    //         explo_method: null,
-    //         explo_purpose: null,
-    //         geo_lithology: null,
-    //         ID: 'R24-000001'
-    //       },
-    //       geometry: { type: 'Point', coordinates: [-129.981, 49.615] }
-    //     }
-    //   ]
-    // }
+    try {
+      // ghfdb.toggleInProcess()
+      const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
+      ghfdb.json = await ghfdb.csv2JSON(strValues)
+      ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
+      ghfdb.toggleInProcess()
+    } catch (error) {
+      console.log('Error in fetching GHFDB')
+      console.log(error)
+    }
 
     mapStore.map.addSource('sites', {
       type: 'geojson',
-      data: measurements.geojson
+      data: ghfdb.geojson
+      // data: measurements.geojson
       // data: sites.value,
     })
 
@@ -133,6 +115,8 @@ onMounted(() => {
         visibility: 'visible'
       }
     })
+
+    console.log(mapStore.map.getSource('sites'))
   })
 }),
   onUnmounted(() => {

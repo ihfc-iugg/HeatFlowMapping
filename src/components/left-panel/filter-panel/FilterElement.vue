@@ -7,13 +7,13 @@ import { CRow, CCol } from '@coreui/bootstrap-vue'
 import HistogramSlider from 'vue3-histogram-slider'
 import 'vue3-histogram-slider/dist/histogram-slider.css'
 
-import { useMeasurementStore } from '@/store/measurements'
+import { useGHFDBStore } from '@/store/ghfdb'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useFilterStore } from '@/store/filter'
 
 const props = defineProps({ id: String })
 
-const measurements = useMeasurementStore()
+const ghfdb = useGHFDBStore()
 const dataSchema = useDataSchemaStore()
 const filter = useFilterStore()
 
@@ -120,7 +120,7 @@ function setValueOptions(selectedProperty) {
   if (filterElement.value.selectedPropertyType == undefined) {
     valueOptions.value = getEnumClasses(selectedProperty)
   } else if (filterElement.value.selectedPropertyType == 'number') {
-    const geoJson = measurements.geojson
+    const geoJson = ghfdb.geojson
     arrayOfPropertyValues.value = getArrayOfPropertyValues(geoJson, selectedProperty)
     valueOptions.value = getRange(arrayOfPropertyValues.value)
     console.log('value')

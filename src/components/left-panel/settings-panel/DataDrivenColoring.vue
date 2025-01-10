@@ -1,6 +1,5 @@
 <script setup>
 import { defineProps, ref, watch } from 'vue'
-import { useMeasurementStore } from '@/store/measurements'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useLegendStore } from '@/store/legend'
 
@@ -16,7 +15,6 @@ import colorbrewer from 'colorbrewer'
 // Variables
 const props = defineProps({ map: Map })
 
-const measurements = useMeasurementStore()
 const dataSchema = useDataSchemaStore()
 const legend = useLegendStore()
 

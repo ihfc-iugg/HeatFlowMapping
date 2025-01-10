@@ -4,13 +4,13 @@ import { Map } from 'maplibre-gl'
 import { CTooltip } from '@coreui/bootstrap-vue'
 import { useDigitalBoreholeStore } from '@/store/digitalBorehole'
 import { useMapControlsStore } from '@/store/mapControls.js'
-import { useMeasurementStore } from '@/store/measurements.js'
+
+import { useGHFDBStore } from '@/store/ghfdb'
 import { useSettingsStore } from '@/store/settings.js'
 
 const dB = useDigitalBoreholeStore()
 const mapControls = useMapControlsStore()
-const measurements = useMeasurementStore()
-const dataPoints = ref(measurements.geojson)
+const ghfdb = useGHFDBStore()
 const settings = useSettingsStore()
 
 const props = defineProps({ map: Map })
@@ -40,7 +40,7 @@ props.map.on('draw.create', (e) => {
     dB.deletePreviosDrawnPoints(dB.pnt.id)
     dB.closestPointfeatures = dB.getNearestNeighbor(
       dB.pnt.geometry.coordinates,
-      dataPoints.value.features
+      ghfdb.geojson.features
     )
     dB.highlightNearestNeighbor(
       dB.closestPointfeatures.properties.ID,
@@ -59,15 +59,15 @@ props.map.on('draw.create', (e) => {
  * @description sequence of functions when point gets deleted
  */
 props.map.on('draw.delete', (e) => {
-  if (e.features[0] == dB.pnt) {
+  if (e.features[0].geometry.type == 'Point') {
     dB.closestPointfeatures = null
     dB.pnt = null
+    dB.popup.remove()
+    dB.popup = null
+    dB.marker.remove()
+    dB.marker = null
+    props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
   }
-  dB.popup.remove()
-  dB.popup = null
-  dB.marker.remove()
-  dB.marker = null
-  props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
 })
 
 /**
@@ -78,7 +78,7 @@ props.map.on('draw.update', (e) => {
     dB.pnt = e.features[0]
     dB.closestPointfeatures = dB.getNearestNeighbor(
       dB.pnt.geometry.coordinates,
-      dataPoints.value.features
+      ghfdb.geojson.features
     )
     dB.highlightNearestNeighbor(
       dB.closestPointfeatures.properties.ID,

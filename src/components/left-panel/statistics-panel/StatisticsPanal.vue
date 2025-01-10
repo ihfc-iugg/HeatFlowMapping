@@ -7,19 +7,19 @@ import VueMultiselect from 'vue-multiselect'
 import TableNumericValues from './TableNumericValues.vue'
 import TableEnumValues from './TableEnumValues.vue'
 
-import { useMeasurementStore } from '@/store/measurements'
+import { useGHFDBStore } from '@/store/ghfdb'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useFilterStore } from '@/store/filter'
 
 const props = defineProps({ map: Map })
 
-const measurements = useMeasurementStore()
+const ghfdb = useGHFDBStore()
 const dataSchema = useDataSchemaStore()
 const filter = useFilterStore()
 
 const options = ref(['GHFDB', 'Filtered GHFDB'])
 const selectedSourceTitle = ref(null)
-const selectedSource = ref(measurements.geojson)
+const selectedSource = ref(ghfdb.geojson)
 const selectedProperty = ref(null)
 const selectedPropertyDataType = ref(null)
 const values = ref(null)
@@ -29,7 +29,7 @@ const values = ref(null)
  */
 function setDataSource() {
   if (selectedSourceTitle.value == 'GHFDB') {
-    selectedSource.value = measurements.geojson
+    selectedSource.value = ghfdb.geojson
   } else if (selectedSourceTitle.value == 'Filtered GHFDB') {
     selectedSource.value = {
       type: 'FeatureCollection',
