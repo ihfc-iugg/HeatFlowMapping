@@ -8,7 +8,7 @@ const visibleInfos = ref(false)
 <template>
   <div class="card-body">
     <CRow>
-      <h6>About this Graph</h6>
+      <h6>About 2D Profile</h6>
       <p>
         This graph shows a 2D profile along the drawn line. Users can set a threshold which defines
         the maximum distance a point can have to the line unless it will count as selected. after
