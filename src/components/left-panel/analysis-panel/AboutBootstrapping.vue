@@ -32,7 +32,7 @@ const visibleInfos = ref(false)
   </button> -->
   <div class="card-body">
     <CRow>
-      <h6>About this Graph</h6>
+      <h6>About Bootstrapping Method</h6>
       <p>
         This graph is calculated with bootstrapping method. Lorem ipsum dolor sit amet, consectetur
         adipiscing elit. Vivamus elementum sapien sed vulputate luctus. Proin volutpat vestibulum
