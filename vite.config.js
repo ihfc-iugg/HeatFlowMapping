@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
     // define: {
     //   'process.env': env
     // },
-    base: './',  // Use relative paths for assets so we can serve app from subpath (e.g. heatflow.world/map/)
+    base: '/HeatFlowMapping', // Use relative paths for assets so we can serve app from subpath (e.g. heatflow.world/map/)
     assetsInclude: ['**/*.yaml', '**/*.geojson'],
     plugins: [vue(), VueDevTools(), viteCompression()],
     resolve: {
@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     build: {
-      minify: false,
+      minify: true,
       target: 'esnext'
       // sourcemap: true
     },
