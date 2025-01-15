@@ -21,7 +21,7 @@ import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
-import dataURL from '@/assets/data/geojsonFromCSV.json'
+import dataURL from '@/assets/data/geojsonFromCSV_4.json'
 
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'

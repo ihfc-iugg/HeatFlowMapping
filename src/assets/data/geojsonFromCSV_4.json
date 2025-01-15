@@ -1,0 +1,4517 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "R24-002203",
+      "properties": {
+        "q": 1360,
+        "q_uncertainty": null,
+        "name": "Ijen-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002203",
+        "ID_parent": "R24-P002203",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24438, -8.0605]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002204",
+      "properties": {
+        "q": 4760,
+        "q_uncertainty": null,
+        "name": "Ijen-10",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002204",
+        "ID_parent": "R24-P002204",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24416, -8.06034]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002205",
+      "properties": {
+        "q": 21080,
+        "q_uncertainty": null,
+        "name": "Ijen-11",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002205",
+        "ID_parent": "R24-P002205",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24409, -8.06048]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002206",
+      "properties": {
+        "q": 109480,
+        "q_uncertainty": null,
+        "name": "Ijen-12",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002206",
+        "ID_parent": "R24-P002206",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24403, -8.0605]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002207",
+      "properties": {
+        "q": 59500,
+        "q_uncertainty": null,
+        "name": "Ijen-13",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002207",
+        "ID_parent": "R24-P002207",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24488, -8.06034]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002208",
+      "properties": {
+        "q": 15980,
+        "q_uncertainty": null,
+        "name": "Ijen-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002208",
+        "ID_parent": "R24-P002208",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24468, -8.06074]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002209",
+      "properties": {
+        "q": 10880,
+        "q_uncertainty": null,
+        "name": "Ijen-3",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002209",
+        "ID_parent": "R24-P002209",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24466, -8.0607]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002210",
+      "properties": {
+        "q": 35360,
+        "q_uncertainty": null,
+        "name": "Ijen-4",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002210",
+        "ID_parent": "R24-P002210",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.2445, -8.06058]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002211",
+      "properties": {
+        "q": 7820,
+        "q_uncertainty": null,
+        "name": "Ijen-5",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002211",
+        "ID_parent": "R24-P002211",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24423, -8.06033]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002212",
+      "properties": {
+        "q": 5440,
+        "q_uncertainty": null,
+        "name": "Ijen-6",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002212",
+        "ID_parent": "R24-P002212",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24429, -8.06025]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002213",
+      "properties": {
+        "q": -6120,
+        "q_uncertainty": null,
+        "name": "Ijen-7",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002213",
+        "ID_parent": "R24-P002213",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24416, -8.06022]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002214",
+      "properties": {
+        "q": 2720,
+        "q_uncertainty": null,
+        "name": "Ijen-8",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002214",
+        "ID_parent": "R24-P002214",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24419, -8.06005]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002215",
+      "properties": {
+        "q": 5780,
+        "q_uncertainty": null,
+        "name": "Ijen-9",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": "Active volcanic area",
+        "corr_HP_flag": "No",
+        "total_depth_MD": 1,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Geothermal",
+        "ID": "R24-002215",
+        "ID_parent": "R24-P002215",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [114.24427, -8.06099]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002257",
+      "properties": {
+        "q": -174,
+        "q_uncertainty": null,
+        "name": 2603,
+        "elevation": -703,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002257",
+        "ID_parent": "R24-P002216",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.533, 75]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002258",
+      "properties": {
+        "q": -302,
+        "q_uncertainty": null,
+        "name": 2604,
+        "elevation": -614,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002258",
+        "ID_parent": "R24-P002217",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15.05, 75.15]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002259",
+      "properties": {
+        "q": 53,
+        "q_uncertainty": null,
+        "name": 2605,
+        "elevation": -1535,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002259",
+        "ID_parent": "R24-P002218",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.433, 75.217]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002260",
+      "properties": {
+        "q": -401,
+        "q_uncertainty": null,
+        "name": 2606,
+        "elevation": -324,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002260",
+        "ID_parent": "R24-P002219",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [17.027, 75.983]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002261",
+      "properties": {
+        "q": -186,
+        "q_uncertainty": null,
+        "name": 2607,
+        "elevation": -550,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002261",
+        "ID_parent": "R24-P002220",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [14.067, 75.667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002262",
+      "properties": {
+        "q": 55,
+        "q_uncertainty": null,
+        "name": 2608,
+        "elevation": -1480,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002262",
+        "ID_parent": "R24-P002221",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.985, 75.552]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002263",
+      "properties": {
+        "q": 64,
+        "q_uncertainty": null,
+        "name": 2609,
+        "elevation": -1993,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002263",
+        "ID_parent": "R24-P002222",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.067, 75.433]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002264",
+      "properties": {
+        "q": 89,
+        "q_uncertainty": null,
+        "name": 2610,
+        "elevation": -2360,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002264",
+        "ID_parent": "R24-P002223",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11, 75.3]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002265",
+      "properties": {
+        "q": 118,
+        "q_uncertainty": null,
+        "name": 2611,
+        "elevation": -2511,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002265",
+        "ID_parent": "R24-P002224",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.85, 75.133]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002266",
+      "properties": {
+        "q": 230,
+        "q_uncertainty": null,
+        "name": 2612,
+        "elevation": -3450,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002266",
+        "ID_parent": "R24-P002225",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.4, 74.9]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002267",
+      "properties": {
+        "q": 119,
+        "q_uncertainty": null,
+        "name": 2614,
+        "elevation": -2548,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002267",
+        "ID_parent": "R24-P002226",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.867, 74.733]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002268",
+      "properties": {
+        "q": 83,
+        "q_uncertainty": null,
+        "name": 2615,
+        "elevation": -2431,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002268",
+        "ID_parent": "R24-P002227",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.317, 74.883]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002269",
+      "properties": {
+        "q": 66,
+        "q_uncertainty": null,
+        "name": 2616,
+        "elevation": -2147,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002269",
+        "ID_parent": "R24-P002228",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.5, 75.017]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002270",
+      "properties": {
+        "q": 49,
+        "q_uncertainty": null,
+        "name": 2617,
+        "elevation": -1505,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002270",
+        "ID_parent": "R24-P002229",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [12.85, 75.8]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002271",
+      "properties": {
+        "q": 53,
+        "q_uncertainty": null,
+        "name": 2618,
+        "elevation": -1247,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002271",
+        "ID_parent": "R24-P002230",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.232, 75.778]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002272",
+      "properties": {
+        "q": 50,
+        "q_uncertainty": null,
+        "name": 2619,
+        "elevation": -1207,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002272",
+        "ID_parent": "R24-P002231",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.374, 75.769]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002273",
+      "properties": {
+        "q": 52,
+        "q_uncertainty": null,
+        "name": 2620,
+        "elevation": -997,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002273",
+        "ID_parent": "R24-P002232",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.575, 75.753]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002274",
+      "properties": {
+        "q": 32,
+        "q_uncertainty": null,
+        "name": 2621,
+        "elevation": -873,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002274",
+        "ID_parent": "R24-P002233",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.725, 75.737]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002275",
+      "properties": {
+        "q": 16,
+        "q_uncertainty": null,
+        "name": 2622,
+        "elevation": -774,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002275",
+        "ID_parent": "R24-P002234",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [13.854, 75.729]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002276",
+      "properties": {
+        "q": 170,
+        "q_uncertainty": null,
+        "name": 2701,
+        "elevation": -390,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002276",
+        "ID_parent": "R24-P002235",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [29.853, 80.47]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002277",
+      "properties": {
+        "q": 203,
+        "q_uncertainty": null,
+        "name": 2702,
+        "elevation": -438,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002277",
+        "ID_parent": "R24-P002236",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [29.875, 80.47]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002278",
+      "properties": {
+        "q": 195,
+        "q_uncertainty": null,
+        "name": 2703,
+        "elevation": -440,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002278",
+        "ID_parent": "R24-P002237",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [29.878, 80.466]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002279",
+      "properties": {
+        "q": 376,
+        "q_uncertainty": null,
+        "name": 2704,
+        "elevation": -357,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002279",
+        "ID_parent": "R24-P002238",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [29.536, 80.443]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002280",
+      "properties": {
+        "q": 202,
+        "q_uncertainty": null,
+        "name": 2705,
+        "elevation": -573,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002280",
+        "ID_parent": "R24-P002239",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [11.517, 77.185]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002281",
+      "properties": {
+        "q": 106,
+        "q_uncertainty": null,
+        "name": 2706,
+        "elevation": -1093,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002281",
+        "ID_parent": "R24-P002240",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.955, 77.284]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002282",
+      "properties": {
+        "q": 109,
+        "q_uncertainty": null,
+        "name": 2707,
+        "elevation": -1422,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002282",
+        "ID_parent": "R24-P002241",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [10.391, 77.4]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002283",
+      "properties": {
+        "q": 132,
+        "q_uncertainty": null,
+        "name": 2708,
+        "elevation": -1750,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002283",
+        "ID_parent": "R24-P002242",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [9.609, 77.515]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002284",
+      "properties": {
+        "q": 189,
+        "q_uncertainty": null,
+        "name": 2709,
+        "elevation": -2066,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002284",
+        "ID_parent": "R24-P002243",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.843, 77.616]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002285",
+      "properties": {
+        "q": 190,
+        "q_uncertainty": null,
+        "name": 2710,
+        "elevation": -2190,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002285",
+        "ID_parent": "R24-P002244",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.312, 77.719]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002286",
+      "properties": {
+        "q": 204,
+        "q_uncertainty": null,
+        "name": 2711,
+        "elevation": -2620,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002286",
+        "ID_parent": "R24-P002245",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [8.059, 77.766]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002287",
+      "properties": {
+        "q": 70,
+        "q_uncertainty": null,
+        "name": 2712,
+        "elevation": -2615,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002287",
+        "ID_parent": "R24-P002246",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.597, 78.254]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002288",
+      "properties": {
+        "q": 75,
+        "q_uncertainty": null,
+        "name": 2713,
+        "elevation": -2690,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002288",
+        "ID_parent": "R24-P002247",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.986, 78.241]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002289",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": 2714,
+        "elevation": -2772,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002289",
+        "ID_parent": "R24-P002248",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [3.242, 78.218]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002290",
+      "properties": {
+        "q": 301,
+        "q_uncertainty": null,
+        "name": 2715,
+        "elevation": -3320,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002290",
+        "ID_parent": "R24-P002249",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [7.796, 77.799]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002291",
+      "properties": {
+        "q": 146,
+        "q_uncertainty": null,
+        "name": 2716,
+        "elevation": -2640,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002291",
+        "ID_parent": "R24-P002250",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.155, 78.789]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002292",
+      "properties": {
+        "q": 156,
+        "q_uncertainty": null,
+        "name": 2717,
+        "elevation": -1270,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002292",
+        "ID_parent": "R24-P002251",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [3.881, 78.189]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002293",
+      "properties": {
+        "q": 104,
+        "q_uncertainty": null,
+        "name": 2718,
+        "elevation": -1975,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002293",
+        "ID_parent": "R24-P002252",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [4.315, 78.164]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002294",
+      "properties": {
+        "q": 59,
+        "q_uncertainty": null,
+        "name": 2719,
+        "elevation": -1550,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002294",
+        "ID_parent": "R24-P002253",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [4.628, 78.128]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002295",
+      "properties": {
+        "q": 96,
+        "q_uncertainty": null,
+        "name": 2720,
+        "elevation": -2670,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002295",
+        "ID_parent": "R24-P002254",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.144, 78.077]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002296",
+      "properties": {
+        "q": 132,
+        "q_uncertainty": null,
+        "name": 2721,
+        "elevation": -2584,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002296",
+        "ID_parent": "R24-P002255",
+        "Quality_Code": "Ux.M3.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [5.593, 78.047]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002297",
+      "properties": {
+        "q": -212,
+        "q_uncertainty": null,
+        "name": "2604_2",
+        "elevation": -645,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": null,
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Probing (offshore/ocean)",
+        "explo_purpose": "Research",
+        "ID": "R24-002297",
+        "ID_parent": "R24-P002256",
+        "Quality_Code": "Ux.M4.-------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [15, 75.167]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002298",
+      "properties": {
+        "q": 44,
+        "q_uncertainty": null,
+        "name": "Ajo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002298",
+        "ID_parent": "R24-P002257",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.56667, 43.45]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002299",
+      "properties": {
+        "q": 109,
+        "q_uncertainty": null,
+        "name": "Alcanar-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002299",
+        "ID_parent": "R24-P002258",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.76667, 40.55]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002300",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Alcozar",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002300",
+        "ID_parent": "R24-P002259",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.35, 41.61667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002301",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Alda",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002301",
+        "ID_parent": "R24-P002260",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.31667, 42.75]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002302",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Alloz",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002302",
+        "ID_parent": "R24-P002261",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.96667, 42.7]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002303",
+      "properties": {
+        "q": 82,
+        "q_uncertainty": null,
+        "name": "Almonte",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002303",
+        "ID_parent": "R24-P002262",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.46667, 37.25]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002304",
+      "properties": {
+        "q": 71,
+        "q_uncertainty": null,
+        "name": "Aloria",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002304",
+        "ID_parent": "R24-P002263",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.96667, 43]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002305",
+      "properties": {
+        "q": 61,
+        "q_uncertainty": null,
+        "name": "Amposta A-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002305",
+        "ID_parent": "R24-P002264",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.85, 40.46667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002306",
+      "properties": {
+        "q": 122,
+        "q_uncertainty": null,
+        "name": "Amposta B-1/6",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002306",
+        "ID_parent": "R24-P002265",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.7, 40.38333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002307",
+      "properties": {
+        "q": 109,
+        "q_uncertainty": null,
+        "name": "Amposta C-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002307",
+        "ID_parent": "R24-P002266",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.71667, 40.38333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002308",
+      "properties": {
+        "q": 130,
+        "q_uncertainty": null,
+        "name": "Amposta C-2",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002308",
+        "ID_parent": "R24-P002267",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.71667, 40.4]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002309",
+      "properties": {
+        "q": 82,
+        "q_uncertainty": null,
+        "name": "Amposta C-3",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002309",
+        "ID_parent": "R24-P002268",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.73333, 40.41667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002310",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Amposta DS-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002310",
+        "ID_parent": "R24-P002269",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.98333, 40.75]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002311",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Amposta-l",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002311",
+        "ID_parent": "R24-P002270",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.76667, 40.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002312",
+      "properties": {
+        "q": 65,
+        "q_uncertainty": null,
+        "name": "Añastro",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002312",
+        "ID_parent": "R24-P002271",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.75, 42.73333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002313",
+      "properties": {
+        "q": 78,
+        "q_uncertainty": null,
+        "name": "Ancillo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002313",
+        "ID_parent": "R24-P002272",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.5, 43.25]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002314",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Antezana",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002314",
+        "ID_parent": "R24-P002273",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.86667, 42.76667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002315",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Apodaca",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002315",
+        "ID_parent": "R24-P002274",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.71667, 42.91667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002316",
+      "properties": {
+        "q": 61,
+        "q_uncertainty": null,
+        "name": "Aramayona",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002316",
+        "ID_parent": "R24-P002275",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.58333, 43.01667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002317",
+      "properties": {
+        "q": 56,
+        "q_uncertainty": null,
+        "name": "Arco Iris",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002317",
+        "ID_parent": "R24-P002276",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.7, 43]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002318",
+      "properties": {
+        "q": 67,
+        "q_uncertainty": null,
+        "name": "Arija",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002318",
+        "ID_parent": "R24-P002277",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.91667, 42.98333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002319",
+      "properties": {
+        "q": 48,
+        "q_uncertainty": null,
+        "name": "Armachal",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002319",
+        "ID_parent": "R24-P002278",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-5.8, 36.13333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002320",
+      "properties": {
+        "q": 92,
+        "q_uncertainty": null,
+        "name": "Arnedo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002320",
+        "ID_parent": "R24-P002279",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.05, 42.2]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002321",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Ayoluengo-1-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002321",
+        "ID_parent": "R24-P002280",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.88333, 42.75]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002322",
+      "properties": {
+        "q": 99,
+        "q_uncertainty": null,
+        "name": "Ballobar",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002322",
+        "ID_parent": "R24-P002281",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.15, 41.55]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002323",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Barcelona C-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002323",
+        "ID_parent": "R24-P002282",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.46667, 41.36667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002324",
+      "properties": {
+        "q": 78,
+        "q_uncertainty": null,
+        "name": "Basella",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002324",
+        "ID_parent": "R24-P002283",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.3, 42.01667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002325",
+      "properties": {
+        "q": 59,
+        "q_uncertainty": null,
+        "name": "Belmontejo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002325",
+        "ID_parent": "R24-P002284",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.31667, 39.85]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002326",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "Benabarre-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002326",
+        "ID_parent": "R24-P002285",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.43333, 42.1]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002327",
+      "properties": {
+        "q": 137,
+        "q_uncertainty": null,
+        "name": "Benezujar",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002327",
+        "ID_parent": "R24-P002286",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.81667, 38.05]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002328",
+      "properties": {
+        "q": 59,
+        "q_uncertainty": null,
+        "name": "Bobalar-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002328",
+        "ID_parent": "R24-P002287",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.23333, 40.55]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002329",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Bobalar-l",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002329",
+        "ID_parent": "R24-P002288",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.23333, 40.55]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002330",
+      "properties": {
+        "q": 185,
+        "q_uncertainty": null,
+        "name": "Bujaraloz",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002330",
+        "ID_parent": "R24-P002289",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.11667, 41.41667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002331",
+      "properties": {
+        "q": 71,
+        "q_uncertainty": null,
+        "name": "C.Urdiales",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002331",
+        "ID_parent": "R24-P002290",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.28333, 43.36667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002332",
+      "properties": {
+        "q": 90,
+        "q_uncertainty": null,
+        "name": "Cadiz C-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002332",
+        "ID_parent": "R24-P002291",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-7.03333, 36.81667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002333",
+      "properties": {
+        "q": 109,
+        "q_uncertainty": null,
+        "name": "Cadiz D-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002333",
+        "ID_parent": "R24-P002292",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.88333, 36.96667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002334",
+      "properties": {
+        "q": 126,
+        "q_uncertainty": null,
+        "name": "Cadiz G-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002334",
+        "ID_parent": "R24-P002293",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.65, 36.63333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002335",
+      "properties": {
+        "q": 57,
+        "q_uncertainty": null,
+        "name": "Caldones",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002335",
+        "ID_parent": "R24-P002294",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-5.61667, 43.63333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002336",
+      "properties": {
+        "q": 126,
+        "q_uncertainty": null,
+        "name": "Candasnos",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002336",
+        "ID_parent": "R24-P002295",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.1, 41.5]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002337",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "Carcelen",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002337",
+        "ID_parent": "R24-P002296",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.3, 39.08333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002338",
+      "properties": {
+        "q": 109,
+        "q_uncertainty": null,
+        "name": "Casablanca-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002338",
+        "ID_parent": "R24-P002297",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.35, 40.68333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002339",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Casablanca-2",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002339",
+        "ID_parent": "R24-P002298",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.36667, 40.7]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002340",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Caspe",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002340",
+        "ID_parent": "R24-P002299",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.1, 41.16667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002341",
+      "properties": {
+        "q": 95,
+        "q_uncertainty": null,
+        "name": "Castellfullit",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002341",
+        "ID_parent": "R24-P002300",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.71667, 41.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002342",
+      "properties": {
+        "q": 137,
+        "q_uncertainty": null,
+        "name": "Castellon B-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002342",
+        "ID_parent": "R24-P002301",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.18333, 40.51667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002343",
+      "properties": {
+        "q": 111,
+        "q_uncertainty": null,
+        "name": "Castellon B-2",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002343",
+        "ID_parent": "R24-P002302",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.28333, 40.61667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002344",
+      "properties": {
+        "q": 120,
+        "q_uncertainty": null,
+        "name": "Castellon B-3",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002344",
+        "ID_parent": "R24-P002303",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.3, 40.61667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002345",
+      "properties": {
+        "q": 105,
+        "q_uncertainty": null,
+        "name": "Castellon B-4",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002345",
+        "ID_parent": "R24-P002304",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.25, 40.45]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002346",
+      "properties": {
+        "q": 124,
+        "q_uncertainty": null,
+        "name": "Castellon C-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002346",
+        "ID_parent": "R24-P002305",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.1, 40.38333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002347",
+      "properties": {
+        "q": 103,
+        "q_uncertainty": null,
+        "name": "Castellon C-2",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002347",
+        "ID_parent": "R24-P002306",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.13333, 40.4]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002348",
+      "properties": {
+        "q": 155,
+        "q_uncertainty": null,
+        "name": "Castellon D-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002348",
+        "ID_parent": "R24-P002307",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.85, 40.33333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002349",
+      "properties": {
+        "q": 141,
+        "q_uncertainty": null,
+        "name": "Castellon E-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002349",
+        "ID_parent": "R24-P002308",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.7, 40.33333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002350",
+      "properties": {
+        "q": 122,
+        "q_uncertainty": null,
+        "name": "Castellon E-2",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002350",
+        "ID_parent": "R24-P002309",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.71667, 40.31667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002351",
+      "properties": {
+        "q": 143,
+        "q_uncertainty": null,
+        "name": "Castellon G-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002351",
+        "ID_parent": "R24-P002310",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.83333, 40.21667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002352",
+      "properties": {
+        "q": 99,
+        "q_uncertainty": null,
+        "name": "Castellon L-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002352",
+        "ID_parent": "R24-P002311",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.38333, 39.88333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002353",
+      "properties": {
+        "q": 82,
+        "q_uncertainty": null,
+        "name": "Castilfrlo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002353",
+        "ID_parent": "R24-P002312",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.3, 41.93333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002354",
+      "properties": {
+        "q": 67,
+        "q_uncertainty": null,
+        "name": "Castillo-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002354",
+        "ID_parent": "R24-P002313",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.66667, 42.8]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002355",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Castillo-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002355",
+        "ID_parent": "R24-P002314",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.66667, 42.78333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002356",
+      "properties": {
+        "q": 67,
+        "q_uncertainty": null,
+        "name": "Castillo-3",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002356",
+        "ID_parent": "R24-P002315",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.66667, 42.81667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002357",
+      "properties": {
+        "q": 48,
+        "q_uncertainty": null,
+        "name": "Castillo-4",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002357",
+        "ID_parent": "R24-P002316",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.63333, 42.76667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002358",
+      "properties": {
+        "q": 57,
+        "q_uncertainty": null,
+        "name": "Castillo-5",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002358",
+        "ID_parent": "R24-P002317",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.71667, 42.8]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002359",
+      "properties": {
+        "q": 55,
+        "q_uncertainty": null,
+        "name": "Cenia-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002359",
+        "ID_parent": "R24-P002318",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.45, 40.5]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002360",
+      "properties": {
+        "q": 67,
+        "q_uncertainty": null,
+        "name": "Centenera-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002360",
+        "ID_parent": "R24-P002319",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.4, 42.28333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002361",
+      "properties": {
+        "q": 92,
+        "q_uncertainty": null,
+        "name": "Cerro Gordo-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002361",
+        "ID_parent": "R24-P002320",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-5.35, 36.35]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002362",
+      "properties": {
+        "q": 143,
+        "q_uncertainty": null,
+        "name": "Cerro Gordo-3",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002362",
+        "ID_parent": "R24-P002321",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-5.33333, 36.35]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002363",
+      "properties": {
+        "q": 92,
+        "q_uncertainty": null,
+        "name": "Columbretes A-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002363",
+        "ID_parent": "R24-P002322",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.58333, 39.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002364",
+      "properties": {
+        "q": 61,
+        "q_uncertainty": null,
+        "name": "Corres",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002364",
+        "ID_parent": "R24-P002323",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.45, 42.68333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002365",
+      "properties": {
+        "q": 74,
+        "q_uncertainty": null,
+        "name": "D. Juan",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002365",
+        "ID_parent": "R24-P002324",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-4.06667, 41.8]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002366",
+      "properties": {
+        "q": 124,
+        "q_uncertainty": null,
+        "name": "Delta Ebro",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002366",
+        "ID_parent": "R24-P002325",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.8, 40.71667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002367",
+      "properties": {
+        "q": 55,
+        "q_uncertainty": null,
+        "name": "Engaiia",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002367",
+        "ID_parent": "R24-P002326",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.73333, 43.08333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002368",
+      "properties": {
+        "q": 151,
+        "q_uncertainty": null,
+        "name": "Erinya",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002368",
+        "ID_parent": "R24-P002327",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.93333, 42.28333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002369",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Escuderos",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002369",
+        "ID_parent": "R24-P002328",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.3, 40.01667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002370",
+      "properties": {
+        "q": 97,
+        "q_uncertainty": null,
+        "name": "Esp His",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002370",
+        "ID_parent": "R24-P002329",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.3, 41.78333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002371",
+      "properties": {
+        "q": 105,
+        "q_uncertainty": null,
+        "name": "Fraga",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002371",
+        "ID_parent": "R24-P002330",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.21667, 41.48333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002372",
+      "properties": {
+        "q": 59,
+        "q_uncertainty": null,
+        "name": "Gabaldon",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002372",
+        "ID_parent": "R24-P002331",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.93333, 39.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002373",
+      "properties": {
+        "q": 92,
+        "q_uncertainty": null,
+        "name": "Gastiain",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002373",
+        "ID_parent": "R24-P002332",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.26667, 42.71667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002374",
+      "properties": {
+        "q": 99,
+        "q_uncertainty": null,
+        "name": "Gerona-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002374",
+        "ID_parent": "R24-P002333",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [3.01667, 42.1]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002375",
+      "properties": {
+        "q": 71,
+        "q_uncertainty": null,
+        "name": "Golfo Vizcaya-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002375",
+        "ID_parent": "R24-P002334",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.75, 43.53333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002376",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "Gormaz",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002376",
+        "ID_parent": "R24-P002335",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.05, 41.48333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002377",
+      "properties": {
+        "q": 105,
+        "q_uncertainty": null,
+        "name": "Graus",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002377",
+        "ID_parent": "R24-P002336",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.36667, 42.23333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002378",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Guissona",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002378",
+        "ID_parent": "R24-P002337",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.26667, 41.81667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002379",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Hito",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002379",
+        "ID_parent": "R24-P002338",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.56667, 39.86667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002380",
+      "properties": {
+        "q": 65,
+        "q_uncertainty": null,
+        "name": "Hontomin-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002380",
+        "ID_parent": "R24-P002339",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.63333, 42.58333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002381",
+      "properties": {
+        "q": 63,
+        "q_uncertainty": null,
+        "name": "Hontomin-l",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002381",
+        "ID_parent": "R24-P002340",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.63333, 42.58333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002382",
+      "properties": {
+        "q": 130,
+        "q_uncertainty": null,
+        "name": "Huelva",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002382",
+        "ID_parent": "R24-P002341",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.78333, 37.16667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002383",
+      "properties": {
+        "q": 74,
+        "q_uncertainty": null,
+        "name": "Iglesias",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002383",
+        "ID_parent": "R24-P002342",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.95, 42.3]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002384",
+      "properties": {
+        "q": 101,
+        "q_uncertainty": null,
+        "name": "Isla Mayor",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002384",
+        "ID_parent": "R24-P002343",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-6.13333, 37.15]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002385",
+      "properties": {
+        "q": 50,
+        "q_uncertainty": null,
+        "name": "Isona",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002385",
+        "ID_parent": "R24-P002344",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.15, 42.11667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002386",
+      "properties": {
+        "q": 101,
+        "q_uncertainty": null,
+        "name": "Jaraco",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002386",
+        "ID_parent": "R24-P002345",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.23333, 39.01667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002387",
+      "properties": {
+        "q": 92,
+        "q_uncertainty": null,
+        "name": "Joanetes",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002387",
+        "ID_parent": "R24-P002346",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.4, 42.11667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002388",
+      "properties": {
+        "q": 34,
+        "q_uncertainty": null,
+        "name": "La Cuenca",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002388",
+        "ID_parent": "R24-P002347",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.73333, 41.73333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002389",
+      "properties": {
+        "q": 172,
+        "q_uncertainty": null,
+        "name": "La Marina",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002389",
+        "ID_parent": "R24-P002348",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.65, 38.13333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002390",
+      "properties": {
+        "q": 138,
+        "q_uncertainty": null,
+        "name": "La Mata",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002390",
+        "ID_parent": "R24-P002349",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.65, 38.03333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002391",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "La Zaida",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002391",
+        "ID_parent": "R24-P002350",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.4, 41.31667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002392",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Lahoz-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002392",
+        "ID_parent": "R24-P002351",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.23333, 42.88333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002393",
+      "properties": {
+        "q": 67,
+        "q_uncertainty": null,
+        "name": "Lahoz-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002393",
+        "ID_parent": "R24-P002352",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.23333, 42.88333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002394",
+      "properties": {
+        "q": 67,
+        "q_uncertainty": null,
+        "name": "Laño-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002394",
+        "ID_parent": "R24-P002353",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.6, 42.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002395",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "Lerida",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002395",
+        "ID_parent": "R24-P002354",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.61667, 41.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002396",
+      "properties": {
+        "q": 55,
+        "q_uncertainty": null,
+        "name": "Leva-1-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002396",
+        "ID_parent": "R24-P002355",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.71667, 42.95]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002397",
+      "properties": {
+        "q": 65,
+        "q_uncertainty": null,
+        "name": "Liermo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002397",
+        "ID_parent": "R24-P002356",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.61667, 43.43333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002398",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Marcilla",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002398",
+        "ID_parent": "R24-P002357",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.7, 42.33333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002399",
+      "properties": {
+        "q": 78,
+        "q_uncertainty": null,
+        "name": "Marinda",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002399",
+        "ID_parent": "R24-P002358",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.93333, 42.86667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002400",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Matienzo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002400",
+        "ID_parent": "R24-P002359",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.58333, 43.3]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002401",
+      "properties": {
+        "q": 113,
+        "q_uncertainty": null,
+        "name": "Monegrillo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002401",
+        "ID_parent": "R24-P002360",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.41667, 41.53333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002402",
+      "properties": {
+        "q": 69,
+        "q_uncertainty": null,
+        "name": "Monesma",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002402",
+        "ID_parent": "R24-P002361",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.56667, 42.23333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002403",
+      "properties": {
+        "q": 74,
+        "q_uncertainty": null,
+        "name": "Monillo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002403",
+        "ID_parent": "R24-P002362",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.28333, 43.33333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002404",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Monzon",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002404",
+        "ID_parent": "R24-P002363",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.21667, 41.88333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002405",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Nueva Carteya",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002405",
+        "ID_parent": "R24-P002364",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-4.36667, 37.58333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002406",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Pamplona Sur",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002406",
+        "ID_parent": "R24-P002365",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.56667, 42.71667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002407",
+      "properties": {
+        "q": 65,
+        "q_uncertainty": null,
+        "name": "Pamplona-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002407",
+        "ID_parent": "R24-P002366",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.73333, 42.85]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002408",
+      "properties": {
+        "q": 53,
+        "q_uncertainty": null,
+        "name": "Pamplona-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002408",
+        "ID_parent": "R24-P002367",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.7, 42.81667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002409",
+      "properties": {
+        "q": 53,
+        "q_uncertainty": null,
+        "name": "Pamplona-3",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002409",
+        "ID_parent": "R24-P002368",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-1.73333, 42.93333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002410",
+      "properties": {
+        "q": 101,
+        "q_uncertainty": null,
+        "name": "Penlscola-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002410",
+        "ID_parent": "R24-P002369",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.13333, 40.18333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002411",
+      "properties": {
+        "q": 80,
+        "q_uncertainty": null,
+        "name": "Perafita",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002411",
+        "ID_parent": "R24-P002370",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.1, 42.05]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002412",
+      "properties": {
+        "q": 90,
+        "q_uncertainty": null,
+        "name": "Perenchiza",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002412",
+        "ID_parent": "R24-P002371",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.56667, 39.43333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002413",
+      "properties": {
+        "q": 65,
+        "q_uncertainty": null,
+        "name": "Pino",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002413",
+        "ID_parent": "R24-P002372",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.81667, 42.61667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002414",
+      "properties": {
+        "q": 74,
+        "q_uncertainty": null,
+        "name": "Pinos",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002414",
+        "ID_parent": "R24-P002373",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.53333, 41.8]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002415",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Puigreig",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002415",
+        "ID_parent": "R24-P002374",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.88333, 41.96667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002416",
+      "properties": {
+        "q": 65,
+        "q_uncertainty": null,
+        "name": "Quintana Redonda",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002416",
+        "ID_parent": "R24-P002375",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.55, 41.65]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002417",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "Rapita-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002417",
+        "ID_parent": "R24-P002376",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [1.35, 40.45]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002418",
+      "properties": {
+        "q": 53,
+        "q_uncertainty": null,
+        "name": "Retuerta",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002418",
+        "ID_parent": "R24-P002377",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.63333, 43]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002419",
+      "properties": {
+        "q": 95,
+        "q_uncertainty": null,
+        "name": "Ridaura-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002419",
+        "ID_parent": "R24-P002378",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.38333, 42.16667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002420",
+      "properties": {
+        "q": 97,
+        "q_uncertainty": null,
+        "name": "Ridaura-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002420",
+        "ID_parent": "R24-P002379",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.38333, 42.18333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002421",
+      "properties": {
+        "q": 76,
+        "q_uncertainty": null,
+        "name": "Rio Franco",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002421",
+        "ID_parent": "R24-P002380",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-4.05, 41.98333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002422",
+      "properties": {
+        "q": 61,
+        "q_uncertainty": null,
+        "name": "Rozas-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002422",
+        "ID_parent": "R24-P002381",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.71667, 43.01667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002423",
+      "properties": {
+        "q": 107,
+        "q_uncertainty": null,
+        "name": "S. Privat",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002423",
+        "ID_parent": "R24-P002382",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [2.4, 42.13333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002424",
+      "properties": {
+        "q": 29,
+        "q_uncertainty": null,
+        "name": "S.Carlos",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002424",
+        "ID_parent": "R24-P002383",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.66667, 40.66667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002425",
+      "properties": {
+        "q": 71,
+        "q_uncertainty": null,
+        "name": "S.Lorenzo",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002425",
+        "ID_parent": "R24-P002384",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-2.35, 39.85]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002426",
+      "properties": {
+        "q": 118,
+        "q_uncertainty": null,
+        "name": "S.Miguel-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002426",
+        "ID_parent": "R24-P002385",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.71667, 37.93333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002427",
+      "properties": {
+        "q": 139,
+        "q_uncertainty": null,
+        "name": "S.Miguel-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002427",
+        "ID_parent": "R24-P002386",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-0.78333, 37.96667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002428",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "S.Pedro-1",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002428",
+        "ID_parent": "R24-P002387",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.88333, 42.43333]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002429",
+      "properties": {
+        "q": 113,
+        "q_uncertainty": null,
+        "name": "S.Pedro-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002429",
+        "ID_parent": "R24-P002388",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.88333, 42.46667]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002430",
+      "properties": {
+        "q": 84,
+        "q_uncertainty": null,
+        "name": "Sagunto-1",
+        "elevation": null,
+        "environment": "offshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002430",
+        "ID_parent": "R24-P002389",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [0.26667, 39.7]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "R24-002431",
+      "properties": {
+        "q": 63,
+        "q_uncertainty": null,
+        "name": "Sal-2",
+        "elevation": null,
+        "environment": "onshore (continental)",
+        "p_comment": null,
+        "corr_HP_flag": "Yes",
+        "total_depth_MD": null,
+        "total_depth_TVD": null,
+        "explo_method": "Drilling",
+        "explo_purpose": "Hydrocarbon",
+        "ID": "R24-002431",
+        "ID_parent": "R24-P002390",
+        "Quality_Code": "Ux.M4.X------"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-3.55, 42.65]
+      }
+    }
+  ]
+}
