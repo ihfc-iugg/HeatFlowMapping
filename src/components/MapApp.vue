@@ -21,9 +21,7 @@ import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
-// import dataURL from '@/assets/data/heatflow_sample_data.json'
-// import dataURL from '@/assets/data/parent_elements.json'
-// import dataURL from '@/assets/data/geojsonFromCSV.json'
+import dataURL from '@/assets/data/geojsonFromCSV.json'
 
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
@@ -78,11 +76,15 @@ onMounted(() => {
     console.log(mapStore.map)
 
     try {
-      // ghfdb.toggleInProcess()
-      const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
-      ghfdb.json = await ghfdb.csv2JSON(strValues)
-      ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
-      ghfdb.toggleInProcess()
+      if (dataURL) {
+        ghfdb.geojson = dataURL
+        ghfdb.toggleInProcess()
+      } else {
+        const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
+        ghfdb.json = await ghfdb.csv2JSON(strValues)
+        ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
+        ghfdb.toggleInProcess()
+      }
     } catch (error) {
       console.log('Error in fetching GHFDB')
       console.log(error)
