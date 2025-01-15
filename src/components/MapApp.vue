@@ -29,10 +29,12 @@ const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 
 window.Buffer = window.Buffer || Buffer
 
+const schema = schemaURL
+
 const ghfdb = useGHFDBStore()
 const mapStore = useMapStore()
 const dataSchema = useDataSchemaStore()
-dataSchema.fetchAPIDataSchema(schemaURL)
+dataSchema.fetchAPIDataSchema(schema)
 const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
 // const mapAppConfig = useMapAppConfig()
