@@ -22,7 +22,7 @@ export default defineConfig(({ mode }) => {
       }
     },
     build: {
-      minify: true,
+      minify: false,
       target: 'esnext'
       // sourcemap: true
     },
