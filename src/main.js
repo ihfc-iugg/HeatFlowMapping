@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import { Buffer } from 'buffer'
 
 // import global css styles
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -12,3 +13,5 @@ import { createPinia } from 'pinia'
 const app = createApp(App).use(createPinia())
 
 app.mount(document.getElementsByClassName('whfd-mapping')[0])
+
+window.Buffer = window.Buffer || Buffer
