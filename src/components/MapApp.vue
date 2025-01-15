@@ -1,6 +1,7 @@
 <script setup>
 // vue
 import { onMounted, onUnmounted, ref } from 'vue'
+import { Buffer } from 'buffer'
 
 // components
 import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
@@ -25,6 +26,8 @@ import dataURL from '@/assets/data/geojsonFromCSV_4.json'
 
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
+
+window.Buffer = window.Buffer || Buffer
 
 const ghfdb = useGHFDBStore()
 const mapStore = useMapStore()

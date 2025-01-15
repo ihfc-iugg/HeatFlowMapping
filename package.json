@@ -23,6 +23,7 @@
     "@turf/turf": "^7.1.0",
     "axios": "^1.6.0",
     "bootstrap": "^5.2.3",
+    "buffer": "^6.0.3",
     "chroma-js": "^2.4.2",
     "colorbrewer": "^1.5.3",
     "danfojs": "^0.1.1",

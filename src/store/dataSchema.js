@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { Buffer } from 'buffer'
 
 import $RefParser from '@apidevtools/json-schema-ref-parser'
 
