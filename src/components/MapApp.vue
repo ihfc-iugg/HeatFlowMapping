@@ -130,8 +130,7 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>This is just a Demo!</strong> We are aware of any errors that occur in context with the
-    drawing library
+    <strong>This is just a Demo!</strong> Errors can occur and tutorials on "How To" will follow.
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <div class="map-wrap">
