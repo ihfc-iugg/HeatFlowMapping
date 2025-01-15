@@ -25,15 +25,15 @@ watch(dB.layers, () => {
     <CTable>
       <CTableHead>
         <CTableRow>
-          <CTableHeaderCell scope="col">Layer</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Thickness (m)</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Heat Production (muW/m^3)</CTableHeaderCell>
-          <CTableHeaderCell scope="col">Thermal Conductivity (W/m/k)</CTableHeaderCell>
+          <!-- <CTableHeaderCell scope="col"></CTableHeaderCell> -->
+          <CTableHeaderCell class="p" scope="col">Thickness (m)</CTableHeaderCell>
+          <CTableHeaderCell class="p" scope="col">Heat Production (muW/m^3)</CTableHeaderCell>
+          <CTableHeaderCell class="p" scope="col">Thermal Conductivity (W/m/k)</CTableHeaderCell>
         </CTableRow>
       </CTableHead>
       <CTableBody>
         <CTableRow v-for="layer in dB.layers" :key="dB.layers.indexOf(layer)">
-          <CTableHeaderCell scope="row">{{ dB.layers.indexOf(layer) + 1 }}</CTableHeaderCell>
+          <!-- <CTableHeaderCell scope="row">{{ dB.layers.indexOf(layer) + 1 }}</CTableHeaderCell> -->
           <CTableDataCell>
             <div class="input-group mb-3">
               <input

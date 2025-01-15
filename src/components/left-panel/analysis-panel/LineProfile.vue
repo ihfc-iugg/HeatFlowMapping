@@ -4,11 +4,12 @@ import { Map } from 'maplibre-gl'
 import LineDrawToolbox from '@/components/left-panel/analysis-panel/LineDrawToolbox.vue'
 import LineSetup from '@/components/left-panel/analysis-panel/LineSetup.vue'
 import LineChartPopup from '@/components/left-panel/analysis-panel/LineChartPopup.vue'
+import About2DProfile from '@/components/left-panel/analysis-panel/About2DProfile.vue'
 import { use2DProfileStore } from '@/store/2DProfile'
-import { useMeasurementStore } from '@/store/measurements'
+import { useGHFDBStore } from '@/store/ghfdb'
 
 const profile = use2DProfileStore()
-const measurements = useMeasurementStore()
+const ghfdb = useGHFDBStore()
 
 const props = defineProps({ map: Map })
 const activeTab = ref('setup')
@@ -99,6 +100,34 @@ function togglehasChartPopup() {
               />
             </svg>
           </label>
+          <input
+            type="radio"
+            class="btn-check"
+            name="btnradio"
+            id="about2DProfile"
+            autocomplete="off"
+            checked
+            data-bs-toggle="collapse"
+            href="#about2DProfile"
+          />
+          <label
+            class="btn btn-outline-primary"
+            for="about2DProfile"
+            @click="setActiveTab('about2DProfile')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-info-circle"
+            >
+              <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+              <path
+                d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+              />
+            </svg>
+          </label>
         </div>
       </div>
       <div class="col pe-0">
@@ -112,6 +141,14 @@ function togglehasChartPopup() {
           style="width: 100%"
         >
           <LineDrawToolbox :map="map" />
+        </div>
+        <div
+          v-if="activeTab == 'about2DProfile'"
+          class="card collapse mb-1"
+          id="about2DProfile"
+          style="width: 100%"
+        >
+          <About2DProfile />
         </div>
       </div>
     </div>
@@ -135,7 +172,7 @@ function togglehasChartPopup() {
           data-bs-title="Click to start the calculation"
           @click="
             profile.setPointsWithinDistance(
-              measurements.geojson.features,
+              ghfdb.geojson.features,
               profile.line,
               profile.threshold
             ),

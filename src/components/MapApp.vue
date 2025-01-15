@@ -15,15 +15,15 @@ import { useMapStore } from '@/store/map.js'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapControlsStore } from '@/store/mapControls'
 import { useSettingsStore } from '@/store/settings'
-import { useBaseMapsStore } from '@/store/baseMaps'
-import { useMapAppConfig } from '@/store/mapAppConfig'
+// import { useBaseMapsStore } from '@/store/baseMaps'
+// import { useMapAppConfig } from '@/store/mapAppConfig'
 import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
-import schemaURL from '@/assets/data/Heatflow_worldAPI.yaml'
+import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
 // import dataURL from '@/assets/data/heatflow_sample_data.json'
 // import dataURL from '@/assets/data/parent_elements.json'
-import dataURL from '@/assets/data/geojsonFromCSV.json'
+// import dataURL from '@/assets/data/geojsonFromCSV.json'
 
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
 // const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
@@ -34,10 +34,10 @@ const dataSchema = useDataSchemaStore()
 dataSchema.fetchAPIDataSchema(schemaURL)
 const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
-const mapAppConfig = useMapAppConfig()
-mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
-mapAppConfig.setDataURL('dataUrl')
-mapAppConfig.setSchemaURL('schemaUrl')
+// const mapAppConfig = useMapAppConfig()
+// mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
+// mapAppConfig.setDataURL('dataUrl')
+// mapAppConfig.setSchemaURL('schemaUrl')
 
 const mapContainer = ref()
 const navBar = useNavigationBarStore()
@@ -129,6 +129,11 @@ function toggleVisibleScrolling() {
 </script>
 
 <template>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong>This is just a Demo!</strong> We are aware of any errors that occur in context with the
+    drawing library
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div class="map-wrap">
     <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
       <DataLoadingModal />
@@ -144,11 +149,11 @@ function toggleVisibleScrolling() {
             :key="item.title"
             panelTitle="{item.title}"
             @click="
-              isCollapsed ? setPanelTitle(item.title) : 0,
-                setPanelIcon(item.svgElement),
-                // toggleSidebar(),
-                setIsCollapsed(),
-                toggleVisibleScrolling()
+              (isCollapsed ? setPanelTitle(item.title) : 0,
+              setPanelIcon(item.svgElement),
+              // toggleSidebar(),
+              setIsCollapsed(),
+              toggleVisibleScrolling())
             "
             type="button"
             class="btn btn-primary"

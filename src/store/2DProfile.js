@@ -8,7 +8,7 @@ import {
   pointToLineDistance,
   radiansToLength
 } from '@turf/turf'
-import { Map } from 'maplibre-gl'
+import { Map, Popup, Marker } from 'maplibre-gl'
 import { useSettingsStore } from './settings.js'
 import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
 
@@ -26,6 +26,9 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   const pointsWithinDistance = ref([])
   const settings = useSettingsStore()
   const calculationTools = useSphericalTrigonometry()
+  const plot = ref(null)
+  const popup = ref(null)
+  const marker = ref(null)
 
   /**
    * @description
@@ -54,7 +57,10 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    */
   function generatePaintProperty(pntWithinDistance) {
     const pntIds = pntWithinDistance.map((pnt) => pnt.properties.ID)
+
     return ['case', ['in', ['get', 'ID'], ['literal', pntIds]], '#FCC480', settings.circleColor]
+    // const pntIds = pntWithinDistance.map((pnt) => pnt.id)
+    // return ['case', ['in', ['get', 'id'], ['literal', pntIds]], '#FCC480', settings.circleColor]
   }
 
   /**
@@ -63,8 +69,8 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    * @returns {Object} GeoJSON FeatureCollection
    */
   function lineStringToPointFeatureCollection(lineStringCoordinates) {
-    const pnt1 = point(lineStringCoordinates[0], { title: 'A' })
-    const pnt2 = point(lineStringCoordinates.at(-1), { title: 'C' })
+    const pnt1 = point(lineStringCoordinates[0], { title: 'Start' })
+    const pnt2 = point(lineStringCoordinates.at(-1), { title: 'End' })
     return featureCollection([pnt1, pnt2])
   }
 
@@ -118,6 +124,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       const bRT = calculationTools.calculateB(alpha, c)
       let pointData = {
         id: pnt.properties.ID,
+        // id: pnt.id,
         b: radiansToLength(bRT),
         a: radiansToLength(aRT)
       }
@@ -134,10 +141,12 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
 
   return {
     selectedProperty1,
-    // selectedProperty2,
     threshold,
     line,
     pointsWithinDistance,
+    plot,
+    popup,
+    marker,
     setPointsWithinDistance,
     generatePaintProperty,
     lineStringToPointFeatureCollection,

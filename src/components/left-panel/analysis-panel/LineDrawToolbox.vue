@@ -53,6 +53,14 @@ function allowOnlyTwoPoints(feature, originalFeature) {
     mapControls.mapboxDraw.delete(originalFeature.id) // Delete the original feature
     mapControls.mapboxDraw.add(feature) // Add the modified feature with only 2 coordinates
 
+    try {
+      // Remove the original feature and add the modified one with only 2 coordinates
+      mapControls.mapboxDraw.delete(originalFeature.id) // Delete the original feature
+      mapControls.mapboxDraw.add(feature) // Add the modified feature with only 2 coordinates
+    } catch (error) {
+      console.log(error)
+    }
+
     // Optionally, you can alert or notify the user that only 2 points are allowed
     alert('You can only draw a LineString with 2 points.')
   } else {
