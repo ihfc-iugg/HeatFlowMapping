@@ -1,10 +1,10 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { Map } from 'maplibre-gl'
-import LineDrawToolbox from '@/components/left-panel/analysis-panel/LineDrawToolbox.vue'
-import LineSetup from '@/components/left-panel/analysis-panel/LineSetup.vue'
-import LineChartPopup from '@/components/left-panel/analysis-panel/LineChartPopup.vue'
-import About2DProfile from '@/components/left-panel/analysis-panel/About2DProfile.vue'
+import Profile2DLineDrawToolbox from '@/components/left-panel/analysis-panel/Profile2DLineDrawToolbox.vue'
+import Profile2DLineSetup from '@/components/left-panel/analysis-panel/Profile2DLineSetup.vue'
+import Profile2DLineChartPopup from '@/components/left-panel/analysis-panel/Profile2DLineChartPopup.vue'
+import Profile2DAbout from '@/components/left-panel/analysis-panel/Profile2DAbout.vue'
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useGHFDBStore } from '@/store/ghfdb'
 
@@ -132,7 +132,7 @@ function togglehasChartPopup() {
       </div>
       <div class="col pe-0">
         <div v-if="activeTab == 'setup'" class="card collapse mb-1" id="setup" style="width: 100%">
-          <LineSetup :map="map" />
+          <Profile2DLineSetup :map="map" />
         </div>
         <div
           v-if="activeTab == 'toolbox'"
@@ -140,7 +140,7 @@ function togglehasChartPopup() {
           id="toolbox"
           style="width: 100%"
         >
-          <LineDrawToolbox :map="map" />
+          <Profile2DLineDrawToolbox :map="map" />
         </div>
         <div
           v-if="activeTab == 'about2DProfile'"
@@ -148,7 +148,7 @@ function togglehasChartPopup() {
           id="about2DProfile"
           style="width: 100%"
         >
-          <About2DProfile />
+          <Profile2DAbout />
         </div>
       </div>
     </div>
@@ -171,23 +171,23 @@ function togglehasChartPopup() {
           data-bs-placement="bottom"
           data-bs-title="Click to start the calculation"
           @click="
-            profile.setPointsWithinDistance(
+            (profile.setPointsWithinDistance(
               ghfdb.geojson.features,
               profile.line,
               profile.threshold
             ),
-              // profile.highlightPointsWithinDistance(props.map, profile.pointsWithinDistance),
-              props.map.setPaintProperty(
-                'sites',
-                'circle-color',
-                profile.generatePaintProperty(profile.pointsWithinDistance)
-              ),
-              togglehasChartPopup()
+            // profile.highlightPointsWithinDistance(props.map, profile.pointsWithinDistance),
+            props.map.setPaintProperty(
+              'sites',
+              'circle-color',
+              profile.generatePaintProperty(profile.pointsWithinDistance)
+            ),
+            togglehasChartPopup())
           "
         >
           Calculate 2D Profile
         </button>
-        <LineChartPopup :map="props.map" :hasPopup="hasChartPopup" />
+        <Profile2DLineChartPopup :map="props.map" :hasPopup="hasChartPopup" />
       </div>
     </div>
   </div>

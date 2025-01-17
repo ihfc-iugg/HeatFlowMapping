@@ -3,10 +3,10 @@ import { ref, defineProps, watch, onMounted } from 'vue'
 import { Map } from 'maplibre-gl'
 
 import { useDigitalBoreholeStore } from '@/store/digitalBorehole'
-import CustomParameters from '@/components/left-panel/analysis-panel/CustomParameters.vue'
-import AboutBootstrapping from '@/components/left-panel/analysis-panel/AboutBootstrapping.vue'
-import PointDrawToolbox from '@/components/left-panel/analysis-panel/PointDrawToolbox.vue'
-import DigitalBoreholePopup from './DigitalBoreholePopup.vue'
+import DBCustomParameters from '@/components/left-panel/analysis-panel/DBCustomParameters.vue'
+import DBAboutBootstrapping from '@/components/left-panel/analysis-panel/DBAboutBootstrapping.vue'
+import DBPointDrawToolbox from '@/components/left-panel/analysis-panel/DBPointDrawToolbox.vue'
+import DigitalBoreholePopup from './DBPopup.vue'
 
 const props = defineProps({ map: Map })
 const dB = useDigitalBoreholeStore()
@@ -132,7 +132,7 @@ function setActiveTab(tab) {
           id="pntToolBox"
           style="width: 100%"
         >
-          <PointDrawToolbox :map="props.map" />
+          <DBPointDrawToolbox :map="props.map" />
         </div>
         <div
           v-if="activeTab == 'parameterToolBox'"
@@ -140,7 +140,7 @@ function setActiveTab(tab) {
           id="parameterToolBox"
           style="width: 100%"
         >
-          <CustomParameters v-if="dB.closestPointfeatures" />
+          <DBCustomParameters v-if="dB.closestPointfeatures" />
         </div>
         <div
           v-if="activeTab == 'aboutBootstrapping'"
@@ -148,7 +148,7 @@ function setActiveTab(tab) {
           id="aboutBootstrapping"
           style="width: 100%"
         >
-          <AboutBootstrapping />
+          <DBAboutBootstrapping />
         </div>
       </div>
     </div>

@@ -1,8 +1,8 @@
 <script setup>
 import { defineProps } from 'vue'
 import { Map } from 'maplibre-gl'
-import DigitalBorehole from '@/components/left-panel/analysis-panel/DigitalBorehole.vue'
-import LineProfile from '@/components/left-panel/analysis-panel/LineProfile.vue'
+import DBDigitalBorehole from '@/components/left-panel/analysis-panel/DBDigitalBorehole.vue'
+import Profile2D from '@/components/left-panel/analysis-panel/Profile2D.vue'
 
 const props = defineProps({ map: Map })
 </script>
@@ -22,7 +22,7 @@ const props = defineProps({ map: Map })
       </button>
     </p>
     <div class="collapse" id="digitalBorehole">
-      <DigitalBorehole :map="map" />
+      <DBDigitalBorehole :map="map" />
     </div>
 
     <p class="mt-1 d-grid gap-2">
@@ -38,7 +38,7 @@ const props = defineProps({ map: Map })
       </button>
     </p>
     <div class="collapse" id="profile">
-      <LineProfile :map="map" />
+      <Profile2D :map="map" />
     </div>
   </div>
 </template>
