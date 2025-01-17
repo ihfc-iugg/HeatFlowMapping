@@ -4,8 +4,8 @@ import { newPlot } from 'plotly.js-dist'
 import { Map } from 'maplibre-gl'
 
 import VueMultiselect from 'vue-multiselect'
-import TableNumericValues from './TableNumericValues.vue'
-import TableEnumValues from './TableEnumValues.vue'
+import StatisticsPanelTableNumericValues from './StatisticsPanelTableNumericValues.vue'
+import StatisticsPanelTableEnumValues from './StatisticsPanelTableEnumValues.vue'
 
 import { useGHFDBStore } from '@/store/ghfdb'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
@@ -112,9 +112,9 @@ function setPropertyDataType(property) {
         :allow-empty="false"
         placeholder="Select Property"
         @select="
-          setPropertyValues(selectedProperty.key),
-            setPropertyDataType(selectedProperty.key),
-            plotGraph(selectedProperty.key)
+          (setPropertyValues(selectedProperty.key),
+          setPropertyDataType(selectedProperty.key),
+          plotGraph(selectedProperty.key))
         "
       >
       </VueMultiselect>
@@ -122,12 +122,12 @@ function setPropertyDataType(property) {
 
     <div class="w-100 h-100 d-inline-block" id="statisticGraph"></div>
 
-    <TableNumericValues
+    <StatisticsPanelTableNumericValues
       v-if="selectedProperty && selectedPropertyDataType == 'number'"
       :attributeValues="values"
     />
 
-    <TableEnumValues
+    <StatisticsPanelTableEnumValues
       v-if="selectedProperty && selectedPropertyDataType == undefined"
       :attributeValues="values"
     />

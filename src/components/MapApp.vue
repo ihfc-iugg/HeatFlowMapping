@@ -4,10 +4,10 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 // components
 import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
-import CursorCoordinates from './map/CursorCoordinates.vue'
-import DataLoadingModal from './map/DataLoadingModal.vue'
+import MapCursorCoordinates from './map/MapCursorCoordinates.vue'
+import MapDataLoadingModal from './map/MapDataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
-import InfoPopup from './map/InfoPopup.vue'
+import MapInfoPopup from './map/MapInfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
 // import RightPanel from '@/components/right-panel/RightPanel.vue'
 
@@ -135,8 +135,8 @@ function toggleVisibleScrolling() {
   </div>
   <div class="map-wrap">
     <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
-      <DataLoadingModal />
-      <InfoPopup :map="mapStore.map" />
+      <MapDataLoadingModal />
+      <MapInfoPopup :map="mapStore.map" />
       <MapLegend />
 
       <!-- Navigation buttons -->
@@ -180,7 +180,7 @@ function toggleVisibleScrolling() {
             @toggle-event="toggleVisibleScrolling()"
           />
         </COffcanvas>
-        <CursorCoordinates :map="mapStore.map" />
+        <MapCursorCoordinates :map="mapStore.map" />
       </div>
     </div>
     <!-- <div class="column chart-panel">

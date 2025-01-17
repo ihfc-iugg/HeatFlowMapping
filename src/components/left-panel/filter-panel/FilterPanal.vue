@@ -4,9 +4,9 @@ import { Map } from 'maplibre-gl'
 
 import { useFilterStore } from '@/store/filter'
 
-import FilterElement from './FilterElement.vue'
-import FilterByLocation from './FilterByLocation.vue'
-import DownloadData from './DownloadData.vue'
+import FilterPanelFilterElement from './FilterPanelFilterElement.vue'
+import FilterPanelFilterByLocation from './FilterPanelFilterByLocation.vue'
+import FilterPanelDownloadData from './FilterPanelDownloadData.vue'
 
 const props = defineProps({ map: Map })
 
@@ -48,8 +48,12 @@ function addFilterElement() {
     </button>
   </p>
   <div class="collapse" id="attributeFilter">
-    <FilterElement v-for="id in Object.keys(filter.filters.attributeFilter)" :key="id" :id="id">
-    </FilterElement>
+    <FilterPanelFilterElement
+      v-for="id in Object.keys(filter.filters.attributeFilter)"
+      :key="id"
+      :id="id"
+    >
+    </FilterPanelFilterElement>
 
     <div class="filter-managing-tools">
       <label for="add-filter-btn" v-if="filter.reachedLimit"
@@ -79,9 +83,9 @@ function addFilterElement() {
       Location Filter
     </button>
   </p>
-  <FilterByLocation :map="map" />
+  <FilterPanelFilterByLocation :map="map" />
 
-  <DownloadData :map="map"></DownloadData>
+  <FilterPanelDownloadData :map="map"></FilterPanelDownloadData>
 </template>
 
 <style scoped></style>

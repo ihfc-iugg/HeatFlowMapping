@@ -2,10 +2,10 @@
 import { defineProps, ref, watch } from 'vue'
 import { Map } from 'maplibre-gl'
 
-import BaseMaps from './BaseMaps.vue'
-import CircleRadius from './CircleRadius.vue'
-import CircleColor from './CircleColor.vue'
-import DataDrivenColoring from './DataDrivenColoring.vue'
+import SettingsPanelBaseMaps from './SettingsPanelBaseMaps.vue'
+import SettingsPanelCircleRadius from './SettingsPanelCircleRadius.vue'
+import SettingsPanelCircleColor from './SettingsPanelCircleColor.vue'
+import SettingsPanelDataDrivenColoring from './SettingsPanelDataDrivenColoring.vue'
 
 const props = defineProps({
   map: Map
@@ -15,11 +15,11 @@ const props = defineProps({
 <template>
   <BaseMaps :map="props.map" />
 
-  <CircleRadius :map="props.map" />
+  <SettingsPanelCircleRadius :map="props.map" />
 
-  <CircleColor :map="props.map" />
+  <SettingsPanelCircleColor :map="props.map" />
 
-  <DataDrivenColoring :map="props.map" />
+  <SettingsPanelDataDrivenColoring :map="props.map" />
 </template>
 
 <style scoped></style>
