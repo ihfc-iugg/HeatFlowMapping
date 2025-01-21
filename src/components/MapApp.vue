@@ -134,10 +134,8 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong
-      >This is just a Demo and contains only a subset of the Global Heat Flow Database!</strong
-    >
-    Errors can occur and tutorials on "How To" will follow.
+    <strong>This is a demo service. It shows a sub set of the Global Heat Flow Database</strong>
+    Please provide your feedback here (nikolas.ott(at)tu-dresden.de)
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <div class="map-wrap">
