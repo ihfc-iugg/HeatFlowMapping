@@ -13,7 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <BaseMaps :map="props.map" />
+  <SettingsPanelBaseMaps :map="props.map" />
 
   <SettingsPanelCircleRadius :map="props.map" />
 
