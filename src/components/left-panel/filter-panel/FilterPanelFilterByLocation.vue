@@ -1,122 +1,101 @@
 <script setup>
-import { defineProps } from 'vue'
+import { defineProps, ref } from 'vue'
 import { Map } from 'maplibre-gl'
 
-import { CTooltip } from '@coreui/bootstrap-vue'
-
-import { useFilterStore } from '@/store/filter'
-import { useMapControlsStore } from '@/store/mapControls'
+import FilterPanelFIlterByLocationDrawToolbox from './FilterPanelFIlterByLocationDrawToolbox.vue'
+import FilterPanelFilterByLocationAbout from '@/components/left-panel/filter-panel/FilterPanelFilterByLocationAbout.vue'
 
 const props = defineProps({ map: Map })
 
-console.log('inside filter by location')
-console.log(props.map)
-
-const filter = useFilterStore()
-const mapControls = useMapControlsStore()
+const activeTab = ref('aboutLocationFIlter')
 
 /**
  *
+ * @param {String} tab
  */
-function drawPolygon() {
-  mapControls.mapboxDraw.changeMode('draw_polygon')
+function setActiveTab(tab) {
+  activeTab.value = tab
 }
-
-/**
- *
- */
-function deletePolygon() {
-  mapControls.mapboxDraw.trash()
-}
-
-/**
- *
- * @param {*} geoJSONObj
- */
-function writeLocationFilterExpression(geoJSONObj) {
-  let expression = []
-
-  expression.push('within')
-  expression.push(geoJSONObj)
-
-  return expression
-}
-
-/**
- * TODO: only one or multiple areas?
- */
-props.map.on('draw.create', function (e) {
-  if (e.features[0].geometry.type == 'Polygon') {
-    filter.addFilter(e.features[0].id, 'locationFilter')
-    filter.filters.locationFilter[e.features[0].id].expression = writeLocationFilterExpression(
-      e.features[0].geometry
-    )
-  }
-})
-
-/**
- *
- */
-props.map.on('draw.delete', function (e) {
-  filter.removeFilterElement(e.features[0].id, 'locationFilter')
-})
-
-/**
- *
- */
-props.map.on('draw.update', function (e) {
-  filter.filters.locationFilter[e.features[0].id].expression[1] = e.features[0].geometry
-})
 </script>
 
 <template>
   <div class="collapse" id="locationFilter">
-    <p>Filter points within a custom drawn polygon</p>
-
-    <CTooltip content="Draw polygon" placement="bottom">
-      <template #toggler="{ on }">
-        <button id="draw-polygon-btn" class="btn btn-primary mx-1" v-on="on" @click="drawPolygon()">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-bounding-box-circles"
-            viewBox="0 0 16 16"
+    <div class="container">
+      <div class="row">
+        <div class="col-md-auto ps-0">
+          <div class="btn-group-vertical" role="group">
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="toolbox"
+              autocomplete="off"
+              data-bs-toggle="collapse"
+              href="#toolbox"
+            />
+            <label class="btn btn-outline-primary" for="toolbox" @click="setActiveTab('toolbox')">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-pencil-fill"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.5.5 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11z"
+                />
+              </svg>
+            </label>
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              id="aboutLocationFIlter"
+              autocomplete="off"
+              checked
+              data-bs-toggle="collapse"
+              href="#aboutLocationFIlter"
+            />
+            <label
+              class="btn btn-outline-primary"
+              for="aboutLocationFIlter"
+              @click="setActiveTab('aboutLocationFIlter')"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-info-circle"
+              >
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                  d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+                />
+              </svg>
+            </label>
+          </div>
+        </div>
+        <div class="col pe-0">
+          <div
+            v-if="activeTab == 'toolbox'"
+            class="card collapse mb-1"
+            id="toolbox"
+            style="width: 100%"
           >
-            <path
-              d="M2 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2M0 2a2 2 0 0 1 3.937-.5h8.126A2 2 0 1 1 14.5 3.937v8.126a2 2 0 1 1-2.437 2.437H3.937A2 2 0 1 1 1.5 12.063V3.937A2 2 0 0 1 0 2m2.5 1.937v8.126c.703.18 1.256.734 1.437 1.437h8.126a2 2 0 0 1 1.437-1.437V3.937A2 2 0 0 1 12.063 2.5H3.937A2 2 0 0 1 2.5 3.937M14 1a1 1 0 1 0 0 2 1 1 0 0 0 0-2M2 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"
-            />
-          </svg>
-        </button>
-      </template>
-    </CTooltip>
-
-    <CTooltip content="Delete selected polygon" placement="bottom">
-      <template #toggler="{ on }">
-        <button
-          id="delte-polygon-btn"
-          class="btn btn-primary mx-1"
-          v-on="on"
-          @click="deletePolygon()"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-trash"
-            viewBox="0 0 16 16"
+            <FilterPanelFIlterByLocationDrawToolbox :map="map" />
+          </div>
+          <div
+            v-if="activeTab == 'aboutLocationFIlter'"
+            class="card collapse mb-1"
+            id="aboutLocationFIlter"
+            style="width: 100%"
           >
-            <path
-              d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5m3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0z"
-            />
-            <path
-              d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4zM2.5 3h11V2h-11z"
-            />
-          </svg>
-        </button>
-      </template>
-    </CTooltip>
+            <FilterPanelFilterByLocationAbout />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
