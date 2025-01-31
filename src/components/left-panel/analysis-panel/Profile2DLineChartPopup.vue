@@ -44,7 +44,7 @@ watch(
 function highlightHoveredPoint(mapObject, pntId, pntsWithinThresholdPaintProperty) {
   let hoverPaintProperty = [
     'case',
-    ['==', ['get', 'id'], pntId],
+    ['==', ['get', 'ID'], pntId],
     'red',
     pntsWithinThresholdPaintProperty
   ]
@@ -93,17 +93,24 @@ function drawProfile() {
 
   const alongLineDdistance = projectedPoinsts.map((pnt) => pnt.b)
   const offset = projectedPoinsts.map((pnt) => pnt.a)
+  const uncertainty = projectedPoinsts.map((pnt) => pnt.uncertainty)
   const propertyValues = projectedPoinsts.map((pnt) => pnt[profile.selectedProperty1])
   const pntIds = projectedPoinsts.map((pnt) => pnt.id)
-  console.log(pntIds)
+  console.log('uncertainty')
+  console.log(uncertainty)
 
   // Data property values
   const trace1 = {
     x: alongLineDdistance,
     y: propertyValues,
+    error_y: {
+      type: 'data',
+      array: uncertainty,
+      visible: true
+    },
     name: profile.selectedProperty1,
     type: 'scatter',
-    mode: 'lines+markers',
+    mode: 'markers',
     textposition: 'bottom',
     hovertemplate: '<b>%{text}</b>' + '<br><b>x</b>: %{x}' + '<br><b>y</b>: %{y}',
     text: pntIds,
