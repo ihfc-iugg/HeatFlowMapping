@@ -112,6 +112,8 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     // bT, T is shortcut for triangle
     const bT = distance(pntA, pntC, { units: 'radians' }) // length of drawn line
     pnts.forEach((pnt) => {
+      console.log('pnt in profile store')
+      console.log(pnt)
       // B is point within threshold
       const pntB = point(pnt.geometry.coordinates)
       const aT = distance(pntC, pntB, { units: 'radians' })
@@ -124,7 +126,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       const bRT = calculationTools.calculateB(alpha, c)
       let pointData = {
         id: pnt.properties.ID,
-        // id: pnt.id,
+        uncertainty: pnt.properties.q_uncertainty ? pnt.properties.q_uncertainty : null,
         b: radiansToLength(bRT),
         a: radiansToLength(aRT)
       }
