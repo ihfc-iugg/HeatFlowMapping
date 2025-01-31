@@ -3,31 +3,18 @@ import { defineProps, ref } from 'vue'
 import { Map } from 'maplibre-gl'
 
 import { CTooltip } from '@coreui/bootstrap-vue'
-import FilterPanelFilterByLocationAbout from '@/components/left-panel/filter-panel/FilterPanelFilterByLocationAbout.vue'
 
 import { useFilterStore } from '@/store/filter'
-import { useMapControlsStore } from '@/store/mapControls'
 import { useDrawStore } from '@/store/draw'
 
 const props = defineProps({ map: Map })
 
-console.log('inside filter by location')
-console.log(props.map)
-
 const filter = useFilterStore()
-const mapControls = useMapControlsStore()
 const draw = useDrawStore()
 
 /**
  *
- */
-function deletePolygon() {
-  mapControls.mapboxDraw.trash()
-}
-
-/**
- *
- * @param {*} geoJSONObj
+ * @param {Object} geoJSONObj
  */
 function writeLocationFilterExpression(geoJSONObj) {
   let expression = []
@@ -40,7 +27,7 @@ function writeLocationFilterExpression(geoJSONObj) {
 
 /**
  *
- * @param selectedFeature
+ * @param {Object} selectedFeature
  */
 function deleteLocationFilter(selectedFeature) {
   if (selectedFeature && selectedFeature.geometry.type === 'Polygon') {
@@ -89,7 +76,7 @@ draw.tools.on('select', (id) => {
 <template>
   <div class="card-body">
     <h6>Toolbox</h6>
-    <p>Draw a polygon to filter within a user-defined location</p>
+    <p>Filter points within a user-defined polygon</p>
     <CTooltip content="Draw polygon" placement="bottom">
       <template #toggler="{ on }">
         <button
@@ -144,7 +131,7 @@ draw.tools.on('select', (id) => {
           id="delte-polygon-btn"
           class="btn btn-primary mx-1"
           v-on="on"
-          @click="(deletePolygon(), deleteLocationFilter(draw.selectedFeature))"
+          @click="deleteLocationFilter(draw.selectedFeature)"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

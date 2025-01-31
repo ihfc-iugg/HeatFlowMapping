@@ -4,108 +4,24 @@ import { Map } from 'maplibre-gl'
 import { CTooltip } from '@coreui/bootstrap-vue'
 // import { useDataSchemaStore } from '@/store/dataSchema'
 import { use2DProfileStore } from '@/store/2DProfile'
-import { useMapControlsStore } from '@/store/mapControls.js'
 import { useSettingsStore } from '@/store/settings.js'
+import { useDrawStore } from '@/store/draw'
 
 const profile = use2DProfileStore()
-const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
+const draw = useDrawStore()
 
 const props = defineProps({ map: Map })
 
 /**
- * @description change mode to draw points
+ * @description trash selected Line feature
+ * @param {Object} selectedFeature
  */
-function drawPoint() {
-  mapControls.mapboxDraw.changeMode('draw_line_string')
-  console.log('mode: ' + mapControls.mapboxDraw.getMode())
-}
-
-/**
- * @description trash selected point feature
- */
-function deletePoint() {
-  console.log(mapControls.mapboxDraw)
-  mapControls.mapboxDraw.trash()
-}
-
-/**
- * @description deletes other drawn point features, so only one is allowed
- * @param {String} pointToKeepID
- */
-function deletePreviosDrawnPoints(lineToKeepID) {
-  const features = mapControls.mapboxDraw.getAll().features
-
-  features.forEach((feature) => {
-    if (feature.geometry.type == 'LineString' && feature.id != lineToKeepID) {
-      console.log('id ' + lineToKeepID)
-      mapControls.mapboxDraw.delete(feature.id)
-    }
-  })
-}
-
-function allowOnlyTwoPoints(feature, originalFeature) {
-  if (feature.geometry.coordinates.length > 2) {
-    // If there are more than 2 coordinates, slice the coordinates array to keep only the first 2
-    feature.geometry.coordinates = feature.geometry.coordinates.slice(0, 2)
-
-    // Remove the original feature and add the modified one with only 2 coordinates
-    mapControls.mapboxDraw.delete(originalFeature.id) // Delete the original feature
-    mapControls.mapboxDraw.add(feature) // Add the modified feature with only 2 coordinates
-
-    try {
-      // Remove the original feature and add the modified one with only 2 coordinates
-      mapControls.mapboxDraw.delete(originalFeature.id) // Delete the original feature
-      mapControls.mapboxDraw.add(feature) // Add the modified feature with only 2 coordinates
-    } catch (error) {
-      console.log(error)
-    }
-
-    // Optionally, you can alert or notify the user that only 2 points are allowed
-    alert('You can only draw a LineString with 2 points.')
-  } else {
-    return
-  }
-}
-
-/**
- * @description
- */
-props.map.on('draw.create', (e) => {
-  const feature = e.features[0]
-  if (feature.geometry.type == 'LineString') {
-    allowOnlyTwoPoints(feature, e.features[0])
-    profile.line = feature
-    const collection = profile.lineStringToPointFeatureCollection(feature.geometry.coordinates)
-    profile.addLineLabelToMap(props.map, collection)
-    deletePreviosDrawnPoints(profile.line.id)
-  }
-})
-
-/**
- * @description
- */
-props.map.on('draw.update', (e) => {
-  if (e.features[0].geometry.type == 'LineString') {
-    profile.line = e.features[0]
-    if (props.map.getSource('lineLable')) {
-      props.map.removeLayer('lineLable')
-      props.map.removeSource('lineLable')
-    }
-    const collection = profile.lineStringToPointFeatureCollection(
-      e.features[0].geometry.coordinates
-    )
-    profile.addLineLabelToMap(props.map, collection)
-    deletePreviosDrawnPoints(profile.line.id)
-  }
-})
-
-/**
- * @description
- */
-props.map.on('draw.delete', (e) => {
-  if (e.features[0].geometry.type == 'LineString') {
-    console.log('läuft')
+function deleteLine(selectedFeature) {
+  if (selectedFeature && selectedFeature.geometry.type === 'LineString') {
+    draw.tools.deselectFeature(selectedFeature.id)
+    draw.tools.removeFeatures([selectedFeature.id])
+    draw.setSelectedFeature(null)
     profile.line = null
     profile.pointsWithinDistance = []
     // profile.popup.remove()
@@ -115,28 +31,61 @@ props.map.on('draw.delete', (e) => {
     props.map.removeSource('lineLable')
     props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
   }
+}
+
+/**
+ *
+ * @description
+ * @param {Object} feature
+ */
+function respondToLineChanges(feature) {
+  draw.setSelectedFeature(feature)
+  profile.line = draw.selectedFeature
+  const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
+  props.map.removeLayer('lineLable')
+  props.map.removeSource('lineLable')
+  props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+  profile.addLineLabelToMap(props.map, collection)
+}
+
+/**
+ * @description
+ */
+draw.tools.on('finish', (id, context) => {
+  let feature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]
+  if (!(feature.geometry.type === 'LineString')) {
+    return
+  }
+  if (context.action === 'draw') {
+    const featuresToRemove = draw.getFeatureIdsToRemove(draw.tools.getSnapshot(), feature)
+    draw.tools.removeFeatures(featuresToRemove)
+    draw.setSelectedFeature(draw.lineCoordinatesConstrain(feature))
+    draw.tools.addFeatures([draw.selectedFeature])
+    if (feature.geometry.coordinates.length > 2) {
+      draw.tools.removeFeatures([feature.id])
+      alert(
+        'Please note that lines with only two coordinates are allowed. Thefore the first and the last point will be taken.'
+      )
+    }
+    profile.line = draw.selectedFeature
+    const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
+    profile.addLineLabelToMap(props.map, collection)
+  } else if (context.action === 'dragFeature') {
+    respondToLineChanges(feature)
+  } else if (context.action === 'dragCoordinate') {
+    respondToLineChanges(feature)
+  }
 })
 
-// TODO: add something like this to code to avoid lineSTrings with more than two coordinates
-// map.on('draw.create', function (e) {
-//   const feature = e.features[0] // The newly created feature
-//   if (feature.geometry.type === 'LineString' && feature.geometry.coordinates.length !== 2) {
-//     // If it's a LineString but not exactly two coordinates
-//     // Remove the last created feature
-//     draw.delete(feature.id)
-//     alert('You can only create a LineString with exactly two coordinates!')
-//   }
-// })
+/**
+ * @description
+ */
+draw.tools.on('select', (id) => {
+  console.log('selektierte feature id')
+  console.log(id)
 
-// // Optionally, listen for the draw.update event if you want to restrict updates
-// map.on('draw.update', function (e) {
-//   const feature = e.features[0]
-//   if (feature.geometry.type === 'LineString' && feature.geometry.coordinates.length !== 2) {
-//     // If the updated LineString doesn't have exactly two coordinates, reset it
-//     draw.delete(feature.id)
-//     alert('A LineString must always have exactly two coordinates!')
-//   }
-// })
+  draw.setSelectedFeature(draw.tools.getSnapshot().filter((feature) => feature.id === id)[0])
+})
 </script>
 
 <template>
@@ -145,7 +94,12 @@ props.map.on('draw.delete', (e) => {
     <p>Draw a line onto which the selected data points are projected</p>
     <CTooltip content="Draw line" placement="bottom">
       <template #toggler="{ on }">
-        <button id="draw-point-btn" class="btn btn-primary mx-1" v-on="on" @click="drawPoint()">
+        <button
+          id="draw-point-btn"
+          class="btn btn-primary mx-1"
+          v-on="on"
+          @click="draw.tools.setMode('linestring')"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"
@@ -163,9 +117,38 @@ props.map.on('draw.delete', (e) => {
       </template>
     </CTooltip>
 
+    <CTooltip content="Select point" placement="bottom">
+      <template #toggler="{ on }">
+        <button
+          id="select-polygon-btn"
+          class="btn btn-primary mx-1"
+          v-on="on"
+          @click="draw.tools.setMode('select')"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-hand-index"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M6.75 1a.75.75 0 0 1 .75.75V8a.5.5 0 0 0 1 0V5.467l.086-.004c.317-.012.637-.008.816.027.134.027.294.096.448.182.077.042.15.147.15.314V8a.5.5 0 1 0 1 0V6.435l.106-.01c.316-.024.584-.01.708.04.118.046.3.207.486.43.081.096.15.19.2.259V8.5a.5.5 0 0 0 1 0v-1h.342a1 1 0 0 1 .995 1.1l-.271 2.715a2.5 2.5 0 0 1-.317.991l-1.395 2.442a.5.5 0 0 1-.434.252H6.035a.5.5 0 0 1-.416-.223l-1.433-2.15a1.5 1.5 0 0 1-.243-.666l-.345-3.105a.5.5 0 0 1 .399-.546L5 8.11V9a.5.5 0 0 0 1 0V1.75A.75.75 0 0 1 6.75 1M8.5 4.466V1.75a1.75 1.75 0 1 0-3.5 0v5.34l-1.2.24a1.5 1.5 0 0 0-1.196 1.636l.345 3.106a2.5 2.5 0 0 0 .405 1.11l1.433 2.15A1.5 1.5 0 0 0 6.035 16h6.385a1.5 1.5 0 0 0 1.302-.756l1.395-2.441a3.5 3.5 0 0 0 .444-1.389l.271-2.715a2 2 0 0 0-1.99-2.199h-.581a5 5 0 0 0-.195-.248c-.191-.229-.51-.568-.88-.716-.364-.146-.846-.132-1.158-.108l-.132.012a1.26 1.26 0 0 0-.56-.642 2.6 2.6 0 0 0-.738-.288c-.31-.062-.739-.058-1.05-.046zm2.094 2.025"
+            />
+          </svg>
+        </button>
+      </template>
+    </CTooltip>
+
     <CTooltip content="Delete selected line" placement="bottom">
       <template #toggler="{ on }">
-        <button id="delete-point-btn" class="btn btn-primary mx-1" v-on="on" @click="deletePoint()">
+        <button
+          id="delete-point-btn"
+          class="btn btn-primary mx-1"
+          v-on="on"
+          @click="deleteLine(draw.selectedFeature)"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="16"

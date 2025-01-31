@@ -15,13 +15,14 @@ import { useMapStore } from '@/store/map.js'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapControlsStore } from '@/store/mapControls'
 import { useSettingsStore } from '@/store/settings'
+import { useDrawStore } from '@/store/draw'
 // import { useBaseMapsStore } from '@/store/baseMaps'
 // import { useMapAppConfig } from '@/store/mapAppConfig'
 import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
-// import dataURL from '@/assets/data/heatflow_sample_data.json'
+// import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
 // import dataURL from '@/assets/data/parent_elements.json'
 // import dataURL from '@/assets/data/geojsonFromCSV.json'
 
@@ -34,6 +35,7 @@ const dataSchema = useDataSchemaStore()
 dataSchema.fetchAPIDataSchema(schemaURL)
 const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
+const draw = useDrawStore()
 // const mapAppConfig = useMapAppConfig()
 // mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
 // mapAppConfig.setDataURL('dataUrl')
@@ -73,13 +75,15 @@ onMounted(() => {
     mapStore.map.addControl(mapControls.scale, 'bottom-right')
     mapStore.map.addControl(mapControls.fullscreen, 'top-right')
     mapStore.map.addControl(mapControls.navigation, 'top-right')
-    mapStore.map.addControl(mapControls.mapboxDraw)
-
-    console.log(mapStore.map)
+    draw.setDraw(mapStore.map)
 
     try {
       // ghfdb.toggleInProcess()
+      // // const strValues = null
+
+      // const strValues = await ghfdb.getGhfdbFromAPI('@/assets/data/IHFC_2024_GHFDB_45_samples.csv')
       const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
+
       ghfdb.json = await ghfdb.csv2JSON(strValues)
       ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
       ghfdb.toggleInProcess()
@@ -116,7 +120,7 @@ onMounted(() => {
       }
     })
 
-    console.log(mapStore.map.getSource('sites'))
+    // console.log(mapStore.map.getSource('sites'))
   })
 }),
   onUnmounted(() => {
