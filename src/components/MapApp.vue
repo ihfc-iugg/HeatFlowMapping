@@ -1,6 +1,6 @@
 <script setup>
 // vue
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onMounted, onUnmounted, ref, watch } from 'vue'
 
 // components
 import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
@@ -9,7 +9,6 @@ import MapDataLoadingModal from './map/MapDataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
 import MapInfoPopup from './map/MapInfoPopup.vue'
 import MapLegend from './map/MapLegend.vue'
-// import RightPanel from '@/components/right-panel/RightPanel.vue'
 
 import { useMapStore } from '@/store/map.js'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
@@ -67,6 +66,11 @@ function setPanelIcon(htmlIcon) {
   panelIcon.value = htmlIcon
 }
 
+// watch(mapControls.featureInfo, () => {
+//   console.log('featureInfo is set?')
+//   console.log(mapControls.featureInfo.isEnabled())
+// })
+
 onMounted(() => {
   mapStore.setMap(mapContainer.value)
 
@@ -75,7 +79,10 @@ onMounted(() => {
     mapStore.map.addControl(mapControls.scale, 'bottom-right')
     mapStore.map.addControl(mapControls.fullscreen, 'top-right')
     mapStore.map.addControl(mapControls.navigation, 'top-right')
+    mapStore.map.addControl(mapControls.featureInfo, 'top-right')
     draw.setDraw(mapStore.map)
+    // console.log('access controls')
+    // console.log(mapControls.featureInfo)
 
     try {
       // ghfdb.toggleInProcess()
@@ -120,7 +127,7 @@ onMounted(() => {
       }
     })
 
-    // console.log(mapStore.map.getSource('sites'))
+    console.log(mapStore.map.getSource('sites'))
   })
 }),
   onUnmounted(() => {
@@ -134,13 +141,21 @@ function toggleVisibleScrolling() {
 
 <template>
   <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong>This is just a Demo!</strong> Errors can occur and tutorials on "How To" will follow.
+    <strong
+      >This is a demo service. It shows the Global Heat Flow Database Release 2024 and makes it
+      explorable.</strong
+    >
+    Please provide your feedback here
+    <a href="https://github.com/WorldHeatFlowDatabase/HeatFlowMapping/issues"
+      >HeatFlowMapping/issues</a
+    >
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
   </div>
   <div class="map-wrap">
     <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
       <MapDataLoadingModal />
-      <MapInfoPopup :map="mapStore.map" />
+
+      <MapInfoPopup />
       <MapLegend />
 
       <!-- Navigation buttons -->
