@@ -95,6 +95,16 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
           'text-offset': [0, 1.0]
         }
       })
+
+      mapObject.addLayer({
+        id: 'startEndCircle',
+        type: 'circle',
+        source: 'lineLable',
+        paint: {
+          'circle-radius': 6, // Set the size of the circles
+          'circle-color': '#FF5733' // Circle color
+        }
+      })
     }
   }
 
