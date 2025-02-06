@@ -14,7 +14,7 @@ export default defineConfig(({ mode }) => {
     //   'process.env': env
     // },
     base: '/HeatFlowMapping', // Use relative paths for assets so we can serve app from subpath (e.g. heatflow.world/map/)
-    assetsInclude: ['**/*.yaml', '**/*.geojson'],
+    assetsInclude: ['**/*.yaml', '**/*.geojson', '**/*.svg'],
     plugins: [vue(), VueDevTools(), viteCompression()],
     resolve: {
       alias: {
