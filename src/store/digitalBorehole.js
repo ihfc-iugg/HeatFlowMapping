@@ -95,20 +95,6 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
-   * @description deletes other drawn point features, so only one is allowed
-   * @param {String} pointToKeepID
-   */
-  function deletePreviosDrawnPoints(pointToKeepID) {
-    const features = controls.mapboxDraw.getAll().features
-    features.forEach((feature) => {
-      if (feature.geometry.type == 'Point' && feature.id != pointToKeepID) {
-        console.log('id ' + pointToKeepID)
-        controls.mapboxDraw.delete(feature.id)
-      }
-    })
-  }
-
-  /**
    * @description returns nearest point feature respectively to reference point
    * @param {Array} referencePointCoordinates
    * @param {Array} dataPoints
@@ -233,7 +219,6 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     setLayer,
     calculateTemperature,
     bootstrapping,
-    deletePreviosDrawnPoints,
     getNearestNeighbor,
     highlightNearestNeighbor,
     drawChart

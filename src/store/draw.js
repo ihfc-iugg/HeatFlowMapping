@@ -5,8 +5,7 @@ import {
   TerraDrawPointMode,
   TerraDrawLineStringMode,
   TerraDrawPolygonMode,
-  TerraDrawSelectMode,
-  TerraDrawRenderMode
+  TerraDrawSelectMode
 } from 'terra-draw'
 import { TerraDrawMapLibreGLAdapter } from 'terra-draw-maplibre-gl-adapter'
 import { Map } from 'maplibre-gl'
@@ -91,29 +90,6 @@ export const useDrawStore = defineStore('Setup and access draw tool', () => {
       // Styles go here...
       styles: {
         // See Styling Guide for more information
-        pointColor: '#FF0000',
-        pointWidth: 2,
-        lineStringColor: '#FF0000',
-        lineStringWidth: 2,
-        polygonFillColor: '#FF0000',
-        polygonFillOpacity: 0.7,
-        polygonOutlineColor: '#FF0000',
-        polygonOutlineWidth: 1
-      }
-    })
-  )
-  const renderMode = ref(
-    new TerraDrawRenderMode({
-      // Provide a unique name
-      modeName: 'contextual',
-
-      // Your styles
-      styles: {
-        // Fill colour
-        pointColor: '#FF0000',
-
-        // Outline colour
-        pointOutlineColor: '#00FF00'
       }
     })
   )
