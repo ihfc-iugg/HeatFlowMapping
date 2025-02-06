@@ -27,6 +27,7 @@ function deleteLine(selectedFeature) {
     // profile.popup.remove()
     // profile.marker.remove()
     profile.plot = ref(null)
+    props.map.removeLayer('startEndCircle')
     props.map.removeLayer('lineLable')
     props.map.removeSource('lineLable')
     props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
@@ -42,6 +43,7 @@ function respondToLineChanges(feature) {
   draw.setSelectedFeature(feature)
   profile.line = draw.selectedFeature
   const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
+  props.map.removeLayer('startEndCircle')
   props.map.removeLayer('lineLable')
   props.map.removeSource('lineLable')
   props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
