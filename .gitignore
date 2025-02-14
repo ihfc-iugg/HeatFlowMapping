@@ -22,8 +22,8 @@ pnpm-debug.log*
 *.sw?
 
 # Local test data
-src/assets/data
-src/assets/schema
+# src/assets/data
+
 
 # statistics about bundeled packages
 dist/
