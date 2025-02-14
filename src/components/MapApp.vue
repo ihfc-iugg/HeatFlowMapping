@@ -89,7 +89,11 @@ onMounted(() => {
       // // const strValues = null
 
       // const strValues = await ghfdb.getGhfdbFromAPI('@/assets/data/IHFC_2024_GHFDB_45_samples.csv')
-      const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
+      // const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
+
+      const strValues = await ghfdb.getGhfdbFromAPI(
+        'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
+      )
 
       ghfdb.json = await ghfdb.csv2JSON(strValues)
       ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)

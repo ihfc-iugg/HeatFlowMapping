@@ -14,7 +14,7 @@ import { useFilterStore } from '@/store/filter'
 const props = defineProps({ map: Map })
 
 const ghfdb = useGHFDBStore()
-const dataSchema = useDataSchemaStore()
+const schema = useDataSchemaStore()
 const filter = useFilterStore()
 
 const options = ref(['GHFDB', 'Filtered GHFDB'])
@@ -22,7 +22,7 @@ const selectedSourceTitle = ref(null)
 const selectedSource = ref(ghfdb.geojson)
 const selectedProperty = ref(null)
 const selectedPropertyDataType = ref(null)
-const values = ref(null)
+const propertyValues = ref(null)
 
 /**
  *
@@ -41,13 +41,50 @@ function setDataSource() {
 /**
  * @param {String} property
  */
-function plotGraph(property) {
+function plotGraph(propertValues, propertyKey, dataType) {
   const trace = {
-    x: values.value,
+    x: propertValues,
     type: 'histogram'
   }
-  const data = [trace]
-  newPlot('statisticGraph', data)
+
+  // Boundary of layer within graph
+  // const min = {
+  //   type: 'line',
+  //   xref: 'paper',
+  //   x0: 0,
+  //   y0: ,
+  //   line: {
+  //     color: 'red',
+  //     width: 2,
+  //     dash: 'dot'
+  //   }
+  // }
+
+  let xText = schema.dataSchema.properties[propertyKey].title
+  if (dataType === 'number') {
+    xText = xText + ' [' + schema.dataSchema.properties[propertyKey].units + ']'
+  }
+
+  const layout = {
+    title: { text: 'Histogram' },
+    xaxis: {
+      anchor: 'free',
+      title: {
+        text: xText
+      }
+    },
+    yaxis: {
+      anchor: 'free',
+      title: {
+        text: 'Number of values'
+      },
+      domain: [0, 0],
+      position: 0.05
+    }
+  }
+
+  const data = [trace, min]
+  newPlot('statisticGraph', data, layout)
 }
 
 /**
@@ -55,7 +92,9 @@ function plotGraph(property) {
  * @param {Sting} property
  */
 function setPropertyValues(property) {
-  values.value = selectedSource.value.features.map((feature) => feature.properties[property])
+  propertyValues.value = selectedSource.value.features.map(
+    (feature) => feature.properties[property]
+  )
 }
 
 /**
@@ -63,7 +102,7 @@ function setPropertyValues(property) {
  * @param {Object} property
  */
 function setPropertyDataType(property) {
-  selectedPropertyDataType.value = dataSchema.dataSchema.properties[property].type
+  selectedPropertyDataType.value = schema.dataSchema.properties[property].type
 }
 </script>
 
@@ -107,14 +146,14 @@ function setPropertyDataType(property) {
     <div class="collapse" id="propertySelection">
       <VueMultiselect
         v-model="selectedProperty"
-        :options="dataSchema.selectableProperties"
+        :options="schema.selectableProperties"
         label="title"
         :allow-empty="false"
         placeholder="Select Property"
         @select="
           (setPropertyValues(selectedProperty.key),
           setPropertyDataType(selectedProperty.key),
-          plotGraph(selectedProperty.key))
+          plotGraph(propertyValues, selectedProperty.key, selectedPropertyDataType))
         "
       >
       </VueMultiselect>
@@ -124,12 +163,12 @@ function setPropertyDataType(property) {
 
     <StatisticsPanelTableNumericValues
       v-if="selectedProperty && selectedPropertyDataType == 'number'"
-      :attributeValues="values"
+      :attributeValues="propertyValues"
     />
 
     <StatisticsPanelTableEnumValues
       v-if="selectedProperty && selectedPropertyDataType == undefined"
-      :attributeValues="values"
+      :attributeValues="propertyValues"
     />
   </div>
 </template>

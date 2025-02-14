@@ -25,7 +25,7 @@ export const useBaseMapsStore = defineStore('baseMaps', () => {
     },
     {
       id: 'bm_world_bathymetry',
-      title: 'Some example for WMTS',
+      title: 'World Bathymetry',
       cardImage:
         'https://services.ga.gov.au/gis/rest/services/World_Bathymetry_Base_Map/MapServer/WMTS/tile/1.0.0/World_Bathymetry_Base_Map/default/default028mm/0/0/0.png',
       tiles:
