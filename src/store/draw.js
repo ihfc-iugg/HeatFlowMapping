@@ -42,7 +42,7 @@ export const useDrawStore = defineStore('Setup and access draw tool', () => {
     new TerraDrawPolygonMode({
       styles: {
         fillColor: '#EA5E20',
-        fillOpacity: 0.5,
+        fillOpacity: 0.2,
         outlineColor: '#354F9E',
         outlineWidth: 2
       }
