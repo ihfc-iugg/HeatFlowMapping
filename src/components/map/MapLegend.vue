@@ -1,11 +1,30 @@
 <!-- Map Legend -->
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useLegendStore } from '@/store/legend'
+import { useDataSchemaStore } from '@/store/dataSchema.js'
 
-import { CButton, CCollapse, CCard, CCardBody, CContainer, CRow, CCol } from '@coreui/bootstrap-vue'
+import {
+  CButton,
+  CCollapse,
+  CCard,
+  CCardBody,
+  CContainer,
+  CRow,
+  CCol,
+  CCardTitle,
+  CCardSubtitle
+} from '@coreui/bootstrap-vue'
 
 const legend = useLegendStore()
+const schema = useDataSchemaStore()
+
+const property = ref(null)
+
+watch(legend.selectedProperty, (newProperty) => {
+  console.log(newProperty)
+  property.value = schema.dataSchema.properties[newProperty]
+})
 
 const visible = ref(false)
 </script>
@@ -22,13 +41,20 @@ const visible = ref(false)
       <CCollapse :visible="visible">
         <CCard class="mt-3">
           <CCardBody>
+            <CCardTitle>{{
+              schema.dataSchema.properties[legend.selectedProperty].title
+            }}</CCardTitle>
+            <CCardSubtitle
+              class="mb-2 text-muted"
+              v-if="schema.dataSchema.properties[legend.selectedProperty].units"
+              >[{{ schema.dataSchema.properties[legend.selectedProperty].units }}]</CCardSubtitle
+            >
             <CRow class="align-items-start" v-for="entry in legend.legend" :key="entry.id">
               <CCol class="align-self-start" xs="2">
                 <CButton
                   :style="{
                     'background-color': entry.colorHEX
                   }"
-                  @click="visible = !visible"
                 ></CButton>
               </CCol>
 

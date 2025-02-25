@@ -8,6 +8,7 @@ export const useLegendStore = defineStore('legend', () => {
    * function()s become actions
    */
   const legend = ref(null)
+  const selectedProperty = ref(null)
 
   /**
    * @description set up an object with relevant information for creating a legend
@@ -44,5 +45,5 @@ export const useLegendStore = defineStore('legend', () => {
     }
   }
 
-  return { legend, setLegendObject, setLegendToNull }
+  return { legend, selectedProperty, setLegendObject, setLegendToNull }
 })
