@@ -144,21 +144,253 @@ function toggleVisibleScrolling() {
 </script>
 
 <template>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <strong
-      >This is a demo service. It shows the Global Heat Flow Database Release 2024 and makes it
-      explorable.</strong
-    >
-    Please provide your feedback here
-    <a href="https://github.com/WorldHeatFlowDatabase/HeatFlowMapping/issues"
-      >HeatFlowMapping/issues</a
-    >
-    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  </div>
-  <div class="map-wrap">
+  <div class="content">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand navbar-brand-image ms-5" title="Back to homepage" href="/">
+          <img
+            class="navbar-brand-logo-normal"
+            src="@/assets/img/WHFSProject_final_large.png"
+            alt="heatflow.X logo"
+            width="127px"
+            height=""
+          />
+        </a>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ms-auto me-5">
+            <li class="nav-item">
+              <a
+                id="nav-item-2"
+                href="https://www.heatflow.world/"
+                class="nav-link nav-link-main"
+                aria-current="false"
+              >
+                <span class="nav-link-text fw-bold"> Home </span>
+              </a>
+
+              <div class="dropdown-menu" bis_skin_checked="1"></div>
+            </li>
+
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle fw-bold"
+                href="https://www.heatflow.world/about"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                About
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/mission"
+                    >Mission</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/team">Team</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/project"
+                    >Project</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/partners"
+                    >Partners</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/heat-flow"
+                    >What is heat flow?</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/funding"
+                    >Funding</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/support-us"
+                    >Support us</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/about/how-to-cite"
+                    >How to cite</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active fw-bold"
+                aria-current="page"
+                href="http://138.68.69.242:5000/"
+                >Explore</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle fw-bold"
+                href="https://www.heatflow.world/about"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Data Access
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/data/catalogue"
+                    >Data catalogue</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/data/download"
+                    >Download</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/data/api">API Access</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/data/background"
+                    >Background data</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle fw-bold"
+                href="https://www.heatflow.world/about"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Contribute
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://www.heatflow.world/contribute/data-submission-guidelines"
+                    >Data submission guidlines</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/contribute/metadata"
+                    >Metadata format</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/contribute/upload-data"
+                    >Upload data</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://www.heatflow.world/contribute/generate-data-publication"
+                    >Generate data publication</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://www.heatflow.world/contribute/upload-literature"
+                    >Contribute literature</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle fw-bold"
+                href="https://www.heatflow.world/about"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Resources
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://www.heatflow.world/resources/heat-flow-library"
+                    >Heat flow library</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://www.heatflow.world/resources/missing-literature"
+                    >Missing literature</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/resources/code-library"
+                    >Code library</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/resources/tutorials"
+                    >Tutorials</a
+                  >
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item"
+                    href="https://www.heatflow.world/resources/features-documentation"
+                    >Features - Documentation</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="https://www.heatflow.world/resources/help-faq"
+                    >Help - FAQ</a
+                  >
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a
+                class="nav-link active fw-bold"
+                aria-current="page"
+                href="https://www.heatflow.world/learning"
+                >Learning</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong
+        >This is a demo service. It shows the Global Heat Flow Database Release 2024 and makes it
+        explorable.</strong
+      >
+      Please provide your feedback here
+      <a href="https://github.com/WorldHeatFlowDatabase/HeatFlowMapping/issues"
+        >HeatFlowMapping/issues</a
+      >
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
       <MapDataLoadingModal />
-
       <MapInfoPopup />
       <MapLegend />
 
@@ -206,23 +438,64 @@ function toggleVisibleScrolling() {
         <MapCursorCoordinates :map="mapStore.map" />
       </div>
     </div>
-    <!-- <div class="column chart-panel">
-      <RightPanel @close-event="setIsClosed()" :map="map" />
-    </div> -->
   </div>
 </template>
 
 <style scoped>
-.offcanvas {
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+/* Make the navbar fixed at the top */
+.navbar {
+  width: 100%;
+  z-index: 1000; /* Ensure navbar stays on top */
+}
+
+/* Content area takes the full height */
+.content {
+  position: relative;
+  height: 100vh; /* Viewport height */
+  width: 100%;
+}
+
+/* Map container */
+.map {
+  position: absolute; /* Absolute position to ensure it's below the navbar */
+  top: 92px; /* Adjust based on the navbar height */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(100vh - 92px); /* Adjust to take up the full height minus navbar height */
+  width: 100%;
+  background-color: #eaeaea; /* Default background color */
+}
+
+/* Fix navbar height */
+.navbar.navbar-expand-lg {
+  height: 92px; /* Adjust to the height of your navbar */
+}
+
+.fixed-bottom {
+  position: absolute;
+  width: fit-content;
+  height: fit-content;
+  margin: 0 auto;
+  z-index: 1;
+}
+/* .offcanvas {
   --bs-offcanvas-width: 600px;
 }
-.map-wrap {
-  position: absolute;
+
+.content {
   width: 100%;
   height: 100%;
 }
 
 .map {
+  position: absolute;
   width: 100%;
   height: 100%;
 }
@@ -243,5 +516,5 @@ function toggleVisibleScrolling() {
   .map-wrap {
     display: flex;
   }
-}
+} */
 </style>
