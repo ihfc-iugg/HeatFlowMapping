@@ -132,7 +132,7 @@ function drawProfile() {
     text: pntIds,
     xaxis: 'x',
     yaxis: 'y2',
-    width: 20
+    width: 10
   }
 
   // styling
