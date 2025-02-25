@@ -1,35 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-import { CTable, CTableRow, CCol, CRow, CCollapse, CCard, CCardBody } from '@coreui/bootstrap-vue'
-
-const visibleInfos = ref(false)
+import { CTable, CTableRow, CRow } from '@coreui/bootstrap-vue'
 </script>
 
 <template>
-  <!-- <button
-    class="btn btn-primary rounded-pill bg-white text-primary btn-sm"
-    @click="visibleInfos = !visibleInfos"
-  >
-    <button
-      class="btn btn-primary rounded-circle btn-sm"
-      type="button"
-      @mouseover="extendButton = !extendButton"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-info-circle"
-      >
-        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-        <path
-          d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
-        />
-      </svg>
-    </button>
-    About this graph
-  </button> -->
   <div class="card-body">
     <CRow>
       <h6>About Bootstrapping Method</h6>

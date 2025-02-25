@@ -1,11 +1,9 @@
 <!-- Show popup containing infos of point (on click) -->
 <script setup>
-import { defineProps, ref, watch, onMounted, onUnmounted } from 'vue'
+import { defineProps, ref, watch } from 'vue'
 import { Map, Popup, Marker } from 'maplibre-gl'
-import { newPlot, relayout } from 'plotly.js-dist'
 
 import { useDigitalBoreholeStore } from '@/store/digitalBorehole.js'
-import { useDataSchemaStore } from '@/store/dataSchema.js'
 
 const dB = useDigitalBoreholeStore()
 

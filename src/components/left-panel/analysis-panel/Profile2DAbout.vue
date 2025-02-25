@@ -1,8 +1,5 @@
 <script setup>
-import { ref } from 'vue'
 import { CRow } from '@coreui/bootstrap-vue'
-
-const visibleInfos = ref(false)
 </script>
 
 <template>
