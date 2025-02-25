@@ -57,6 +57,7 @@ draw.tools.on('finish', (id, context) => {
         props.map,
         settings.circleColor
       )
+      draw.tools.setMode('select')
     } else if (context.action === 'dragFeature') {
       draw.selectedFeature = feature
       const featuresToRemove = draw.getFeatureIdsToRemove(draw.tools.getSnapshot(), feature)

@@ -72,6 +72,7 @@ draw.tools.on('finish', (id, context) => {
     profile.line = draw.selectedFeature
     const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
     profile.addLineLabelToMap(props.map, collection)
+    draw.tools.setMode('select')
   } else if (context.action === 'dragFeature') {
     respondToLineChanges(feature)
   } else if (context.action === 'dragCoordinate') {
