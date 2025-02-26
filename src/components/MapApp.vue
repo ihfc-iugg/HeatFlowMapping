@@ -144,6 +144,17 @@ function toggleVisibleScrolling() {
 </script>
 
 <template>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong
+      >This is a demo service. It shows the Global Heat Flow Database Release 2024 and makes it
+      explorable.</strong
+    >
+    Please provide your feedback here
+    <a href="https://github.com/WorldHeatFlowDatabase/HeatFlowMapping/issues"
+      >HeatFlowMapping/issues</a
+    >
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
   <div class="content">
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
@@ -378,17 +389,6 @@ function toggleVisibleScrolling() {
         </div>
       </div>
     </nav>
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-      <strong
-        >This is a demo service. It shows the Global Heat Flow Database Release 2024 and makes it
-        explorable.</strong
-      >
-      Please provide your feedback here
-      <a href="https://github.com/WorldHeatFlowDatabase/HeatFlowMapping/issues"
-        >HeatFlowMapping/issues</a
-      >
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
     <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
       <MapDataLoadingModal />
       <MapInfoPopup />
