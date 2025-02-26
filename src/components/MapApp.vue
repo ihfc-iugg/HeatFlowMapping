@@ -411,41 +411,61 @@ function toggleVisibleScrolling() {
             "
             type="button"
             class="btn btn-primary"
+            data-bs-toggle="offcanvas"
+            data-bs-target="#offcanvasLeftPanel"
+            aria-controls="offcanvasLeftPanel"
             ><div v-html="item.svgElement"></div>
             {{ item.title }}
           </CButton>
         </CButtonGroup>
-
-        <COffcanvas
-          :backdrop="false"
-          placement="start"
-          scroll
-          :visible="visibleScrolling"
-          @hide="
-            () => {
-              visibleScrolling = !visibleScrolling
-            }
-          "
-        >
-          <LeftPanel
-            :title="panelTitle"
-            :icon="panelIcon"
-            :map="mapStore.map"
-            @collapse-event="setIsCollapsed()"
-            @toggle-event="toggleVisibleScrolling()"
-          />
-        </COffcanvas>
         <MapCursorCoordinates :map="mapStore.map" />
       </div>
     </div>
   </div>
+  <COffcanvas
+    :backdrop="false"
+    placement="start"
+    scroll
+    :visible="visibleScrolling"
+    @hide="
+      () => {
+        visibleScrolling = !visibleScrolling
+      }
+    "
+  >
+    <LeftPanel
+      :title="panelTitle"
+      :icon="panelIcon"
+      :map="mapStore.map"
+      @collapse-event="setIsCollapsed()"
+      @toggle-event="toggleVisibleScrolling()"
+    />
+  </COffcanvas>
+  <!-- <div
+    class="offcanvas offcanvas-start"
+    data-bs-backdrop="false"
+    tabindex="-1"
+    id="offcanvasLeftPanel"
+    aria-labelledby="offcanvasLeftPanelLabel"
+    @hide="
+      () => {
+        visibleScrolling = !visibleScrolling
+      }
+    "
+  >
+    <LeftPanel
+      :title="panelTitle"
+      :icon="panelIcon"
+      :map="mapStore.map"
+      @collapse-event="setIsCollapsed()"
+      @toggle-event="toggleVisibleScrolling()"
+    />
+  </div> -->
 </template>
 
 <style scoped>
-html,
-body {
-  height: 100%;
-  margin: 0;
+.offcanvas {
+  overflow-y: auto; /* Enable scrolling inside the offcanvas if content is too large */
 }
 
 /* Make the navbar fixed at the top */
@@ -485,20 +505,17 @@ body {
   margin: 0 auto;
   z-index: 1;
 }
-/* .offcanvas {
-  --bs-offcanvas-width: 600px;
-}
 
-.content {
+/* .content {
   width: 100%;
   height: 100%;
-}
+} */
 
-.map {
+/* .map {
   position: absolute;
   width: 100%;
   height: 100%;
-}
+} */
 
 .fixed-bottom {
   position: absolute;
@@ -516,5 +533,5 @@ body {
   .map-wrap {
     display: flex;
   }
-} */
+}
 </style>
