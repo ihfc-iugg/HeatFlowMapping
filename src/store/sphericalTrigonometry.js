@@ -7,6 +7,8 @@ export const useSphericalTrigonometry = defineStore('spherical trgonometry', () 
    * function()s become actions
    */
 
+  // TODO: check https://turfjs.org/docs/api/nearestPointOnLine and maybe refactor source code.
+
   /**
    * @description Get alpha with three known sides a, b, c (in radians units) through spherical law of cosines
    * https://en.wikipedia.org/wiki/Solution_of_triangles#Solving_spherical_triangles
