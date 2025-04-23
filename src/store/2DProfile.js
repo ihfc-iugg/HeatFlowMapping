@@ -19,9 +19,8 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    * function()s become actions
    */
 
-  const selectedProperty1 = ref(null)
-  // const selectedProperty2 = ref(null)
-  const threshold = ref(null)
+  const selectedProperty1 = ref('q')
+  const threshold = ref(25)
   const line = ref(null)
   const pointsWithinDistance = ref([])
   const settings = useSettingsStore()
