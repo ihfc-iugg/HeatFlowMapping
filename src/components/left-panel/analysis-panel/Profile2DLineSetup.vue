@@ -11,7 +11,7 @@ const profile = use2DProfileStore()
   <div class="form card-body">
     <h6>Setup</h6>
     <CFormText as="span" id="" :class="{ 'text-danger': error }">
-      Select one (or optional two) propertie(s) to plot on the Y-axis
+      Select a property to plot on the Y-axis
     </CFormText>
     <form class="was-validated">
       <div class="mb-3">
@@ -50,7 +50,7 @@ const profile = use2DProfileStore()
           v-model.number="profile.threshold"
           type="number"
           class="form-control"
-          id=""
+          id="threshold"
           required
           min="1"
           max="500"
