@@ -83,7 +83,7 @@ function plotGraph(propertValues, propertyKey, dataType) {
     }
   }
 
-  const data = [trace, min]
+  const data = [trace]
   newPlot('statisticGraph', data, layout)
 }
 
@@ -126,6 +126,7 @@ function setPropertyDataType(property) {
         :options="options"
         :allow-empty="false"
         placeholder="Select Dataset"
+        preselectFirst="{{ options[0] }}"
         @select="setDataSource()"
       >
       </VueMultiselect>
