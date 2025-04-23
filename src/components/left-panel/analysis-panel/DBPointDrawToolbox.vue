@@ -31,7 +31,6 @@ function deletePoint(selectedFeature) {
     dB.marker.remove()
     dB.marker = null
     props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
-    s
   }
 }
 
