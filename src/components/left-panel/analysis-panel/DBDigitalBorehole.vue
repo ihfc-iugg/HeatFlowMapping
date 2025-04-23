@@ -6,25 +6,17 @@ import { useDigitalBoreholeStore } from '@/store/digitalBorehole'
 import DBCustomParameters from '@/components/left-panel/analysis-panel/DBCustomParameters.vue'
 import DBAboutBootstrapping from '@/components/left-panel/analysis-panel/DBAboutBootstrapping.vue'
 import DBPointDrawToolbox from '@/components/left-panel/analysis-panel/DBPointDrawToolbox.vue'
-import DigitalBoreholePopup from './DBPopup.vue'
+import DBPopup from './DBPopup.vue'
 
 const props = defineProps({ map: Map })
 const dB = useDigitalBoreholeStore()
 
 const activeTab = ref('pntToolBox')
 
-dB.setLayer(null, null, null, null, 2.3, 100, 2e-6, 'sample')
-dB.setLayer(null, null, null, null, 5, 200, 3e-6, 'sample')
-dB.setLayer(null, null, null, null, 1.4, 300, 1.3e-6, 'sample')
-dB.setLayer(null, null, null, null, 1.5, 200, 0.8e-6, 'sample')
-
-/**
- * triggers recalculation when users change parameters of layers
- */
-watch(dB.layers, () => {
-  dB.bootstrapping(dB.layers, 20, dB.closestPointfeatures.properties.q)
-  // dB.drawChart(dB.layers, dB.t0)
-})
+dB.setLayer(null, null, null, null, 2.3, 100, 2, 'sample')
+dB.setLayer(null, null, null, null, 5, 200, 3, 'sample')
+dB.setLayer(null, null, null, null, 1.4, 300, 1.3, 'sample')
+dB.setLayer(null, null, null, null, 1.5, 200, 0.8, 'sample')
 
 /**
  *
@@ -39,19 +31,24 @@ function setActiveTab(tab) {
   <div class="container">
     <div class="row">
       <div class="col-md-auto ps-0">
-        <div class="btn-group-vertical" role="group">
+        <div
+          class="btn-group-vertical"
+          role="group"
+          data-toggle="buttons"
+          aria-label="Digital borehole group"
+        >
           <input
             type="radio"
             class="btn-check"
             name="btnradio"
             id="pntToolBox"
             autocomplete="off"
-            data-bs-toggle="collapse"
-            href="#pntToolBox"
+            checked
           />
           <label
             class="btn btn-outline-primary"
             for="pntToolBox"
+            title="Point draw toolbox"
             @click="setActiveTab('pntToolBox')"
           >
             <svg
@@ -73,12 +70,11 @@ function setActiveTab(tab) {
             name="btnradio"
             id="parameterToolBox"
             autocomplete="off"
-            data-bs-toggle="collapse"
-            href="#parameterToolBox"
           />
           <label
             class="btn btn-outline-primary"
             for="parameterToolBox"
+            title="Customize boostrapping parameter"
             @click="setActiveTab('parameterToolBox')"
           >
             <svg
@@ -101,13 +97,11 @@ function setActiveTab(tab) {
             name="btnradio"
             id="aboutBootstrapping"
             autocomplete="off"
-            checked
-            data-bs-toggle="collapse"
-            href="#aboutBootstrapping"
           />
           <label
             class="btn btn-outline-primary"
             for="aboutBootstrapping"
+            title="Information about Digital Borehole"
             @click="setActiveTab('aboutBootstrapping')"
           >
             <svg
@@ -127,24 +121,24 @@ function setActiveTab(tab) {
       </div>
       <div class="col pe-0">
         <div
-          v-if="activeTab == 'pntToolBox'"
-          class="card collapse mb-1"
+          v-if="activeTab === 'pntToolBox'"
+          class="card mb-1"
           id="pntToolBox"
           style="width: 100%"
         >
           <DBPointDrawToolbox :map="props.map" />
         </div>
         <div
-          v-if="activeTab == 'parameterToolBox'"
-          class="card collapse mb-1"
+          v-if="activeTab === 'parameterToolBox'"
+          class="card mb-1"
           id="parameterToolBox"
           style="width: 100%"
         >
-          <DBCustomParameters v-if="dB.closestPointfeatures" />
+          <DBCustomParameters />
         </div>
         <div
-          v-if="activeTab == 'aboutBootstrapping'"
-          class="card collapse mb-1"
+          v-if="activeTab === 'aboutBootstrapping'"
+          class="card mb-1"
           id="aboutBootstrapping"
           style="width: 100%"
         >
@@ -153,7 +147,8 @@ function setActiveTab(tab) {
       </div>
     </div>
   </div>
-  <DigitalBoreholePopup :map="props.map" />
+
+  <DBPopup :map="props.map" />
 </template>
 
 <style>
