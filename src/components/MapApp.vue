@@ -1,9 +1,9 @@
 <script setup>
 // vue
-import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 // components
-import { CButton, CButtonGroup, COffcanvas, CRow, CSpinner } from '@coreui/bootstrap-vue'
+import { CButton, CButtonGroup, COffcanvas } from '@coreui/bootstrap-vue'
 import MapCursorCoordinates from './map/MapCursorCoordinates.vue'
 import MapDataLoadingModal from './map/MapDataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
@@ -389,7 +389,12 @@ function toggleVisibleScrolling() {
         </div>
       </div>
     </nav>
-    <div class="column map" ref="mapContainer" @mousemove="updateLatLng">
+    <div
+      class="column map"
+      style="background-color: black"
+      ref="mapContainer"
+      @mousemove="updateLatLng"
+    >
       <MapDataLoadingModal />
       <MapInfoPopup />
       <MapLegend />
@@ -441,26 +446,6 @@ function toggleVisibleScrolling() {
       @toggle-event="toggleVisibleScrolling()"
     />
   </COffcanvas>
-  <!-- <div
-    class="offcanvas offcanvas-start"
-    data-bs-backdrop="false"
-    tabindex="-1"
-    id="offcanvasLeftPanel"
-    aria-labelledby="offcanvasLeftPanelLabel"
-    @hide="
-      () => {
-        visibleScrolling = !visibleScrolling
-      }
-    "
-  >
-    <LeftPanel
-      :title="panelTitle"
-      :icon="panelIcon"
-      :map="mapStore.map"
-      @collapse-event="setIsCollapsed()"
-      @toggle-event="toggleVisibleScrolling()"
-    />
-  </div> -->
 </template>
 
 <style scoped>
@@ -530,7 +515,7 @@ function toggleVisibleScrolling() {
 }
 
 @media all and (min-width: 500px) {
-  .map-wrap {
+  .map {
     display: flex;
   }
 }
