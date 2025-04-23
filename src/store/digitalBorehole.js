@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { newPlot } from 'plotly.js-dist'
 import { distance } from '@turf/turf'
+import colorbrewer from 'colorbrewer'
 
 import { useMapControlsStore } from './mapControls.js'
 
@@ -35,21 +36,55 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       k: null,
       dZ: null,
       a: null,
-      layerType: 'granite' // just example of what this attribute could be used for
+      layerType: '', // just example of what this attribute could be used for
+      color: null
     })
   }
 
+  /**
+   *
+   * @param {number} tTop
+   * @param {number} tBot
+   * @param {number} qTop
+   * @param {number} qBot
+   * @param {number} k
+   * @param {number} dz
+   * @param {number} a
+   * @param {string} layerType
+   * @param {string} layerType
+   */
   function setLayer(tTop, tBot, qTop, qBot, k, dz, a, layerType) {
-    addEmptyLayer()
-    let l = layers.value.at(-1)
-    l.tTop = tTop ? tTop : null
-    l.tBot = tBot ? tBot : null
-    l.qTop = qTop ? qTop : null
-    l.qBot = qBot ? qBot : null
-    l.k = k ? k : null
-    l.dZ = dz ? dz : null
-    l.a = a ? a : null
-    l.layerType = layerType ? layerType : null
+    // if condition because of class number limitation for colorbrewer qualitative
+    if (layers.value.length < 9) {
+      addEmptyLayer()
+      let l = layers.value.at(-1)
+      l.tTop = tTop ? tTop : null
+      l.tBot = tBot ? tBot : null
+      l.qTop = qTop ? qTop : null
+      l.qBot = qBot ? qBot : null
+      l.k = k ? k : null
+      l.dZ = dz ? dz : null
+      l.a = a ? a : null
+      l.layerType = layerType ? layerType : null
+      if (layers.value.length <= 3) {
+        l.color = colorbrewer['Pastel1'][3][layers.value.length - 1]
+      } else {
+        l.color = colorbrewer['Pastel1'][layers.value.length].at(-1)
+      }
+    } else {
+      console.log('You reached the maximum number of layers. Only 12 layers are allowed')
+    }
+    console.log('colorbrewer')
+    console.log(colorbrewer)
+  }
+
+  /**
+   *
+   */
+  function removeLastLayer() {
+    if (layers.value.length > 1) {
+      layers.value.pop()
+    }
   }
 
   /**
@@ -62,7 +97,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
    * @returns {number} temperature
    */
   function calculateTemperature(qTop, dZi, k, a) {
-    return (qTop * dZi) / k - (a * (dZi * dZi)) / (2 * k)
+    return (qTop * dZi) / k - ((a / 1000000) * (dZi * dZi)) / (2 * k)
   }
 
   /**
@@ -82,7 +117,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     for (let ix = 0; ix < layers.length; ix++) {
       let l = layers[ix]
       // calc q at the bottom if the ix layer
-      l.qBot = l.qTop - l.a * l.dZ
+      l.qBot = l.qTop - (l.a / 1000000) * l.dZ
       // sum temperature
       temp = temp + calculateTemperature(l.qTop, l.dZ, l.k, l.a)
       l.tBot = structuredClone(temp)
@@ -172,35 +207,61 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       }
     })
 
-    // Boundary of layer within graph
-    const shapes = depth.map((d) => ({
-      type: 'line',
-      xref: 'paper',
-      x0: 0,
-      y0: d,
-      x1: 1,
-      y1: d,
-      line: {
-        color: 'brown',
-        width: 2,
-        dash: 'dot'
+    const layerRectangles = function (layers) {
+      let rectangles = []
+      let yMinLayer = 0
+      let yMaxLayer = 0
+      for (let ix = 0; ix < layers.length; ix++) {
+        yMaxLayer += layers[ix].dZ
+        let rectangle = {
+          type: 'rect',
+          // x-reference is assigned to the x-values
+          xref: 'paper',
+          // y-reference is assigned to the plot paper [0,1]
+          yref: 'y',
+          x0: 0,
+          y0: yMinLayer,
+          x1: 1,
+          y1: yMaxLayer,
+          fillcolor: layers[ix].color,
+          opacity: 1,
+          layer: 'below',
+          line: {
+            // color: 'brown',
+            width: 0
+            // dash: 'dot'
+          }
+        }
+        yMinLayer += layers[ix].dZ
+
+        rectangles.push(rectangle)
       }
-    }))
+      return rectangles
+    }
 
     // styling
     const layout = {
-      title: '',
+      title: { text: 'Digital Borehole', xref: 'paper', x: 0.05 },
+      autosize: false,
+      margin: {
+        l: 50,
+        r: 50,
+        b: 10,
+        t: 100,
+        pad: 2
+      },
       xaxis: {
-        title: 'Temperature (°C)',
+        title: 'Temperature [°C]',
         side: 'top',
         autorange: true
       },
       yaxis: {
-        title: 'Depth (m)',
-        // autorange: true
-        range: [Math.max(...depth) + 10, 0]
+        title: 'Depth [m]',
+        // autorange: true,
+        range: [Math.max(...depth) + 10, 0],
+        automargin: true
       },
-      shapes: shapes,
+      shapes: layerRectangles(layers),
       annotations: annotations
     }
     newPlot('popupBoreholeChart', [plotData], layout)
@@ -217,6 +278,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     plot,
     addEmptyLayer,
     setLayer,
+    removeLastLayer,
     calculateTemperature,
     bootstrapping,
     getNearestNeighbor,
