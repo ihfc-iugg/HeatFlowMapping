@@ -21,6 +21,7 @@ const legend = useLegendStore()
 const selectedProperty = ref(null)
 const selectedPropertyDataType = ref()
 
+const natureOfData = ref(null)
 const legalSteps = ref([3, 4, 5, 6, 7, 8, 9, 10, 11])
 const colorSteps = ref(4)
 const colorPaletteOptions = ref(null)
@@ -59,9 +60,13 @@ function setColorPaletteOptions(classes) {
     console.log('Number of classes out of range')
     return
   }
+
+  if (!natureOfData.value) {
+    natureOfData.value = 'sequential'
+  }
   let schemaGroup = []
 
-  colorbrewer.schemeGroups.diverging.forEach((schema) => {
+  colorbrewer.schemeGroups[natureOfData.value].forEach((schema) => {
     const value = {
       name: schema,
       colors: colorbrewer[schema][classes]
@@ -222,6 +227,7 @@ function dataDrivenColorisation() {
   } else if (selectedPropertyDataType.value == 'number') {
     // TODO: Fallunterscheidung Sequential/Diverging
     // handling properties of data type number
+    natureOfData.value = 'sequential'
     let classes = getNumberBreaks(selectedProperty.value.key)
     const paintProperty = generateContinuousPaintProperty(
       selectedProperty.value.key,
@@ -229,10 +235,12 @@ function dataDrivenColorisation() {
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
     )
     props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    legend.selectedProperty = selectedProperty.value.key
     legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == undefined) {
     // TODO: Qualitativ Farbpalette
     // handling properties of data type string + enum
+    natureOfData.value = 'qualitative'
     let classes = getEnumClasses(selectedProperty.value.key)
     colorSteps.value = classes.length
     const paintProperty = generateEnumPaintProperty(
@@ -241,6 +249,7 @@ function dataDrivenColorisation() {
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
     )
     props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    legend.selectedProperty = selectedProperty.value.key
     legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == 'boolean') {
     // TODO: generateBooleanPaintProperty() method
@@ -274,7 +283,7 @@ function dataDrivenColorisation() {
         label="title"
         placeholder="Select Property"
         :allow-empty="false"
-        @select="setPropertyDataType(selectedProperty), dataDrivenColorisation()"
+        @select="(setPropertyDataType(selectedProperty), dataDrivenColorisation())"
       >
       </VueMultiselect>
       <!-- Select classification method for number values -->
