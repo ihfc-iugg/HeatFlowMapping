@@ -12,7 +12,7 @@ const profile = use2DProfileStore()
 const ghfdb = useGHFDBStore()
 
 const props = defineProps({ map: Map })
-const activeTab = ref('setup')
+const activeTab = ref('toolbox')
 const hasChartPopup = ref(false)
 
 /**
@@ -47,44 +47,24 @@ function togglehasChartPopup() {
   <div class="container">
     <div class="row">
       <div class="col-md-auto ps-0">
-        <div class="btn-group-vertical" role="group">
+        <div
+          class="btn-group-vertical"
+          role="group"
+          data-toggle="buttons"
+          aria-label="2D Profile group"
+        >
           <input
             type="radio"
             class="btn-check"
-            name="btnradio"
-            id="setupInput"
-            autocomplete="off"
-            checked
-            data-bs-toggle="collapse"
-            href="#setup"
-          />
-          <label class="btn btn-outline-primary" for="setupInput" @click="setActiveTab('setup')">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-sliders"
-              viewBox="0 0 16 16"
-            >
-              <path
-                fill-rule="evenodd"
-                d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"
-              />
-            </svg>
-          </label>
-          <input
-            type="radio"
-            class="btn-check"
-            name="btnradio"
+            name="vbtn-radio"
             id="toolboxInput"
             autocomplete="off"
-            data-bs-toggle="collapse"
-            href="#toolbox"
+            checked
           />
           <label
             class="btn btn-outline-primary"
             for="toolboxInput"
+            title="Line draw toolbox"
             @click="setActiveTab('toolbox')"
           >
             <svg
@@ -103,16 +83,41 @@ function togglehasChartPopup() {
           <input
             type="radio"
             class="btn-check"
-            name="btnradio"
+            name="vbtn-radio"
+            id="setupInput"
+            autocomplete="off"
+          />
+          <label
+            class="btn btn-outline-primary"
+            for="setupInput"
+            title="Parameter settings"
+            @click="setActiveTab('setup')"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-sliders"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z"
+              />
+            </svg>
+          </label>
+          <input
+            type="radio"
+            class="btn-check"
+            name="vbtn-radio"
             id="about2DProfile"
             autocomplete="off"
-            checked
-            data-bs-toggle="collapse"
-            href="#about2DProfile"
           />
           <label
             class="btn btn-outline-primary"
             for="about2DProfile"
+            title="Information about 2D Profile"
             @click="setActiveTab('about2DProfile')"
           >
             <svg
@@ -131,20 +136,15 @@ function togglehasChartPopup() {
         </div>
       </div>
       <div class="col pe-0">
-        <div v-if="activeTab == 'setup'" class="card collapse mb-1" id="setup" style="width: 100%">
+        <div v-if="activeTab === 'setup'" class="card mb-1" id="setup" style="width: 100%">
           <Profile2DLineSetup :map="map" />
         </div>
-        <div
-          v-if="activeTab == 'toolbox'"
-          class="card collapse mb-1"
-          id="toolbox"
-          style="width: 100%"
-        >
+        <div v-if="activeTab == 'toolbox'" class="card mb-1" id="toolbox" style="width: 100%">
           <Profile2DLineDrawToolbox :map="map" />
         </div>
         <div
-          v-if="activeTab == 'about2DProfile'"
-          class="card collapse mb-1"
+          v-if="activeTab === 'about2DProfile'"
+          class="card mb-1"
           id="about2DProfile"
           style="width: 100%"
         >
