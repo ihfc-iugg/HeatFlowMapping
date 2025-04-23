@@ -26,7 +26,13 @@ export const useMapStore = defineStore('map', () => {
         version: 8,
         sources: setBaseMapsSource(bm),
         layers: setBaseMapsLayer(bm),
-        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf' // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
+        glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf', // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
+        projection: {
+          type: 'globe'
+        },
+        sky: {
+          'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0]
+        }
       }
     })
   }
