@@ -13,10 +13,10 @@ const dB = useDigitalBoreholeStore()
 
 const activeTab = ref('pntToolBox')
 
-dB.setLayer(null, null, null, null, 2.3, 100, 2, 'sample')
-dB.setLayer(null, null, null, null, 5, 200, 3, 'sample')
-dB.setLayer(null, null, null, null, 1.4, 300, 1.3, 'sample')
-dB.setLayer(null, null, null, null, 1.5, 200, 0.8, 'sample')
+dB.setLayer(null, null, null, null, 2.3, 100, 2, 'sediments')
+dB.setLayer(null, null, null, null, 5, 200, 3, 'upper crust')
+dB.setLayer(null, null, null, null, 1.4, 300, 1.3, 'middle crust')
+dB.setLayer(null, null, null, null, 1.5, 200, 0.8, 'lower crust')
 
 /**
  *
