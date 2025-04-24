@@ -11,6 +11,9 @@ import {
 import { Map, Popup, Marker } from 'maplibre-gl'
 import { useSettingsStore } from './settings.js'
 import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
+import { newPlot } from 'plotly.js-dist'
+
+import { useDataSchemaStore } from './dataSchema.js'
 
 export const use2DProfileStore = defineStore('2DProfile', () => {
   /**
@@ -28,6 +31,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   const plot = ref(null)
   const popup = ref(null)
   const marker = ref(null)
+  const schema = useDataSchemaStore()
 
   /**
    * @description
@@ -150,6 +154,98 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     return projectedPnts
   }
 
+  /**
+   * @description
+   */
+  function drawProfile(line, selectedPnts, selectedProperty) {
+    const projectedPoinsts = projectingDataOnLine(line, selectedPnts)
+
+    const alongLineDdistance = projectedPoinsts.map((pnt) => pnt.b)
+    const offset = projectedPoinsts.map((pnt) => pnt.a)
+    const uncertainty = projectedPoinsts.map((pnt) => pnt.uncertainty)
+    const propertyValues = projectedPoinsts.map((pnt) => pnt[selectedProperty])
+    const pntIds = projectedPoinsts.map((pnt) => pnt.id)
+
+    // Data property values
+    const trace1 = {
+      x: alongLineDdistance,
+      y: propertyValues,
+      error_y: {
+        type: 'data',
+        array: uncertainty,
+        visible: true
+      },
+      name: selectedProperty,
+      type: 'scatter',
+      mode: 'markers',
+      textposition: 'bottom',
+      hovertemplate: '<b>%{text}</b>' + '<br><b>x</b>: %{x}' + '<br><b>y</b>: %{y}',
+      text: pntIds,
+      marker: {
+        size: new Array(alongLineDdistance.length).fill(10), // Initialize all points with size 10
+        color: new Array(alongLineDdistance.length).fill('blue') // Initialize all points with color blue
+      },
+      xaxis: 'x',
+      yaxis: 'y1'
+    }
+
+    // Data vertical distance of point to line
+    const trace2 = {
+      x: alongLineDdistance,
+      y: offset,
+      name: 'Offset [km]',
+      type: 'bar',
+      hovertemplate: '<b>%{text}</b>' + '<br><b>x</b>: %{x}' + '<br><b>y</b>: %{y}',
+      text: pntIds,
+      xaxis: 'x',
+      yaxis: 'y2',
+      width: 10
+    }
+
+    // styling
+    const layout = {
+      title: { text: '2D Profile' },
+      xaxis: {
+        anchor: 'free',
+        title: {
+          text: 'Segment length [km]'
+        }
+      },
+      yaxis: {
+        anchor: 'x',
+        title: {
+          text:
+            schema.dataSchema.properties[selectedProperty].title +
+            ' [' +
+            schema.dataSchema.properties[selectedProperty].units +
+            ']'
+        },
+        domain: [0.2, 1],
+        position: 0.05
+      },
+      yaxis2: {
+        anchor: 'x',
+        title: {
+          text: 'Offset [km]'
+        },
+        domain: [0, 0.2],
+        position: 0.95
+      },
+      // legend: { x: 1.2, y: 1 },
+      hovermode: 'closest',
+      grid: {
+        rows: 2,
+        columns: 1,
+        roworder: 'bottom to top'
+      }
+    }
+
+    let data = [trace1, trace2]
+
+    plot.value = newPlot('popupProfileChart', data, layout)
+    console.log(plot.value)
+  }
+
   return {
     selectedProperty1,
     threshold,
@@ -162,6 +258,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     generatePaintProperty,
     lineStringToPointFeatureCollection,
     addLineLabelToMap,
-    projectingDataOnLine
+    projectingDataOnLine,
+    drawProfile
   }
 })
