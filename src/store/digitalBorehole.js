@@ -4,8 +4,6 @@ import { newPlot } from 'plotly.js-dist'
 import { distance } from '@turf/turf'
 import colorbrewer from 'colorbrewer'
 
-import { useMapControlsStore } from './mapControls.js'
-
 export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   /**
    * ref()s become state properties
@@ -21,7 +19,6 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   const marker = ref(null)
   const hasPopup = ref(false)
   const plot = ref(null)
-  const controls = useMapControlsStore()
 
   /**
    *
@@ -81,9 +78,9 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   /**
    *
    */
-  function removeLastLayer() {
-    if (layers.value.length > 1) {
-      layers.value.pop()
+  function removeLastLayer(layers) {
+    if (layers.length > 1) {
+      layers.pop()
     }
   }
 
@@ -108,7 +105,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
    */
   function bootstrapping(layers, t0, q0) {
     // q0 mW 10^-3 (Milliwatt)
-    // ground surface temperature == top temperature of the first layer
+    // ground surface temperature = top temperature of the first layer
     layers[0].tTop = t0
     // q at surface from mW to W
     layers[0].qTop = q0 / 1000
@@ -197,7 +194,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       if (depth.indexOf(d) != 0) {
         return {
           showarrow: false,
-          text: 'layer ' + depth.indexOf(d) + '<br>' + layers[depth.indexOf(d) - 1].layerType,
+          text: layers[depth.indexOf(d) - 1].layerType.toUpperCase(),
           align: 'right',
           x: 0,
           xanchor: 'right',
