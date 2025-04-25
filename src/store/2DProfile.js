@@ -167,7 +167,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     const pntIds = projectedPoinsts.map((pnt) => pnt.id)
 
     // Data property values
-    const trace1 = {
+    const propertyValuesTrace = {
       x: alongLineDdistance,
       y: propertyValues,
       error_y: {
@@ -190,7 +190,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     }
 
     // Data vertical distance of point to line
-    const trace2 = {
+    const offsetTrace = {
       x: alongLineDdistance,
       y: offset,
       name: 'Offset [km]',
@@ -240,7 +240,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       }
     }
 
-    let data = [trace1, trace2]
+    let data = [propertyValuesTrace, offsetTrace]
 
     plot.value = newPlot('popupProfileChart', data, layout)
     console.log(plot.value)
