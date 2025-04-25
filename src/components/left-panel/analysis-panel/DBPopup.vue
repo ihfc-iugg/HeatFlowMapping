@@ -19,7 +19,7 @@ watch(
     if (dB.pnt) {
       setUpPopup(dB.pnt, props.map)
       dB.bootstrapping(dB.layers, dB.t0, dB.closestPointfeatures.properties.q)
-      dB.drawChart(dB.layers, dB.t0)
+      dB.drawChart(dB.layers, dB.t0, dB.uncertainty)
       appendLayerHandlingBtnToPopup(document.getElementById('popupBoreholeChart'))
     }
   }

@@ -6,7 +6,7 @@ const dB = useDigitalBoreholeStore()
 
 watch(dB.layers, () => {
   dB.bootstrapping(dB.layers, dB.t0, dB.closestPointfeatures.properties.q)
-  dB.drawChart(dB.layers, dB.t0)
+  dB.drawChart(dB.layers, dB.t0, dB.uncertainty)
 })
 </script>
 

@@ -19,6 +19,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   const marker = ref(null)
   const hasPopup = ref(false)
   const plot = ref(null)
+  const uncertainty = ref(5)
 
   /**
    *
@@ -158,11 +159,41 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
+   *
+   * @param {Array} origXValues
+   * @param {Number} uncertainty in percent
+   * @returns
+   */
+  function calcXValuesUncertainty(origXValues, uncertainty) {
+    let xErrorBars = []
+    origXValues.slice().forEach((x) => xErrorBars.push(x - x * (uncertainty / 100)))
+    origXValues
+      .slice()
+      .reverse()
+      .forEach((x) => xErrorBars.push(x + x * (uncertainty / 100)))
+    return xErrorBars
+  }
+
+  /**
+   *
+   * @param {Array} origYValues
+   * @returns
+   */
+  function calcYValuesContinuousErrorBars(origYValues) {
+    let yErrorBars = origYValues.map((y) => y)
+    origYValues
+      .slice()
+      .reverse()
+      .forEach((y) => yErrorBars.push(y))
+    return yErrorBars
+  }
+
+  /**
    * @description logic for drawing graph of temperature as function of depth
    * @param {Array} layers
    * @param {number} t0
    */
-  function drawChart(layers, t0) {
+  function drawChart(layers, t0, uncertainty) {
     if (plot.value) {
       plot.value = null
     }
@@ -186,7 +217,20 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       mode: 'lines+markers',
       marker: { color: 'blue' },
       textposition: 'top center',
-      hoverinfo: 'text+x+y'
+      hoverinfo: 'text+x+y',
+      name: 'Temperature',
+      showlegend: true
+    }
+
+    const temperatureUncertainty = {
+      x: calcXValuesUncertainty(temperature, uncertainty),
+      y: calcYValuesContinuousErrorBars(depth),
+      fill: 'tozerox',
+      fillcolor: 'rgba(0,100,80,0.2)',
+      line: { color: 'transparent' },
+      name: uncertainty + '% uncertainty',
+      showlegend: true,
+      type: 'scatter'
     }
 
     // Annotation of layer within graph
@@ -261,7 +305,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       shapes: layerRectangles(layers),
       annotations: annotations
     }
-    newPlot('popupBoreholeChart', [plotData], layout)
+    newPlot('popupBoreholeChart', [plotData, temperatureUncertainty], layout)
   }
 
   return {
@@ -273,6 +317,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     popup,
     hasPopup,
     plot,
+    uncertainty,
     addEmptyLayer,
     setLayer,
     removeLastLayer,
