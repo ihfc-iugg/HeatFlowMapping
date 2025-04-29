@@ -170,7 +170,7 @@ draw.tools.on('select', (id) => {
         </button>
       </template>
     </CTooltip>
-    <p>Threshold: {{ profile.threshold ? profile.threshold : '-' }}</p>
+    <p>Threshold: {{ profile.threshold ? profile.threshold + ' [km]' : '-' }}</p>
   </div>
 </template>
 
