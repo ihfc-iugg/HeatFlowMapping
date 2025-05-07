@@ -11,8 +11,13 @@ watch(dB.layers, () => {
 </script>
 
 <template>
-  <a href="#" class="button btn-sm bg-primary text-white" @click="dB.removeLastLayer(dB.layers)">
-    <span class="icon-layer-handling btn text-white rounded-circle btn-sm">
+  <a
+    href="#"
+    class="button btn-sm"
+    style="color: #4366a1; border: 1px solid #4366a1"
+    @click="dB.removeLastLayer(dB.layers)"
+  >
+    <span class="icon-layer-handling btn rounded-circle btn-sm">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

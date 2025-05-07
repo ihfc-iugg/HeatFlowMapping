@@ -11,32 +11,13 @@ watch(dB.layers, () => {
 </script>
 
 <template>
-  <!-- <button
-    class="btn btn-primary rounded-pill bg-white text-primary align-bottom"
-    @click="dB.setLayer(null, null, null, null, 2.3, 100, 2, 'sample')"
-  >
-    <button class="btn btn-primary rounded-circle btn-sm" type="button">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="16"
-        height="16"
-        fill="currentColor"
-        class="bi bi-plus"
-        viewBox="0 0 16 16"
-      >
-        <path
-          d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
-        />
-      </svg>
-    </button>
-    Add Layer
-  </button> -->
   <a
     href="#"
-    class="button btn-sm bg-primary text-white"
+    class="button btn-sm"
+    style="color: #4366a1; border: 1px solid #4366a1"
     @click="dB.setLayer(null, null, null, null, 2.3, 100, 2, 'sample')"
   >
-    <span class="icon-layer-handling btn text-white rounded-circle btn-sm">
+    <span class="icon-layer-handling btn rounded-circle btn-sm">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

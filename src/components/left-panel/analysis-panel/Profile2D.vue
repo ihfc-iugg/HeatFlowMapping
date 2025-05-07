@@ -153,7 +153,7 @@ function togglehasChartPopup() {
       </div>
     </div>
     <div class="row">
-      <div class="col px-0">
+      <div class="col px-0 d-grid justify-content-md-end">
         <div
           v-if="!profile.selectedProperty1 || !profile.threshold || !profile.line"
           id=""
@@ -166,7 +166,7 @@ function togglehasChartPopup() {
         <button
           id="startCalculationBtn"
           type="button"
-          class="btn mt-2 btn-success"
+          class="btn mt-2 btn-success rounded-pill"
           data-bs-toggle="tooltip"
           data-bs-placement="bottom"
           data-bs-title="Click to start the calculation"

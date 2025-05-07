@@ -107,21 +107,21 @@ function setPropertyDataType(property) {
 </script>
 
 <template>
-  <div>
+  <div style="border-bottom: 2px solid #00c9a7">
     <p class="mt-1 d-grid gap-2">
       <button
-        class="btn btn-primary text-start dropdown-toggle"
+        class="btn text-start text-light dropdown-toggle"
         type="button"
+        style="background-color: #4366a1"
         data-bs-toggle="collapse"
-        data-bs-target="#datasetSelection"
-        aria-expanded="false"
-        aria-controls="datasetSelection"
+        data-bs-target="#descriptivStatistics"
       >
-        Dataset
+        Descriptive Statistics
       </button>
     </p>
-    <div class="collapse" id="datasetSelection">
+    <div class="collapse" id="descriptivStatistics">
       <VueMultiselect
+        class="py-1"
         v-model="selectedSourceTitle"
         :options="options"
         :allow-empty="false"
@@ -130,22 +130,9 @@ function setPropertyDataType(property) {
         @select="setDataSource()"
       >
       </VueMultiselect>
-    </div>
 
-    <p class="mt-1 d-grid gap-2">
-      <button
-        class="btn btn-primary text-start dropdown-toggle"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#propertySelection"
-        aria-expanded="false"
-        aria-controls="propertySelection"
-      >
-        Property
-      </button>
-    </p>
-    <div class="collapse" id="propertySelection">
       <VueMultiselect
+        class="py-1"
         v-model="selectedProperty"
         :options="schema.selectableProperties"
         label="title"
@@ -158,18 +145,17 @@ function setPropertyDataType(property) {
         "
       >
       </VueMultiselect>
+
+      <div class="w-100 h-100 d-inline-block" id="statisticGraph"></div>
+      <StatisticsPanelTableNumericValues
+        v-if="selectedProperty && selectedPropertyDataType == 'number'"
+        :attributeValues="propertyValues"
+      />
+
+      <StatisticsPanelTableEnumValues
+        v-if="selectedProperty && selectedPropertyDataType == undefined"
+        :attributeValues="propertyValues"
+      />
     </div>
-
-    <div class="w-100 h-100 d-inline-block" id="statisticGraph"></div>
-
-    <StatisticsPanelTableNumericValues
-      v-if="selectedProperty && selectedPropertyDataType == 'number'"
-      :attributeValues="propertyValues"
-    />
-
-    <StatisticsPanelTableEnumValues
-      v-if="selectedProperty && selectedPropertyDataType == undefined"
-      :attributeValues="propertyValues"
-    />
   </div>
 </template>

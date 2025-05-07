@@ -29,16 +29,19 @@ const emit = defineEmits(['collapse-event', 'toggle-event'])
 </script>
 
 <template>
-  <COffcanvasHeader class="bg-primary">
+  <COffcanvasHeader class="" style="background-color: #2f5597; border-bottom: 5px solid #00c9a7">
     <CRow>
-      <CCol><div class="text-white col-md-auto" v-html="props.icon"></div></CCol>
+      <CCol><div class="col-md-auto text-light" v-html="props.icon"></div></CCol>
       <CCol class="col-md-auto"
-        ><COffcanvasTitle class="text-white">
+        ><COffcanvasTitle class="text-light">
           {{ props.title }}
         </COffcanvasTitle></CCol
       >
     </CRow>
-    <CCloseButton white class="text-reset" @click="emit('collapse-event'), emit('toggle-event')" />
+    <CCloseButton
+      class="text-reset btn-close-white"
+      @click="(emit('collapse-event'), emit('toggle-event'))"
+    />
   </COffcanvasHeader>
   <COffcanvasBody>
     <KeepAlive>

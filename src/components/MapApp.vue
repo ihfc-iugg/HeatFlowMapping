@@ -401,9 +401,41 @@ function toggleVisibleScrolling() {
 
       <!-- Navigation buttons -->
       <div class="fixed-bottom">
-        <CButtonGroup role="group" aria-label="Basic example">
+        <div
+          class="btn-group rounded-left rounded-right"
+          role="group"
+          style="border: 1px solid #00c9a7; background-color: #2f5597"
+          aria-label="Basic radio toggle button group"
+        >
+          <div v-for="item in navBar.navigationElements" :key="item.title">
+            <input
+              type="radio"
+              class="btn-check"
+              name="btnradio"
+              :id="item.title"
+              autocomplete="off"
+              @click="
+                (isCollapsed ? setPanelTitle(item.title) : 0,
+                setPanelIcon(item.svgElement),
+                // toggleSidebar(),
+                setIsCollapsed(),
+                toggleVisibleScrolling())
+              "
+            />
+
+            <label class="btn text-light" :for="item.title"
+              ><div v-html="item.svgElement"></div>
+              {{ item.title }}</label
+            >
+          </div>
+        </div>
+        <!-- <CButtonGroup
+          class=""
+          role="group"
+          style="border: 1px solid #00c9a7"
+          aria-label="Basic example"
+        >
           <CButton
-            color="primary"
             v-for="item in navBar.navigationElements"
             :key="item.title"
             panelTitle="{item.title}"
@@ -415,14 +447,15 @@ function toggleVisibleScrolling() {
               toggleVisibleScrolling())
             "
             type="button"
-            class="btn btn-primary"
+            class="btn text-light"
+            style="background-color: #2f5597"
             data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasLeftPanel"
             aria-controls="offcanvasLeftPanel"
             ><div v-html="item.svgElement"></div>
             {{ item.title }}
           </CButton>
-        </CButtonGroup>
+        </CButtonGroup> -->
         <MapCursorCoordinates :map="mapStore.map" />
       </div>
     </div>
@@ -449,6 +482,18 @@ function toggleVisibleScrolling() {
 </template>
 
 <style scoped>
+/* input[type='radio'] {
+  display: none;
+}
+
+input[type='radio']:checked {
+  color: #00c9a7;
+}
+
+input[type='radio']:hover {
+  color: #00c9a7;
+} */
+
 .offcanvas {
   overflow-y: auto; /* Enable scrolling inside the offcanvas if content is too large */
 }
@@ -457,6 +502,11 @@ function toggleVisibleScrolling() {
 .navbar {
   width: 100%;
   z-index: 1000; /* Ensure navbar stays on top */
+}
+
+/* Fix navbar height */
+.navbar.navbar-expand-lg {
+  height: 92px; /* Adjust to the height of your navbar */
 }
 
 /* Content area takes the full height */
@@ -477,30 +527,6 @@ function toggleVisibleScrolling() {
   width: 100%;
   background-color: #eaeaea; /* Default background color */
 }
-
-/* Fix navbar height */
-.navbar.navbar-expand-lg {
-  height: 92px; /* Adjust to the height of your navbar */
-}
-
-.fixed-bottom {
-  position: absolute;
-  width: fit-content;
-  height: fit-content;
-  margin: 0 auto;
-  z-index: 1;
-}
-
-/* .content {
-  width: 100%;
-  height: 100%;
-} */
-
-/* .map {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-} */
 
 .fixed-bottom {
   position: absolute;

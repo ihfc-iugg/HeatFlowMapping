@@ -183,26 +183,29 @@ function setFilterExpression(property, values) {
 </script>
 
 <template>
-  <div class="filter-element">
+  <div class="filter-element py-1" style="border-bottom: 1px solid #00c9a7">
     <CRow class="d-felx justify-content-start">
       <CCol xs="10">
         <VueMultiselect
+          class="py-1"
           v-model="filterElement.selectedProperty"
           :options="dataSchema.selectableProperties"
           label="title"
           :allow-empty="false"
           placeholder="Select Property"
           @select="
-            setSelectedPropertyType(filterElement.selectedProperty.key),
-              setValueOptions(filterElement.selectedProperty.key),
-              resetSelectedValues()
+            (setSelectedPropertyType(filterElement.selectedProperty.key),
+            setValueOptions(filterElement.selectedProperty.key),
+            resetSelectedValues())
           "
         >
         </VueMultiselect>
       </CCol>
       <CCol xs="1">
         <button
-          class="btn btn-primary"
+          class="btn rounded-circle"
+          style="border: 1px solid #4366a1"
+          title="Remove Filter"
           @click="filter.removeFilterElement(props.id, 'attributeFilter')"
         >
           <svg
@@ -255,15 +258,12 @@ function setFilterExpression(property, values) {
             :resettable="true"
             style="width: 100%"
             @change="
-              (filterElement.selectedValues[0] = $event.from),
-                (filterElement.selectedValues[1] = $event.to)
+              ((filterElement.selectedValues[0] = $event.from),
+              (filterElement.selectedValues[1] = $event.to))
             "
             @finish="
-              console.log('from: ' + $event.from + '; to: ' + $event.to),
-                setFilterExpression(
-                  filterElement.selectedProperty.key,
-                  filterElement.selectedValues
-                )
+              (console.log('from: ' + $event.from + '; to: ' + $event.to),
+              setFilterExpression(filterElement.selectedProperty.key, filterElement.selectedValues))
             "
           />
 
@@ -272,8 +272,12 @@ function setFilterExpression(property, values) {
       </div>
       <div class="reset-filter-btn" v-if="filterElement.selectedValues.length > 0">
         <button
-          class="btn btn-primary"
-          @click="resetSelectedValues(filterElement.selectedProperty.key), resetFilterExpression()"
+          class="btn rounded-circle"
+          style="border: 1px solid #4366a1"
+          title="Reset Values"
+          @click="
+            (resetSelectedValues(filterElement.selectedProperty.key), resetFilterExpression())
+          "
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -297,10 +301,6 @@ function setFilterExpression(property, values) {
 </template>
 
 <style scoped>
-.filter-element {
-  border-bottom: 4px inset;
-}
-
 .filter-property {
   display: flex;
   align-items: center; /* This will vertically align items in the middle */

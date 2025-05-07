@@ -24,11 +24,12 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
 </script>
 
 <template>
-  <div class="base-map-settings">
-    <p class="d-grid gap-2">
+  <div class="base-map-settings" style="border-bottom: 2px solid #00c9a7">
+    <p class="d-grid gap-1">
       <button
-        class="btn btn-primary text-start dropdown-toggle"
+        class="btn text-start text-light dropdown-toggle"
         type="button"
+        style="background-color: #4366a1"
         data-bs-toggle="collapse"
         data-bs-target="#baseMaps"
         aria-expanded="false"
@@ -37,7 +38,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
         Base Maps
       </button>
     </p>
-    <div class="collapse" id="baseMaps">
+    <div class="collapse p-1" id="baseMaps">
       <div class="maps-content d-flex">
         <div
           class="card mx-1"
@@ -48,7 +49,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
           @click="changeBaseLayer(settings.activeBaseLayer, baseMap.id)"
         >
           <img class="card-img-top" :src="baseMap.cardImage" alt="Card image cap" />
-          <p class="text-center">{{ baseMap.title }}</p>
+          <p class="fs-7 text-center">{{ baseMap.title }}</p>
         </div>
       </div>
     </div>

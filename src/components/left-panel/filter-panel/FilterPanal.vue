@@ -35,56 +35,63 @@ function addFilterElement() {
 
 <template>
   <!-- Attribute Filter -->
-  <p class="mt-1 d-grid gap-2">
-    <button
-      class="btn btn-primary text-start dropdown-toggle"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#attributeFilter"
-      aria-expanded="false"
-      aria-controls="attributeFilter"
-    >
-      Attribute Filter
-    </button>
-  </p>
-  <div class="collapse" id="attributeFilter">
-    <FilterPanelFilterElement
-      v-for="id in Object.keys(filter.filters.attributeFilter)"
-      :key="id"
-      :id="id"
-    >
-    </FilterPanelFilterElement>
-
-    <div class="filter-managing-tools">
-      <label for="add-filter-btn" v-if="filter.reachedLimit"
-        >You reached the max number of filters</label
-      >
+  <div style="border-bottom: 2px solid #00c9a7">
+    <p class="mt-1 d-grid gap-2">
       <button
-        id="add-filter-btn"
-        class="btn btn-primary"
-        v-if="!filter.reachedLimit"
-        @click="addFilterElement()"
+        class="btn text-start text-light dropdown-toggle"
+        type="button"
+        style="background-color: #4366a1"
+        data-bs-toggle="collapse"
+        data-bs-target="#attributeFilter"
+        aria-expanded="false"
+        aria-controls="attributeFilter"
       >
-        + Add Filter
+        Attribute Filter
       </button>
+    </p>
+    <div class="collapse p-1" id="attributeFilter">
+      <FilterPanelFilterElement
+        v-for="id in Object.keys(filter.filters.attributeFilter)"
+        class="mb-1"
+        :key="id"
+        :id="id"
+      >
+      </FilterPanelFilterElement>
+
+      <div class="filter-managing-tools d-grid justify-content-md-center">
+        <label for="add-filter-btn" v-if="filter.reachedLimit"
+          >You reached the max number of filters</label
+        >
+        <button
+          id="add-filter-btn"
+          class="btn rounded-pill"
+          style="color: #4366a1; border: 1px solid #4366a1"
+          v-if="!filter.reachedLimit"
+          @click="addFilterElement()"
+        >
+          + Add Filter
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- Location Filter -->
-  <p class="mt-1 d-grid gap-2">
-    <button
-      class="btn btn-primary text-start dropdown-toggle"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#locationFilter"
-      aria-expanded="false"
-      aria-controls="locationFilter"
-    >
-      Location Filter
-    </button>
-  </p>
-  <FilterPanelFilterByLocation :map="map" />
-
+  <div style="border-bottom: 2px solid #00c9a7">
+    <p class="mt-1 d-grid gap-2">
+      <button
+        class="btn text-start text-light dropdown-toggle"
+        type="button"
+        style="background-color: #4366a1"
+        data-bs-toggle="collapse"
+        data-bs-target="#locationFilter"
+        aria-expanded="false"
+        aria-controls="locationFilter"
+      >
+        Location Filter
+      </button>
+    </p>
+    <FilterPanelFilterByLocation :map="map" />
+  </div>
   <FilterPanelDownloadData :map="map"></FilterPanelDownloadData>
 </template>
 

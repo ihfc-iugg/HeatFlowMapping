@@ -7,7 +7,7 @@ import FilterPanelFilterByLocationAbout from '@/components/left-panel/filter-pan
 
 const props = defineProps({ map: Map })
 
-const activeTab = ref('aboutLocationFIlter')
+const activeTab = ref('toolbox')
 
 /**
  *
@@ -19,7 +19,7 @@ function setActiveTab(tab) {
 </script>
 
 <template>
-  <div class="collapse" id="locationFilter">
+  <div class="collapse py-1" id="locationFilter">
     <div class="container">
       <div class="row">
         <div class="col-md-auto ps-0">
@@ -27,11 +27,10 @@ function setActiveTab(tab) {
             <input
               type="radio"
               class="btn-check"
-              name="btnradio"
+              name="btn-radio"
               id="toolbox"
               autocomplete="off"
-              data-bs-toggle="collapse"
-              href="#toolbox"
+              checked
             />
             <label class="btn btn-outline-primary" for="toolbox" @click="setActiveTab('toolbox')">
               <svg
@@ -50,12 +49,9 @@ function setActiveTab(tab) {
             <input
               type="radio"
               class="btn-check"
-              name="btnradio"
+              name="btn-radio"
               id="aboutLocationFIlter"
               autocomplete="off"
-              checked
-              data-bs-toggle="collapse"
-              href="#aboutLocationFIlter"
             />
             <label
               class="btn btn-outline-primary"
@@ -78,17 +74,12 @@ function setActiveTab(tab) {
           </div>
         </div>
         <div class="col pe-0">
-          <div
-            v-if="activeTab == 'toolbox'"
-            class="card collapse mb-1"
-            id="toolbox"
-            style="width: 100%"
-          >
+          <div v-if="activeTab == 'toolbox'" class="card mb-1" id="toolbox" style="width: 100%">
             <FilterPanelFIlterByLocationDrawToolbox :map="map" />
           </div>
           <div
             v-if="activeTab == 'aboutLocationFIlter'"
-            class="card collapse mb-1"
+            class="card mb-1"
             id="aboutLocationFIlter"
             style="width: 100%"
           >

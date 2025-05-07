@@ -262,22 +262,24 @@ function dataDrivenColorisation() {
 <template>
   <!-- Data Driven Coloring -->
   <!-- Property selection -->
-  <p class="mt-1 d-grid gap-2">
-    <button
-      class="btn btn-primary text-start dropdown-toggle"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#dataDrivenColoring"
-      aria-expanded="false"
-      aria-controls="dataDrivenColoring"
-    >
-      Data Driven Coloring
-    </button>
-  </p>
-  <div class="collapse" id="dataDrivenColoring">
-    <div class="card card-body">
+  <div style="border-bottom: 2px solid #00c9a7">
+    <p class="mt-1 d-grid gap-2">
+      <button
+        class="btn text-start text-light dropdown-toggle"
+        type="button"
+        style="background-color: #4366a1"
+        data-bs-toggle="collapse"
+        data-bs-target="#dataDrivenColoring"
+        aria-expanded="false"
+        aria-controls="dataDrivenColoring"
+      >
+        Data Driven Coloring
+      </button>
+    </p>
+    <div class="collapse p-1" id="dataDrivenColoring">
       <!-- Select property for coloring -->
       <VueMultiselect
+        class="py-1"
         v-model="selectedProperty"
         :options="dataSchema.selectableProperties"
         label="title"
@@ -288,6 +290,7 @@ function dataDrivenColorisation() {
       </VueMultiselect>
       <!-- Select classification method for number values -->
       <VueMultiselect
+        class="py-1"
         v-if="selectedPropertyDataType == 'number'"
         v-model="selectedClassificationType"
         :options="classificationTypes"
@@ -326,6 +329,7 @@ function dataDrivenColorisation() {
 
       <!-- Select number of classes  -->
       <VueMultiselect
+        class="py-1"
         v-if="selectedPropertyDataType == 'number'"
         v-model="colorSteps"
         :options="legalSteps"
@@ -337,6 +341,7 @@ function dataDrivenColorisation() {
 
       <!-- Select color palette -->
       <VueMultiselect
+        class="py-1"
         v-if="selectedProperty"
         v-model="selectedColorPalette"
         :options="colorPaletteOptions"

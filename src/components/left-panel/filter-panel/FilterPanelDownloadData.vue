@@ -26,13 +26,18 @@ function downloadFeatures(data, filename) {
 <template>
   <!-- Download Features -->
   <button
-    class="btn btn-primary rounded-pill bg-white text-primary position-absolute bottom-0 start-0 mx-2 my-2"
+    class="btn rounded-pill bg-white fw-bold position-absolute bottom-0 start-0 mx-2 my-2"
+    style="color: #4366a1; border: 1px solid #4366a1"
     @click="
-      filter.getFilteredFeatures(props.map),
-        downloadFeatures(filter.getFilteredFeatures(props.map), 'test')
+      (filter.getFilteredFeatures(props.map),
+      downloadFeatures(filter.getFilteredFeatures(props.map), 'test'))
     "
   >
-    <button class="btn btn-primary rounded-circle" type="button">
+    <button
+      class="btn rounded-circle"
+      type="button"
+      style="color: #4366a1; border: 1px solid #4366a1"
+    >
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

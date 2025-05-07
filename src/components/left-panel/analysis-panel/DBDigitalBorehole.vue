@@ -152,10 +152,24 @@ function setActiveTab(tab) {
 </template>
 
 <style>
-#markerBoreholeChart {
+/* #markerBoreholeChart {
   display: inline-block;
   text-align: center;
-  line-height: 0; /* Remove any spacing around the SVG */
+  line-height: 0; 
   background: transparent;
+} */
+
+/* input[type='radio'] {
+  display: none;
 }
+
+input[type='radio']:checked + .btn {
+  color: #fff;
+  background: #00c9a7 !important;
+}
+
+input[type='radio']:hover + .btn {
+  color: #fff;
+  background-color: #00c9a7;
+} */
 </style>
