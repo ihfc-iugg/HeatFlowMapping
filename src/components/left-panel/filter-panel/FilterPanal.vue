@@ -1,22 +1,21 @@
 <script setup>
-import { defineProps, watch } from 'vue'
-import { Map } from 'maplibre-gl'
-
-import { useFilterStore } from '@/store/filter'
+import { watch } from 'vue'
 
 import FilterPanelFilterElement from './FilterPanelFilterElement.vue'
 import FilterPanelFilterByLocation from './FilterPanelFilterByLocation.vue'
 import FilterPanelDownloadData from './FilterPanelDownloadData.vue'
 
-const props = defineProps({ map: Map })
+import { useFilterStore } from '@/store/filter'
+import { useMapStore } from '@/store/map'
 
 const filter = useFilterStore()
+const mapStore = useMapStore()
 
 /**
  * @description Watches changes in filterExpressions object and set the filter to map.
  */
 watch(filter.filters, () => {
-  filter.applyFilterToMap(props.map)
+  filter.applyFilterToMap(mapStore.map)
 })
 
 /**

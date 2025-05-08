@@ -1,13 +1,11 @@
 <script setup>
-import { defineProps } from 'vue'
-import { Map } from 'maplibre-gl'
-import { useSettingsStore } from '@/store/settings'
-
 import { CFormInput, CTableRow, CTableDataCell } from '@coreui/bootstrap-vue'
 
-const settings = useSettingsStore()
+import { useSettingsStore } from '@/store/settings'
+import { useMapStore } from '@/store/map'
 
-const props = defineProps({ map: Map })
+const settings = useSettingsStore()
+const mapStore = useMapStore()
 
 /**
  * @description set Circle color
@@ -15,10 +13,10 @@ const props = defineProps({ map: Map })
  * @returns {Void}
  */
 function setCircleColor(colorHEX) {
-  if (props.map.getPaintProperty('sites', 'circle-color') == colorHEX) {
+  if (mapStore.map.getPaintProperty('sites', 'circle-color') == colorHEX) {
     return
   } else {
-    props.map.setPaintProperty('sites', 'circle-color', colorHEX)
+    mapStore.map.setPaintProperty('sites', 'circle-color', colorHEX)
   }
 }
 </script>

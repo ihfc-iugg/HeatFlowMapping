@@ -1,22 +1,21 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue'
-import { useDataSchemaStore } from '@/store/dataSchema.js'
-import { useLegendStore } from '@/store/legend'
-
-import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
-import { CPopover, CButton } from '@coreui/bootstrap-vue'
+import { ref, watch } from 'vue'
 
 // External libraries
 import geostats from 'geostats'
 import { quantileSeq } from 'mathjs'
-import { Map } from 'maplibre-gl'
 import colorbrewer from 'colorbrewer'
 
-// Variables
-const props = defineProps({ map: Map })
+import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
+import { CPopover, CButton } from '@coreui/bootstrap-vue'
+
+import { useDataSchemaStore } from '@/store/dataSchema.js'
+import { useLegendStore } from '@/store/legend'
+import { useMapStore } from '@/store/map'
 
 const dataSchema = useDataSchemaStore()
 const legend = useLegendStore()
+const mapStore = useMapStore()
 
 const selectedProperty = ref(null)
 const selectedPropertyDataType = ref()
@@ -163,9 +162,9 @@ function getQuantilBreaks(geoJson, property, steps) {
  */
 function getNumberBreaks(property) {
   if (selectedClassificationType.value.name == 'jenks') {
-    return getJenksNaturalBreaks(props.map.getSource('sites')._data, property, colorSteps.value)
+    return getJenksNaturalBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
   } else {
-    return getQuantilBreaks(props.map.getSource('sites')._data, property, colorSteps.value)
+    return getQuantilBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
   }
 }
 
@@ -234,7 +233,7 @@ function dataDrivenColorisation() {
       classes,
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
     )
-    props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    mapStore.map.setPaintProperty('sites', 'circle-color', paintProperty)
     legend.selectedProperty = selectedProperty.value.key
     legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == undefined) {
@@ -248,7 +247,7 @@ function dataDrivenColorisation() {
       classes,
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
     )
-    props.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    mapStore.map.setPaintProperty('sites', 'circle-color', paintProperty)
     legend.selectedProperty = selectedProperty.value.key
     legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == 'boolean') {

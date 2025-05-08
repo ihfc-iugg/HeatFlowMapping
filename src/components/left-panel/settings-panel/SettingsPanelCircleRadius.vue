@@ -1,18 +1,17 @@
 <script setup>
-import { defineProps } from 'vue'
-import { Map } from 'maplibre-gl'
 import { useSettingsStore } from '@/store/settings'
+import { useMapStore } from '@/store/map'
 
 const settings = useSettingsStore()
+const mapStore = useMapStore()
 
-const props = defineProps({ map: Map })
 /**
  *
  * @param {*} circleRadius
  * @description If user changes size of circles, the watch method keeps track of it and adjust it synchron
  */
 function setCircleRadius(circleRadius) {
-  props.map.setPaintProperty('sites', 'circle-radius', parseInt(circleRadius))
+  mapStore.map.setPaintProperty('sites', 'circle-radius', parseInt(circleRadius))
 }
 </script>
 

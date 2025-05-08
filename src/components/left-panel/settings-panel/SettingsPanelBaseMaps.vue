@@ -1,23 +1,19 @@
 <script setup>
-import { defineProps } from 'vue'
-
-import { Map } from 'maplibre-gl'
-
 import { useSettingsStore } from '@/store/settings'
 import { useBaseMapsStore } from '@/store/baseMaps'
+import { useMapStore } from '@/store/map'
 
 const settings = useSettingsStore()
 const bm = useBaseMapsStore()
-
-const props = defineProps({ map: Map })
+const mapStore = useMapStore()
 
 function changeBaseLayer(oldBaseLayer, newBaseLayer) {
   // change base map on click
   if (newBaseLayer == oldBaseLayer) {
     return
   } else {
-    props.map.setLayoutProperty(oldBaseLayer, 'visibility', 'none')
-    props.map.setLayoutProperty(newBaseLayer, 'visibility', 'visible')
+    mapStore.map.setLayoutProperty(oldBaseLayer, 'visibility', 'none')
+    mapStore.map.setLayoutProperty(newBaseLayer, 'visibility', 'visible')
     settings.activeBaseLayer = newBaseLayer
   }
 }

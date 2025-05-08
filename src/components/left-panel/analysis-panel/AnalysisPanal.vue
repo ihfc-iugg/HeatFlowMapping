@@ -1,10 +1,6 @@
 <script setup>
-import { defineProps } from 'vue'
-import { Map } from 'maplibre-gl'
 import DBDigitalBorehole from '@/components/left-panel/analysis-panel/DBDigitalBorehole.vue'
 import Profile2D from '@/components/left-panel/analysis-panel/Profile2D.vue'
-
-const props = defineProps({ map: Map })
 </script>
 
 <template>

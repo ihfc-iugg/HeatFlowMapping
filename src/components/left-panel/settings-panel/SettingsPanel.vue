@@ -1,25 +1,18 @@
 <script setup>
-import { defineProps, ref, watch } from 'vue'
-import { Map } from 'maplibre-gl'
-
 import SettingsPanelBaseMaps from './SettingsPanelBaseMaps.vue'
 import SettingsPanelCircleRadius from './SettingsPanelCircleRadius.vue'
 import SettingsPanelCircleColor from './SettingsPanelCircleColor.vue'
 import SettingsPanelDataDrivenColoring from './SettingsPanelDataDrivenColoring.vue'
-
-const props = defineProps({
-  map: Map
-})
 </script>
 
 <template>
-  <SettingsPanelBaseMaps :map="props.map" />
+  <SettingsPanelBaseMaps />
 
-  <SettingsPanelCircleRadius :map="props.map" />
+  <SettingsPanelCircleRadius />
 
-  <SettingsPanelCircleColor :map="props.map" />
+  <SettingsPanelCircleColor />
 
-  <SettingsPanelDataDrivenColoring :map="props.map" />
+  <SettingsPanelDataDrivenColoring />
 </template>
 
 <style scoped></style>

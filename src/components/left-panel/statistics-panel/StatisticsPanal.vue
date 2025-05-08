@@ -1,7 +1,6 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { newPlot } from 'plotly.js-dist'
-import { Map } from 'maplibre-gl'
 
 import VueMultiselect from 'vue-multiselect'
 import StatisticsPanelTableNumericValues from './StatisticsPanelTableNumericValues.vue'
@@ -10,12 +9,12 @@ import StatisticsPanelTableEnumValues from './StatisticsPanelTableEnumValues.vue
 import { useGHFDBStore } from '@/store/ghfdb'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useFilterStore } from '@/store/filter'
-
-const props = defineProps({ map: Map })
+import { useMapStore } from '@/store/map'
 
 const ghfdb = useGHFDBStore()
 const schema = useDataSchemaStore()
 const filter = useFilterStore()
+const mapStore = useMapStore()
 
 const options = ref(['GHFDB', 'Filtered GHFDB'])
 const selectedSourceTitle = ref(null)
@@ -33,7 +32,7 @@ function setDataSource() {
   } else if (selectedSourceTitle.value == 'Filtered GHFDB') {
     selectedSource.value = {
       type: 'FeatureCollection',
-      features: filter.getFilteredFeatures(props.map)
+      features: filter.getFilteredFeatures(mapStore.map)
     }
   }
 }
