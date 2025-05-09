@@ -8,6 +8,10 @@ export const useNavigationBarStore = defineStore('navigation bar', () => {
    * function()s become actions
    */
 
+  const panelTitle = ref(null)
+  const panelIcon = ref(null)
+  const isCollapsed = ref(true)
+  const visibleScrolling = ref(false)
   const navigationElements = ref([
     {
       title: 'Settings',
@@ -38,5 +42,63 @@ export const useNavigationBarStore = defineStore('navigation bar', () => {
     }
   ])
 
-  return { navigationElements }
+  /**
+   * @description
+   * @returns
+   */
+  function getPanelTitle() {
+    return panelTitle.value
+  }
+
+  /**
+   * @description
+   * @returns
+   */
+  function getPanelIcon() {
+    return panelIcon.value
+  }
+
+  /**
+   * @description
+   */
+  function setIsCollapsed() {
+    isCollapsed.value = !isCollapsed.value
+  }
+
+  /**
+   * @description get title of corresponding button and set it as title of sidepanel
+   * @param {*} event
+   */
+  function setPanelTitle(title) {
+    panelTitle.value = title
+  }
+
+  /**
+   * @description
+   * @param {String} htmlIcon
+   */
+  function setPanelIcon(htmlIcon) {
+    panelIcon.value = htmlIcon
+  }
+
+  /**
+   * @description
+   */
+  function toggleVisibleScrolling() {
+    visibleScrolling.value = !visibleScrolling.value
+  }
+
+  return {
+    panelTitle,
+    panelIcon,
+    isCollapsed,
+    visibleScrolling,
+    navigationElements,
+    getPanelTitle,
+    getPanelIcon,
+    setIsCollapsed,
+    setPanelTitle,
+    setPanelIcon,
+    toggleVisibleScrolling
+  }
 })

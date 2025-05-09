@@ -1,8 +1,4 @@
 <script setup>
-// import simplebar from "simplebar-vue";
-
-import { defineEmits, defineProps } from 'vue'
-
 import {
   COffcanvasHeader,
   COffcanvasTitle,
@@ -17,44 +13,38 @@ import FilterPanal from './filter-panel/FilterPanal.vue'
 import StatisticsPanal from './statistics-panel/StatisticsPanal.vue'
 import AnalysisPanal from './analysis-panel/AnalysisPanal.vue'
 
-import { Map } from 'maplibre-gl'
+import { useNavigationBarStore } from '@/store/navigationBar'
 
-const props = defineProps({
-  title: String,
-  icon: String,
-  map: Map
-})
-
-const emit = defineEmits(['collapse-event', 'toggle-event'])
+const navBar = useNavigationBarStore()
 </script>
 
 <template>
   <COffcanvasHeader class="" style="background-color: #2f5597; border-bottom: 5px solid #00c9a7">
     <CRow>
-      <CCol><div class="col-md-auto text-light" v-html="props.icon"></div></CCol>
+      <CCol><div class="col-md-auto text-light" v-html="navBar.panelIcon"></div></CCol>
       <CCol class="col-md-auto"
         ><COffcanvasTitle class="text-light">
-          {{ props.title }}
+          {{ navBar.panelTitle }}
         </COffcanvasTitle></CCol
       >
     </CRow>
     <CCloseButton
       class="text-reset btn-close-white"
-      @click="(emit('collapse-event'), emit('toggle-event'))"
+      @click="(navBar.setIsCollapsed(), navBar.toggleVisibleScrolling())"
     />
   </COffcanvasHeader>
   <COffcanvasBody>
     <KeepAlive>
-      <SettingsPanel v-if="props.title === 'Settings'" :map="props.map" />
+      <SettingsPanel v-if="navBar.panelTitle === 'Settings'" />
     </KeepAlive>
     <KeepAlive>
-      <FilterPanal v-if="props.title === 'Filter'" :map="props.map" />
+      <FilterPanal v-if="navBar.panelTitle === 'Filter'" />
     </KeepAlive>
     <KeepAlive>
-      <StatisticsPanal v-if="props.title === 'Statistics'" :map="props.map" />
+      <StatisticsPanal v-if="navBar.panelTitle === 'Statistics'" />
     </KeepAlive>
     <KeepAlive>
-      <AnalysisPanal v-if="props.title === 'Analysis'" :map="props.map" />
+      <AnalysisPanal v-if="navBar.panelTitle === 'Analysis'" />
     </KeepAlive>
   </COffcanvasBody>
 </template>

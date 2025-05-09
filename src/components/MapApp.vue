@@ -4,6 +4,7 @@ import { onMounted, onUnmounted, ref } from 'vue'
 
 // components
 import { CButton, CButtonGroup, COffcanvas } from '@coreui/bootstrap-vue'
+import MapNavBarBtnGroup from './map/MapNavBarBtnGroup.vue'
 import MapCursorCoordinates from './map/MapCursorCoordinates.vue'
 import MapDataLoadingModal from './map/MapDataLoadingModal.vue'
 import LeftPanel from './left-panel/LeftPanel.vue'
@@ -42,34 +43,6 @@ const draw = useDrawStore()
 
 const mapContainer = ref()
 const navBar = useNavigationBarStore()
-const panelTitle = ref(null)
-const panelIcon = ref(null)
-
-const isCollapsed = ref(true)
-const visibleScrolling = ref(false)
-
-const setIsCollapsed = () => (isCollapsed.value = !isCollapsed.value)
-
-/**
- * @description get title of corresponding button and set it as title of sidepanel
- * @param {*} event
- */
-function setPanelTitle(title) {
-  panelTitle.value = title
-}
-
-/**
- *
- * @param {String} htmlIcon
- */
-function setPanelIcon(htmlIcon) {
-  panelIcon.value = htmlIcon
-}
-
-// watch(mapControls.featureInfo, () => {
-//   console.log('featureInfo is set?')
-//   console.log(mapControls.featureInfo.isEnabled())
-// })
 
 onMounted(() => {
   mapStore.setMap(mapContainer.value)
@@ -137,10 +110,6 @@ onMounted(() => {
   onUnmounted(() => {
     mapStore.map?.remove()
   })
-
-function toggleVisibleScrolling() {
-  visibleScrolling.value = !visibleScrolling.value
-}
 </script>
 
 <template>
@@ -401,99 +370,17 @@ function toggleVisibleScrolling() {
 
       <!-- Navigation buttons -->
       <div class="fixed-bottom">
-        <div
-          class="btn-group rounded-left rounded-right"
-          role="group"
-          style="border: 1px solid #00c9a7; background-color: #2f5597"
-          aria-label="Basic radio toggle button group"
-        >
-          <div v-for="item in navBar.navigationElements" :key="item.title">
-            <input
-              type="radio"
-              class="btn-check"
-              name="btnradio"
-              :id="item.title"
-              autocomplete="off"
-              @click="
-                (isCollapsed ? setPanelTitle(item.title) : 0,
-                setPanelIcon(item.svgElement),
-                // toggleSidebar(),
-                setIsCollapsed(),
-                toggleVisibleScrolling())
-              "
-            />
-
-            <label class="btn text-light" :for="item.title"
-              ><div v-html="item.svgElement"></div>
-              {{ item.title }}</label
-            >
-          </div>
-        </div>
-        <!-- <CButtonGroup
-          class=""
-          role="group"
-          style="border: 1px solid #00c9a7"
-          aria-label="Basic example"
-        >
-          <CButton
-            v-for="item in navBar.navigationElements"
-            :key="item.title"
-            panelTitle="{item.title}"
-            @click="
-              (isCollapsed ? setPanelTitle(item.title) : 0,
-              setPanelIcon(item.svgElement),
-              // toggleSidebar(),
-              setIsCollapsed(),
-              toggleVisibleScrolling())
-            "
-            type="button"
-            class="btn text-light"
-            style="background-color: #2f5597"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasLeftPanel"
-            aria-controls="offcanvasLeftPanel"
-            ><div v-html="item.svgElement"></div>
-            {{ item.title }}
-          </CButton>
-        </CButtonGroup> -->
-        <MapCursorCoordinates :map="mapStore.map" />
+        <MapNavBarBtnGroup />
+        <MapCursorCoordinates />
       </div>
     </div>
   </div>
-  <COffcanvas
-    :backdrop="false"
-    placement="start"
-    scroll
-    :visible="visibleScrolling"
-    @hide="
-      () => {
-        visibleScrolling = !visibleScrolling
-      }
-    "
-  >
-    <LeftPanel
-      :title="panelTitle"
-      :icon="panelIcon"
-      :map="mapStore.map"
-      @collapse-event="setIsCollapsed()"
-      @toggle-event="toggleVisibleScrolling()"
-    />
+  <COffcanvas :backdrop="false" placement="start" scroll :visible="navBar.visibleScrolling">
+    <LeftPanel />
   </COffcanvas>
 </template>
 
 <style scoped>
-/* input[type='radio'] {
-  display: none;
-}
-
-input[type='radio']:checked {
-  color: #00c9a7;
-}
-
-input[type='radio']:hover {
-  color: #00c9a7;
-} */
-
 .offcanvas {
   overflow-y: auto; /* Enable scrolling inside the offcanvas if content is too large */
 }
