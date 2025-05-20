@@ -7,11 +7,13 @@ import { useDigitalBoreholeStore } from '@/store/digitalBorehole'
 import { useGHFDBStore } from '@/store/ghfdb'
 import { useSettingsStore } from '@/store/settings.js'
 import { useDrawStore } from '@/store/draw'
+import { useMapStore } from '@/store/map'
 
 const dB = useDigitalBoreholeStore()
 const ghfdb = useGHFDBStore()
 const settings = useSettingsStore()
 const draw = useDrawStore()
+const mapStore = useMapStore()
 
 const props = defineProps({ map: Map })
 
@@ -30,7 +32,7 @@ function deletePoint(selectedFeature) {
     dB.popup = null
     dB.marker.remove()
     dB.marker = null
-    props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+    mapStore.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
   }
 }
 
@@ -53,7 +55,7 @@ draw.tools.on('finish', (id, context) => {
       )
       dB.highlightNearestNeighbor(
         dB.closestPointfeatures.properties.ID,
-        props.map,
+        mapStore.map,
         settings.circleColor
       )
       draw.tools.setMode('select')
@@ -68,7 +70,7 @@ draw.tools.on('finish', (id, context) => {
       )
       dB.highlightNearestNeighbor(
         dB.closestPointfeatures.properties.ID,
-        props.map,
+        mapStore.map,
         settings.circleColor
       )
     }

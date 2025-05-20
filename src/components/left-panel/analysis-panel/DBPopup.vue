@@ -2,14 +2,15 @@
 <script setup>
 import { defineProps, h, onMounted, ref, render, watch } from 'vue'
 import { Map, Popup, Marker } from 'maplibre-gl'
-import { newPlot } from 'plotly.js-dist'
 
 import DBAddLayerBtn from './DBAddLayerBtn.vue'
 import DBRemoveLastLayerBtn from './DBRemoveLastLayerBtn.vue'
 
 import { useDigitalBoreholeStore } from '@/store/digitalBorehole.js'
+import { useMapStore } from '@/store/map'
 
 const dB = useDigitalBoreholeStore()
+const mapStore = useMapStore()
 
 const props = defineProps({ map: Map, hasPopup: Boolean })
 
@@ -17,7 +18,7 @@ watch(
   () => dB.pnt,
   () => {
     if (dB.pnt) {
-      setUpPopup(dB.pnt, props.map)
+      setUpPopup(dB.pnt, mapStore.map)
       dB.bootstrapping(dB.layers, dB.t0, dB.closestPointfeatures.properties.q)
       dB.drawChart(dB.layers, dB.t0, dB.uncertainty)
       appendLayerHandlingBtnToPopup(document.getElementById('popupBoreholeChart'))
@@ -28,7 +29,7 @@ watch(
 /**
  *
  */
-function setUpPopup() {
+function setUpPopup(pnt, map) {
   if (dB.popup && dB.marker) {
     dB.popup.remove()
     dB.popup = null
@@ -45,8 +46,8 @@ function setUpPopup() {
   elMarker.id = 'markerBoreholeChart'
 
   dB.marker = ref(new Marker({ draggable: false, offset: [0, -10] }).setPopup(dB.popup))
-  dB.marker.setLngLat(dB.pnt.geometry.coordinates)
-  dB.marker.addTo(props.map)
+  dB.marker.setLngLat(pnt.geometry.coordinates)
+  dB.marker.addTo(map)
   dB.marker.togglePopup()
 
   // Popup did not open even the popup.on('open') event gets fired. Only solution I could find to fix

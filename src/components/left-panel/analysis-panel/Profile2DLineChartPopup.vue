@@ -6,8 +6,10 @@ import { Map, Popup, Marker } from 'maplibre-gl'
 import { point, midpoint } from '@turf/turf'
 
 import { use2DProfileStore } from '@/store/2DProfile'
+import { useMapStore } from '@/store/map'
 
 const profile = use2DProfileStore()
+const mapStore = useMapStore()
 
 const props = defineProps({ map: Map, hasPopup: Boolean })
 
@@ -40,7 +42,7 @@ function setUpPopup(line) {
   const coordinates = midpoint(pnt1, pnt2).geometry.coordinates
 
   marker.value.setLngLat(coordinates)
-  marker.value.addTo(props.map)
+  marker.value.addTo(mapStore.map)
   // default open popup
   marker.value.togglePopup()
 }
@@ -93,13 +95,13 @@ onMounted(() => {
           .on('plotly_hover', function (data) {
             console.log(data.points[0].text)
             highlightHoveredPoint(
-              props.map,
+              mapStore.map,
               data.points[0].text,
               profile.generatePaintProperty(profile.pointsWithinDistance)
             )
           })
           .on('plotly_unhover', function (data) {
-            props.map.setPaintProperty(
+            mapStore.map.setPaintProperty(
               'sites',
               'circle-color',
               profile.generatePaintProperty(profile.pointsWithinDistance)

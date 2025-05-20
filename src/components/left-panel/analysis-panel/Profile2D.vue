@@ -1,15 +1,19 @@
 <script setup>
 import { ref, watch } from 'vue'
 import { Map } from 'maplibre-gl'
+
 import Profile2DLineDrawToolbox from '@/components/left-panel/analysis-panel/Profile2DLineDrawToolbox.vue'
 import Profile2DLineSetup from '@/components/left-panel/analysis-panel/Profile2DLineSetup.vue'
 import Profile2DLineChartPopup from '@/components/left-panel/analysis-panel/Profile2DLineChartPopup.vue'
 import Profile2DAbout from '@/components/left-panel/analysis-panel/Profile2DAbout.vue'
+
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useGHFDBStore } from '@/store/ghfdb'
+import { useMapStore } from '@/store/map'
 
 const profile = use2DProfileStore()
 const ghfdb = useGHFDBStore()
+const mapStore = useMapStore()
 
 const props = defineProps({ map: Map })
 const activeTab = ref('toolbox')
@@ -153,7 +157,7 @@ function togglehasChartPopup() {
       </div>
     </div>
     <div class="row">
-      <div class="col px-0 d-grid justify-content-md-end">
+      <div class="col d-grid justify-content-md-end">
         <div
           v-if="!profile.selectedProperty1 || !profile.threshold || !profile.line"
           id=""
@@ -177,7 +181,7 @@ function togglehasChartPopup() {
               profile.threshold
             ),
             // profile.highlightPointsWithinDistance(props.map, profile.pointsWithinDistance),
-            props.map.setPaintProperty(
+            mapStore.map.setPaintProperty(
               'sites',
               'circle-color',
               profile.generatePaintProperty(profile.pointsWithinDistance)
@@ -187,7 +191,7 @@ function togglehasChartPopup() {
         >
           Calculate 2D Profile
         </button>
-        <Profile2DLineChartPopup :map="props.map" :hasPopup="hasChartPopup" />
+        <Profile2DLineChartPopup :hasPopup="hasChartPopup" />
       </div>
     </div>
   </div>

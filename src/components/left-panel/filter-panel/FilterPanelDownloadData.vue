@@ -1,11 +1,9 @@
 <script setup>
-import { defineProps } from 'vue'
 import { useFilterStore } from '@/store/filter'
-import { Map } from 'maplibre-gl'
-
-const props = defineProps({ map: Map })
+import { useMapStore } from '@/store/map'
 
 const filter = useFilterStore()
+const mapStore = useMapStore()
 
 /**
  * @description
@@ -29,8 +27,8 @@ function downloadFeatures(data, filename) {
     class="btn rounded-pill bg-white fw-bold position-absolute bottom-0 start-0 mx-2 my-2"
     style="color: #4366a1; border: 1px solid #4366a1"
     @click="
-      (filter.getFilteredFeatures(props.map),
-      downloadFeatures(filter.getFilteredFeatures(props.map), 'test'))
+      (filter.getFilteredFeatures(mapStore.map),
+      downloadFeatures(filter.getFilteredFeatures(mapStore.map), 'test'))
     "
   >
     <button

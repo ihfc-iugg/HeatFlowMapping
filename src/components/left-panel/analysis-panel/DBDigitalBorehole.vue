@@ -126,7 +126,7 @@ function setActiveTab(tab) {
           id="pntToolBox"
           style="width: 100%"
         >
-          <DBPointDrawToolbox :map="props.map" />
+          <DBPointDrawToolbox />
         </div>
         <div
           v-if="activeTab === 'parameterToolBox'"
@@ -148,7 +148,7 @@ function setActiveTab(tab) {
     </div>
   </div>
 
-  <DBPopup :map="props.map" />
+  <DBPopup />
 </template>
 
 <style>

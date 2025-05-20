@@ -6,10 +6,12 @@ import { CTooltip } from '@coreui/bootstrap-vue'
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useSettingsStore } from '@/store/settings.js'
 import { useDrawStore } from '@/store/draw'
+import { useMapStore } from '@/store/map'
 
 const profile = use2DProfileStore()
 const settings = useSettingsStore()
 const draw = useDrawStore()
+const mapStore = useMapStore()
 
 const props = defineProps({ map: Map })
 
@@ -27,10 +29,10 @@ function deleteLine(selectedFeature) {
     // profile.popup.remove()
     // profile.marker.remove()
     profile.plot = ref(null)
-    props.map.removeLayer('startEndCircle')
-    props.map.removeLayer('lineLable')
-    props.map.removeSource('lineLable')
-    props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+    mapStore.map.removeLayer('startEndCircle')
+    mapStore.map.removeLayer('lineLable')
+    mapStore.map.removeSource('lineLable')
+    mapStore.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
   }
 }
 
@@ -43,11 +45,11 @@ function respondToLineChanges(feature) {
   draw.setSelectedFeature(feature)
   profile.line = draw.selectedFeature
   const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
-  props.map.removeLayer('startEndCircle')
-  props.map.removeLayer('lineLable')
-  props.map.removeSource('lineLable')
-  props.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
-  profile.addLineLabelToMap(props.map, collection)
+  mapStore.map.removeLayer('startEndCircle')
+  mapStore.map.removeLayer('lineLable')
+  mapStore.map.removeSource('lineLable')
+  mapStore.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+  profile.addLineLabelToMap(mapStore.map, collection)
 }
 
 /**
@@ -71,7 +73,7 @@ draw.tools.on('finish', (id, context) => {
     }
     profile.line = draw.selectedFeature
     const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
-    profile.addLineLabelToMap(props.map, collection)
+    profile.addLineLabelToMap(mapStore.map, collection)
     draw.tools.setMode('select')
   } else if (context.action === 'dragFeature') {
     respondToLineChanges(feature)
