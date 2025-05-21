@@ -43,21 +43,21 @@ function controlNavbarOffcanvasInteraction(clickedPanel, navBar) {
   </div>
 </template>
 
-<style>
-input[type='radio'] + .btn {
+<style scoped>
+input[name='btn-radio1'] + .btn {
   color: #fff;
 }
 
-input[type='radio']:enabled + .btn {
+input[name='btn-radio1']:enabled + .btn {
   border: 0px;
 }
 
-input[type='radio']:checked + .btn {
+input[name='btn-radio1']:checked + .btn {
   color: #00c9a7;
   border: 0px;
 }
 
-input[type='radio']:hover + .btn {
+input[name='btn-radio1']:hover + .btn {
   color: #00c9a7;
 }
 </style>
