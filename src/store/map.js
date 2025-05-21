@@ -11,6 +11,7 @@ export const useMapStore = defineStore('map', () => {
    * function()s become actions
    */
 
+  const isInstantiated = ref(false)
   const bm = useBaseMapsStore()
   const settings = useSettingsStore()
 
@@ -35,6 +36,7 @@ export const useMapStore = defineStore('map', () => {
         }
       }
     })
+    isInstantiated.value = true
   }
 
   /**
@@ -85,5 +87,5 @@ export const useMapStore = defineStore('map', () => {
     return layerObjects
   }
 
-  return { map, setMap }
+  return { map, isInstantiated, setMap }
 })

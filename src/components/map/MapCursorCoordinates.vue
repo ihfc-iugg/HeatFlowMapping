@@ -1,16 +1,20 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
+import { storeToRefs } from 'pinia'
 
 import { useMapStore } from '@/store/map'
 
 const mapStore = useMapStore()
+const { isInstantiated } = storeToRefs(mapStore)
 
 const lat = ref()
 const lng = ref()
 
-mapStore.map.on('mousemove', function (e) {
-  lat.value = e.lngLat.wrap().lat.toFixed(5)
-  lng.value = e.lngLat.wrap().lng.toFixed(5)
+watch(isInstantiated, () => {
+  mapStore.map.on('mousemove', function (e) {
+    lat.value = e.lngLat.wrap().lat.toFixed(5)
+    lng.value = e.lngLat.wrap().lng.toFixed(5)
+  })
 })
 </script>
 
