@@ -107,7 +107,7 @@ draw.tools.on('select', (id) => {
         checked
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btn2Dradio1"
         title="Draw Line"
         @click="draw.tools.setMode('linestring')"
@@ -134,7 +134,7 @@ draw.tools.on('select', (id) => {
         autocomplete="off"
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btn2Dradio2"
         title="Select Line"
         @click="draw.tools.setMode('select')"
@@ -160,7 +160,7 @@ draw.tools.on('select', (id) => {
         autocomplete="off"
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btn2Dradio3"
         title="Delete Selected Line"
         @click="deleteLine(draw.selectedFeature)"

@@ -99,7 +99,7 @@ draw.tools.on('select', (id) => {
         checked
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btnradio1"
         title="Draw Point"
         @click="draw.tools.setMode('point')"
@@ -126,7 +126,7 @@ draw.tools.on('select', (id) => {
         autocomplete="off"
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btnradio2"
         title="Select Point"
         @click="draw.tools.setMode('select')"
@@ -152,7 +152,7 @@ draw.tools.on('select', (id) => {
         autocomplete="off"
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btnradio3"
         title="Delete Point"
         @click="deletePoint(draw.selectedFeature)"

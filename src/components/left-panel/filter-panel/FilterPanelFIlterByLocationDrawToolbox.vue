@@ -87,7 +87,7 @@ draw.tools.on('select', (id) => {
         checked
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btnFilterradio1"
         title="Draw Polygon"
         @click="draw.tools.setMode('polygon')"
@@ -113,7 +113,7 @@ draw.tools.on('select', (id) => {
         autocomplete="off"
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btnFilterradio2"
         title="Select Polygon"
         @click="draw.tools.setMode('select')"
@@ -139,7 +139,7 @@ draw.tools.on('select', (id) => {
         autocomplete="off"
       />
       <label
-        class="btn btn-outline-primary"
+        class="btn btn-outline-secondary"
         for="btnFilterradio3"
         title="Delete Selected Polygon"
         @click="deleteLocationFilter(draw.selectedFeature)"

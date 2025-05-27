@@ -32,7 +32,7 @@ function setActiveTab(tab) {
               autocomplete="off"
               checked
             />
-            <label class="btn btn-outline-primary" for="toolbox" @click="setActiveTab('toolbox')">
+            <label class="btn btn-outline-secondary" for="toolbox" @click="setActiveTab('toolbox')">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -54,7 +54,7 @@ function setActiveTab(tab) {
               autocomplete="off"
             />
             <label
-              class="btn btn-outline-primary"
+              class="btn btn-outline-secondary"
               for="aboutLocationFIlter"
               @click="setActiveTab('aboutLocationFIlter')"
             >

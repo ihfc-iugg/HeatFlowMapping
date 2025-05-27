@@ -66,7 +66,7 @@ function togglehasChartPopup() {
             checked
           />
           <label
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             for="toolboxInput"
             title="Line draw toolbox"
             @click="setActiveTab('toolbox')"
@@ -92,7 +92,7 @@ function togglehasChartPopup() {
             autocomplete="off"
           />
           <label
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             for="setupInput"
             title="Parameter settings"
             @click="setActiveTab('setup')"
@@ -119,7 +119,7 @@ function togglehasChartPopup() {
             autocomplete="off"
           />
           <label
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             for="about2DProfile"
             title="Information about 2D Profile"
             @click="setActiveTab('about2DProfile')"

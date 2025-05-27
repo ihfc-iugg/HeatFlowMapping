@@ -46,7 +46,7 @@ function setActiveTab(tab) {
             checked
           />
           <label
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             for="pntToolBox"
             title="Point draw toolbox"
             @click="setActiveTab('pntToolBox')"
@@ -72,7 +72,7 @@ function setActiveTab(tab) {
             autocomplete="off"
           />
           <label
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             for="parameterToolBox"
             title="Customize boostrapping parameter"
             @click="setActiveTab('parameterToolBox')"
@@ -99,7 +99,7 @@ function setActiveTab(tab) {
             autocomplete="off"
           />
           <label
-            class="btn btn-outline-primary"
+            class="btn btn-outline-secondary"
             for="aboutBootstrapping"
             title="Information about Digital Borehole"
             @click="setActiveTab('aboutBootstrapping')"
