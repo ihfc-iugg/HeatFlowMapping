@@ -20,8 +20,8 @@ const mapStore = useMapStore()
 const selectedProperty = ref(null)
 const selectedPropertyDataType = ref()
 
-const natureOfData = ref(null)
-const legalSteps = ref([3, 4, 5, 6, 7, 8, 9, 10, 11])
+const natureOfData = ref('sequential')
+const legalSteps = ref([3, 4, 5, 6, 7, 8, 9])
 const colorSteps = ref(4)
 const colorPaletteOptions = ref(null)
 setColorPaletteOptions(colorSteps.value)
@@ -48,6 +48,7 @@ const selectedClassificationType = ref(classificationTypes.value[0])
  */
 watch(colorSteps, (newColorSteps) => {
   setColorPaletteOptions(newColorSteps)
+  selectedColorPalette.value = colorPaletteOptions.value[0]
 })
 
 /**
@@ -55,13 +56,9 @@ watch(colorSteps, (newColorSteps) => {
  * @param {Number} classes
  */
 function setColorPaletteOptions(classes) {
-  if (classes >= 12) {
+  if (classes > 9) {
     console.log('Number of classes out of range')
     return
-  }
-
-  if (!natureOfData.value) {
-    natureOfData.value = 'sequential'
   }
   let schemaGroup = []
 
@@ -239,7 +236,7 @@ function dataDrivenColorisation() {
   } else if (selectedPropertyDataType.value == undefined) {
     // TODO: Qualitativ Farbpalette
     // handling properties of data type string + enum
-    natureOfData.value = 'qualitative'
+    natureOfData.value = 'sequential'
     let classes = getEnumClasses(selectedProperty.value.key)
     colorSteps.value = classes.length
     const paintProperty = generateEnumPaintProperty(
