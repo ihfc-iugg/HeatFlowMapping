@@ -6,12 +6,8 @@ import { CTable, CTableRow, CRow } from '@coreui/bootstrap-vue'
 <template>
   <div class="card-body">
     <CRow>
-      <h6>About Bootstrapping Method</h6>
-      <p>
-        This graph is calculated with bootstrapping method. Lorem ipsum dolor sit amet, consectetur
-        adipiscing elit. Vivamus elementum sapien sed vulputate luctus. Proin volutpat vestibulum
-        lacus, non hendrerit. Based on the following equation
-      </p>
+      <h6>About Digital Borehole</h6>
+      <p>This graph is calculated with bootstrapping method based on the following equation.</p>
       <math display="block">
         <mi>T</mi>
         <mo>=</mo>
