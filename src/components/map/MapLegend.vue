@@ -4,17 +4,7 @@ import { ref, watch } from 'vue'
 import { useLegendStore } from '@/store/legend'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 
-import {
-  CButton,
-  CCollapse,
-  CCard,
-  CCardBody,
-  CContainer,
-  CRow,
-  CCol,
-  CCardTitle,
-  CCardSubtitle
-} from '@coreui/bootstrap-vue'
+import { CButton, CRow, CCol } from '@coreui/bootstrap-vue'
 
 const legend = useLegendStore()
 const schema = useDataSchemaStore()
@@ -30,42 +20,50 @@ const visible = ref(false)
 </script>
 
 <template>
-  <div class="dropup legend-container" v-if="legend.legend">
-    <CContainer>
-      <CButton
-        class="position-absolute top-0 end-0 translate-middle btn btn-sm btn-primary dropdown-toggle"
-        color="primary"
-        @click="visible = !visible"
-        >Legend</CButton
+  <div v-if="legend.legend" class="legend-container">
+    <p class="d-grid gap-1">
+      <button
+        class="btn text-start text-light dropdown-toggle"
+        type="button"
+        style="background-color: #4366a1"
+        data-bs-toggle="collapse"
+        data-bs-target="#legend"
+        aria-expanded="true"
+        aria-controls="legend"
       >
-      <CCollapse :visible="visible">
-        <CCard class="mt-3">
-          <CCardBody>
-            <CCardTitle>{{
-              schema.dataSchema.properties[legend.selectedProperty].title
-            }}</CCardTitle>
-            <CCardSubtitle
-              class="mb-2 text-muted"
-              v-if="schema.dataSchema.properties[legend.selectedProperty].units"
-              >[{{ schema.dataSchema.properties[legend.selectedProperty].units }}]</CCardSubtitle
-            >
-            <CRow class="align-items-start" v-for="entry in legend.legend" :key="entry.id">
-              <CCol class="align-self-start" xs="2">
-                <CButton
-                  :style="{
-                    'background-color': entry.colorHEX
-                  }"
-                ></CButton>
-              </CCol>
+        Legend
+      </button>
+    </p>
+    <div class="collapse-show" id="legend">
+      <div class="card" style="width: 10rem" role="button">
+        <h6 class="card-header">
+          {{ schema.dataSchema.properties[legend.selectedProperty].title }}
+          <h6
+            class="card-subtitle text-muted mt-1"
+            v-if="schema.dataSchema.properties[legend.selectedProperty].units"
+          >
+            [{{ schema.dataSchema.properties[legend.selectedProperty].units }}]
+          </h6>
+        </h6>
 
-              <CCol class="d-flex align-self-end" xs="10">
-                {{ entry.text }}
-              </CCol>
-            </CRow>
-          </CCardBody>
-        </CCard>
-      </CCollapse>
-    </CContainer>
+        <div class="card-body">
+          <CRow class="align-items-start" v-for="entry in legend.legend" :key="entry.id">
+            <CCol class="align-self-start" xs="2">
+              <CButton
+                :style="{
+                  'background-color': entry.colorHEX,
+                  border: '1px solid #00c9a7'
+                }"
+              ></CButton>
+            </CCol>
+
+            <CCol class="d-flex align-self-end" xs="10">
+              {{ entry.text }}
+            </CCol>
+          </CRow>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
