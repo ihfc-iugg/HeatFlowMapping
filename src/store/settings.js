@@ -10,7 +10,7 @@ export const useSettingsStore = defineStore('settings', () => {
 
   const activeBaseLayer = ref('')
   const circleRadius = ref(4)
-  const circleColor = ref('#304B9B')
+  const circleColor = ref('#E31E24') // Red from IHFC logo
 
   return { activeBaseLayer, circleRadius, circleColor }
 })
