@@ -96,7 +96,6 @@ draw.tools.on('select', (id) => {
         name="btn-radio-draw-toolbox"
         id="btnradio1"
         autocomplete="off"
-        checked
       />
       <label
         class="btn btn-outline-secondary"
