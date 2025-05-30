@@ -25,7 +25,7 @@ import Profile2D from '@/components/left-panel/analysis-panel/Profile2D.vue'
     </div>
 
     <div style="border-bottom: 2px solid #00c9a7">
-      <p class="mt-1 d-grid gap-2" style="border-bottom: 2px solid #00c9a7">
+      <p class="mt-1 d-grid gap-2">
         <button
           class="btn text-start text-light dropdown-toggle"
           type="button"
