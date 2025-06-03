@@ -1,4 +1,6 @@
 <script setup>
+//TODO: refactor code and split number filter and enum filter in seperate components
+
 import { defineProps, ref, watch } from 'vue'
 import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
 import 'vue-multiselect/dist/vue-multiselect.css'
@@ -18,11 +20,7 @@ const dataSchema = useDataSchemaStore()
 const filter = useFilterStore()
 
 const filterElement = ref(filter.filters.attributeFilter[props.id])
-
-/**
- * TODO: wenn filterElement bereits besteht, werden valueOptions nicht gesetzt.
- * Problem: valueOptions wird gesetzt, wenn ein property ausgewählt wird, was nicht der Fall ist, wenn filterElement bereits existiert
- */
+const histogramSlider = ref(null)
 const valueOptions = ref(null)
 const arrayOfPropertyValues = ref(null)
 
@@ -58,6 +56,9 @@ function resetSelectedValues(selectedProperty) {
   }
 }
 
+/**
+ * @description
+ */
 function resetFilterExpression() {
   filterElement.value.expression = null
 }
@@ -180,6 +181,16 @@ function setFilterExpression(property, values) {
     return
   }
 }
+
+/**
+ * @description
+ * @param newMin
+ * @param newMax
+ */
+function updateSliderRange(newMin, newMax) {
+  histogramSlider.value.update({ from: newMin, to: newMax })
+  filterElement.value.selectedValues = [newMin, newMax]
+}
 </script>
 
 <template>
@@ -248,13 +259,14 @@ function setFilterExpression(property, values) {
 
         <div class="slider" v-if="filterElement.selectedPropertyType === 'number'">
           <HistogramSlider
+            ref="histogramSlider"
             v-model="filterElement.selectedValues"
             :bar-height="100"
             :data="arrayOfPropertyValues"
             step="0.1"
             :min="valueOptions[0]"
             :max="valueOptions[1]"
-            :barGap="3"
+            :barGap="2"
             :resettable="true"
             style="width: 100%"
             @change="
@@ -267,6 +279,39 @@ function setFilterExpression(property, values) {
             "
           />
 
+          <div class="slider-inputs d-flex justify-content-between mt-2">
+            <input
+              type="number"
+              class="form-control"
+              :min="valueOptions[0]"
+              :max="filterElement.selectedValues[1]"
+              v-model.number="filterElement.selectedValues[0]"
+              @input="
+                (setFilterExpression(
+                  filterElement.selectedProperty.key,
+                  filterElement.selectedValues
+                ),
+                updateSliderRange(filterElement.selectedValues[0], filterElement.selectedValues[1]))
+              "
+              placeholder="Min"
+            />
+            <input
+              type="number"
+              class="form-control"
+              :min="filterElement.selectedValues[0]"
+              :max="valueOptions[1]"
+              v-model.number="filterElement.selectedValues[1]"
+              @input="
+                (setFilterExpression(
+                  filterElement.selectedProperty.key,
+                  filterElement.selectedValues
+                ),
+                updateSliderRange(filterElement.selectedValues[0], filterElement.selectedValues[1]))
+              "
+              placeholder="Max"
+            />
+          </div>
+
           <!-- TODO: Include null value OR select only null values as filter criteria -->
         </div>
       </div>
@@ -276,7 +321,9 @@ function setFilterExpression(property, values) {
           style="border: 1px solid #4366a1"
           title="Reset Values"
           @click="
-            (resetSelectedValues(filterElement.selectedProperty.key), resetFilterExpression())
+            (resetSelectedValues(filterElement.selectedProperty.key),
+            resetFilterExpression(),
+            updateSliderRange(valueOptions[0], valueOptions[1]))
           "
         >
           <svg
