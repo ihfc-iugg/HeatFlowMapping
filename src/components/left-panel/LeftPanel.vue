@@ -19,7 +19,7 @@ const navBar = useNavigationBarStore()
 </script>
 
 <template>
-  <COffcanvasHeader class="" style="background-color: #2f5597; border-bottom: 5px solid #00c9a7">
+  <COffcanvasHeader class="bg-primary">
     <CRow>
       <CCol><div class="col-md-auto text-light" v-html="navBar.panelIcon"></div></CCol>
       <CCol class="col-md-auto"
@@ -33,7 +33,7 @@ const navBar = useNavigationBarStore()
       @click="(navBar.setIsCollapsed(), navBar.toggleVisibleScrolling())"
     />
   </COffcanvasHeader>
-  <COffcanvasBody>
+  <COffcanvasBody class="p-0">
     <KeepAlive>
       <SettingsPanel v-if="navBar.panelTitle === 'Settings'" />
     </KeepAlive>

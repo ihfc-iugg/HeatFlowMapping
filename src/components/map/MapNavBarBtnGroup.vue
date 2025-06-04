@@ -20,44 +20,32 @@ function controlNavbarOffcanvasInteraction(clickedPanel, navBar) {
 </script>
 
 <template>
-  <div
-    class="btn-group rounded-left rounded-right"
-    role="group"
-    style="background-color: #2f5597; border: 1px solid #00c9a7"
-  >
-    <div v-for="item in navBar.navigationElements" :key="item.title">
-      <input
-        type="radio"
-        class="btn-check"
-        name="btn-radio1"
-        :id="item.title"
-        autocomplete="off"
-        @click="controlNavbarOffcanvasInteraction(item, navBar)"
-      />
-
-      <label class="btn" :for="item.title"
-        ><div v-html="item.svgElement"></div>
-        {{ item.title }}</label
-      >
-    </div>
+  <div id="map-navbar" class="btn-group bg-primary rounded-0 w-100 mb-0 mb-md-3" role="group">
+    <!-- <div v-for="item in navBar.navigationElements" :key="item.title"> -->
+    <button
+      v-for="item in navBar.navigationElements"
+      :key="item.title"
+      type="button"
+      class="btn btn-primary flex-fill"
+      @click="controlNavbarOffcanvasInteraction(item, navBar)"
+    >
+      <div v-html="item.svgElement"></div>
+      <span class="">{{ item.title }}</span>
+    </button>
+    <!-- </div> -->
   </div>
 </template>
 
 <style scoped>
-input[name='btn-radio1'] + .btn {
-  color: #fff;
-}
-
-input[name='btn-radio1']:enabled + .btn {
-  border: 0px;
-}
-
-input[name='btn-radio1']:checked + .btn {
-  color: #00c9a7;
-  border: 0px;
-}
-
-input[name='btn-radio1']:hover + .btn {
-  color: #00c9a7;
+@media (min-width: 768px) {
+  #map-navbar {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: fit-content !important;
+    z-index: 1000; /* Ensure it is above other elements */
+    border-radius: var(--bs-border-radius) !important;
+  }
 }
 </style>

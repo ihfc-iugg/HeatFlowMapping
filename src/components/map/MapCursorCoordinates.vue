@@ -19,7 +19,11 @@ watch(isInstantiated, () => {
 </script>
 
 <template>
-  <div class="cursor-coordinates">Lat: {{ lat }}, Lon: {{ lng }}</div>
+  <div
+    class="badge rounded-pill text-bg-light position-absolute start-0 bottom-0 m-2 fs-6 z-2 bg-opacity-75 d-none d-md-block"
+  >
+    Lat: {{ lat }}, Lon: {{ lng }}
+  </div>
 </template>
 
 <style scoped>
