@@ -7,9 +7,11 @@ import { point, midpoint } from '@turf/turf'
 
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useMapStore } from '@/store/map'
+import { use2DProfileReliefStore } from '@/store/2DProfileRelief'
 
 const profile = use2DProfileStore()
 const mapStore = useMapStore()
+const relief = use2DProfileReliefStore()
 
 const props = defineProps({ map: Map, hasPopup: Boolean })
 
@@ -25,8 +27,18 @@ let marker = ref(new Marker({ draggable: true }).setPopup(popup.value))
 
 watch(
   () => props.hasPopup,
-  () => {
+  async () => {
     setUpPopup(profile.line)
+    // relief.pointsAlongLine = relief.calculatePointsAlongLineString(
+    //   profile.line,
+    //   relief.reliefResolution
+    // )
+    // relief.setPntDistanceToStartPnt(relief.pointsAlongLine.features)
+    // await relief.setPntReliefValue(
+    //   relief.pointsAlongLine.features,
+    //   'http://localhost:5000/collections/ETOPO_1_Bedrock'
+    // )
+    // relief.addPointsAlongLineToMap(mapStore.map, relief.pointsAlongLine)
     profile.drawProfile(profile.line, profile.pointsWithinDistance, profile.selectedProperty1)
     appendCountPointsInfos('popupProfileChart', profile.pointsWithinDistance)
   }
