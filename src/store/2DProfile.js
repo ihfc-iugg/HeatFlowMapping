@@ -14,6 +14,7 @@ import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
 import { newPlot } from 'plotly.js-dist'
 
 import { useDataSchemaStore } from './dataSchema.js'
+import { use2DProfileReliefStore } from './2DProfileRelief.js'
 
 export const use2DProfileStore = defineStore('2DProfile', () => {
   /**
@@ -31,7 +32,9 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   const plot = ref(null)
   const popup = ref(null)
   const marker = ref(null)
+
   const schema = useDataSchemaStore()
+  const relief = use2DProfileReliefStore()
 
   /**
    * @description
@@ -165,6 +168,8 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     const uncertainty = projectedPoinsts.map((pnt) => pnt.uncertainty)
     const propertyValues = projectedPoinsts.map((pnt) => pnt[selectedProperty])
     const pntIds = projectedPoinsts.map((pnt) => pnt.id)
+    const reliefValues = relief.pointsAlongLine.features.map((pnt) => pnt.properties.elevation)
+    const reliefDistance = relief.pointsAlongLine.features.map((pnt) => pnt.properties.distKm)
 
     // Data property values
     const propertyValuesTrace = {
@@ -183,17 +188,35 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       text: pntIds,
       marker: {
         size: new Array(alongLineDdistance.length).fill(10), // Initialize all points with size 10
-        color: new Array(alongLineDdistance.length).fill('blue') // Initialize all points with color blue
+        color: new Array(alongLineDdistance.length).fill('#FCC480') // Initialize all points with color blue
       },
       xaxis: 'x',
       yaxis: 'y1'
+    }
+
+    const reliefTrace = {
+      x: reliefDistance,
+      y: reliefValues, // Replace with the desired property
+      name: 'Relief',
+      type: 'scatter',
+      mode: 'lines+markers',
+      xaxis: 'x',
+      yaxis: 'y3', // Link this trace to the second y-axis
+      line: {
+        color: '#AAAAAA',
+        width: 2
+      },
+      marker: {
+        color: '#AAAAAA',
+        width: 3
+      }
     }
 
     // Data vertical distance of point to line
     const offsetTrace = {
       x: alongLineDdistance,
       y: offset,
-      name: 'Offset [km]',
+      name: 'Offset',
       type: 'bar',
       hovertemplate: '<b>%{text}</b>' + '<br><b>x</b>: %{x}' + '<br><b>y</b>: %{y}',
       text: pntIds,
@@ -231,6 +254,13 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
         domain: [0, 0.2],
         position: 0.95
       },
+      yaxis3: {
+        overlaying: 'y1', // Overlay this axis on y1
+        side: 'right', // Place it on the right side
+        title: {
+          text: 'Relief [m]' // Replace with the appropriate title and units
+        }
+      },
       // legend: { x: 1.2, y: 1 },
       hovermode: 'closest',
       grid: {
@@ -240,7 +270,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       }
     }
 
-    let data = [propertyValuesTrace, offsetTrace]
+    let data = [propertyValuesTrace, reliefTrace, offsetTrace]
 
     plot.value = newPlot('popupProfileChart', data, layout)
     console.log(plot.value)
