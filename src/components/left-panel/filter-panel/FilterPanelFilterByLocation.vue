@@ -4,6 +4,7 @@ import { Map } from 'maplibre-gl'
 
 import FilterPanelFIlterByLocationDrawToolbox from './FilterPanelFIlterByLocationDrawToolbox.vue'
 import FilterPanelFilterByLocationAbout from '@/components/left-panel/filter-panel/FilterPanelFilterByLocationAbout.vue'
+import AccordionItem from '../AccordionItem.vue'
 
 const props = defineProps({ map: Map })
 
@@ -19,7 +20,7 @@ function setActiveTab(tab) {
 </script>
 
 <template>
-  <div class="collapse py-1" id="locationFilter">
+  <AccordionItem id="locationFilter" title="Location Filter">
     <div class="container">
       <div class="row">
         <div class="col-md-auto ps-0">
@@ -88,5 +89,5 @@ function setActiveTab(tab) {
         </div>
       </div>
     </div>
-  </div>
+  </AccordionItem>
 </template>

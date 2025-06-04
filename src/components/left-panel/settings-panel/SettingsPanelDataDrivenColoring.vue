@@ -8,6 +8,7 @@ import colorbrewer from 'colorbrewer'
 
 import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
 import { CPopover, CButton } from '@coreui/bootstrap-vue'
+import AccordionItem from '../AccordionItem.vue'
 
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useLegendStore } from '@/store/legend'
@@ -258,119 +259,103 @@ function dataDrivenColorisation() {
 <template>
   <!-- Data Driven Coloring -->
   <!-- Property selection -->
-  <div style="border-bottom: 2px solid #00c9a7">
-    <p class="mt-1 d-grid gap-2">
-      <button
-        class="btn text-start text-light dropdown-toggle"
-        type="button"
-        style="background-color: #4366a1"
-        data-bs-toggle="collapse"
-        data-bs-target="#dataDrivenColoring"
-        aria-expanded="false"
-        aria-controls="dataDrivenColoring"
-      >
-        Data Driven Coloring
-      </button>
-    </p>
-    <div class="collapse p-1" id="dataDrivenColoring">
-      <!-- Select property for coloring -->
-      <VueMultiselect
-        class="py-1"
-        v-model="selectedProperty"
-        :options="dataSchema.selectableProperties"
-        label="title"
-        placeholder="Select Property"
-        :allow-empty="false"
-        @select="(setPropertyDataType(selectedProperty), dataDrivenColorisation())"
-      >
-      </VueMultiselect>
-      <!-- Select classification method for number values -->
-      <VueMultiselect
-        class="py-1"
-        v-if="selectedPropertyDataType == 'number'"
-        v-model="selectedClassificationType"
-        :options="classificationTypes"
-        label="title"
-        placeholder="Data classification method"
-        :allow-empty="false"
-        @select="dataDrivenColorisation()"
-      >
-        <template #option="{ option }"
-          >{{ option.title }}
-          <!-- Custom template for options in the dropdown -->
+  <AccordionItem title="Data Driven Coloring" id="dataDrivenColoring">
+    <VueMultiselect
+      class="py-1"
+      v-model="selectedProperty"
+      :options="dataSchema.selectableProperties"
+      label="title"
+      placeholder="Select Property"
+      :allow-empty="false"
+      @select="(setPropertyDataType(selectedProperty), dataDrivenColorisation())"
+    >
+    </VueMultiselect>
+    <!-- Select classification method for number values -->
+    <VueMultiselect
+      class="py-1"
+      v-if="selectedPropertyDataType == 'number'"
+      v-model="selectedClassificationType"
+      :options="classificationTypes"
+      label="title"
+      placeholder="Data classification method"
+      :allow-empty="false"
+      @select="dataDrivenColorisation()"
+    >
+      <template #option="{ option }"
+        >{{ option.title }}
+        <!-- Custom template for options in the dropdown -->
 
-          <CPopover placement="right" trigger="hover">
-            <template #content>
-              {{ option.desc }}
-            </template>
-            <template #toggler="{ on }">
-              <CButton color="transparent" v-on="on">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  fill="currentColor"
-                  class="bi bi-info-circle"
-                >
-                  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
-                  <path
-                    d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
-                  />
-                </svg>
-              </CButton>
-            </template>
-          </CPopover>
-        </template>
-      </VueMultiselect>
+        <CPopover placement="right" trigger="hover">
+          <template #content>
+            {{ option.desc }}
+          </template>
+          <template #toggler="{ on }">
+            <CButton color="transparent" v-on="on">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-info-circle"
+              >
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                <path
+                  d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"
+                />
+              </svg>
+            </CButton>
+          </template>
+        </CPopover>
+      </template>
+    </VueMultiselect>
 
-      <!-- Select number of classes  -->
-      <VueMultiselect
-        class="py-1"
-        v-if="selectedPropertyDataType == 'number'"
-        v-model="colorSteps"
-        :options="legalSteps"
-        placeholder="Number of classes"
-        :allow-empty="false"
-        @select="dataDrivenColorisation()"
-      >
-      </VueMultiselect>
+    <!-- Select number of classes  -->
+    <VueMultiselect
+      class="py-1"
+      v-if="selectedPropertyDataType == 'number'"
+      v-model="colorSteps"
+      :options="legalSteps"
+      placeholder="Number of classes"
+      :allow-empty="false"
+      @select="dataDrivenColorisation()"
+    >
+    </VueMultiselect>
 
-      <!-- Select color palette -->
-      <VueMultiselect
-        class="py-1"
-        v-if="selectedProperty"
-        v-model="selectedColorPalette"
-        :options="colorPaletteOptions"
-        :multiple="false"
-        :close-on-select="true"
-        :allow-empty="false"
-        @select="dataDrivenColorisation()"
-      >
-        <!-- TODO: selected color palette is not changing when number of colorSteps is changing -->
-        <template #singleLabel="{ option }">
-          <div class="btn-group">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              v-for="color in option.colors"
-              :key="color"
-              :style="{ backgroundColor: color }"
-            ></button>
-          </div>
-        </template>
-        <template #option="{ option }">
-          <div class="btn-group">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              v-for="color in option.colors"
-              :key="color"
-              :style="{ backgroundColor: color }"
-            ></button>
-          </div> </template
-      ></VueMultiselect>
-    </div>
-  </div>
+    <!-- Select color palette -->
+    <VueMultiselect
+      class="py-1"
+      v-if="selectedProperty"
+      v-model="selectedColorPalette"
+      :options="colorPaletteOptions"
+      :multiple="false"
+      :close-on-select="true"
+      :allow-empty="false"
+      @select="dataDrivenColorisation()"
+    >
+      <!-- TODO: selected color palette is not changing when number of colorSteps is changing -->
+      <template #singleLabel="{ option }">
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            v-for="color in option.colors"
+            :key="color"
+            :style="{ backgroundColor: color }"
+          ></button>
+        </div>
+      </template>
+      <template #option="{ option }">
+        <div class="btn-group">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            v-for="color in option.colors"
+            :key="color"
+            :style="{ backgroundColor: color }"
+          ></button>
+        </div> </template
+    ></VueMultiselect>
+  </AccordionItem>
 </template>
 
 <style scoped></style>

@@ -3,6 +3,8 @@ import { useSettingsStore } from '@/store/settings'
 import { useBaseMapsStore } from '@/store/baseMaps'
 import { useMapStore } from '@/store/map'
 
+import AccordionItem from '../AccordionItem.vue'
+
 const settings = useSettingsStore()
 const bm = useBaseMapsStore()
 const mapStore = useMapStore()
@@ -20,27 +22,12 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
 </script>
 
 <template>
-  <div class="base-map-settings" style="border-bottom: 2px solid #00c9a7">
-    <p class="d-grid gap-1">
-      <button
-        class="btn text-start text-light dropdown-toggle"
-        type="button"
-        style="background-color: #4366a1"
-        data-bs-toggle="collapse"
-        data-bs-target="#baseMaps"
-        aria-expanded="false"
-        aria-controls="baseMaps"
-      >
-        Base Maps
-      </button>
-    </p>
-    <div class="collapse p-1" id="baseMaps">
-      <div class="maps-content d-flex">
+  <AccordionItem title="Base Maps" id="base-maps-accordion">
+    <div class="maps-content row row-cols-2 row-cols-md-3 g-1">
+      <div v-for="baseMap in bm.baseMaps" class="col">
         <div
-          class="card mx-1"
-          style="width: 9rem"
+          class="card h-100"
           role="button"
-          v-for="baseMap in bm.baseMaps"
           :key="baseMap.id"
           @click="changeBaseLayer(settings.activeBaseLayer, baseMap.id)"
         >
@@ -49,7 +36,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
         </div>
       </div>
     </div>
-  </div>
+  </AccordionItem>
 </template>
 
 <style></style>
