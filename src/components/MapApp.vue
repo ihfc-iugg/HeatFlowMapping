@@ -49,7 +49,7 @@ onMounted(() => {
 
   mapStore.map.once('load', async () => {
     // add controls
-    mapStore.map.addControl(mapControls.scale, 'bottom-right')
+    mapStore.map.addControl(mapControls.scale, 'top-right')
     mapStore.map.addControl(mapControls.fullscreen, 'top-right')
     mapStore.map.addControl(mapControls.navigation, 'top-right')
     mapStore.map.addControl(mapControls.featureInfo, 'top-right')
@@ -63,14 +63,18 @@ onMounted(() => {
 
       // const strValues = await ghfdb.getGhfdbFromAPI('@/assets/data/IHFC_2024_GHFDB_45_samples.csv')
       // const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
+      // localStorage.removeItem('ghfdb')
+      if (!localStorage.getItem('ghfdb')) {
+        const strValues = await ghfdb.getGhfdbFromAPI(
+          'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
+        )
 
-      const strValues = await ghfdb.getGhfdbFromAPI(
-        'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
-      )
+        ghfdb.json = await ghfdb.csv2JSON(strValues)
+        ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
 
-      ghfdb.json = await ghfdb.csv2JSON(strValues)
-      ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
-      ghfdb.toggleInProcess()
+        ghfdb.toggleInProcess()
+      } else {
+      }
     } catch (error) {
       console.log('Error in fetching GHFDB')
       console.log(error)
@@ -104,6 +108,17 @@ onMounted(() => {
       }
     })
 
+    // invisible layer for info popup https://github.com/mapbox/mapbox-gl-js/issues/9469
+    mapStore.map.addLayer({
+      id: 'clickableLayer',
+      type: 'circle',
+      source: 'sites',
+      paint: {
+        'circle-color': 'rgba(0,0,0,0)',
+        'circle-radius': 15
+      }
+    })
+
     console.log(mapStore.map.getSource('sites'))
   })
 }),
@@ -113,23 +128,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    class="column map"
-    style="background-color: black"
-    ref="mapContainer"
-    @mousemove="updateLatLng"
-  >
-    <MapDataLoadingModal />
-    <MapInfoPopup />
-    <MapLegend />
-
-    <!-- Navigation buttons -->
-    <div class="fixed-bottom">
-      <MapNavBarBtnGroup />
+  <div class="wrapper vstack w-100 vh-100">
+    <div
+      class="column map flex-grow-1"
+      style="background-color: black"
+      ref="mapContainer"
+      @mousemove="updateLatLng"
+    >
+      <MapDataLoadingModal />
+      <MapInfoPopup />
+      <MapLegend />
       <MapCursorCoordinates />
     </div>
+    <MapNavBarBtnGroup />
   </div>
-
   <COffcanvas :backdrop="false" placement="start" scroll :visible="navBar.visibleScrolling">
     <LeftPanel />
   </COffcanvas>
@@ -142,9 +154,9 @@ onMounted(() => {
 
 /* Map container */
 .map {
-  position: absolute;
-  height: 100%; /* Adjust to take up the full height minus navbar height */
-  width: 100%;
+  /* position: absolute; */
+  /* height: 100%; Adjust to take up the full height minus navbar height */
+  /* width: 100%; */
 }
 
 .fixed-bottom {

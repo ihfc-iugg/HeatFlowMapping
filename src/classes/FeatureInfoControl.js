@@ -73,9 +73,9 @@ export class FeatureInfoControl {
   _enableFeatureInfo() {
     this._onMouseEnter
     this._onMouseLeave
-    this._map.on('click', 'sites', this._onClickSites.bind(this))
-    this._map.on('mouseenter', 'sites', this._onMouseEnter)
-    this._map.on('mouseleave', 'sites', this._onMouseLeave)
+    this._map.on('click', 'clickableLayer', this._onClickSites.bind(this))
+    this._map.on('mouseenter', 'clickableLayer', this._onMouseEnter)
+    this._map.on('mouseleave', 'clickableLayer', this._onMouseLeave)
     this._popup.on('close', this._onPopupClose)
   }
 
@@ -115,6 +115,8 @@ export class FeatureInfoControl {
 
   _onClickSites(e) {
     if (this._enabled) {
+      console.log('hier event wenn sites geklickt wird')
+      console.log(e)
       this._setSelectedPoint(e.features[0])
       const coordinates = e.features[0].geometry.coordinates.slice()
 
