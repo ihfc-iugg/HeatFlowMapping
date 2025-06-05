@@ -20,6 +20,7 @@ import { useDrawStore } from '@/store/draw'
 // import { useMapAppConfig } from '@/store/mapAppConfig'
 import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
+import { useIndexDBStore } from '@/store/indexDBTools'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
 // import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
@@ -36,13 +37,14 @@ dataSchema.fetchAPIDataSchema(schemaURL)
 const mapControls = useMapControlsStore()
 const settings = useSettingsStore()
 const draw = useDrawStore()
+const navBar = useNavigationBarStore()
+const indexdb = useIndexDBStore()
 // const mapAppConfig = useMapAppConfig()
 // mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
 // mapAppConfig.setDataURL('dataUrl')
 // mapAppConfig.setSchemaURL('schemaUrl')
 
 const mapContainer = ref()
-const navBar = useNavigationBarStore()
 
 onMounted(() => {
   mapStore.setMap(mapContainer.value)
@@ -54,72 +56,73 @@ onMounted(() => {
     mapStore.map.addControl(mapControls.navigation, 'top-right')
     mapStore.map.addControl(mapControls.featureInfo, 'top-right')
     draw.setDraw(mapStore.map)
-    // console.log('access controls')
-    // console.log(mapControls.featureInfo)
 
     try {
-      // ghfdb.toggleInProcess()
-      // // const strValues = null
+      const storedData = await indexdb.getData('ghfdbDatabase', 'ghfdbStore', 'ghfdb')
 
-      // const strValues = await ghfdb.getGhfdbFromAPI('@/assets/data/IHFC_2024_GHFDB_45_samples.csv')
-      // const strValues = await ghfdb.getGhfdbFromAPI('http://127.0.0.1:8000/api/ghfdb')
-      // localStorage.removeItem('ghfdb')
-      if (!localStorage.getItem('ghfdb')) {
+      if (!storedData) {
+        indexdb.hasGHFDB = false
         const strValues = await ghfdb.getGhfdbFromAPI(
           'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
         )
-
         ghfdb.json = await ghfdb.csv2JSON(strValues)
         ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
+        await indexdb.saveData('ghfdbDatabase', 'ghfdbStore', {
+          id: 'ghfdb',
+          release: 2024, // store version of release to query if data in DB is up to date
+          data: JSON.parse(JSON.stringify(ghfdb.geojson))
+        })
 
-        ghfdb.toggleInProcess()
+        console.log('GeoJSON data saved to IndexedDB')
       } else {
+        indexdb.hasGHFDB = true
+        ghfdb.geojson = storedData.data
+        console.log('GeoJSON data retrieved from IndexedDB')
       }
+
+      ghfdb.toggleInProcess()
+
+      // Add the geojson source to the map
+      mapStore.map.addSource('sites', {
+        type: 'geojson',
+        data: ghfdb.geojson
+      })
+
+      // Add data layer
+      mapStore.map.addLayer({
+        id: 'sites',
+        type: 'circle',
+        source: 'sites',
+        paint: {
+          'circle-color': [
+            'case',
+            ['boolean', ['feature-state', 'hover'], false],
+            '#ff0000',
+            settings.circleColor
+          ],
+          'circle-radius': settings.circleRadius,
+          'circle-stroke-width': 0.5,
+          'circle-stroke-color': '#a1dab4'
+        },
+        layout: {
+          visibility: 'visible'
+        }
+      })
+
+      // Invisible layer for info popup
+      mapStore.map.addLayer({
+        id: 'clickableLayer',
+        type: 'circle',
+        source: 'sites',
+        paint: {
+          'circle-color': 'rgba(0,0,0,0)',
+          'circle-radius': 15
+        }
+      })
+      console.log(mapStore.map.getSource('sites'))
     } catch (error) {
-      console.log('Error in fetching GHFDB')
-      console.log(error)
+      console.error('Error handling GeoJSON data:', error)
     }
-
-    mapStore.map.addSource('sites', {
-      type: 'geojson',
-      data: ghfdb.geojson
-      // data: measurements.geojson
-      // data: sites.value,
-    })
-
-    // add data layer
-    mapStore.map.addLayer({
-      id: 'sites',
-      type: 'circle',
-      source: 'sites',
-      paint: {
-        'circle-color': [
-          'case',
-          ['boolean', ['feature-state', 'hover'], false],
-          '#ff0000',
-          settings.circleColor
-        ],
-        'circle-radius': settings.circleRadius,
-        'circle-stroke-width': 0.5,
-        'circle-stroke-color': '#a1dab4'
-      },
-      layout: {
-        visibility: 'visible'
-      }
-    })
-
-    // invisible layer for info popup https://github.com/mapbox/mapbox-gl-js/issues/9469
-    mapStore.map.addLayer({
-      id: 'clickableLayer',
-      type: 'circle',
-      source: 'sites',
-      paint: {
-        'circle-color': 'rgba(0,0,0,0)',
-        'circle-radius': 15
-      }
-    })
-
-    console.log(mapStore.map.getSource('sites'))
   })
 }),
   onUnmounted(() => {
