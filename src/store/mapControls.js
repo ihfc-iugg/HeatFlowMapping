@@ -12,9 +12,9 @@ export const useMapControlsStore = defineStore('mapControls', () => {
    */
 
   const scale = ref(new ScaleControl())
+  const featureInfo = ref(new FeatureInfoControl({ layerID: 'clickableLayer' }))
   const fullscreen = ref(new FullscreenControl())
   const navigation = ref(new NavigationControl())
-  const featureInfo = ref(new FeatureInfoControl())
 
   return { scale, fullscreen, navigation, featureInfo }
 })

@@ -6,17 +6,21 @@ import clickInfo from '@/assets/img/click_infochatgpt_orig.svg'
  */
 export class FeatureInfoControl {
   _map = null
-  _enabled = false
+  _enabled = null
   _featureInfoButton = null
   _container = null
   _selectedPoint = null
   _popup = new Popup()
+  layerID = null
   hasPopup = false
   eventTarget = new EventTarget()
 
   constructor(options) {
-    this._enabled = false
-
+    this._enabled = true
+    this.layerID =
+      options && options.layerID ? options.layerID : console.log('please provide a layerID')
+    console.log('konstruktor feat info')
+    console.log(this.layerID)
     if (options && options.container) {
       if (options.container instanceof HTMLElement) {
         this._container = options.container
@@ -47,7 +51,8 @@ export class FeatureInfoControl {
     const button = (this._featureInfoButton = document.createElement('button'))
     button.type = 'button'
     button.className = 'mapboxgl-ctrl-icon'
-    button.setAttribute('title', 'Enable point info')
+    button.setAttribute('title', 'Disable point info on click')
+    this._enableFeatureInfo()
     fetch(clickInfo)
       .then((response) => response.text())
       .then((svg) => {
@@ -73,9 +78,9 @@ export class FeatureInfoControl {
   _enableFeatureInfo() {
     this._onMouseEnter
     this._onMouseLeave
-    this._map.on('click', 'clickableLayer', this._onClickSites.bind(this))
-    this._map.on('mouseenter', 'clickableLayer', this._onMouseEnter)
-    this._map.on('mouseleave', 'clickableLayer', this._onMouseLeave)
+    this._map.on('click', this.layerID, this._onClickSites.bind(this))
+    this._map.on('mouseenter', this.layerID, this._onMouseEnter)
+    this._map.on('mouseleave', this.layerID, this._onMouseLeave)
     this._popup.on('close', this._onPopupClose)
   }
 
@@ -153,9 +158,9 @@ export class FeatureInfoControl {
   _disableFeatureInfo() {
     // Remove the event listeners using the stored function references.
 
-    this._map.off('click', 'sites', this._onClickSites)
-    this._map.off('mouseenter', 'sites', this._onMouseEnter)
-    this._map.off('mouseleave', 'sites', this._onMouseLeave)
+    this._map.off('click', this.layerID, this._onClickSites)
+    this._map.off('mouseenter', this.layerID, this._onMouseEnter)
+    this._map.off('mouseleave', this.layerID, this._onMouseLeave)
     this._popup.off('close', this._onPopupClose)
   }
 }
