@@ -34,7 +34,7 @@ const table = ref({
  * @param {Array} values
  */
 function setMin(values) {
-  table.value.min = Math.min.apply(null, values).toFixed(5)
+  table.value.min = Math.min.apply(null, values).toFixed(2)
 }
 
 /**
@@ -42,7 +42,7 @@ function setMin(values) {
  * @param {Array} values
  */
 function setMax(values) {
-  table.value.max = Math.max.apply(null, values).toFixed(5)
+  table.value.max = Math.max.apply(null, values).toFixed(2)
 }
 
 /**
@@ -50,7 +50,7 @@ function setMax(values) {
  * @param {Array} values
  */
 function setMean(values) {
-  table.value.mean = mean(values.filter((n) => n)).toFixed(5)
+  table.value.mean = mean(values.filter((n) => n)).toFixed(2)
 }
 
 /**
@@ -58,7 +58,7 @@ function setMean(values) {
  * @param {Array} values
  */
 function setStd(values) {
-  table.value.std = std(values.filter((n) => n)).toFixed(5)
+  table.value.std = std(values.filter((n) => n)).toFixed(2)
 }
 
 /**
@@ -66,7 +66,7 @@ function setStd(values) {
  * @param {Array} values
  */
 function setMedian(values) {
-  table.value.median = median(values.filter((n) => n)).toFixed(5)
+  table.value.median = median(values.filter((n) => n)).toFixed(2)
 }
 
 /**
@@ -75,7 +75,7 @@ function setMedian(values) {
  */
 function setSkewness(values) {
   const stats = new Statistics([])
-  table.value.skewness = stats.skewness(values.filter((n) => n)).toFixed(5)
+  table.value.skewness = stats.skewness(values.filter((n) => n)).toFixed(2)
 }
 
 /**
@@ -84,7 +84,7 @@ function setSkewness(values) {
  */
 function setKurtosis(values) {
   const stats = new Statistics([])
-  table.value.kurtosis = stats.kurtosis(values.filter((n) => n)).toFixed(5)
+  table.value.kurtosis = stats.kurtosis(values.filter((n) => n)).toFixed(2)
   console.log('----kurtosis')
   console.log(table.value.kurtosis)
 }
