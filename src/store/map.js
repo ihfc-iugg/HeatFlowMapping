@@ -70,14 +70,11 @@ export const useMapStore = defineStore('map', () => {
         type: 'raster',
         source: baseMapLayer.id
       }
-      if (ix == 0) {
-        settings.activeBaseLayer = baseMapLayer.id
-        // first object in maps.json will be default base map
+      if (baseMapLayer.id === settings.activeBaseLayer) {
         layerObject.layout = {
           visibility: 'visible'
         }
       } else {
-        // others are already added but not visible
         layerObject.layout = {
           visibility: 'none'
         }

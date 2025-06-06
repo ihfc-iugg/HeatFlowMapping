@@ -8,7 +8,7 @@ export const useSettingsStore = defineStore('settings', () => {
    * function()s become actions
    */
 
-  const activeBaseLayer = ref('')
+  const activeBaseLayer = ref('bm_esri_world_physical')
   const circleRadius = ref(4)
   const circleColor = ref('#E31E24') // Red from IHFC logo
 
