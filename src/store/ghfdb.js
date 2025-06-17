@@ -1,6 +1,7 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
+import JSZip from 'jszip'
 import { featureCollection, point } from '@turf/turf'
 import Papa from 'papaparse'
 
@@ -43,9 +44,17 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
   async function getGhfdbFromAPI(url) {
     try {
       const response = await axios.get(url, { responseType: 'blob' })
-      const file = response.data
-      hasCSV.value = !hasCSV.value
-      return file.text()
+      const zip = await JSZip.loadAsync(response.data)
+
+      const csvFileName = Object.keys(zip.files).find((fileName) => fileName.endsWith('.csv'))
+      if (!csvFileName) {
+        throw new Error('No CSV file found in the ZIP archive')
+      }
+
+      const csvContent = await zip.files[csvFileName].async('text')
+      hasCSV.value = true
+
+      return csvContent
     } catch (error) {
       console.log('rejected', error)
     }
