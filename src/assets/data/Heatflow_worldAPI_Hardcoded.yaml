@@ -852,11 +852,11 @@ components:
         - uuid
     EnvironmentEnum:
       enum:
-        - Onshore (continental)
-        - Onshore (lake, river, etc.)
-        - Offshore (continental)
-        - Offshore (marine)
-        - unspecified
+        - '[Onshore (continental)]'
+        - '[Onshore (lake, river, etc.)]'
+        - '[Offshore (continental)]'
+        - '[Offshore (marine)]'
+        - '[unspecified]'
       type: string
       description: |-
         * `Onshore (continental)` - Onshore (continental)
@@ -866,15 +866,16 @@ components:
         * `unspecified` - Unspecified
     ExploMethodEnum:
       enum:
-        - Drilling
-        - Mining
-        - Tunneling
-        - Probing (onshore/lake, river, etc.)
-        - Probing (offshore/ocean)
-        - Drilling-Clustering
-        - Probing-Clustering
-        - Other (specify in comments)
-        - unspecified
+        - '[Drilling]'
+        - '[Mining]'
+        - '[Tunneling]'
+        - '[Probing (onshore/lake, river, etc.)]'
+        - '[Probing (offshore/ocean)]'
+        - '[Drilling-Clustering]'
+        - '[Probing-Clustering]'
+        - '[Indirect (GTM, CPD, etc.)]'
+        - '[Other (specify in comments)]'
+        - '[unspecified]'
       type: string
       description: |-
         * `Drilling` - Drilling
@@ -888,16 +889,16 @@ components:
         * `unspecified` - Unspecified
     ExploPurposeEnum:
       enum:
-        - Hydrocarbon
-        - Underground storage
-        - Geothermal
-        - Groundwater
-        - Mapping
-        - Research
-        - Mining
-        - Tunneling
-        - Other (specify in comments)
-        - unspecified
+        - '[Hydrocarbon]'
+        - '[Underground storage]'
+        - '[Geothermal]'
+        - '[Groundwater]'
+        - '[Mapping]'
+        - '[Research]'
+        - '[Mining]'
+        - '[Tunneling]'
+        - '[Other (specify in comments)]'
+        - '[unspecified]'
       type: string
       description: |-
         * `Hydrocarbon` - Hydrocarbon
