@@ -8,7 +8,7 @@ import {
   pointToLineDistance,
   radiansToLength
 } from '@turf/turf'
-import { Map, Popup, Marker } from 'maplibre-gl'
+import { Map } from 'maplibre-gl'
 import { useSettingsStore } from './settings.js'
 import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
 import { newPlot } from 'plotly.js-dist'
@@ -27,14 +27,21 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   const threshold = ref(25)
   const line = ref(null)
   const pointsWithinDistance = ref([])
+  const plot = ref(null)
+  const triggerPopup = ref(false)
+  const triggerDeletePopup = ref(false)
+
   const settings = useSettingsStore()
   const calculationTools = useSphericalTrigonometry()
-  const plot = ref(null)
-  const popup = ref(null)
-  const marker = ref(null)
-
   const schema = useDataSchemaStore()
   const relief = use2DProfileReliefStore()
+
+  /**
+   * @description
+   */
+  function toggleTriggerPopup() {
+    triggerPopup.value = !triggerPopup.value
+  }
 
   /**
    * @description
@@ -168,8 +175,8 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     const uncertainty = projectedPoinsts.map((pnt) => pnt.uncertainty)
     const propertyValues = projectedPoinsts.map((pnt) => pnt[selectedProperty])
     const pntIds = projectedPoinsts.map((pnt) => pnt.id)
-    const reliefValues = relief.pointsAlongLine.features.map((pnt) => pnt.properties.elevation)
-    const reliefDistance = relief.pointsAlongLine.features.map((pnt) => pnt.properties.distKm)
+    // const reliefValues = relief.pointsAlongLine.features.map((pnt) => pnt.properties.elevation)
+    // const reliefDistance = relief.pointsAlongLine.features.map((pnt) => pnt.properties.distKm)
 
     // Data property values
     const propertyValuesTrace = {
@@ -194,23 +201,23 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       yaxis: 'y1'
     }
 
-    const reliefTrace = {
-      x: reliefDistance,
-      y: reliefValues, // Replace with the desired property
-      name: 'Relief',
-      type: 'scatter',
-      mode: 'lines+markers',
-      xaxis: 'x',
-      yaxis: 'y3', // Link this trace to the second y-axis
-      line: {
-        color: '#AAAAAA',
-        width: 2
-      },
-      marker: {
-        color: '#AAAAAA',
-        width: 3
-      }
-    }
+    // const reliefTrace = {
+    //   x: reliefDistance,
+    //   y: reliefValues, // Replace with the desired property
+    //   name: 'Relief',
+    //   type: 'scatter',
+    //   mode: 'lines+markers',
+    //   xaxis: 'x',
+    //   yaxis: 'y3', // Link this trace to the second y-axis
+    //   line: {
+    //     color: '#AAAAAA',
+    //     width: 2
+    //   },
+    //   marker: {
+    //     color: '#AAAAAA',
+    //     width: 3
+    //   }
+    // }
 
     // Data vertical distance of point to line
     const offsetTrace = {
@@ -270,7 +277,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       }
     }
 
-    let data = [propertyValuesTrace, reliefTrace, offsetTrace]
+    let data = [propertyValuesTrace, offsetTrace]
 
     plot.value = newPlot('popupProfileChart', data, layout)
     console.log(plot.value)
@@ -282,8 +289,9 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     line,
     pointsWithinDistance,
     plot,
-    popup,
-    marker,
+    triggerPopup,
+    triggerDeletePopup,
+    toggleTriggerPopup,
     setPointsWithinDistance,
     generatePaintProperty,
     lineStringToPointFeatureCollection,

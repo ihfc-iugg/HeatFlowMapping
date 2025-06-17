@@ -1,6 +1,6 @@
 <!-- Show popup containing infos of point (on click) -->
 <script setup>
-import { defineProps, ref, watch, onMounted, onUnmounted } from 'vue'
+import { ref, watch, onMounted, onUnmounted } from 'vue'
 
 import { Map, Popup, Marker } from 'maplibre-gl'
 import { point, midpoint } from '@turf/turf'
@@ -8,27 +8,21 @@ import { point, midpoint } from '@turf/turf'
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useMapStore } from '@/store/map'
 import { use2DProfileReliefStore } from '@/store/2DProfileRelief'
+import { makeArray } from 'jquery'
 
 const profile = use2DProfileStore()
 const mapStore = useMapStore()
 const relief = use2DProfileReliefStore()
 
-const props = defineProps({ map: Map, hasPopup: Boolean })
-
-let elPopup = document.createElement('div')
-elPopup.id = 'popupProfileChart'
-elPopup.classList.add('mh-100')
-let popup = ref(new Popup().setDOMContent(elPopup).setMaxWidth('100%'))
-
-// div containing marker
-let elMarker = document.createElement('div')
-elMarker.id = 'markerLineChart'
-let marker = ref(new Marker({ draggable: true }).setPopup(popup.value))
+const popup = generatePopup()
+const marker = generateMarker(popup.value)
 
 watch(
-  () => props.hasPopup,
+  () => profile.triggerPopup,
   async () => {
-    setUpPopup(profile.line)
+    console.log('waaaazuuuup')
+
+    setUpPopup(profile.line, marker.value, mapStore.map)
     // relief.pointsAlongLine = relief.calculatePointsAlongLineString(
     //   profile.line,
     //   relief.reliefResolution
@@ -44,20 +38,60 @@ watch(
   }
 )
 
-/**
- *
- * @param {Object} line
- */
-function setUpPopup(line) {
+watch(
+  () => profile.triggerDeletePopup,
+  async () => {
+    console.log('waaaazuuuup delete popuuuuup')
+    if (profile.triggerDeletePopup) {
+      popup.value.remove()
+      marker.value.remove()
+      profile.triggerDeletePopup = false
+      console.log('triggerDeletePopup set to true' + profile.triggerDeletePopup)
+    }
+  }
+)
+
+// /**
+//  *
+//  */
+function setUpPopup(line, marker, map) {
   const pnt1 = point(line.geometry.coordinates[0])
   const pnt2 = point(line.geometry.coordinates[1])
   const coordinates = midpoint(pnt1, pnt2).geometry.coordinates
 
-  marker.value.setLngLat(coordinates)
-  marker.value.addTo(mapStore.map)
+  marker.setLngLat(coordinates)
+  marker.addTo(map)
   // default open popup
-  marker.value.togglePopup()
+  marker.togglePopup()
 }
+
+function generatePopup() {
+  let elPopup = document.createElement('div')
+  elPopup.id = 'popupProfileChart'
+  elPopup.classList.add('mh-100')
+  return ref(new Popup().setDOMContent(elPopup).setMaxWidth('100%'))
+}
+
+function generateMarker(popup) {
+  let elMarker = document.createElement('div')
+  elMarker.id = 'markerLineChart'
+  return ref(new Marker({ draggable: true }).setPopup(popup))
+}
+
+/**
+ *
+ * @param {Object} line
+ */
+// function setUpPopup(line, map) {
+//   const pnt1 = point(line.geometry.coordinates[0])
+//   const pnt2 = point(line.geometry.coordinates[1])
+//   const coordinates = midpoint(pnt1, pnt2).geometry.coordinates
+
+//   marker.value.setLngLat(coordinates)
+//   marker.value.addTo(map)
+//   // default open popup
+//   marker.value.togglePopup()
+// }
 
 /**
  * @description
@@ -102,6 +136,7 @@ let observer = null
 onMounted(() => {
   observer = new MutationObserver((mutationRecords) => {
     mutationRecords.forEach((mutation) => {
+      // adjust elPopup to generate
       if (mutation.type === 'childList' && mutation.target == elPopup) {
         elPopup
           .on('plotly_hover', function (data) {
@@ -122,11 +157,11 @@ onMounted(() => {
       }
     })
   })
-  observer.observe(elPopup, {
-    childList: true, // observe direct children
-    subtree: true, // and lower descendants too
-    characterDataOldValue: true // pass old data to callback
-  })
+  // observer.observe(elPopup, {
+  //   childList: true, // observe direct children
+  //   subtree: true, // and lower descendants too
+  //   characterDataOldValue: true // pass old data to callback
+  // })
 })
 
 onUnmounted(() => observer && observer.disconnect())
@@ -134,11 +169,4 @@ onUnmounted(() => observer && observer.disconnect())
 
 <template></template>
 
-<style>
-#markerLineChart {
-  display: inline-block;
-  text-align: center;
-  line-height: 0; /* Remove any spacing around the SVG */
-  background: transparent;
-}
-</style>
+<style></style>

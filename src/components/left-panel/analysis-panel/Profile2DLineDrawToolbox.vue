@@ -26,6 +26,8 @@ function deleteLine(selectedFeature) {
     draw.setSelectedFeature(null)
     profile.line = null
     profile.pointsWithinDistance = []
+    profile.triggerDeletePopup = true
+    console.log('triggerDeletePopup set to true' + profile.triggerDeletePopup)
     // profile.popup.remove()
     // profile.marker.remove()
     profile.plot = ref(null)
@@ -45,6 +47,8 @@ function respondToLineChanges(feature) {
   draw.setSelectedFeature(feature)
   profile.line = draw.selectedFeature
   const collection = profile.lineStringToPointFeatureCollection(profile.line.geometry.coordinates)
+  profile.pointsWithinDistance = []
+  profile.triggerDeletePopup = true
   mapStore.map.removeLayer('startEndCircle')
   mapStore.map.removeLayer('lineLable')
   mapStore.map.removeSource('lineLable')

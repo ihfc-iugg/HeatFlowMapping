@@ -39,13 +39,6 @@ watch(profile, () => {
 function setActiveTab(tab) {
   activeTab.value = tab
 }
-
-/**
- * @description
- */
-function togglehasChartPopup() {
-  hasChartPopup.value = !hasChartPopup.value
-}
 </script>
 
 <template>
@@ -169,7 +162,7 @@ function togglehasChartPopup() {
             'circle-color',
             profile.generatePaintProperty(profile.pointsWithinDistance)
           ),
-          togglehasChartPopup())
+          profile.toggleTriggerPopup())
         "
       >
         Calculate 2D Profile
