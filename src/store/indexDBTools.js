@@ -8,7 +8,7 @@ export const useIndexDBStore = defineStore('IndexDB', () => {
    * function()s become actions
    */
 
-  const hasGHFDB = ref()
+  const hasGHFDB = ref(null)
 
   /**
    *
@@ -71,5 +71,24 @@ export const useIndexDBStore = defineStore('IndexDB', () => {
     })
   }
 
-  return { hasGHFDB, openDB, saveData, getData }
+  /**
+   *
+   * @param {String} dbName
+   * @param {String} storeName
+   * @param {String} dataId
+   * @returns
+   */
+  async function removeData(dbName, storeName, dataId) {
+    const db = await openDB(dbName, storeName)
+    const transaction = db.transaction([storeName], 'readwrite')
+    const store = transaction.objectStore(storeName)
+
+    return new Promise((resolve, reject) => {
+      const request = store.delete(dataId)
+      request.onsuccess = () => resolve(true)
+      request.onerror = () => reject(request.error)
+    })
+  }
+
+  return { hasGHFDB, openDB, saveData, getData, removeData }
 })

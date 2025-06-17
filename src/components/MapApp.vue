@@ -58,17 +58,21 @@ onMounted(() => {
     draw.setDraw(mapStore.map)
 
     try {
-      const storedData = await indexdb.getData('ghfdbDatabase', 'ghfdbStore', 'ghfdb')
+      indexdb.removeData('ghfdbDatabase', 'ghfdbStore', 'ghfdb')
+      const storedData = await indexdb.getData('ghfdbDatabase', 'ghfdbStore', 'ghfdb_release_2024')
 
       if (!storedData) {
         indexdb.hasGHFDB = false
         const strValues = await ghfdb.getGhfdbFromAPI(
-          'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
+          'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/refs/heads/main/assets/ghfdb/IHFC_2024_GHFDB.zip'
         )
+        // const strValues = await ghfdb.getGhfdbFromAPI(
+        //   'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
+        // )
         ghfdb.json = await ghfdb.csv2JSON(strValues)
         ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
         await indexdb.saveData('ghfdbDatabase', 'ghfdbStore', {
-          id: 'ghfdb',
+          id: 'ghfdb_release_2024',
           release: 2024, // store version of release to query if data in DB is up to date
           data: JSON.parse(JSON.stringify(ghfdb.geojson))
         })
