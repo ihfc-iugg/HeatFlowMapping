@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import { FeatureInfoControl } from '@/classes/FeatureInfoControl.js'
 
-import { ScaleControl, FullscreenControl, NavigationControl } from 'maplibre-gl'
+import { ScaleControl, FullscreenControl, NavigationControl, GlobeControl } from 'maplibre-gl'
 
 export const useMapControlsStore = defineStore('mapControls', () => {
   /**
@@ -15,6 +15,7 @@ export const useMapControlsStore = defineStore('mapControls', () => {
   const featureInfo = ref(new FeatureInfoControl({ layerID: 'clickableLayer' }))
   const fullscreen = ref(new FullscreenControl())
   const navigation = ref(new NavigationControl())
+  const globe = ref(new GlobeControl())
 
-  return { scale, fullscreen, navigation, featureInfo }
+  return { scale, fullscreen, navigation, featureInfo, globe }
 })

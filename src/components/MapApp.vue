@@ -55,6 +55,7 @@ onMounted(() => {
     mapStore.map.addControl(mapControls.featureInfo, 'top-right')
     mapStore.map.addControl(mapControls.fullscreen, 'top-right')
     mapStore.map.addControl(mapControls.navigation, 'top-right')
+    mapStore.map.addControl(mapControls.globe, 'top-right')
     draw.setDraw(mapStore.map)
 
     try {
