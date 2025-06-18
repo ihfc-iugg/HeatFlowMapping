@@ -57,11 +57,22 @@ export class FeatureInfoControl {
       .then((response) => response.text())
       .then((svg) => {
         button.innerHTML = svg
+        this._setSVGColor(this._enabled ? '#55C2E9' : '#000000')
       })
-    button.innerHTML = this._featureInfoButton.addEventListener('click', () =>
-      this._toggleFeatureInfo()
-    )
+    button.addEventListener('click', () => this._toggleFeatureInfo())
     this._container.appendChild(button)
+  }
+
+  _setSVGColor(color) {
+    // Find the SVG element inside the button and set its fill color
+    const svg = this._featureInfoButton.querySelector('svg')
+    if (svg) {
+      svg.setAttribute('fill', color)
+      // Also set fill for all paths inside the SVG
+      svg.querySelectorAll('path').forEach((path) => {
+        path.setAttribute('fill', color)
+      })
+    }
   }
 
   _toggleFeatureInfo() {
@@ -69,9 +80,11 @@ export class FeatureInfoControl {
     if (this._enabled) {
       this._enableFeatureInfo()
       this._featureInfoButton.title = 'Disable point info on click'
+      this._setSVGColor('#55C2E9')
     } else {
       this._disableFeatureInfo()
       this._featureInfoButton.title = 'Enable point info on click'
+      this._setSVGColor('#000000')
     }
   }
 
