@@ -150,7 +150,7 @@ function setActiveTab(tab) {
       <button
         id="startCalculationBtn"
         type="button"
-        class="btn mt-2 btn-success rounded-pill"
+        class="btn mt-2 btn-success rounded-pill disabled"
         data-bs-toggle="tooltip"
         data-bs-placement="bottom"
         data-bs-title="Click to start the calculation"
