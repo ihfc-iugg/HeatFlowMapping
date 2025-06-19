@@ -22,6 +22,8 @@ import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
 import { useIndexDBStore } from '@/store/indexDBTools'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
+// import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID.png'
+import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
 
 // import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
 // import dataURL from '@/assets/data/parent_elements.json'
@@ -88,6 +90,33 @@ onMounted(() => {
       ghfdb.toggleInProcess()
 
       // Add the geojson source to the map
+      mapStore.map.addSource('hf_r2024_grid', {
+        type: 'image',
+        url: hf_rf2024GridURL,
+        coordinates: [
+          [-179.99, 89],
+          [179.99, 89],
+          [179.99, -89],
+          [-179.99, -89]
+        ]
+      })
+
+      // Add data layer
+      mapStore.map.addLayer({
+        id: 'hf_r2024_grid',
+        type: 'raster',
+        source: 'hf_r2024_grid',
+        minzoom: 0,
+        maxzoom: 22,
+        paint: {
+          'raster-opacity': 0.5
+        },
+        layout: {
+          visibility: 'none'
+        }
+      })
+
+      // Add the geojson source to the map
       mapStore.map.addSource('sites', {
         type: 'geojson',
         data: ghfdb.geojson
@@ -124,6 +153,7 @@ onMounted(() => {
           'circle-radius': 15
         }
       })
+
       console.log(mapStore.map.getSource('sites'))
     } catch (error) {
       console.error('Error handling GeoJSON data:', error)
