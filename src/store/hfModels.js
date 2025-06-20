@@ -16,8 +16,8 @@ export const useHFModelsStore = defineStore('HF Models', () => {
       attribution: ''
     }
   })
-  const selectedModel = ref('hf-model')
-  const opacity = ref(0.5)
+  const selectedModel = ref(false)
+  const opacity = ref(50)
 
   function setSelectedModel(modelID) {
     selectedModel.value = modelID

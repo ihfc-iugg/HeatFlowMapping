@@ -37,6 +37,21 @@ watch(
       />
       <label class="form-check-label" for="exampleRadios1"> {{ model.title }} </label>
     </div>
+    <div v-if="hfModels.selectedModel">
+      <input
+        type="range"
+        class="form-range"
+        id="customRange1"
+        min="0"
+        step="1"
+        max="100"
+        v-model="hfModels.opacity"
+        @input="
+          mapStore.map.setPaintProperty('hf_r2024_grid', 'raster-opacity', hfModels.opacity / 100)
+        "
+      />
+      <span class="text-muted text-center">{{ hfModels.opacity }} % Layer Opacity</span>
+    </div>
   </AccordionItem>
 </template>
 
