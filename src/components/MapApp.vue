@@ -1,6 +1,7 @@
 <script setup>
 // vue
 import { onMounted, onUnmounted, ref } from 'vue'
+// import { addProtocols } from 'maplibre-gl-vector-text-protocol'
 
 // components
 import { CButton, CButtonGroup, COffcanvas } from '@coreui/bootstrap-vue'
@@ -23,7 +24,9 @@ import { useGHFDBStore } from '@/store/ghfdb'
 import { useIndexDBStore } from '@/store/indexDBTools'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 // import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID.png'
-import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
+// import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
+import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.png'
+// import kmlLink from '/home/no/Development/Web/vue/whfd-mapping/src/assets/data/R2024_Alexey_krig_LayerToKML.kmz'
 
 // import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
 // import dataURL from '@/assets/data/parent_elements.json'
@@ -89,6 +92,27 @@ onMounted(() => {
 
       ghfdb.toggleInProcess()
 
+      // addProtocols(maplibregl)
+
+      // // Add the geojson source to the map
+      // mapStore.map.addSource('hf_r2024_grid_kml', {
+      //   type: 'geojson',
+      //   data: kmlLink
+      // })
+
+      // mapStore.map.addLayer({
+      //   id: 'hf_r2024_grid_kml',
+      //   type: 'fill',
+      //   source: hf_r2024_grid_kml,
+      //   minzoom: 0,
+      //   maxzoom: 20,
+      //   paint: {
+      //     'fill-opacity': 0.5,
+      //     'fill-color': 'green',
+      //     'fill-outline-color': 'gray'
+      //   }
+      // })
+
       // Add the geojson source to the map
       mapStore.map.addSource('hf_r2024_grid', {
         type: 'image',
@@ -100,6 +124,12 @@ onMounted(() => {
           [-179.99, -89]
         ]
       })
+
+      // mapStore.map.addSource('hf_r2024_grid', {
+      //   type: 'raster',
+      //   url: '/home/no/Development/Web/vue/whfd-mapping/src/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.tif',
+      //   tileSize: 256
+      // })
 
       // Add data layer
       mapStore.map.addLayer({
