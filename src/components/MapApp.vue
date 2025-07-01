@@ -25,7 +25,9 @@ import { useIndexDBStore } from '@/store/indexDBTools'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 // import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID.png'
 // import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
-import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.png'
+import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
+// import hf_rf2024GridTif from '@/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.tif'
+
 // import kmlLink from '/home/no/Development/Web/vue/whfd-mapping/src/assets/data/R2024_Alexey_krig_LayerToKML.kmz'
 
 // import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
@@ -92,43 +94,22 @@ onMounted(() => {
 
       ghfdb.toggleInProcess()
 
-      // addProtocols(maplibregl)
-
-      // // Add the geojson source to the map
-      // mapStore.map.addSource('hf_r2024_grid_kml', {
-      //   type: 'geojson',
-      //   data: kmlLink
-      // })
-
-      // mapStore.map.addLayer({
-      //   id: 'hf_r2024_grid_kml',
-      //   type: 'fill',
-      //   source: hf_r2024_grid_kml,
-      //   minzoom: 0,
-      //   maxzoom: 20,
-      //   paint: {
-      //     'fill-opacity': 0.5,
-      //     'fill-color': 'green',
-      //     'fill-outline-color': 'gray'
-      //   }
-      // })
-
       // Add the geojson source to the map
       mapStore.map.addSource('hf_r2024_grid', {
         type: 'image',
         url: hf_rf2024GridURL,
         coordinates: [
-          [-179.99, 89],
-          [179.99, 89],
-          [179.99, -89],
-          [-179.99, -89]
+          [-180.0056412239092367, 85.0677642968707914],
+          [179.9888140574462057, 85.0677642968707914],
+          [179.9888140574462057, -85.0427012439958503],
+          [-180.0056412239092367, -85.0427012439958503]
         ]
       })
 
-      // mapStore.map.addSource('hf_r2024_grid', {
+      // map.addSource('hf_r2024_grid', {
       //   type: 'raster',
-      //   url: '/home/no/Development/Web/vue/whfd-mapping/src/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.tif',
-      //   tileSize: 256
+      //   url: hf_rf2024GridTif
+      //   // tileSize: 256
       // })
 
       // Add data layer
