@@ -25,8 +25,8 @@ import { useIndexDBStore } from '@/store/indexDBTools'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 // import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID.png'
 // import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
-import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
-// import hf_rf2024GridTif from '@/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.tif'
+// import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
+import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.png'
 
 // import kmlLink from '/home/no/Development/Web/vue/whfd-mapping/src/assets/data/R2024_Alexey_krig_LayerToKML.kmz'
 
@@ -98,11 +98,12 @@ onMounted(() => {
       mapStore.map.addSource('hf_r2024_grid', {
         type: 'image',
         url: hf_rf2024GridURL,
+        // set bounds according to https://epsg.io/3857
         coordinates: [
-          [-180.0056412239092367, 85.0677642968707914],
-          [179.9888140574462057, 85.0677642968707914],
-          [179.9888140574462057, -85.0427012439958503],
-          [-180.0056412239092367, -85.0427012439958503]
+          [-180, 85.06],
+          [180, 85.06],
+          [180, -85.06],
+          [-180, -85.06]
         ]
       })
 
