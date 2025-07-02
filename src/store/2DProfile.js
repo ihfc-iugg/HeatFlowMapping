@@ -195,7 +195,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       text: pntIds,
       marker: {
         size: new Array(alongLineDdistance.length).fill(10), // Initialize all points with size 10
-        color: new Array(alongLineDdistance.length).fill('#FCC480') // Initialize all points with color blue
+        color: new Array(alongLineDdistance.length).fill(settings.circleColor) // Initialize all points with the default color
       },
       xaxis: 'x',
       yaxis: 'y1'
