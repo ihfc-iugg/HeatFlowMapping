@@ -29,13 +29,14 @@ export const useMapStore = defineStore('map', () => {
         layers: setBaseMapsLayer(bm),
         glyphs: 'https://demotiles.maplibre.org/font/{fontstack}/{range}.pbf', // https://maplibre.org/maplibre-gl-js-docs/style-spec/glyphs/
         projection: {
-          type: 'globe'
+          // type: 'globe'
         },
         sky: {
           'atmosphere-blend': ['interpolate', ['linear'], ['zoom'], 0, 1, 5, 1, 7, 0]
         }
       }
     })
+    map.value.setRenderWorldCopies(false)
     isInstantiated.value = true
   }
 
