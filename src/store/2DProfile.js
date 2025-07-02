@@ -239,7 +239,9 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
         anchor: 'free',
         title: {
           text: 'Segment length [km]'
-        }
+        },
+        showgrid: true,
+        zeroline: false
       },
       yaxis: {
         anchor: 'x',
@@ -250,31 +252,51 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
             schema.dataSchema.properties[selectedProperty].units +
             ']'
         },
-        domain: [0.2, 1],
-        position: 0.05
+        domain: [0.3, 1], // Increase gap between plots
+        position: 0.05,
+        showgrid: true,
+        zeroline: false
       },
       yaxis2: {
         anchor: 'x',
         title: {
           text: 'Offset [km]'
         },
-        domain: [0, 0.2],
-        position: 0.95
+        domain: [0, 0.22], // Increase gap between plots
+        position: 0.95,
+        showgrid: true,
+        zeroline: false
       },
       yaxis3: {
-        overlaying: 'y1', // Overlay this axis on y1
-        side: 'right', // Place it on the right side
+        overlaying: 'y1',
+        side: 'right',
         title: {
-          text: 'Relief [m]' // Replace with the appropriate title and units
+          text: 'Relief [m]'
         }
       },
-      // legend: { x: 1.2, y: 1 },
       hovermode: 'closest',
       grid: {
         rows: 2,
         columns: 1,
         roworder: 'bottom to top'
-      }
+      },
+      // Add a visible separator line between the two plots using shapes
+      shapes: [
+        {
+          type: 'line',
+          xref: 'paper',
+          yref: 'paper',
+          x0: 0,
+          x1: 1,
+          y0: 0.25,
+          y1: 0.25,
+          line: {
+            color: 'rgba(150,150,150,0.5)',
+            width: 2,
+            dash: 'dot'
+          }
+        }
+      ]
     }
 
     let data = [propertyValuesTrace, offsetTrace]
