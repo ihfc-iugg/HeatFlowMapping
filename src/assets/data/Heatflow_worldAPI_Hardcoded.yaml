@@ -1105,7 +1105,7 @@ components:
           title: Heat-flow value
           description: Heat-flow density for the location after all corrections for
             instrumental and environmental effects.
-          units: mW / m^2
+          units: mW/m²
           nullable: false
         q_uncertainty:
           type: number
@@ -1119,7 +1119,7 @@ components:
             and temperature gradient, standard deviation from the average of the heat
             flow intervals or deviation from the linear regression of the Bullard
             plot.
-          units: mW / m^2
+          units: mW/m²
         sample:
           $ref: '#/components/schemas/Sample'
         total_depth_MD:
