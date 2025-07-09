@@ -852,10 +852,10 @@ components:
         - uuid
     EnvironmentEnum:
       enum:
-        - '[Onshore (continental)]'
-        - '[Onshore (lake, river, etc.)]'
-        - '[Offshore (continental)]'
-        - '[Offshore (marine)]'
+        - '[onshore (continental)]'
+        - '[onshore (lake, river, etc.)]'
+        - '[offshore (continental)]'
+        - '[offshore (marine)]'
         - '[unspecified]'
       type: string
       description: |-
