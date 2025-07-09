@@ -15,7 +15,7 @@ watch(dB.layers, () => {
     href="#"
     class="button btn-sm"
     style="color: #4366a1; border: 1px solid #4366a1"
-    @click="dB.setLayer(null, null, null, null, 2.3, 100, 2, 'sample')"
+    @click="dB.setLayer(null, null, null, null, 2.3, 100, 2, 'Layer' + (dB.layers.length + 1))"
   >
     <span class="icon-layer-handling btn rounded-circle btn-sm">
       <svg
