@@ -40,6 +40,12 @@ const classificationTypes = ref([
     title: 'Jenks',
     desc: 'Class breaks are created in a way that best groups similar values together and maximizes the differences between classes',
     src: 'https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_B47C458CFF6A4EEC933A8C7612DA558B'
+  },
+  {
+    name: 'equal',
+    title: 'Equal interval',
+    desc: 'Each class has the same range of values',
+    src: 'https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_B47C458CFF6A4EEC933A8C7612DA558B'
   }
 ])
 const selectedClassificationType = ref(classificationTypes.value[0])
@@ -152,6 +158,27 @@ function getQuantilBreaks(geoJson, property, steps) {
 }
 
 /**
+ * @description Calculate breaks for equal interval classification (each class has the same range of values)
+ * @param {*} geoJson
+ * @param {String} property
+ * @param {Number} steps
+ * @returns {Array}
+ */
+function getEqualIntervalBreaks(geoJson, property, steps) {
+  const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+  const minValue = Math.min.apply(null, values)
+  const maxValue = Math.max.apply(null, values)
+  const stepSize = (maxValue - minValue) / steps
+  let breaks = []
+
+  for (let i = 0; i <= steps; i++) {
+    breaks.push(minValue + i * stepSize)
+  }
+
+  return breaks
+}
+
+/**
  * @description Case differentiation if quantil or jenks is selected as classification method. According to the method, calculates the braks and returns them as array. Check the
  * following link for a explanation to qunatil and jenks data classification.
  * @link https://gisgeography.com/choropleth-maps-data-classification/
@@ -161,8 +188,13 @@ function getQuantilBreaks(geoJson, property, steps) {
 function getNumberBreaks(property) {
   if (selectedClassificationType.value.name == 'jenks') {
     return getJenksNaturalBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
-  } else {
+  } else if (selectedClassificationType.value.name == 'quantil') {
     return getQuantilBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
+  } else if (selectedClassificationType.value.name == 'equal') {
+    return getEqualIntervalBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
+  } else {
+    console.error('Unknown classification method')
+    return []
   }
 }
 
