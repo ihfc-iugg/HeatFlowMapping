@@ -62,6 +62,17 @@ export const useBaseMapsStore = defineStore('baseMaps', () => {
         'https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}.png',
       attribution:
         'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
+    },
+    {
+      id: 'bm_world_light_gray',
+      title: 'World Light Gray',
+
+      cardImage:
+        'https://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/0/0/0.png',
+      tiles:
+        'https://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}.png',
+      attribution:
+        'Sources: Esri, HERE, Garmin, © OpenStreetMap contributors, and the GIS User Community'
     }
   ])
 
