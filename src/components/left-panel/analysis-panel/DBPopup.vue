@@ -1,7 +1,7 @@
 <!-- Show popup containing infos of point (on click) -->
 <script setup>
-import { defineProps, h, onMounted, ref, render, watch } from 'vue'
-import { Map, Popup, Marker } from 'maplibre-gl'
+import { h, ref, render, watch } from 'vue'
+import { Popup, Marker } from 'maplibre-gl'
 
 import DBAddLayerBtn from './DBAddLayerBtn.vue'
 import DBRemoveLastLayerBtn from './DBRemoveLastLayerBtn.vue'
@@ -11,8 +11,6 @@ import { useMapStore } from '@/store/map'
 
 const dB = useDigitalBoreholeStore()
 const mapStore = useMapStore()
-
-const props = defineProps({ map: Map, hasPopup: Boolean })
 
 watch(
   () => dB.pnt,
@@ -36,20 +34,16 @@ function setUpPopup(pnt, map) {
     dB.marker.remove()
     dB.marker = null
   }
-
   let elPopup = document.createElement('div')
   elPopup.id = 'popupBoreholeChart'
   elPopup.classList.add('mh-100')
   dB.popup = ref(new Popup().setDOMContent(elPopup).setMaxWidth('100%'))
-
-  let elMarker = document.createElement('div')
-  elMarker.id = 'markerBoreholeChart'
-
   dB.marker = ref(new Marker({ draggable: false, offset: [0, -10] }).setPopup(dB.popup))
+  console.log('dB.marker')
+  console.log(dB.marker)
   dB.marker.setLngLat(pnt.geometry.coordinates)
   dB.marker.addTo(map)
   dB.marker.togglePopup()
-
   // Popup did not open even the popup.on('open') event gets fired. Only solution I could find to fix
   // https://stackoverflow.com/questions/73392796/mapbox-custom-marker-popup-not-showing
   setTimeout(() => dB.marker.togglePopup(), 1)
