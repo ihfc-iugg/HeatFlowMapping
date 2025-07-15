@@ -158,7 +158,7 @@ function setActiveTab(tab) {
           (profile.setPointsWithinDistance(ghfdb.geojson.features, profile.line, profile.threshold),
           // profile.highlightPointsWithinDistance(props.map, profile.pointsWithinDistance),
           mapStore.map.setPaintProperty(
-            'sites',
+            'ghfdb',
             'circle-color',
             profile.generatePaintProperty(profile.pointsWithinDistance)
           ),

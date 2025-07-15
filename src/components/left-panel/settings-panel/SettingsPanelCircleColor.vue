@@ -15,10 +15,10 @@ const mapStore = useMapStore()
  * @returns {Void}
  */
 function setCircleColor(colorHEX) {
-  if (mapStore.map.getPaintProperty('sites', 'circle-color') == colorHEX) {
+  if (mapStore.map.getPaintProperty('ghfdb', 'circle-color') == colorHEX) {
     return
   } else {
-    mapStore.map.setPaintProperty('sites', 'circle-color', colorHEX)
+    mapStore.map.setPaintProperty('ghfdb', 'circle-color', colorHEX)
   }
 }
 </script>

@@ -82,7 +82,7 @@ export const useFilterStore = defineStore('filter', () => {
   function applyFilterToMap(mapObject) {
     const expression = writeFilterExpression()
 
-    mapObject.setFilter('sites', expression)
+    mapObject.setFilter('ghfdb', expression)
   }
 
   /**
@@ -110,8 +110,8 @@ export const useFilterStore = defineStore('filter', () => {
    */
   function getFilteredFeatures(mapObject) {
     let filterExpression = writeFilterExpression()
-    let queriedFeatures = mapObject.querySourceFeatures('sites', {
-      sourceLayer: 'sites',
+    let queriedFeatures = mapObject.querySourceFeatures('ghfdb', {
+      sourceLayer: 'ghfdb',
       filter: filterExpression
     })
     const uniqueFeatures = getUniqueFeatures(queriedFeatures, 'ID')

@@ -32,7 +32,7 @@ function deletePoint(selectedFeature) {
     dB.popup = null
     dB.marker.remove()
     dB.marker = null
-    mapStore.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+    mapStore.map.setPaintProperty('ghfdb', 'circle-color', settings.circleColor)
   }
 }
 
@@ -43,7 +43,9 @@ draw.tools.on('finish', (id, context) => {
   let feature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]
   console.log(id)
   console.log(context)
-  if (feature.geometry.type === 'Point') {
+  if (!(feature.geometry.type === 'Point')) {
+    return
+  } else {
     if (context.action === 'draw') {
       draw.selectedFeature = feature
       const featuresToRemove = draw.getFeatureIdsToRemove(draw.tools.getSnapshot(), feature)

@@ -8,7 +8,6 @@ import { point, midpoint } from '@turf/turf'
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useMapStore } from '@/store/map'
 import { use2DProfileReliefStore } from '@/store/2DProfileRelief'
-import { makeArray } from 'jquery'
 
 const profile = use2DProfileStore()
 const mapStore = useMapStore()
@@ -79,21 +78,6 @@ function generateMarker(popup) {
 }
 
 /**
- *
- * @param {Object} line
- */
-// function setUpPopup(line, map) {
-//   const pnt1 = point(line.geometry.coordinates[0])
-//   const pnt2 = point(line.geometry.coordinates[1])
-//   const coordinates = midpoint(pnt1, pnt2).geometry.coordinates
-
-//   marker.value.setLngLat(coordinates)
-//   marker.value.addTo(map)
-//   // default open popup
-//   marker.value.togglePopup()
-// }
-
-/**
  * @description
  * @param {string} elementIdBefore
  * @param {Array} pointsWithinDistance
@@ -128,36 +112,72 @@ function highlightHoveredPoint(mapObject, pntId, pntsWithinThresholdPaintPropert
     'red',
     pntsWithinThresholdPaintProperty
   ]
-  mapObject.setPaintProperty('sites', 'circle-color', hoverPaintProperty)
+  mapObject.setPaintProperty('ghfdb', 'circle-color', hoverPaintProperty)
 }
 
+//TODO: Not Working
 let observer = null
 
-onMounted(() => {
+function setupMutationObserver() {
+  const el = popup.value.getElement()
+  if (!el || !(el instanceof Node)) {
+    // Try again on next tick if not available yet
+    setTimeout(setupMutationObserver, 50)
+    return
+  }
   observer = new MutationObserver((mutationRecords) => {
     mutationRecords.forEach((mutation) => {
-      // adjust elPopup to generate
-      if (mutation.type === 'childList' && mutation.target == elPopup) {
-        elPopup
-          .on('plotly_hover', function (data) {
-            console.log(data.points[0].text)
-            highlightHoveredPoint(
-              mapStore.map,
-              data.points[0].text,
-              profile.generatePaintProperty(profile.pointsWithinDistance)
-            )
-          })
-          .on('plotly_unhover', function (data) {
-            mapStore.map.setPaintProperty(
-              'sites',
-              'circle-color',
-              profile.generatePaintProperty(profile.pointsWithinDistance)
-            )
-          })
+      if (mutation.type === 'childList' && mutation.target === el) {
+        el.on('plotly_hover', function (data) {
+          highlightHoveredPoint(
+            mapStore.map,
+            data.points[0].text,
+            profile.generatePaintProperty(profile.pointsWithinDistance)
+          )
+        }).on('plotly_unhover', function () {
+          mapStore.map.setPaintProperty(
+            'ghfdb',
+            'circle-color',
+            profile.generatePaintProperty(profile.pointsWithinDistance)
+          )
+        })
       }
     })
   })
-  // observer.observe(elPopup, {
+  observer.observe(el, {
+    childList: true,
+    subtree: true,
+    characterDataOldValue: true
+  })
+}
+
+onMounted(() => {
+  setupMutationObserver()
+  // observer = new MutationObserver((mutationRecords) => {
+  //   mutationRecords.forEach((mutation) => {
+  //     // adjust elPopup to generate
+  //     if (mutation.type === 'childList' && mutation.target == popup.value.getElement()) {
+  //       popup.value
+  //         .getElement()
+  //         .on('plotly_hover', function (data) {
+  //           console.log(data.points[0].text)
+  //           highlightHoveredPoint(
+  //             mapStore.map,
+  //             data.points[0].text,
+  //             profile.generatePaintProperty(profile.pointsWithinDistance)
+  //           )
+  //         })
+  //         .on('plotly_unhover', function (data) {
+  //           mapStore.map.setPaintProperty(
+  //             'sites',
+  //             'circle-color',
+  //             profile.generatePaintProperty(profile.pointsWithinDistance)
+  //           )
+  //         })
+  //     }
+  //   })
+  // })
+  // observer.observe(popup.value.getElement(), {
   //   childList: true, // observe direct children
   //   subtree: true, // and lower descendants too
   //   characterDataOldValue: true // pass old data to callback

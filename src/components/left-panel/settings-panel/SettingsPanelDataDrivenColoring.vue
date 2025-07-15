@@ -187,11 +187,11 @@ function getEqualIntervalBreaks(geoJson, property, steps) {
  */
 function getNumberBreaks(property) {
   if (selectedClassificationType.value.name == 'jenks') {
-    return getJenksNaturalBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
+    return getJenksNaturalBreaks(mapStore.map.getSource('ghfdb')._data, property, colorSteps.value)
   } else if (selectedClassificationType.value.name == 'quantil') {
-    return getQuantilBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
+    return getQuantilBreaks(mapStore.map.getSource('ghfdb')._data, property, colorSteps.value)
   } else if (selectedClassificationType.value.name == 'equal') {
-    return getEqualIntervalBreaks(mapStore.map.getSource('sites')._data, property, colorSteps.value)
+    return getEqualIntervalBreaks(mapStore.map.getSource('ghfdb')._data, property, colorSteps.value)
   } else {
     console.error('Unknown classification method')
     return []
@@ -263,7 +263,7 @@ function dataDrivenColorisation() {
       classes,
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
     )
-    mapStore.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    mapStore.map.setPaintProperty('ghfdb', 'circle-color', paintProperty)
     legend.selectedProperty = selectedProperty.value.key
     legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == undefined) {
@@ -277,7 +277,7 @@ function dataDrivenColorisation() {
       classes,
       colorbrewer[selectedColorPalette.value.name][colorSteps.value]
     )
-    mapStore.map.setPaintProperty('sites', 'circle-color', paintProperty)
+    mapStore.map.setPaintProperty('ghfdb', 'circle-color', paintProperty)
     legend.selectedProperty = selectedProperty.value.key
     legend.setLegendObject(classes, colorbrewer[selectedColorPalette.value.name][colorSteps.value])
   } else if (selectedPropertyDataType.value == 'boolean') {

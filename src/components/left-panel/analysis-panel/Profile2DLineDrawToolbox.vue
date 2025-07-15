@@ -34,7 +34,7 @@ function deleteLine(selectedFeature) {
     mapStore.map.removeLayer('startEndCircle')
     mapStore.map.removeLayer('lineLable')
     mapStore.map.removeSource('lineLable')
-    mapStore.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+    mapStore.map.setPaintProperty('ghfdb', 'circle-color', settings.circleColor)
   }
 }
 
@@ -52,7 +52,7 @@ function respondToLineChanges(feature) {
   mapStore.map.removeLayer('startEndCircle')
   mapStore.map.removeLayer('lineLable')
   mapStore.map.removeSource('lineLable')
-  mapStore.map.setPaintProperty('sites', 'circle-color', settings.circleColor)
+  mapStore.map.setPaintProperty('ghfdb', 'circle-color', settings.circleColor)
   profile.addLineLabelToMap(mapStore.map, collection)
 }
 

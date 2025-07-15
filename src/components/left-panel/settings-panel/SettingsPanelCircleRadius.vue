@@ -13,7 +13,7 @@ const mapStore = useMapStore()
  * @description If user changes size of circles, the watch method keeps track of it and adjust it synchron
  */
 function setCircleRadius(circleRadius) {
-  mapStore.map.setPaintProperty('sites', 'circle-radius', parseInt(circleRadius))
+  mapStore.map.setPaintProperty('ghfdb', 'circle-radius', parseInt(circleRadius))
 }
 </script>
 

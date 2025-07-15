@@ -155,7 +155,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   function highlightNearestNeighbor(pointID, mapObject, circleColor) {
     const paintProperty = ['case', ['==', ['get', 'ID'], pointID], 'red', circleColor]
 
-    mapObject.setPaintProperty('sites', 'circle-color', paintProperty)
+    mapObject.setPaintProperty('ghfdb', 'circle-color', paintProperty)
   }
 
   /**
