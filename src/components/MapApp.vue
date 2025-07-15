@@ -22,13 +22,8 @@ import { useDrawStore } from '@/store/draw'
 import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
 import { useIndexDBStore } from '@/store/indexDBTools'
+import { useHFModelsStore } from '@/store/hfModels'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
-// import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID.png'
-// import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
-// import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png'
-import hf_rf2024GridURL from '@/assets/img/HF_R2024_GRID_down_scaled_cropped_reprojected_3857.png'
-
-// import kmlLink from '/home/no/Development/Web/vue/whfd-mapping/src/assets/data/R2024_Alexey_krig_LayerToKML.kmz'
 
 // import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
 // import dataURL from '@/assets/data/parent_elements.json'
@@ -46,6 +41,7 @@ const settings = useSettingsStore()
 const draw = useDrawStore()
 const navBar = useNavigationBarStore()
 const indexdb = useIndexDBStore()
+const hfModels = useHFModelsStore()
 // const mapAppConfig = useMapAppConfig()
 // mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
 // mapAppConfig.setDataURL('dataUrl')
@@ -93,80 +89,11 @@ onMounted(() => {
       }
 
       ghfdb.toggleInProcess()
+      ghfdb.addGhfdbToMap(mapStore.map, ghfdb.geojson, settings.circleColor, settings.circleRadius)
 
-      // Add the geojson source to the map
-      mapStore.map.addSource('hf_r2024_grid', {
-        type: 'image',
-        url: hf_rf2024GridURL,
-        // set bounds according to https://epsg.io/3857
-        coordinates: [
-          [-180, 85.06],
-          [180, 85.06],
-          [180, -85.06],
-          [-180, -85.06]
-        ]
-      })
+      hfModels.addModelsToMap(mapStore.map)
 
-      // map.addSource('hf_r2024_grid', {
-      //   type: 'raster',
-      //   url: hf_rf2024GridTif
-      //   // tileSize: 256
-      // })
-
-      // Add data layer
-      mapStore.map.addLayer({
-        id: 'hf_r2024_grid',
-        type: 'raster',
-        source: 'hf_r2024_grid',
-        minzoom: 0,
-        maxzoom: 22,
-        paint: {
-          'raster-opacity': 0.5
-        },
-        layout: {
-          visibility: 'none'
-        }
-      })
-
-      // Add the geojson source to the map
-      mapStore.map.addSource('sites', {
-        type: 'geojson',
-        data: ghfdb.geojson
-      })
-
-      // Add data layer
-      mapStore.map.addLayer({
-        id: 'sites',
-        type: 'circle',
-        source: 'sites',
-        paint: {
-          'circle-color': [
-            'case',
-            ['boolean', ['feature-state', 'hover'], false],
-            '#ff0000',
-            settings.circleColor
-          ],
-          'circle-radius': settings.circleRadius,
-          'circle-stroke-width': 0.5,
-          'circle-stroke-color': '#a1dab4'
-        },
-        layout: {
-          visibility: 'visible'
-        }
-      })
-
-      // Invisible layer for info popup
-      mapStore.map.addLayer({
-        id: 'clickableLayer',
-        type: 'circle',
-        source: 'sites',
-        paint: {
-          'circle-color': 'rgba(0,0,0,0)',
-          'circle-radius': 15
-        }
-      })
-
-      console.log(mapStore.map.getSource('sites'))
+      console.log(mapStore.map.getSource('ghfdb'))
     } catch (error) {
       console.error('Error handling GeoJSON data:', error)
     }
@@ -179,12 +106,7 @@ onMounted(() => {
 
 <template>
   <div class="wrapper vstack w-100 vh-100">
-    <div
-      class="column map flex-grow-1"
-      style="background-color: black"
-      ref="mapContainer"
-      @mousemove="updateLatLng"
-    >
+    <div class="column map flex-grow-1" style="background-color: black" ref="mapContainer">
       <MapDataLoadingModal />
       <MapInfoPopup />
       <MapLegend />

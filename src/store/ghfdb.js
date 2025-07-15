@@ -4,8 +4,7 @@ import axios from 'axios'
 import JSZip from 'jszip'
 import { featureCollection, point } from '@turf/turf'
 import Papa from 'papaparse'
-
-// import { writeFileSync } from 'fs'
+import { Map } from 'maplibre-gl'
 
 export const useGHFDBStore = defineStore('global heat flow database', () => {
   const json = ref(null)
@@ -107,6 +106,50 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
     return featureCollection(features)
   }
 
+  /**
+   *
+   * @param {Map} map
+   * @param {Object} ghfdb
+   * @param {String} circleColor
+   * @param {Number} circleRadius
+   */
+  function addGhfdbToMap(map, ghfdb, circleColor, circleRadius) {
+    map.addSource('ghfdb', {
+      type: 'geojson',
+      data: ghfdb
+    })
+
+    map.addLayer({
+      id: 'ghfdb',
+      type: 'circle',
+      source: 'ghfdb',
+      paint: {
+        'circle-color': [
+          'case',
+          ['boolean', ['feature-state', 'hover'], false],
+          '#ff0000',
+          circleColor
+        ],
+        'circle-radius': circleRadius,
+        'circle-stroke-width': 0.5,
+        'circle-stroke-color': '#a1dab4'
+      },
+      layout: {
+        visibility: 'visible'
+      }
+    })
+
+    map.addLayer({
+      id: 'clickableLayer',
+      type: 'circle',
+      source: 'ghfdb',
+      paint: {
+        'circle-color': 'rgba(0,0,0,0)',
+        'circle-radius': 15
+      }
+    })
+  }
+
   return {
     json,
     geojson,
@@ -117,6 +160,7 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
     toggleInProcess,
     getGhfdbFromAPI,
     csv2JSON,
-    json2GeoJSON
+    json2GeoJSON,
+    addGhfdbToMap
   }
 })
