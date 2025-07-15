@@ -873,7 +873,6 @@ components:
         - '[Probing (offshore/ocean)]'
         - '[Drilling-Clustering]'
         - '[Probing-Clustering]'
-        - '[Indirect (GTM, CPD, etc.)]'
         - '[Other (specify in comments)]'
         - '[unspecified]'
       type: string
