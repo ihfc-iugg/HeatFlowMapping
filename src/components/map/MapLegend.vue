@@ -4,8 +4,6 @@ import { ref, watch } from 'vue'
 import { useLegendStore } from '@/store/legend'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 
-import { CButton, CRow, CCol } from '@coreui/bootstrap-vue'
-
 const legend = useLegendStore()
 const schema = useDataSchemaStore()
 
@@ -15,8 +13,6 @@ watch(legend.selectedProperty, (newProperty) => {
   console.log(newProperty)
   property.value = schema.dataSchema.properties[newProperty]
 })
-
-const visible = ref(false)
 </script>
 
 <template>
@@ -47,20 +43,21 @@ const visible = ref(false)
         </h6>
 
         <div class="card-body">
-          <CRow class="align-items-start" v-for="entry in legend.legend" :key="entry.id">
-            <CCol class="align-self-start" xs="2">
-              <CButton
+          <div class="row justify-content-md-center" v-for="entry in legend.legend" :key="entry.id">
+            <div class="col-md-auto align-self-start" xs="2">
+              <button
+                class="btn btn-sm"
                 :style="{
                   'background-color': entry.colorHEX,
                   border: '1px solid #00c9a7'
                 }"
-              ></CButton>
-            </CCol>
+              ></button>
+            </div>
 
-            <CCol class="d-flex align-self-end" xs="10">
+            <div class="col d-flex align-self-end" xs="10">
               {{ entry.text }}
-            </CCol>
-          </CRow>
+            </div>
+          </div>
         </div>
       </div>
     </div>
