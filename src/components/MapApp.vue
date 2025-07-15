@@ -1,7 +1,6 @@
 <script setup>
 // vue
 import { onMounted, onUnmounted, ref } from 'vue'
-// import { addProtocols } from 'maplibre-gl-vector-text-protocol'
 
 // components
 import { CButton, CButtonGroup, COffcanvas } from '@coreui/bootstrap-vue'
@@ -17,20 +16,13 @@ import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapControlsStore } from '@/store/mapControls'
 import { useSettingsStore } from '@/store/settings'
 import { useDrawStore } from '@/store/draw'
-// import { useBaseMapsStore } from '@/store/baseMaps'
-// import { useMapAppConfig } from '@/store/mapAppConfig'
 import { useNavigationBarStore } from '@/store/navigationBar'
 import { useGHFDBStore } from '@/store/ghfdb'
 import { useIndexDBStore } from '@/store/indexDBTools'
 import { useHFModelsStore } from '@/store/hfModels'
 import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
-// import dataURL from '@/assets/data/IHFC_2024_GHFDB_45_samples.csv'
-// import dataURL from '@/assets/data/parent_elements.json'
-// import dataURL from '@/assets/data/geojsonFromCSV.json'
-
 const ROOT_DOMAIN = import.meta.env.VITE_ROOT_API_DOMAIN
-// const schemaURL = ROOT_DOMAIN + '/api/v1/schema/'
 
 const ghfdb = useGHFDBStore()
 const mapStore = useMapStore()
@@ -42,10 +34,6 @@ const draw = useDrawStore()
 const navBar = useNavigationBarStore()
 const indexdb = useIndexDBStore()
 const hfModels = useHFModelsStore()
-// const mapAppConfig = useMapAppConfig()
-// mapAppConfig.setElement(document.querySelector('#whfd-mapping'))
-// mapAppConfig.setDataURL('dataUrl')
-// mapAppConfig.setSchemaURL('schemaUrl')
 
 const mapContainer = ref()
 
@@ -70,9 +58,6 @@ onMounted(() => {
         const strValues = await ghfdb.getGhfdbFromAPI(
           'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/refs/heads/main/assets/ghfdb/IHFC_2024_GHFDB.zip'
         )
-        // const strValues = await ghfdb.getGhfdbFromAPI(
-        //   'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/14959d8593724396c9d5b3a89a4427394907cd06/assets/ghfdb/IHFC_2024_GHFDB.csv'
-        // )
         ghfdb.json = await ghfdb.csv2JSON(strValues)
         ghfdb.geojson = await ghfdb.json2GeoJSON(ghfdb.json.data, ghfdb.parentProperties)
         await indexdb.saveData('ghfdbDatabase', 'ghfdbStore', {
@@ -114,21 +99,21 @@ onMounted(() => {
     </div>
     <MapNavBarBtnGroup />
   </div>
-  <COffcanvas :backdrop="false" placement="start" scroll :visible="navBar.visibleScrolling">
+  <div
+    class="offcanvas offcanvas-start"
+    data-bs-scroll="true"
+    data-bs-backdrop="false"
+    tabindex="-1"
+    id="offcanvasPanel"
+    aria-labelledby="offcanvasPanelLabel"
+  >
     <LeftPanel />
-  </COffcanvas>
+  </div>
 </template>
 
 <style scoped>
 .offcanvas {
   overflow-y: auto; /* Enable scrolling inside the offcanvas if content is too large */
-}
-
-/* Map container */
-.map {
-  /* position: absolute; */
-  /* height: 100%; Adjust to take up the full height minus navbar height */
-  /* width: 100%; */
 }
 
 .fixed-bottom {

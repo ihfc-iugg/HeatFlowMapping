@@ -1,13 +1,4 @@
 <script setup>
-import {
-  COffcanvasHeader,
-  COffcanvasTitle,
-  CCloseButton,
-  COffcanvasBody,
-  CRow,
-  CCol
-} from '@coreui/bootstrap-vue'
-
 import SettingsPanel from './settings-panel/SettingsPanel.vue'
 import FilterPanal from './filter-panel/FilterPanal.vue'
 import StatisticsPanal from './statistics-panel/StatisticsPanal.vue'
@@ -19,21 +10,26 @@ const navBar = useNavigationBarStore()
 </script>
 
 <template>
-  <COffcanvasHeader class="bg-primary">
-    <CRow>
-      <CCol><div class="col-md-auto text-light" v-html="navBar.panelIcon"></div></CCol>
-      <CCol class="col-md-auto"
-        ><COffcanvasTitle class="text-light">
+  <div class="offcanvas-header bg-primary">
+    <div class="row">
+      <div class="col">
+        <div class="col-md-auto text-light" v-html="navBar.panelIcon"></div>
+      </div>
+      <div class="col col-md-auto">
+        <h5 class="offcanvas-title text-light">
           {{ navBar.panelTitle }}
-        </COffcanvasTitle></CCol
-      >
-    </CRow>
-    <CCloseButton
-      class="text-reset btn-close-white"
+        </h5>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="text-reset btn-close btn-close-white"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
       @click="(navBar.setIsCollapsed(), navBar.toggleVisibleScrolling())"
-    />
-  </COffcanvasHeader>
-  <COffcanvasBody class="p-0">
+    ></button>
+  </div>
+  <div class="offcanvas-body p-0">
     <KeepAlive>
       <SettingsPanel v-if="navBar.panelTitle === 'Settings'" />
     </KeepAlive>
@@ -46,7 +42,7 @@ const navBar = useNavigationBarStore()
     <KeepAlive>
       <AnalysisPanal v-if="navBar.panelTitle === 'Analysis'" />
     </KeepAlive>
-  </COffcanvasBody>
+  </div>
 </template>
 
 <style scoped></style>
