@@ -16,11 +16,12 @@ const relief = use2DProfileReliefStore()
 const popup = generatePopup()
 const marker = generateMarker(popup.value)
 
+/**
+ * @description Sets the popup and marker for the 2D profile line.
+ */
 watch(
   () => profile.triggerPopup,
   async () => {
-    console.log('waaaazuuuup')
-
     setUpPopup(profile.line, marker.value, mapStore.map)
     // relief.pointsAlongLine = relief.calculatePointsAlongLineString(
     //   profile.line,

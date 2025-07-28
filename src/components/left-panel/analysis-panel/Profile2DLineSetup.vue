@@ -31,17 +31,6 @@ const profile = use2DProfileStore()
         </select>
         <div class="invalid-feedback">Please select a property</div>
       </div>
-      <!-- <div class="mb-3">
-        <select class="form-select" aria-label="select example" v-model="profile.selectedProperty2">
-          <option
-            v-for="property in dataSchema.numberProperties"
-            :key="property.key"
-            :value="property.key"
-          >
-            {{ property.title }}
-          </option>
-        </select>
-      </div> -->
       <div class="col">
         <div id="" class="form-text">
           Orthogonal distance to the line in which data points will be selected [1 - 500 km]

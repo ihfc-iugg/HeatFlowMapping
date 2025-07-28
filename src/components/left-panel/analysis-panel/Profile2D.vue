@@ -21,7 +21,7 @@ const activeTab = ref('toolbox')
 const hasChartPopup = ref(false)
 
 /**
- * add or remove disable for calculation btn
+ * @description enable or disable the start calculation button based on the selected properties and threshold.
  */
 watch(profile, () => {
   const element = document.getElementById('startCalculationBtn')

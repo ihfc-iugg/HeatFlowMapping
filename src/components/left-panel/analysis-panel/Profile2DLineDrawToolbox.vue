@@ -1,8 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import { Map } from 'maplibre-gl'
-import { CTooltip } from '@coreui/bootstrap-vue'
-// import { useDataSchemaStore } from '@/store/dataSchema'
+
 import { use2DProfileStore } from '@/store/2DProfile'
 import { useSettingsStore } from '@/store/settings.js'
 import { useDrawStore } from '@/store/draw'
@@ -28,8 +27,6 @@ function deleteLine(selectedFeature) {
     profile.pointsWithinDistance = []
     profile.triggerDeletePopup = true
     console.log('triggerDeletePopup set to true' + profile.triggerDeletePopup)
-    // profile.popup.remove()
-    // profile.marker.remove()
     profile.plot = ref(null)
     mapStore.map.removeLayer('startEndCircle')
     mapStore.map.removeLayer('lineLable')
@@ -40,7 +37,7 @@ function deleteLine(selectedFeature) {
 
 /**
  *
- * @description
+ * @description Responds to changes like e.g. dragging  in the drawn line feature.
  * @param {Object} feature
  */
 function respondToLineChanges(feature) {
@@ -57,7 +54,7 @@ function respondToLineChanges(feature) {
 }
 
 /**
- * @description
+ * @description Handles the drawing of lines and the selection of features.
  */
 draw.tools.on('finish', (id, context) => {
   let feature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]
@@ -87,7 +84,7 @@ draw.tools.on('finish', (id, context) => {
 })
 
 /**
- * @description
+ * @description Handles the selection of features.
  */
 draw.tools.on('select', (id) => {
   console.log('selektierte feature id')

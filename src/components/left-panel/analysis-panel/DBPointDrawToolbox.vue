@@ -37,7 +37,7 @@ function deletePoint(selectedFeature) {
 }
 
 /**
- * @description
+ * @description Handles the finish event of the draw tool. It checks if the drawn feature is a point and updates the digital borehole store accordingly.
  */
 draw.tools.on('finish', (id, context) => {
   let feature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]
@@ -80,7 +80,7 @@ draw.tools.on('finish', (id, context) => {
 })
 
 /**
- * @description
+ * @description Sets the selected feature to keep track of the currently selected point feature.
  */
 draw.tools.on('select', (id) => {
   draw.selectedFeature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]

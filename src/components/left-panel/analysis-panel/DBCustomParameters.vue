@@ -15,6 +15,9 @@ import {
 
 const dB = useDigitalBoreholeStore()
 
+/**
+ * @description if layers change (because of addition or removal of layers), the bootstrapping method is called to recalculate the T value and the chart is redrawn.
+ */
 watch(dB.layers, () => {
   dB.bootstrapping(dB.layers, dB.t0, dB.closestPointfeatures.properties.q)
   dB.drawChart(dB.layers, dB.t0)

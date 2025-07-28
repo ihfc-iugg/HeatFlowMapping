@@ -20,7 +20,7 @@ dB.setLayer(null, null, null, null, 1.4, 300, 1.3, 'Layer 3')
 dB.setLayer(null, null, null, null, 1.5, 200, 0.8, 'Layer 4')
 
 /**
- *
+ * @description Sets the active tab for the digital borehole analysis panel.
  * @param {String} tab
  */
 function setActiveTab(tab) {

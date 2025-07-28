@@ -12,6 +12,10 @@ import { useMapStore } from '@/store/map'
 const dB = useDigitalBoreholeStore()
 const mapStore = useMapStore()
 
+/**
+ * @description Sets the popup and marker for the digital borehole point.
+ * @param {Object} pnt - The point feature to display in the popup.
+ */
 watch(
   () => dB.pnt,
   () => {
@@ -25,7 +29,9 @@ watch(
 )
 
 /**
- *
+ * @description Sets up the popup and marker for the digital borehole point.
+ * @param {Object} pnt - The point feature to display in the popup.
+ * @param {Map} map - The MapLibre map instance.
  */
 function setUpPopup(pnt, map) {
   if (dB.popup && dB.marker) {
@@ -50,7 +56,7 @@ function setUpPopup(pnt, map) {
 }
 
 /**
- *
+ * @description Appends the layer handling buttons to the popup.
  * @param parentElement
  */
 function appendLayerHandlingBtnToPopup(parentElement) {
