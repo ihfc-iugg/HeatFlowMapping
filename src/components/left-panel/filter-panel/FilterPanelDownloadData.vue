@@ -6,7 +6,9 @@ const filter = useFilterStore()
 const mapStore = useMapStore()
 
 /**
- * @description
+ * @description Downloads the filtered features from the map as a GeoJSON file.
+ * @param {Object} data
+ * @param {String} filename
  */
 function downloadFeatures(data, filename) {
   const blob = new Blob([JSON.stringify(data, null, 2)], {

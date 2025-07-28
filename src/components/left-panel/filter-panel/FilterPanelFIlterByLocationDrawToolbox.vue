@@ -1,8 +1,6 @@
 <script setup>
-import { defineProps, ref } from 'vue'
+import { defineProps } from 'vue'
 import { Map } from 'maplibre-gl'
-
-import { CTooltip } from '@coreui/bootstrap-vue'
 
 import { useFilterStore } from '@/store/filter'
 import { useDrawStore } from '@/store/draw'
@@ -13,7 +11,7 @@ const filter = useFilterStore()
 const draw = useDrawStore()
 
 /**
- *
+ * @description Writes the location filter expression based on the provided GeoJSON object.
  * @param {Object} geoJSONObj
  */
 function writeLocationFilterExpression(geoJSONObj) {
@@ -26,7 +24,7 @@ function writeLocationFilterExpression(geoJSONObj) {
 }
 
 /**
- *
+ * @description Deletes the selected location filter feature.
  * @param {Object} selectedFeature
  */
 function deleteLocationFilter(selectedFeature) {
@@ -38,6 +36,10 @@ function deleteLocationFilter(selectedFeature) {
   }
 }
 
+/**
+ * @description Logic for drawing polygons.
+ *
+ */
 draw.tools.on('finish', (id, context) => {
   let feature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]
   console.log(id)
@@ -68,6 +70,9 @@ draw.tools.on('finish', (id, context) => {
   }
 })
 
+/**
+ * @description Handles the selection of features.
+ */
 draw.tools.on('select', (id) => {
   draw.selectedFeature = draw.tools.getSnapshot().filter((feature) => feature.id === id)[0]
 })

@@ -1,11 +1,8 @@
 <script setup>
-//TODO: refactor code and split number filter and enum filter in seperate components
-
-import { defineProps, ref, watch } from 'vue'
+import { defineProps, ref } from 'vue'
 import VueMultiselect from 'vue-multiselect/src/Multiselect.vue'
 import 'vue-multiselect/dist/vue-multiselect.css'
 import { CRow, CCol } from '@coreui/bootstrap-vue'
-import AccordionItem from '../AccordionItem.vue'
 
 import HistogramSlider from 'vue3-histogram-slider'
 import 'vue3-histogram-slider/dist/histogram-slider.css'
@@ -24,28 +21,6 @@ const filterElement = ref(filter.filters.attributeFilter[props.id])
 const histogramSlider = ref(null)
 const valueOptions = ref(null)
 const arrayOfPropertyValues = ref(null)
-
-/**
- * @description
- */
-// watch(filterElement.value.selectedValues, () => {
-//   if (filterElement.value.selectedValues.length > 0) {
-//     setFilterExpression(filterElement.value.selectedProperty, filterElement.value.selectedValues)
-//   }
-// })
-
-/**
- * @description Is called when btn gets clicked. New entry added to array with the current date when btn gets clicked (as id for filterElement).
- */
-function addFilterElement() {
-  if (Object.keys(filter.filters['attributeFilter']).length <= filter.maxAttributeFilter) {
-    const filterID = 'attrFilter' + Date.now()
-    filter.addFilter(filterID, 'attributeFilter')
-  } else {
-    filter.reachedLimit = true
-    console.log('You reached the maximum number of filters')
-  }
-}
 
 /**
  * @description Store data type of selected property

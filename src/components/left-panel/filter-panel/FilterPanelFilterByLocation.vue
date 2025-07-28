@@ -11,7 +11,7 @@ const props = defineProps({ map: Map })
 const activeTab = ref('toolbox')
 
 /**
- *
+ * @description Sets the active tab for the filter panel.
  * @param {String} tab
  */
 function setActiveTab(tab) {
