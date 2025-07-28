@@ -11,6 +11,14 @@ export const useLegendStore = defineStore('legend', () => {
   const selectedProperty = ref(null)
 
   /**
+   * @description
+   * @param {String} property
+   */
+  function setSelectedProperty(property) {
+    selectedProperty.value = property
+  }
+
+  /**
    * @description set up an object with relevant information for creating a legend
    * @param {Array} classes
    * @param {Array} colors
@@ -18,6 +26,7 @@ export const useLegendStore = defineStore('legend', () => {
   function setLegendObject(classes, colors) {
     let legendObj = {}
     for (var i = 0; i < colors.length; i++) {
+      // define a range for numeric values
       if (colors.length == classes.length) {
         legendObj[i] = {
           id: i,
