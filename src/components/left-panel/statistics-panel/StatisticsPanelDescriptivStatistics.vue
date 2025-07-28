@@ -25,7 +25,7 @@ const selectedPropertyDataType = ref(null)
 const propertyValues = ref(null)
 
 /**
- *
+ * @description handles the selection of the data source which builds the data for the statistics panel.
  */
 function setDataSource() {
   if (selectedSourceTitle.value == 'GHFDB') {
@@ -39,30 +39,20 @@ function setDataSource() {
 }
 
 /**
+ * @description Plots a histogram of the selected property values.
+ * @param {Array} propertValues - The values of the selected property.
  * @param {String} property
+ * @param {String} dataType
  */
-function plotGraph(propertValues, propertyKey, dataType) {
+function plotGraph(propertValues, property, dataType) {
   const trace = {
     x: propertValues,
     type: 'histogram'
   }
 
-  // Boundary of layer within graph
-  // const min = {
-  //   type: 'line',
-  //   xref: 'paper',
-  //   x0: 0,
-  //   y0: ,
-  //   line: {
-  //     color: 'red',
-  //     width: 2,
-  //     dash: 'dot'
-  //   }
-  // }
-
-  let xText = schema.dataSchema.properties[propertyKey].title
+  let xText = schema.dataSchema.properties[property].title
   if (dataType === 'number') {
-    xText = xText + ' [' + schema.dataSchema.properties[propertyKey].units + ']'
+    xText = xText + ' [' + schema.dataSchema.properties[property].units + ']'
   }
 
   const layout = {
@@ -88,7 +78,7 @@ function plotGraph(propertValues, propertyKey, dataType) {
 }
 
 /**
- *
+ * @description Sets the property values for the selected property.
  * @param {Sting} property
  */
 function setPropertyValues(property) {
@@ -98,7 +88,7 @@ function setPropertyValues(property) {
 }
 
 /**
- * @description
+ * @description Sets the data type of the selected property.
  * @param {Object} property
  */
 function setPropertyDataType(property) {
