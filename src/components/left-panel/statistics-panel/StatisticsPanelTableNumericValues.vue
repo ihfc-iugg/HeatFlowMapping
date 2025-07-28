@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps, watch, onMounted } from 'vue'
+import { ref, defineProps, onMounted } from 'vue'
 import { mean, std, median } from 'mathjs'
 import Statistics from 'statistics.js'
 
@@ -13,95 +13,15 @@ import {
   CTooltip
 } from '@coreui/bootstrap-vue'
 
+import { useStatisticsStore } from '@/store/statistics'
+
+const statisticsStore = useStatisticsStore()
+
 const props = defineProps({ attributeValues: Array })
 
 onMounted(() => {
-  setTableValues(props.attributeValues)
+  statisticsStore.setTableValues(props.attributeValues)
 })
-
-const table = ref({
-  min: null,
-  max: null,
-  mean: null,
-  std: null,
-  median: null,
-  skewness: null,
-  kurtosis: null
-})
-
-/**
- *
- * @param {Array} values
- */
-function setMin(values) {
-  table.value.min = Math.min.apply(null, values).toFixed(2)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setMax(values) {
-  table.value.max = Math.max.apply(null, values).toFixed(2)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setMean(values) {
-  table.value.mean = mean(values.filter((n) => n)).toFixed(2)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setStd(values) {
-  table.value.std = std(values.filter((n) => n)).toFixed(2)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setMedian(values) {
-  table.value.median = median(values.filter((n) => n)).toFixed(2)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setSkewness(values) {
-  const stats = new Statistics([])
-  table.value.skewness = stats.skewness(values.filter((n) => n)).toFixed(2)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setKurtosis(values) {
-  const stats = new Statistics([])
-  table.value.kurtosis = stats.kurtosis(values.filter((n) => n)).toFixed(2)
-  console.log('----kurtosis')
-  console.log(table.value.kurtosis)
-}
-
-/**
- *
- * @param {Array} values
- */
-function setTableValues(values) {
-  setMin(values)
-  setMax(values)
-  setMean(values)
-  setStd(values)
-  setMedian(values)
-  setSkewness(values)
-  setKurtosis(values)
-}
 </script>
 
 <template>
@@ -116,31 +36,31 @@ function setTableValues(values) {
       <CTableBody>
         <CTableRow>
           <CTableHeaderCell scope="row">Min</CTableHeaderCell>
-          <CTableDataCell>{{ table.min }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.min }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row">Max</CTableHeaderCell>
-          <CTableDataCell>{{ table.max }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.max }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row">Mean</CTableHeaderCell>
-          <CTableDataCell>{{ table.mean }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.mean }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row">Median</CTableHeaderCell>
-          <CTableDataCell>{{ table.median }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.median }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row">Std</CTableHeaderCell>
-          <CTableDataCell>{{ table.std }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.std }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row">Skewness</CTableHeaderCell>
-          <CTableDataCell>{{ table.skewness }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.skewness }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row">Kurtosis</CTableHeaderCell>
-          <CTableDataCell>{{ table.kurtosis }}</CTableDataCell>
+          <CTableDataCell>{{ statisticsStore.table.kurtosis }}</CTableDataCell>
         </CTableRow>
         <CTableRow>
           <CTableHeaderCell scope="row"
