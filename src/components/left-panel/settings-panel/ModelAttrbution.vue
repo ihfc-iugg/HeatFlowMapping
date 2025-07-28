@@ -20,7 +20,7 @@ const props = defineProps({
 })
 
 /**
- *
+ * @description Sets the cursor to pointer when hovering over the info icon.
  * @param event
  */
 function setCursorToPointer(event) {

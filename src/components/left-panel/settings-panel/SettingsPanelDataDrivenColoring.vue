@@ -9,17 +9,16 @@ import ColorPaletteSelect from './ColorPaletteSelect.vue'
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapStore } from '@/store/map'
 import { useDataCrivenColoringStore } from '@/store/dataDrivenColoring.js'
-import { useDataDrivenColoringSequentialStore } from '@/store/dataDrivenColoringSequential'
 import { useLegendStore } from '@/store/legend'
 
 const schemaStore = useDataSchemaStore()
 const mapStore = useMapStore()
 const dataColoringStore = useDataCrivenColoringStore()
-const sequentialStore = useDataDrivenColoringSequentialStore()
 const legendStore = useLegendStore()
 
 /**
- * set new color options when amount of classes (colorSteps) is changing
+ * @description Watches for changes in the number of classes and updates the color palette options accordingly.
+ * @param {number} newNumberOfClasses - The new number of classes to update the color palette options.
  */
 watch(dataColoringStore.numberOfClasses, (newNumberOfClasses) => {
   dataColoringStore.setColorPaletteOptions(dataColoringStore.natureOfData, newNumberOfClasses)
@@ -28,7 +27,6 @@ watch(dataColoringStore.numberOfClasses, (newNumberOfClasses) => {
 </script>
 
 <template>
-  <!-- Data Driven Coloring -->
   <!-- Property selection -->
   <AccordionItem title="Data Driven Coloring" id="dataDrivenColoring">
     <VueMultiselect

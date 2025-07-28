@@ -1,17 +1,18 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { watch } from 'vue'
 
 import AccordionItem from '../AccordionItem.vue'
 import ModelAttrbution from './ModelAttrbution.vue'
 
-import { useSettingsStore } from '@/store/settings'
 import { useMapStore } from '@/store/map'
 import { useHFModelsStore } from '@/store/hfModels'
 
-const settings = useSettingsStore()
 const mapStore = useMapStore()
 const hfModels = useHFModelsStore()
 
+/**
+ * @description Watches for changes in the selected model and updates the map layer visibility accordingly.
+ */
 watch(
   () => hfModels.selectedModel,
   () => {

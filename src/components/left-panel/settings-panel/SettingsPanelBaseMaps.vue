@@ -6,17 +6,21 @@ import { useMapStore } from '@/store/map'
 import AccordionItem from '../AccordionItem.vue'
 
 const settings = useSettingsStore()
-const bm = useBaseMapsStore()
+const baseMapStore = useBaseMapsStore()
 const mapStore = useMapStore()
 
-function changeBaseLayer(oldBaseLayer, newBaseLayer) {
-  // change base map on click
-  if (newBaseLayer == oldBaseLayer) {
+/**
+ * @description Changes the base layer of the map when a new base map is selected.
+ * @param {String} oldBaseLayerId
+ * @param {String} newBaseLayerId
+ */
+function changeBaseLayer(oldBaseLayerId, newBaseLayerId) {
+  if (newBaseLayerId == oldBaseLayerId) {
     return
   } else {
-    mapStore.map.setLayoutProperty(oldBaseLayer, 'visibility', 'none')
-    mapStore.map.setLayoutProperty(newBaseLayer, 'visibility', 'visible')
-    settings.activeBaseLayer = newBaseLayer
+    mapStore.map.setLayoutProperty(oldBaseLayerId, 'visibility', 'none')
+    mapStore.map.setLayoutProperty(newBaseLayerId, 'visibility', 'visible')
+    settings.activeBaseLayer = newBaseLayerId
   }
 }
 </script>
@@ -24,7 +28,7 @@ function changeBaseLayer(oldBaseLayer, newBaseLayer) {
 <template>
   <AccordionItem title="Base Maps" id="base-maps-accordion">
     <div class="maps-content row row-cols-2 row-cols-md-3 g-1">
-      <div v-for="baseMap in bm.baseMaps" class="col">
+      <div v-for="baseMap in baseMapStore.baseMaps" class="col">
         <div
           class="card h-100"
           role="button"

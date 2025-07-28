@@ -8,9 +8,8 @@ const settings = useSettingsStore()
 const mapStore = useMapStore()
 
 /**
- *
- * @param {*} circleRadius
  * @description If user changes size of circles, the watch method keeps track of it and adjust it synchron
+ * @param {number} circleRadius
  */
 function setCircleRadius(circleRadius) {
   mapStore.map.setPaintProperty('ghfdb', 'circle-radius', parseInt(circleRadius))
@@ -18,7 +17,6 @@ function setCircleRadius(circleRadius) {
 </script>
 
 <template>
-  <!-- Circle Size  -->
   <AccordionItem title="Circle Radius" id="circleRadius">
     <input
       type="range"
