@@ -95,7 +95,7 @@ export const useDrawStore = defineStore('Setup and access draw tool', () => {
   )
 
   /**
-   *
+   * @description Initializes the TerraDraw tools with the provided MapLibre map instance.
    * @param {Map} map
    */
   function setDraw(map) {
@@ -106,16 +106,20 @@ export const useDrawStore = defineStore('Setup and access draw tool', () => {
     tools.value.start()
   }
 
+  /**
+   * @description Sets the selected feature in the store.
+   * @param {Object} feature
+   */
   function setSelectedFeature(feature) {
     selectedFeature.value = feature
   }
 
   /**
-   *
+   * @description Returns an array of feature IDs to be removed from the map.
    * @param {Array} features
    * @param {Object} featureToKeep
    * @param {String} featureType
-   * @returns Array of Ids
+   * @returns {Array} Array of Ids
    */
   function getFeatureIdsToRemove(features, featureToKeep) {
     let featureIds = []

@@ -11,7 +11,7 @@ export const useIndexDBStore = defineStore('IndexDB', () => {
   const hasGHFDB = ref(null)
 
   /**
-   *
+   * @description Opens an IndexedDB database and creates an object store if it doesn't exist.
    * @param {String} dbName
    * @param {String} storeName
    * @returns
@@ -33,11 +33,11 @@ export const useIndexDBStore = defineStore('IndexDB', () => {
   }
 
   /**
-   *
+   * @description Saves data to the IndexedDB.
    * @param {String} dbName
    * @param {String} storeName
    * @param {Object} data
-   * @returns
+   * @returns {Promise<Boolean>} true if save was successful
    */
   async function saveData(dbName, storeName, data) {
     const db = await openDB(dbName, storeName)
@@ -53,11 +53,11 @@ export const useIndexDBStore = defineStore('IndexDB', () => {
   }
 
   /**
-   *
+   * @description
    * @param {String} dbName
    * @param {String} storeName
    * @param {String} dataId
-   * @returns
+   * @returns {Promise<Object>} data from the IndexedDB
    */
   async function getData(dbName, storeName, dataId) {
     const db = await openDB(dbName, storeName)
@@ -72,11 +72,11 @@ export const useIndexDBStore = defineStore('IndexDB', () => {
   }
 
   /**
-   *
+   * @description Removes data from the IndexedDB.
    * @param {String} dbName
    * @param {String} storeName
    * @param {String} dataId
-   * @returns
+   * @returns {Promise<Boolean>} true if removal was successful
    */
   async function removeData(dbName, storeName, dataId) {
     const db = await openDB(dbName, storeName)

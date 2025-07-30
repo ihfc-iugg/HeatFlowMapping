@@ -23,7 +23,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
 
   /**
    *
-   * @description
+   * @description adds an empty layer to the layers array
    */
   function addEmptyLayer() {
     layers.value.push({
@@ -40,7 +40,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
-   *
+   * @description sets the layer properties based on the provided parameters.
    * @param {number} tTop
    * @param {number} tBot
    * @param {number} qTop
@@ -72,12 +72,11 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     } else {
       console.log('You reached the maximum number of layers. Only 12 layers are allowed')
     }
-    console.log('colorbrewer')
-    console.log(colorbrewer)
   }
 
   /**
-   *
+   * @description Removes the last layer from the layers array if there is more than one layer.
+   * @param {Array} layers
    */
   function removeLastLayer(layers) {
     if (layers.length > 1) {
@@ -99,7 +98,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
-   *
+   * @description Bootstrapping the layers with initial values for temperature and heat flow.
    * @param {Array} layers
    * @param {number} t0 °C
    * @param {number} q0 mW/m^2 10^-3
@@ -159,10 +158,10 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
-   *
+   * @description calculates the x values for the error bars
    * @param {Array} origXValues
    * @param {Number} uncertainty in percent
-   * @returns
+   * @returns {Array} xErrorBars
    */
   function calcXValuesUncertainty(origXValues, uncertainty) {
     let xErrorBars = []
@@ -175,9 +174,9 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
-   *
+   * @description calculates the y values for the error bars
    * @param {Array} origYValues
-   * @returns
+   * @returns {Array} yErrorBars
    */
   function calcYValuesContinuousErrorBars(origYValues) {
     let yErrorBars = origYValues.map((y) => y)

@@ -26,7 +26,7 @@ const navBar = useNavigationBarStore()
       class="text-reset btn-close btn-close-white"
       data-bs-dismiss="offcanvas"
       aria-label="Close"
-      @click="(navBar.setIsCollapsed(), navBar.toggleVisibleScrolling())"
+      @click="(navBar.toggleIsCollapsed(), navBar.toggleVisibleScrolling())"
     ></button>
   </div>
   <div class="offcanvas-body p-0">

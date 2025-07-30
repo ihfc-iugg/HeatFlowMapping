@@ -10,6 +10,9 @@ const { isInstantiated } = storeToRefs(mapStore)
 const lat = ref()
 const lng = ref()
 
+/**
+ * @description Watches the map instantiation state and updates the cursor coordinates accordingly.
+ */
 watch(isInstantiated, () => {
   mapStore.map.on('mousemove', function (e) {
     lat.value = e.lngLat.wrap().lat.toFixed(5)

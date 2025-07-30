@@ -50,14 +50,14 @@ export const useDataDrivenColoringSequentialStore = defineStore(
 
     /**
      * @description Helper function for Math.quantileSeq() to collect only the values of a single property within one array
-     * @param {*} geoJson
+     * @param {Object} featureCollection
      * @param {String} property
      * @returns {Array}
      */
-    function propertyValuesToArray(geoJson, property) {
+    function propertyValuesToArray(featureCollection, property) {
       let values = []
 
-      geoJson.features.forEach((feature) => {
+      featureCollection.features.forEach((feature) => {
         let value = feature.properties[property]
         // to filter sting values, e.g. q_uncertainty contains a value of type string ([Unspecified])
         if (isNumber(value)) {
@@ -70,12 +70,13 @@ export const useDataDrivenColoringSequentialStore = defineStore(
 
     /**
      * @description Calculate breaks for jenks classification
+     * @param {Object} featureCollection
      * @param {String} property
      * @param {Number} nrOfClasses
      * @returns {Array} [minValue, break1, ..., breakN, maxValue]
      */
-    function calcJenksNaturalBreaks(geoJson, property, nrOfClasses) {
-      const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+    function calcJenksNaturalBreaks(featureCollection, property, nrOfClasses) {
+      const values = propertyValuesToArray(featureCollection, property).filter(Boolean)
       let classifier = new geostats(values)
       let breaks = classifier.getJenks(nrOfClasses)
 
@@ -84,13 +85,13 @@ export const useDataDrivenColoringSequentialStore = defineStore(
 
     /**
      * @description Calculate breaks for quantil classification (each class has the same amount of data points)
-     * @param {*} geoJson
+     * @param {Object} featureCollection
      * @param {String} property
      * @param {Number} nrOfClasses
      * @returns {Array}
      */
-    function calcQuantilBreaks(geoJson, property, nrOfClasses) {
-      const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+    function calcQuantilBreaks(featureCollection, property, nrOfClasses) {
+      const values = propertyValuesToArray(featureCollection, property).filter(Boolean)
       const breaks = quantileSeq(values, nrOfClasses - 1)
 
       // add min value to beginning of array
@@ -104,13 +105,13 @@ export const useDataDrivenColoringSequentialStore = defineStore(
 
     /**
      * @description Calculate breaks for equal interval classification (each class has the same range of values)
-     * @param {*} geoJson
+     * @param {Object} featureCollection
      * @param {String} property
      * @param {Number} nrOfClasses
      * @returns {Array}
      */
-    function calcEqualIntervalBreaks(geoJson, property, nrOfClasses) {
-      const values = propertyValuesToArray(geoJson, property).filter(Boolean)
+    function calcEqualIntervalBreaks(featureCollection, property, nrOfClasses) {
+      const values = propertyValuesToArray(featureCollection, property).filter(Boolean)
       const minValue = Math.min.apply(null, values)
       const maxValue = Math.max.apply(null, values)
       const stepSize = (maxValue - minValue) / nrOfClasses
@@ -127,16 +128,17 @@ export const useDataDrivenColoringSequentialStore = defineStore(
      * @description Case differentiation if quantil or jenks is selected as classification method. According to the method, calculates the braks and returns them as array. Check the
      * following link for a explanation to qunatil and jenks data classification.
      * @link https://gisgeography.com/choropleth-maps-data-classification/
+     * @param {Object} featureCollection
      * @param {String} property
      * @returns {Array} [minValue, break1, ..., breakN, maxValue]
      */
-    function setClassBreaks(data, property, nrOfClasses) {
+    function setClassBreaks(featureCollection, property, nrOfClasses) {
       if (classification.value.name == 'quantil') {
-        classes.value = calcQuantilBreaks(data, property, nrOfClasses)
+        classes.value = calcQuantilBreaks(featureCollection, property, nrOfClasses)
       } else if (classification.value.name == 'equal') {
-        classes.value = calcEqualIntervalBreaks(data, property, nrOfClasses)
+        classes.value = calcEqualIntervalBreaks(featureCollection, property, nrOfClasses)
       } else if (classification.value.name == 'jenks') {
-        classes.value = calcJenksNaturalBreaks(data, property, nrOfClasses)
+        classes.value = calcJenksNaturalBreaks(featureCollection, property, nrOfClasses)
       } else {
         classes.value = null
         console.error('Unknown classification method')
@@ -144,8 +146,8 @@ export const useDataDrivenColoringSequentialStore = defineStore(
     }
 
     /**
-     * @description
-     * @returns
+     * @description Returns the array of class breaks
+     * @returns {Array} classes
      */
     function getClasses() {
       return classes.value
@@ -156,7 +158,8 @@ export const useDataDrivenColoringSequentialStore = defineStore(
      * @param {String} property
      * @param {Array} classes
      * @param {Array} colorPalette
-     * @returns {Array} ["step", ["get", "property"], #color, NUMBER, #color, ...]
+     * @returns {Array}
+     * @example ["step", ["get", "property"], #color, NUMBER, #color, ...]
      */
     function generatePaintProperty(property, classes, colorPalette) {
       let paintProperty = []

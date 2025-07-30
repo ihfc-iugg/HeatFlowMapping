@@ -31,14 +31,17 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
     'Quality_Code'
   ]
 
+  /**
+   * @description toggles the inProcess state.
+   */
   function toggleInProcess() {
     inProcess.value = !inProcess.value
   }
 
   /**
-   *
-   * @param {*} url
-   * @returns
+   * @description Fetches the GHFDB data from the API.
+   * @param {String} url
+   * @returns {Promise<String>} CSV content
    */
   async function getGhfdbFromAPI(url) {
     try {
@@ -60,9 +63,9 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
   }
 
   /**
-   *
-   * @param {*} csvStr
-   * @returns
+   * @description Converts CSV data to JSON and then to GeoJSON.
+   * @param {String} csvStr
+   * @returns {Promise<Object>} json
    */
   async function csv2JSON(csvStr) {
     try {
@@ -73,19 +76,19 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
   }
 
   /**
-   *
-   * @param {*} pnt
-   * @returns
+   * @description Returns the coordinates from a point object.
+   * @param {Object} pnt
+   * @returns {Array} coordinates
    */
   function getCoordinates(pnt) {
     return [pnt['long_EW'], pnt['lat_NS']]
   }
 
   /**
-   *
+   * @description Converts JSON data to GeoJSON format.
    * @param {Array} data
    * @param {Array} properties2Keep
-   * @returns Object GeoJSON FeatureCollection
+   * @returns {Object} Object GeoJSON FeatureCollection
    */
   async function json2GeoJSON(data, properties2Keep) {
     let features = []
@@ -107,7 +110,7 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
   }
 
   /**
-   *
+   * @description Adds the GHFDB data to the map as a source and layer.
    * @param {Map} map
    * @param {Object} ghfdb
    * @param {String} circleColor

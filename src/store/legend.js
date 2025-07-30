@@ -11,7 +11,7 @@ export const useLegendStore = defineStore('legend', () => {
   const selectedProperty = ref(null)
 
   /**
-   * @description
+   * @description sets the selected property for the legend.
    * @param {String} property
    */
   function setSelectedProperty(property) {
@@ -46,7 +46,7 @@ export const useLegendStore = defineStore('legend', () => {
   }
 
   /**
-   * @description to reset legend
+   * @description reset legend
    */
   function setLegendToNull() {
     if (legend.value) {

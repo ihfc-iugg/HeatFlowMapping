@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import { Map } from 'maplibre-gl'
 import { along, featureCollection, length, point, distance } from '@turf/turf'
 
 import { useOgcApiToolsStore } from './ogcApiTools'
@@ -16,10 +17,10 @@ export const use2DProfileReliefStore = defineStore('2DProfile helper logic', () 
   const ogcApiTools = useOgcApiToolsStore()
 
   /**
-   *
+   * @description Calculates points along a line string at a specified distance.
    * @param {Object} line
    * @param {Number} distance
-   * @returns FeatureCollection with points with defined distance between each other along the input line
+   * @returns {Object} FeatureCollection with points with defined distance between each other along the input line
    */
   function calculatePointsAlongLineString(line, distance) {
     const lineLength = length(line, { units: 'degrees' })
@@ -57,9 +58,9 @@ export const use2DProfileReliefStore = defineStore('2DProfile helper logic', () 
   }
 
   /**
-   *
-   * @param {*} mapObject
-   * @param {*} pointsAlongLine
+   * @description Adds points along a line to the map as a source and layer.
+   * @param {Map} mapObject
+   * @param {Object} pointsAlongLine
    */
   function addPointsAlongLineToMap(mapObject, pointsAlongLine) {
     mapObject.addSource('pointsAlongLine', {
@@ -117,7 +118,7 @@ export const use2DProfileReliefStore = defineStore('2DProfile helper logic', () 
   }
 
   /**
-   *
+   * @description Calculates the distance from the start point for each feature in the collection.
    * @param {Array} features
    */
   function setPntDistanceToStartPnt(features) {
@@ -131,6 +132,11 @@ export const use2DProfileReliefStore = defineStore('2DProfile helper logic', () 
     }
   }
 
+  /**
+   * @description Sets the relief value for each point in the feature collection.
+   * @param {Array} features
+   * @param {String} collectionURL
+   */
   async function setPntReliefValue(features, collectionURL) {
     for (let i = 0; i < features.length; i++) {
       let pnt = features[i]

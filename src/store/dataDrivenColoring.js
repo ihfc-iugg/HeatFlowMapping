@@ -57,7 +57,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
   }
 
   /**
-   *
+   * @description sets the property data type.
    * @param {String} dataType
    * @returns
    */
@@ -71,7 +71,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
   }
 
   /**
-   *
+   * @description Sets the nature of data based on the property data type.
    * @param {String} propertyDataType
    */
   function setNatureOfData(propertyDataType) {
@@ -87,7 +87,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
   }
 
   /**
-   * @description
+   * @description Sets the number of classes based on the property data type. For example the classes for "Exploration Type" are already known and defined in the data schema.
    * @param {String} selectedProperty
    * @returns
    */
@@ -102,7 +102,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
   }
 
   /**
-   *
+   * @description Sets classes based on the property data type and selected property.
    * @param {String} propertyDataType
    * @param {String} selectedProperty
    */
@@ -124,15 +124,15 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
   }
 
   /**
-   *
-   * @returns
+   * @description Returns the classes for the selected property.
+   * @returns {Array} classes
    */
   function getClasses() {
     return classes.value
   }
 
   /**
-   * @description
+   * @description Sets the color palette options based on the nature of data and number of classes.
    * @param {Number} classes
    */
   function setColorPaletteOptions(natureOfData, numberOfClasses) {
@@ -152,11 +152,11 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
   }
 
   /**
-   * @description
+   * @description Generates a paint property based on the property data type, property, and color palette.
    * @param {String} propertyDataType
    * @param {String} property
    * @param {Array} colorPalette
-   * @returns
+   * @returns {Object} paintProperty
    */
   function generatePaintProperty(propertyDataType, property, colorPalette) {
     let paintProperty = null

@@ -9,8 +9,10 @@ const schema = useDataSchemaStore()
 
 const property = ref(null)
 
+/**
+ * @description Initializes the property based on the selected property in the legend.
+ */
 watch(legend.selectedProperty, (newProperty) => {
-  console.log(newProperty)
   property.value = schema.dataSchema.properties[newProperty]
 })
 </script>

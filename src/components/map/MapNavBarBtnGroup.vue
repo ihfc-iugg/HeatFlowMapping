@@ -12,10 +12,10 @@ function controlNavbarOffcanvasInteraction(clickedPanel, navBar) {
   if (navBar.isCollapsed) {
     navBar.setPanelTitle(clickedPanel.title)
     navBar.setPanelIcon(clickedPanel.svgElement)
-    navBar.setIsCollapsed()
+    navBar.toggleIsCollapsed()
     navBar.toggleVisibleScrolling()
   } else if (!navBar.isCollapsed && navBar.getPanelTitle() == clickedPanel.title) {
-    navBar.setIsCollapsed()
+    navBar.toggleIsCollapsed()
     navBar.toggleVisibleScrolling()
   } else if (!navBar.isCollapsed && navBar.getPanelTitle() != clickedPanel.title) {
     navBar.setPanelTitle(clickedPanel.title)

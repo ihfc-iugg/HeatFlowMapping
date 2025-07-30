@@ -15,7 +15,7 @@ export const useSphericalTrigonometry = defineStore('spherical trgonometry', () 
    * @param {number} a
    * @param {number} b
    * @param {number} c
-   * @returns
+   * @returns {number} angle alpha in radians
    */
   function calculateAlpha(a, b, c) {
     // Ensure that the sides are in radians
@@ -37,7 +37,7 @@ export const useSphericalTrigonometry = defineStore('spherical trgonometry', () 
    * source: https://tu-dresden.de/bu/umwelt/geo/ipg/astro/ressourcen/dateien/skripte/Vorl-sp-trig.pdf?lang=en slide 73
    * @param {number} alpha
    * @param {number} c
-   * @returns
+   * @returns {number} b in radians
    */
   function calculateB(alpha, c) {
     // Ensure angles are in radians
@@ -61,7 +61,7 @@ export const useSphericalTrigonometry = defineStore('spherical trgonometry', () 
    * source: https://tu-dresden.de/bu/umwelt/geo/ipg/astro/ressourcen/dateien/skripte/Vorl-sp-trig.pdf?lang=en slide 73
    * @param {number} alpha
    * @param {number} c
-   * @returns
+   * @returns {number} a in radians
    */
   function calculateA(alpha, c) {
     // Ensure angles are in radians

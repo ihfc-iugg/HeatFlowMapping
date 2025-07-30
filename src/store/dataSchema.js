@@ -17,8 +17,9 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
   const isSchemaLoading = ref(null)
 
   /**
-   * @description
-   * @param {*} property
+   * @description Checks if the property is suitable for data driven coloring.
+   * @param {Object} schema
+   * @param {String} property
    * @returns {Boolean}
    */
   function _isPropertySelectable(schema, property) {
@@ -44,14 +45,15 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
 
   /**
    * @description Takes property name and brings it to structure necessary for VueMultiselect component
-   * @param {String} propertyName
+   * @param {Object} schema
+   * @param {String} property
    * @returns {Object}
    */
-  function _createVueMultiselectOption(schema, propertyName) {
-    const propertyObj = schema.properties[propertyName]
+  function _createVueMultiselectOption(schema, property) {
+    const propertyObj = schema.properties[property]
     let optionsObject = {}
     optionsObject['title'] = propertyObj.title
-    optionsObject['key'] = propertyName
+    optionsObject['key'] = property
 
     return optionsObject
   }
@@ -60,19 +62,20 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
    * @description Throw out all properties options which are not suitable for the data driven coloring e.g. name,
    * data points either be already classified (enum) or should be able to classify (continouse numerbs). The attribute builds also the link between schema and a selection of users.
    * They see the readable title and through the link of title corresponding key the selected attributes can easily be found in the schema like: dataSchema.properties[attributeKey]
+   * @param {Object} schema
    */
   function _setSelectableProperties(schema) {
     const propertyKeys = Object.keys(schema.properties)
 
-    propertyKeys.forEach((propertyName) => {
-      if (_isPropertySelectable(schema, propertyName)) {
-        selectableProperties.value.push(_createVueMultiselectOption(schema, propertyName))
+    propertyKeys.forEach((property) => {
+      if (_isPropertySelectable(schema, property)) {
+        selectableProperties.value.push(_createVueMultiselectOption(schema, property))
       }
     })
   }
 
   /**
-   * @description
+   * @description Collects all numeric properties from the schema and creates a VueMultiselect option for each of them.
    * @param {Object} properties
    */
   function _setNumericProperties(properties) {
@@ -86,7 +89,7 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
   }
 
   /**
-   * @description
+   * @description Fetches the API data schema and sets the dataSchema, dataVersion, selectableProperties and numberProperties.
    * @param {String} url
    */
   async function fetchAPIDataSchema(url) {

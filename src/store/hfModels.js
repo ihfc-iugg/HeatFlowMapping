@@ -60,7 +60,7 @@ export const useHFModelsStore = defineStore('HF Models', () => {
   const opacity = ref(50)
 
   /**
-   *
+   * @description Adds the HF models to the map as sources and layers.
    * @param {Map} map
    */
   function addModelsToMap(map) {

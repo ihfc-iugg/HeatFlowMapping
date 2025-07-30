@@ -32,16 +32,16 @@ function setSelectedPropertyType(selectedProperty) {
 
 /**
  * @description Resets the array with the selected filter values
+ * @param {Object} filterElement
  */
-function resetSelectedValues(selectedProperty) {
-  if (filterElement.value.selectedPropertyType == 'number') {
+function resetSelectedValues(filterElement) {
+  if (filterElement.selectedPropertyType == 'number') {
     // TODO: adjust to new slider lib, not working right now
-    console.log('befor reset: ' + filterElement.value.selectedValues)
-    filterElement.value.selectedValues = [valueOptions.value[0], valueOptions.value[1]]
-    console.log('after reset: ' + filterElement.value.selectedValues)
-    // arrayOfPropertyValues.value = getArrayOfPropertyValues(measurements.geojson, selectedProperty)
+    console.log('befor reset: ' + filterElement.selectedValues)
+    filterElement.selectedValues = [valueOptions.value[0], valueOptions.value[1]]
+    console.log('after reset: ' + filterElement.selectedValues)
   } else {
-    filterElement.value.selectedValues = []
+    filterElement.selectedValues = []
   }
 }
 
@@ -196,7 +196,7 @@ function updateSliderRange(newMin, newMax) {
           @select="
             (setSelectedPropertyType(filterElement.selectedProperty.key),
             setValueOptions(filterElement.selectedProperty.key),
-            resetSelectedValues())
+            resetSelectedValues(filterElement))
           "
         >
         </VueMultiselect>
@@ -308,7 +308,7 @@ function updateSliderRange(newMin, newMax) {
           style="border: 1px solid #4366a1"
           title="Reset Values"
           @click="
-            (resetSelectedValues(filterElement.selectedProperty.key),
+            (resetSelectedValues(filterElement),
             resetFilterExpression(),
             updateSliderRange(valueOptions[0], valueOptions[1]))
           "

@@ -38,6 +38,9 @@ watch(
   }
 )
 
+/**
+ * @description: Handles the deletion of the popup and marker when the delete trigger is set to true.
+ */
 watch(
   () => profile.triggerDeletePopup,
   async () => {
@@ -51,9 +54,12 @@ watch(
   }
 )
 
-// /**
-//  *
-//  */
+/**
+ * @description Sets up the popup and marker for the 2D profile line.
+ * @param {Object} line
+ * @param {Marker} marker
+ * @param {Map} map
+ */
 function setUpPopup(line, marker, map) {
   const pnt1 = point(line.geometry.coordinates[0])
   const pnt2 = point(line.geometry.coordinates[1])
@@ -65,6 +71,10 @@ function setUpPopup(line, marker, map) {
   marker.togglePopup()
 }
 
+/**
+ * @description Generates a popup element for the 2D profile chart.
+ * @returns {Popup}
+ */
 function generatePopup() {
   let elPopup = document.createElement('div')
   elPopup.id = 'popupProfileChart'
@@ -72,6 +82,10 @@ function generatePopup() {
   return ref(new Popup().setDOMContent(elPopup).setMaxWidth('100%'))
 }
 
+/**
+ * @description Generates a marker element for the 2D profile line chart.
+ * @param {Popup} popup
+ */
 function generateMarker(popup) {
   let elMarker = document.createElement('div')
   elMarker.id = 'markerLineChart'
@@ -79,7 +93,7 @@ function generateMarker(popup) {
 }
 
 /**
- * @description
+ * @description Appends a paragraph element to the popup with the count of points within the specified distance.
  * @param {string} elementIdBefore
  * @param {Array} pointsWithinDistance
  */
@@ -102,8 +116,9 @@ function appendCountPointsInfos(elementIdBefore, pointsWithinDistance) {
 }
 
 /**
- *
- * @param {Array} pntWithinDistance
+ * @description Highlights the hovered point on the map by changing its color.
+ * @param {string} pntId
+ * @param {Array} pntsWithinThresholdPaintProperty
  * @param {Map} mapObject
  */
 function highlightHoveredPoint(mapObject, pntId, pntsWithinThresholdPaintProperty) {
@@ -119,6 +134,10 @@ function highlightHoveredPoint(mapObject, pntId, pntsWithinThresholdPaintPropert
 //TODO: Not Working
 let observer = null
 
+/***
+ * @description: Sets up a MutationObserver to listen for changes in the popup element and adjust the hover functionality accordingly.
+ * TODO: Fix, not working right now
+ */
 function setupMutationObserver() {
   const el = popup.value.getElement()
   if (!el || !(el instanceof Node)) {

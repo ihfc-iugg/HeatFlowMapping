@@ -29,7 +29,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets the maximum value from the provided values.
    * @param {Array} values
    */
   function setMax(values) {
@@ -37,7 +37,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets the mean value from the provided values.
    * @param {Array} values
    */
   function setMean(values) {
@@ -45,7 +45,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets the standard deviation from the provided values.
    * @param {Array} values
    */
   function setStd(values) {
@@ -53,7 +53,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets the median value from the provided values.
    * @param {Array} values
    */
   function setMedian(values) {
@@ -61,7 +61,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets the skewness from the provided values.
    * @param {Array} values
    */
   function setSkewness(values) {
@@ -70,7 +70,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets the kurtosis from the provided values.
    * @param {Array} values
    */
   function setKurtosis(values) {
@@ -81,7 +81,7 @@ export const useStatisticsStore = defineStore('statistics', () => {
   }
 
   /**
-   *
+   * @description Sets all statistical values in the table.
    * @param {Array} values
    */
   function setTableValues(values) {

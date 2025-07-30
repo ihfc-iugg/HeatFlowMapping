@@ -11,7 +11,7 @@ const mapStore = useMapStore()
 const hfModels = useHFModelsStore()
 
 /**
- * @description Watches for changes in the selected model and updates the map layer visibility accordingly.
+ * @description Watche for changes in the selected model and updates the map layer visibility accordingly.
  */
 watch(
   () => hfModels.selectedModel,

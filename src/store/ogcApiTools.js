@@ -9,12 +9,12 @@ export const useOgcApiToolsStore = defineStore('OGC API tools', () => {
    */
 
   /**
-   * @description
+   * @description queries a value at a specific position using the OGC API.
    * @param {Number} lon
    * @param {Number} lat
    * @param {String} collectionURL
    * @param {String} queryParameter
-   * @returns
+   * @returns {Promise<Number>} value at the specified position
    */
   async function queryAtPosition(lon, lat, collectionURL, queryParameter) {
     const url = `${collectionURL}/position?f=json&coords=POINT(${lon + '%20' + lat})&parameter-name=${queryParameter}`

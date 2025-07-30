@@ -34,7 +34,7 @@ const hfModels = useHFModelsStore()
 const mapContainer = ref()
 
 /***
- *
+ * @description: Handles the initial data fetching and processing for the GHFDB and the schema file
  */
 async function initialDataHandling() {
   // TODO: store data schema in IndexedDB

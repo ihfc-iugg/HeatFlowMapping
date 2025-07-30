@@ -1,4 +1,3 @@
-<!-- Show popup containing infos of point (on click) -->
 <script setup>
 import { onMounted, ref, watch } from 'vue'
 import { useMapControlsStore } from '@/store/mapControls'
@@ -21,6 +20,9 @@ onMounted(() => {
   })
 })
 
+/***
+ * @description Watches the hasPopup state and updates the popup content accordingly.
+ */
 watch(hasPopup, (newValue) => {
   if (newValue) {
     mapControls.featureInfo.getPopup().setDOMContent(popupInfoContent.value)

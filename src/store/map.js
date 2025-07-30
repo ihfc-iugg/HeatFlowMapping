@@ -17,6 +17,10 @@ export const useMapStore = defineStore('map', () => {
 
   const map = ref(null)
 
+  /**
+   * @description sets up the map with the provided container element.
+   * @param {HTMLElement} containerElem
+   */
   function setMap(containerElem) {
     map.value = new Map({
       mapId: 'map_1',
@@ -42,6 +46,8 @@ export const useMapStore = defineStore('map', () => {
 
   /**
    * @description create object for base map sources
+   * @param {Object} bm - base maps store
+   * @returns {Object} object with base map sources
    */
   function setBaseMapsSource(bm) {
     let bmSourceObject = {}
@@ -61,6 +67,8 @@ export const useMapStore = defineStore('map', () => {
 
   /**
    * @description create object for base map layers
+   * @param {Object} bm - base maps store
+   * @returns {Array} array of layer objects
    */
   function setBaseMapsLayer(bm) {
     let layerObjects = []

@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 import { CTable, CTableRow, CRow } from '@coreui/bootstrap-vue'
 </script>
 

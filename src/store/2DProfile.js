@@ -37,14 +37,14 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   const relief = use2DProfileReliefStore()
 
   /**
-   * @description
+   * @description Toggles the visibility of the trigger popup.
    */
   function toggleTriggerPopup() {
     triggerPopup.value = !triggerPopup.value
   }
 
   /**
-   * @description
+   * @description Sets the points within a specified distance from a reference line.
    * @param {Array} features
    * @param {Object} referenceLine
    * @param {Number} threshold
@@ -64,7 +64,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   }
 
   /**
-   *
+   * @description Generates a paint property for points within a specified distance.
    * @param {Array} pntWithinDistance
    * @param {Map} mapObject
    */
@@ -72,12 +72,10 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     const pntIds = pntWithinDistance.map((pnt) => pnt.properties.ID)
 
     return ['case', ['in', ['get', 'ID'], ['literal', pntIds]], '#FCC480', settings.circleColor]
-    // const pntIds = pntWithinDistance.map((pnt) => pnt.id)
-    // return ['case', ['in', ['get', 'id'], ['literal', pntIds]], '#FCC480', settings.circleColor]
   }
 
   /**
-   * @description
+   * @description Converts a line string's coordinates into a GeoJSON FeatureCollection of points.
    * @param {Array} lineStringCoordinates
    * @returns {Object} GeoJSON FeatureCollection
    */
@@ -88,7 +86,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   }
 
   /**
-   * @description
+   * @description Adds model sources and layers to the map as line lable
    * @param {Map} mapObject
    * @param {Object} featureCollection
    */
@@ -122,10 +120,10 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   }
 
   /**
-   *
-   * @param {*} referenceLine
-   * @param {*} pnts
-   * @returns
+   * @description Projects data points onto a reference line and calculates their distance and offset.
+   * @param {Object} referenceLine
+   * @param {Array} pnts
+   * @returns {Array} projectedPnts
    */
   function projectingDataOnLine(referenceLine, pnts) {
     let projectedPnts = []
@@ -165,7 +163,10 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   }
 
   /**
-   * @description
+   * @description Draws a 2D profile chart based on the provided line and selected points.
+   * @param {Object} line - The line object representing the profile.
+   * @param {Array} selectedPnts - The points selected for the profile.
+   * @param {String} selectedProperty - The property to be displayed in the profile chart
    */
   function drawProfile(line, selectedPnts, selectedProperty) {
     const projectedPoinsts = projectingDataOnLine(line, selectedPnts)

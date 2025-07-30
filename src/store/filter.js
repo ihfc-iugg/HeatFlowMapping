@@ -14,8 +14,8 @@ export const useFilterStore = defineStore('filter', () => {
   const reachedLimit = ref(false)
 
   /**
-   *
-   * @returns new value for filter object
+   * @description returns a new filter object with default values.
+   * @returns {Object} new value for filter object
    */
   function getNewFilterObject() {
     return {
@@ -27,8 +27,9 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
-   *
-   * @param {*} filterId
+   * @description adds a new filter to the filters object.
+   * @param {String} filterId
+   * @param {String} category - 'attributeFilter' or 'locationFilter'
    */
   function addFilter(filterId, category) {
     if (category == 'locationFilter') {
@@ -46,8 +47,9 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
-   *
-   * @param {*} id
+   * @description removes a filter element from the filters object.
+   * @param {String} filterId
+   * @param {String} category - 'attributeFilter' or 'locationFilter'
    */
   function removeFilterElement(filterId, category) {
     delete filters.value[category][filterId]
@@ -76,8 +78,8 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
-   * @param {}
    * @description set Filter to map via internal maplibre function.
+   * @param {Map} mapObject
    */
   function applyFilterToMap(mapObject) {
     const expression = writeFilterExpression()
@@ -86,9 +88,11 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
-   * method code from https://docs.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
-   * @param {*} features
-   * @param {*} comparatorProperty
+   * @description Returns an array of unique features based on a comparator property.
+   * @link https://docs.mapbox.com/mapbox-gl-js/example/filter-features-within-map-view/
+   * @param {Array} features
+   * @param {String} comparatorProperty
+   * @returns {Array} unique features
    */
   function getUniqueFeatures(features, comparatorProperty) {
     const uniqueIds = new Set()
@@ -104,9 +108,9 @@ export const useFilterStore = defineStore('filter', () => {
   }
 
   /**
-   *
+   * @description Returns an array of features filtered by the current filters.
    * @param {Map} mapObject
-   * @returns
+   * @returns {Array} filtered features
    */
   function getFilteredFeatures(mapObject) {
     let filterExpression = writeFilterExpression()

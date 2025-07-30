@@ -43,38 +43,38 @@ export const useNavigationBarStore = defineStore('navigation bar', () => {
   ])
 
   /**
-   * @description
-   * @returns
+   * @description returns the title of the side panel.
+   * @returns {String} title of the side panel
    */
   function getPanelTitle() {
     return panelTitle.value
   }
 
   /**
-   * @description
-   * @returns
+   * @description returns the icon of the side panel.
+   * @returns {String} HTML string of the icon
    */
   function getPanelIcon() {
     return panelIcon.value
   }
 
   /**
-   * @description
+   * @description toggles the collapsed state of the navigation bar.
    */
-  function setIsCollapsed() {
+  function toggleIsCollapsed() {
     isCollapsed.value = !isCollapsed.value
   }
 
   /**
    * @description get title of corresponding button and set it as title of sidepanel
-   * @param {*} event
+   * @param {String} title
    */
   function setPanelTitle(title) {
     panelTitle.value = title
   }
 
   /**
-   * @description
+   * @description get icon of corresponding button and set it as icon of sidepanel
    * @param {String} htmlIcon
    */
   function setPanelIcon(htmlIcon) {
@@ -82,7 +82,7 @@ export const useNavigationBarStore = defineStore('navigation bar', () => {
   }
 
   /**
-   * @description
+   * @description toggles the visibility of the scrolling elements in the navigation bar.
    */
   function toggleVisibleScrolling() {
     visibleScrolling.value = !visibleScrolling.value
@@ -96,7 +96,7 @@ export const useNavigationBarStore = defineStore('navigation bar', () => {
     navigationElements,
     getPanelTitle,
     getPanelIcon,
-    setIsCollapsed,
+    toggleIsCollapsed,
     setPanelTitle,
     setPanelIcon,
     toggleVisibleScrolling

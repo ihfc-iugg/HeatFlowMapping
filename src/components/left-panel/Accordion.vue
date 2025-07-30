@@ -1,9 +1,3 @@
-<template>
-  <div class="accordion accordion-flush" :id="accordionId">
-    <slot />
-  </div>
-</template>
-
 <script setup>
 import { defineProps } from 'vue'
 defineProps({
@@ -13,3 +7,8 @@ defineProps({
   }
 })
 </script>
+<template>
+  <div class="accordion accordion-flush" :id="accordionId">
+    <slot />
+  </div>
+</template>
