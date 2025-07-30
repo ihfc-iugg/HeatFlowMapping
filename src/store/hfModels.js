@@ -26,35 +26,35 @@ export const useHFModelsStore = defineStore('HF Models', () => {
         [180, -85.06],
         [-180, -85.06]
       ]
-    },
-    'sample-model1': {
-      id: 'sample-model1',
-      title: 'Some sample 1',
-      // modelURL: '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png',
-      modelURL: '',
-      attribution: 'This is a sample model for testing purposes.',
-      doi: 'doi:10.1234/sample-model',
-      extend: [
-        [-180, 85.06],
-        [180, 85.06],
-        [180, -85.06],
-        [-180, -85.06]
-      ]
-    },
-    'sample-model2': {
-      id: 'sample-model2',
-      title: 'Some sample 2',
-      // modelURL: '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png',
-      modelURL: '',
-      attribution: '',
-      doi: 'doi:10.1234/sample-model',
-      extend: [
-        [-180, 85.06],
-        [180, 85.06],
-        [180, -85.06],
-        [-180, -85.06]
-      ]
     }
+    // 'sample-model1': {
+    //   id: 'sample-model1',
+    //   title: 'Some sample 1',
+    //   // modelURL: '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png',
+    //   modelURL: '',
+    //   attribution: 'This is a sample model for testing purposes.',
+    //   doi: 'doi:10.1234/sample-model',
+    //   extend: [
+    //     [-180, 85.06],
+    //     [180, 85.06],
+    //     [180, -85.06],
+    //     [-180, -85.06]
+    //   ]
+    // },
+    // 'sample-model2': {
+    //   id: 'sample-model2',
+    //   title: 'Some sample 2',
+    //   // modelURL: '@/assets/img/HF_R2024_GRID_down_scaled_cropped.png',
+    //   modelURL: '',
+    //   attribution: '',
+    //   doi: 'doi:10.1234/sample-model',
+    //   extend: [
+    //     [-180, 85.06],
+    //     [180, 85.06],
+    //     [180, -85.06],
+    //     [-180, -85.06]
+    //   ]
+    // }
   })
   const selectedModel = ref(null)
   const opacity = ref(50)
