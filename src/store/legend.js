@@ -54,5 +54,5 @@ export const useLegendStore = defineStore('legend', () => {
     }
   }
 
-  return { legend, selectedProperty, setLegendObject, setLegendToNull }
+  return { legend, selectedProperty, setSelectedProperty, setLegendObject, setLegendToNull }
 })
