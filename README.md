@@ -22,7 +22,7 @@ And many others to provide a seamless and rich user experience.
 
 The web application includes a variety of tools to explore and analyze the heat flow data, making it an essential resource for researchers and practitioners in geophysics and related fields.
 
-<img src="./src/assets/img/app_teaser_4_readme.PNG" alt="GHFDB Viewer" style="width:50%; height:auto;">
+<img src="./src/assets/img/app_teaser_4_readme.PNG" alt="GHFDB Viewer" style="width:75%; height:auto;">
 
 Full technical documntation can be found [here](https://heatflowworld.readthedocs.io/en/latest/guides/map_exploration/index.html)
 
