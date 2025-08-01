@@ -1,18 +1,44 @@
 <!-- inspiration for readme https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/ -->
-# World Heat Flow Database Project - Web Map Application
+![GHFDB Logo](./src/assets/img/ghfdb_logo.svg)
 
-<!-- Here project discription around 4-5 lines -->
-<!-- - What your application does,
-- Why you used the technologies you used,
-- Some of the challenges you faced and features you hope to implement in the future. -->
+# Global Heat Flow Database - Web Map Application
 
-## Table of Contents
-- [Setup Web Map Application](#setup-web-map-application)
-- [How to use the Web Map Application](#how-to-use-the-web-map-application)
-- [Credits](#credits)
-- [License](#license)
+The [Global Heat Flow Database - Web Map Application](https://portal.heatflow.world/explore/) was developed as part of the World Heat Flow Database Project. Its primary objective is to provide easy, browser-based access to the Global Heat Flow Database with minimal user effort. This application allows users to quickly explore heat flow data without the need to download or import it into a GIS.
 
-### Setup Web Map Application
+**Key Features:**
+- Instant Access: View the Global Heat Flow Database directly in the browser.
+- Interactive Visualization: Provides an intuitive and interactive mapping interface to explore heat flow data.
+- User-Friendly Interface: Built with a low barrier to entry, enabling users of all technical levels to explore global heat flow data effortlessly.
+
+**Technical Overview:**
+The application is developed using the Vue.js JavaScript framework and leverages a range of well-established libraries, including:
+
+- MapLibre for interactive mapping
+- Pinia for internal state managment
+- Plotly for data visualization
+- Bootstrap for responsive UI components
+
+And many others to provide a seamless and rich user experience.
+
+The web application includes a variety of tools to explore and analyze the heat flow data, making it an essential resource for researchers and practitioners in geophysics and related fields.
+
+<img src="./src/assets/img/app_teaser_4_readme.PNG" alt="GHFDB Viewer" style="width:50%; height:auto;">
+
+Full technical documntation can be found [here](https://heatflowworld.readthedocs.io/en/latest/guides/map_exploration/index.html)
+
+<!-- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes -->
+
+
+## Setup Web Map Application on your local machine
+
+#### Clone repo
+
+```sh
+git clone https://github.com/ihfc-iugg/HeatFlowMapping.git
+cd HeatFlowMapping/
+```
+
+#### Install depending packages
 
 ```sh
 npm install
@@ -65,11 +91,9 @@ npm run build
 serve -s dist
 ```
 
-### How to use the Web Map Application
+## Credits
 
-### Credits
-
-### License
+## License
 
 <!-- ## Migration from VueCLI to Vite
 [How to Migrate from Vue CLI to Vite](https://vueschool.io/articles/vuejs-tutorials/how-to-migrate-from-vue-cli-to-vite/) -->
@@ -82,6 +106,3 @@ serve -s dist
 
 ### Unpublish package
 [npm Unpublish Policy](https://docs.npmjs.com/policies/unpublish) -->
-
-
-
