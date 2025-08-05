@@ -1,9 +1,9 @@
 <!-- inspiration for readme https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/ -->
 ![GHFDB Logo](./src/assets/img/ghfdb_logo.svg)
 
-# Global Heat Flow Database - Web Map Application
+# Global Heat Flow Database - Web Mapping Application
 
-The [Global Heat Flow Database - Web Map Application](https://portal.heatflow.world/explore/) was developed as part of the World Heat Flow Database Project. Its primary objective is to provide easy, browser-based access to the Global Heat Flow Database with minimal user effort. This application allows users to quickly explore heat flow data without the need to download or import it into a GIS.
+The [Global Heat Flow Database - Web Map Application](https://portal.heatflow.world/explore/) was developed as part of the World Heat Flow Database Project. Its primary objective is to provide easy, browser-based access to the Global Heat Flow Database (GHFDB) with minimal user effort. This application allows users to quickly explore heat flow data without the need to download or import it into a GIS.
 
 **Key Features:**
 - Instant Access: View the Global Heat Flow Database directly in the browser.
@@ -28,6 +28,15 @@ Full technical documntation can be found [here](https://heatflowworld.readthedoc
 
 <!-- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-readmes -->
 
+## Features
+
+The Mapping Application offers a range of features to visualize and explore the GHFDB.
+Details about the implemented features and instructions for using them can be found [here](https://heatflowworld.readthedocs.io/en/latest/guides/map_exploration/index.html).
+
+## Participate
+
+We welcome user contributions and feedback!
+If you encounter any bugs, please open a new [issue](https://github.com/ihfc-iugg/HeatFlowMapping/issues).
 
 ## Setup Web Map Application on your local machine
 
