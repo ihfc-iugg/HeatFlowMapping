@@ -93,5 +93,5 @@ export const useMapStore = defineStore('map', () => {
     return layerObjects
   }
 
-  return { map, isInstantiated, setMap }
+  return { map, isInstantiated, setMap, setBaseMapsSource, setBaseMapsLayer }
 })
