@@ -9,10 +9,10 @@ import {
   radiansToLength
 } from '@turf/turf'
 import { Map } from 'maplibre-gl'
-import { useSettingsStore } from './settings.js'
-import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
 import { newPlot } from 'plotly.js-dist'
 
+import { useSettingsStore } from './settings.js'
+import { useSphericalTrigonometry } from './sphericalTrigonometry.js'
 import { useDataSchemaStore } from './dataSchema.js'
 import { use2DProfileReliefStore } from './2DProfileRelief.js'
 
@@ -91,6 +91,11 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
    * @param {Object} featureCollection
    */
   function addLineLabelToMap(mapObject, featureCollection) {
+    if (mapObject.getSource('lineLable') && mapObject.getLayer('lineLable')) {
+      // If the source and layer already exist, update the data
+      mapObject.getSource('lineLable').setData(featureCollection)
+      return
+    }
     if (!mapObject.getSource('lineLable')) {
       mapObject.addSource('lineLable', {
         type: 'geojson',
@@ -133,8 +138,6 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     // bT, T is shortcut for triangle
     const bT = distance(pntA, pntC, { units: 'radians' }) // length of drawn line
     pnts.forEach((pnt) => {
-      console.log('pnt in profile store')
-      console.log(pnt)
       // B is point within threshold
       const pntB = point(pnt.geometry.coordinates)
       const aT = distance(pntC, pntB, { units: 'radians' })
@@ -303,7 +306,6 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
     let data = [propertyValuesTrace, offsetTrace]
 
     plot.value = newPlot('popupProfileChart', data, layout)
-    console.log(plot.value)
   }
 
   return {
