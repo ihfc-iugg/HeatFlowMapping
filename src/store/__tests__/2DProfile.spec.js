@@ -1,16 +1,8 @@
 import { describe, beforeEach, it } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
-import { newPlot } from 'plotly.js-dist'
-import {
-  distance,
-  featureCollection,
-  lineString,
-  point,
-  pointToLineDistance,
-  radiansToLength
-} from '@turf/turf'
 
 import { use2DProfileStore } from '../2DProfile.js'
+import { exp } from 'mathjs'
 
 // Mock settings, sphericalTigonometry, schema, relief stores
 vi.mock('@/store/settings', () => ({
@@ -34,46 +26,24 @@ describe('2d profile store', () => {
   })
 
   // test initial state
-  it('initializes with correct state for selectedProperty', () => {
+  it('check initializes with correct state', () => {
     const store = use2DProfileStore()
-    expect(store.selectedProperty1).toBeDefined()
+    // attributes
     expect(store.selectedProperty1).toBe('q')
-  })
-
-  it('initializes with correct state for threshold', () => {
-    const store = use2DProfileStore()
-    expect(store.threshold).toBeDefined()
     expect(store.threshold).toBe(25)
-  })
-
-  it('initializes with correct state for line', () => {
-    const store = use2DProfileStore()
-    expect(store.line).toBeDefined()
     expect(store.line).toBeNull()
-  })
-
-  it('initializes with correct state for pointsWithinDistance', () => {
-    const store = use2DProfileStore()
-    expect(store.pointsWithinDistance).toBeDefined()
     expect(store.pointsWithinDistance).toHaveLength(0)
-  })
-
-  it('initializes with correct state for plot', () => {
-    const store = use2DProfileStore()
-    expect(store.plot).toBeDefined()
     expect(store.plot).toBeNull()
-  })
-
-  it('initializes with correct state for triggerPopup', () => {
-    const store = use2DProfileStore()
-    expect(store.triggerPopup).toBeDefined()
     expect(store.triggerPopup).toBeFalsy()
-  })
-
-  it('initializes with correct state for triggerDeletePopup', () => {
-    const store = use2DProfileStore()
-    expect(store.triggerDeletePopup).toBeDefined()
     expect(store.triggerDeletePopup).toBeFalsy()
+    // methods
+    expect(store.toggleTriggerPopup).toBeDefined()
+    expect(store.setPointsWithinDistance).toBeDefined()
+    expect(store.generatePaintProperty).toBeDefined()
+    expect(store.lineStringToPointFeatureCollection).toBeDefined()
+    expect(store.addLineLabelToMap).toBeDefined()
+    expect(store.projectingDataOnLine).toBeDefined()
+    expect(store.drawProfile).toBeDefined()
   })
 
   // test functions
