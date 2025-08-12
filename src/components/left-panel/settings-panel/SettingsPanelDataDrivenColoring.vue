@@ -41,7 +41,10 @@ watch(dataColoringStore.numberOfClasses, (newNumberOfClasses) => {
           dataColoringStore.getPropertyDataType(dataColoringStore.selectedProperty.key)
         ),
         dataColoringStore.setNatureOfData(dataColoringStore.propertyDataType),
-        dataColoringStore.setNumberOfClasses(dataColoringStore.selectedProperty.key),
+        dataColoringStore.setNumberOfClasses(
+          dataColoringStore.propertyDataType,
+          dataColoringStore.selectedProperty.key
+        ),
         dataColoringStore.setClasses(
           dataColoringStore.propertyDataType,
           dataColoringStore.selectedProperty.key
