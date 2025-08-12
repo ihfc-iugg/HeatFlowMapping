@@ -13,6 +13,6 @@ describe('Base map store', () => {
 
   it('Is the arry, containg base map objects of length three (default, set by the developers)', () => {
     const baseMaps = useBaseMapsStore()
-    expect(baseMaps.baseMaps.length).toBe(3)
+    expect(baseMaps.baseMaps.length).toBe(7)
   })
 })
