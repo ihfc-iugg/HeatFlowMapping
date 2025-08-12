@@ -21,7 +21,7 @@ export const useDataDrivenColoringQualitativeStore = defineStore(
      * @param {Object} enumProperty
      * @returns {Array}
      */
-    function getClasses(property) {
+    function getClassesFromSchema(property) {
       let classes = []
 
       schemaStore.dataSchema.properties[property].oneOf.forEach((enumSchema) => {
@@ -60,7 +60,7 @@ export const useDataDrivenColoringQualitativeStore = defineStore(
 
     return {
       classes,
-      getClasses,
+      getClassesFromSchema,
       generatePaintProperty
     }
   }

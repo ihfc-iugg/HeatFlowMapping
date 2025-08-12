@@ -5,6 +5,7 @@ import colorbrewer from 'colorbrewer'
 
 import { useDataSchemaStore } from '@/store/dataSchema.js'
 import { useMapStore } from '@/store/map'
+import { useGHFDBStore } from './ghfdb'
 import { useDataDrivenColoringSequentialStore } from '@/store/dataDrivenColoringSequential'
 import { useDataDrivenColoringQualitativeStore } from './dataDrivenColoringQualitative'
 
@@ -33,6 +34,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
 
   const schemaStore = useDataSchemaStore()
   const mapStore = useMapStore()
+  const ghfdbStore = useGHFDBStore()
   const sequentialStore = useDataDrivenColoringSequentialStore()
   const qualitativeStore = useDataDrivenColoringQualitativeStore()
 
@@ -91,12 +93,12 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
    * @param {String} selectedProperty
    * @returns
    */
-  function setNumberOfClasses(selectedProperty) {
-    if (propertyDataType.value == 'number') {
+  function setNumberOfClasses(propertyDataType, selectedProperty) {
+    if (propertyDataType === 'number') {
       return
-    } else if (propertyDataType.value == 'undefined') {
-      numberOfClasses.value = qualitativeStore.getClasses(selectedProperty).length
-    } else if (propertyDataType.value == 'boolean') {
+    } else if (propertyDataType === 'undefined') {
+      numberOfClasses.value = qualitativeStore.getClassesFromSchema(selectedProperty).length
+    } else if (propertyDataType === 'boolean') {
       numberOfClasses.value = 3 // true/false/undefined
     }
   }
@@ -108,19 +110,13 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
    */
   function setClasses(propertyDataType, selectedProperty) {
     if (propertyDataType == 'number') {
-      sequentialStore.setClassBreaks(
-        mapStore.map.getSource('ghfdb')._data,
-        selectedProperty,
-        numberOfClasses.value
-      )
+      sequentialStore.setClassBreaks(ghfdbStore.geojson, selectedProperty, numberOfClasses.value)
       classes.value = sequentialStore.getClasses()
     } else if (propertyDataType == 'undefined') {
-      classes.value = qualitativeStore.getClasses(selectedProperty)
+      classes.value = qualitativeStore.getClassesFromSchema(selectedProperty)
     } else if (propertyDataType == 'boolean') {
       classes.value = ['[Yes]', '[No]', 'undefined']
     }
-    console.log('classes')
-    console.log(classes.value)
   }
 
   /**
@@ -175,7 +171,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
     } else if (propertyDataType === 'undefined') {
       paintProperty = qualitativeStore.generatePaintProperty(
         property,
-        qualitativeStore.getClasses(property),
+        qualitativeStore.getClassesFromSchema(property),
         colorPalette
       )
     } else if (propertyDataType === 'boolean') {
@@ -196,6 +192,7 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
     propertyDataType,
     natureOfData,
     numberOfClasses,
+    classes,
     colorPaletteOptions,
     colorPalette,
     paintProperty,
