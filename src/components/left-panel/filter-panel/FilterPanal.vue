@@ -26,7 +26,7 @@ watch(filter.filters, () => {
     <FilterPanelAttributeFilter />
     <FilterPanelFilterByLocation />
   </Accordion>
-  <FilterPanelDownloadData :map="map"></FilterPanelDownloadData>
+  <!-- <FilterPanelDownloadData :map="map"></FilterPanelDownloadData> -->
 </template>
 
 <style scoped></style>
