@@ -77,8 +77,7 @@ export const useDataDrivenColoringSequentialStore = defineStore(
      */
     function calcJenksNaturalBreaks(featureCollection, property, nrOfClasses) {
       const values = propertyValuesToArray(featureCollection, property).filter(Boolean)
-      let classifier = new geostats(values)
-      let breaks = classifier.getJenks(nrOfClasses)
+      let breaks = new geostats(values).getJenks(nrOfClasses)
 
       return breaks
     }
@@ -125,19 +124,19 @@ export const useDataDrivenColoringSequentialStore = defineStore(
     }
 
     /**
-     * @description Case differentiation if quantil or jenks is selected as classification method. According to the method, calculates the braks and returns them as array. Check the
-     * following link for a explanation to qunatil and jenks data classification.
+     * @description Case differentiation for classification method. According to the method, calculates the breaks and returns them as array. Check the
+     * following link for a explanation to qunatil, jenks, equal data classification. More classification methods can be added here.
      * @link https://gisgeography.com/choropleth-maps-data-classification/
      * @param {Object} featureCollection
      * @param {String} property
      * @returns {Array} [minValue, break1, ..., breakN, maxValue]
      */
-    function setClassBreaks(featureCollection, property, nrOfClasses) {
-      if (classification.value.name == 'quantil') {
+    function setClassBreaks(featureCollection, property, nrOfClasses, classification) {
+      if (classification == 'quantil') {
         classes.value = calcQuantilBreaks(featureCollection, property, nrOfClasses)
-      } else if (classification.value.name == 'equal') {
+      } else if (classification == 'equal') {
         classes.value = calcEqualIntervalBreaks(featureCollection, property, nrOfClasses)
-      } else if (classification.value.name == 'jenks') {
+      } else if (classification == 'jenks') {
         classes.value = calcJenksNaturalBreaks(featureCollection, property, nrOfClasses)
       } else {
         classes.value = null
@@ -183,6 +182,11 @@ export const useDataDrivenColoringSequentialStore = defineStore(
       classificationTypes,
       classification,
       classes,
+      isNumber,
+      propertyValuesToArray,
+      calcJenksNaturalBreaks,
+      calcQuantilBreaks,
+      calcEqualIntervalBreaks,
       setClassBreaks,
       getClasses,
       generatePaintProperty
