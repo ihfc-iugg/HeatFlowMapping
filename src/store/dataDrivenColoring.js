@@ -110,7 +110,12 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
    */
   function setClasses(propertyDataType, selectedProperty) {
     if (propertyDataType == 'number') {
-      sequentialStore.setClassBreaks(ghfdbStore.geojson, selectedProperty, numberOfClasses.value)
+      sequentialStore.setClassBreaks(
+        ghfdbStore.geojson,
+        selectedProperty,
+        numberOfClasses.value,
+        sequentialStore.classification.name
+      )
       classes.value = sequentialStore.getClasses()
     } else if (propertyDataType == 'undefined') {
       classes.value = qualitativeStore.getClassesFromSchema(selectedProperty)
@@ -159,9 +164,10 @@ export const useDataCrivenColoringStore = defineStore('Data driven coloring', ()
 
     if (propertyDataType === 'number') {
       sequentialStore.setClassBreaks(
-        mapStore.map.getSource('ghfdb')._data,
+        ghfdbStore.geojson,
         property,
-        numberOfClasses.value
+        numberOfClasses.value,
+        sequentialStore.classification.name
       )
       paintProperty = sequentialStore.generatePaintProperty(
         property,

@@ -96,7 +96,6 @@ describe('data driven coloring store', () => {
   it('check if classes for legend and classification are set correctly', () => {
     const store = useDataCrivenColoringStore()
     const qualitativeStore = useDataDrivenColoringQualitativeStore()
-    const sequentialStore = useDataDrivenColoringSequentialStore()
     const ghfdbStore = useGHFDBStore()
 
     store.setPropertyDataType('number')
