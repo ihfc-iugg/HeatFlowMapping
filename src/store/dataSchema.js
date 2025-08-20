@@ -1,8 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
-import $RefParser from '@apidevtools/json-schema-ref-parser'
-
 export const useDataSchemaStore = defineStore('dataSchema', () => {
   /**
    * ref()s become state properties
@@ -22,7 +20,7 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
    * @param {String} property
    * @returns {Boolean}
    */
-  function _isPropertySelectable(schema, property) {
+  function isPropertySelectable(schema, property) {
     let isSelectable = null
 
     if (schema.properties[property].type == 'string' && !schema.properties[property].enum) {
@@ -49,11 +47,15 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
    * @param {String} property
    * @returns {Object}
    */
-  function _createVueMultiselectOption(schema, property) {
+  function createVueMultiselectOption(schema, property) {
     const propertyObj = schema.properties[property]
     let optionsObject = {}
-    optionsObject['title'] = propertyObj.title
-    optionsObject['key'] = property
+    if (propertyObj.title) {
+      optionsObject['title'] = propertyObj.title
+      optionsObject['key'] = property
+    } else {
+      throw new Error('No title found for property: ' + property)
+    }
 
     return optionsObject
   }
@@ -64,12 +66,12 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
    * They see the readable title and through the link of title corresponding key the selected attributes can easily be found in the schema like: dataSchema.properties[attributeKey]
    * @param {Object} schema
    */
-  function _setSelectableProperties(schema) {
+  function setSelectableProperties(schema) {
     const propertyKeys = Object.keys(schema.properties)
 
     propertyKeys.forEach((property) => {
-      if (_isPropertySelectable(schema, property)) {
-        selectableProperties.value.push(_createVueMultiselectOption(schema, property))
+      if (isPropertySelectable(schema, property)) {
+        selectableProperties.value.push(createVueMultiselectOption(schema, property))
       }
     })
   }
@@ -78,11 +80,11 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
    * @description Collects all numeric properties from the schema and creates a VueMultiselect option for each of them.
    * @param {Object} properties
    */
-  function _setNumericProperties(properties) {
+  function setNumericProperties(properties) {
     for (var property in properties) {
       if ('type' in properties[property]) {
         if (properties[property].type == 'number') {
-          numberProperties.value.push(_createVueMultiselectOption(dataSchema.value, property))
+          numberProperties.value.push(createVueMultiselectOption(dataSchema.value, property))
         }
       }
     }
@@ -97,12 +99,12 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
     console.log('API Data Schema')
 
     try {
-      await $RefParser.dereference(url).then((apiSchema) => {
+      await globalThis.$RefParser.dereference(url).then((apiSchema) => {
         dataSchema.value = apiSchema.components.schemas.Measurement
         dataVersion.value = 'ghfdb' + apiSchema.info.version //TODO: has to be adjusted with some real key describing the versioning
         console.log(dataVersion.value)
-        _setSelectableProperties(dataSchema.value)
-        _setNumericProperties(dataSchema.value.properties)
+        setSelectableProperties(dataSchema.value)
+        setNumericProperties(dataSchema.value.properties)
         isSchemaLoading.value = false
       })
     } catch (error) {
@@ -112,13 +114,14 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
 
   return {
     dataSchema,
+    dataVersion,
     selectableProperties,
     numberProperties,
     isSchemaLoading,
-    _createVueMultiselectOption,
-    _isPropertySelectable,
-    _setSelectableProperties,
-    _setNumericProperties,
+    createVueMultiselectOption,
+    isPropertySelectable,
+    setSelectableProperties,
+    setNumericProperties,
     fetchAPIDataSchema
   }
 })
