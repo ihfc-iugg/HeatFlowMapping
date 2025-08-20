@@ -1,8 +1,6 @@
-import { describe, beforeEach, it, vi } from 'vitest'
+import { describe, beforeEach, it } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useDataDrivenColoringSequentialStore } from '@/store/dataDrivenColoringSequential'
-import * as classificationFn from '@/store/dataDrivenColoringSequential'
-import { useDataSchemaStore } from '../dataSchema'
 
 describe('data driven coloring store', () => {
   beforeEach(() => {
