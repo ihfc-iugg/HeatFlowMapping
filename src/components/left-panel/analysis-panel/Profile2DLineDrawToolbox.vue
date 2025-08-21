@@ -64,7 +64,7 @@ draw.tools.on('finish', (id, context) => {
   if (context.action === 'draw') {
     const featuresToRemove = draw.getFeatureIdsToRemove(draw.tools.getSnapshot(), feature)
     draw.tools.removeFeatures(featuresToRemove)
-    draw.setSelectedFeature(draw.lineCoordinatesConstrain(feature))
+    draw.setSelectedFeature(draw.lineCoordinatesConstrain(feature), draw.tools)
     draw.tools.addFeatures([draw.selectedFeature])
     if (feature.geometry.coordinates.length > 2) {
       draw.tools.removeFeatures([feature.id])

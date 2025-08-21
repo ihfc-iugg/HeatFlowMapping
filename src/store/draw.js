@@ -137,13 +137,13 @@ export const useDrawStore = defineStore('Setup and access draw tool', () => {
    * @description Get selected line, keep only start and end coordinate to avoid edges and add it as feature.
    * @param {Object} lineFeature
    */
-  function lineCoordinatesConstrain(lineFeature) {
+  function lineCoordinatesConstrain(lineFeature, drawTools) {
     if (lineFeature.geometry.coordinates.length > 2) {
       const firstPoint = lineFeature.geometry.coordinates[0]
       const lastPoint =
         lineFeature.geometry.coordinates[lineFeature.geometry.coordinates.length - 1]
 
-      const featureId = tools.value.getFeatureId()
+      const featureId = drawTools.getFeatureId()
 
       return lineString([firstPoint, lastPoint], { mode: 'linestring' }, { id: featureId })
     } else {
