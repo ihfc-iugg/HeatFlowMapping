@@ -59,6 +59,7 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
       return csvContent
     } catch (error) {
       console.log('rejected', error)
+      throw new Error('Error fetching GHFDB data: ' + error.message)
     }
   }
 
@@ -163,6 +164,7 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
     toggleInProcess,
     getGhfdbFromAPI,
     csv2JSON,
+    getCoordinates,
     json2GeoJSON,
     addGhfdbToMap
   }
