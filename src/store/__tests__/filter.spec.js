@@ -2,6 +2,7 @@ import { describe, beforeEach, it, expect } from 'vitest'
 
 import { setActivePinia, createPinia } from 'pinia'
 import { useFilterStore } from '@/store/filter'
+import { exp } from 'mathjs'
 
 describe('Filter Store', () => {
   beforeEach(() => {
@@ -11,15 +12,23 @@ describe('Filter Store', () => {
     setActivePinia(createPinia())
   })
 
-  it('get new empty filter object value', () => {
-    const filter = useFilterStore()
-    const testObject = filter.getNewFilterObject()
-    expect(testObject).toStrictEqual({
+  it('check initial state', () => {
+    const store = useFilterStore()
+    expect(store.filters).toStrictEqual({ attributeFilter: {}, locationFilter: {} })
+    expect(store.maxAttributeFilter).toBe(10)
+    expect(store.reachedLimit).toBe(false)
+    expect(store.getNewFilterObject()).toStrictEqual({
       selectedProperty: null,
       selectedPropertyType: null,
       selectedValues: null,
       expression: null
     })
+    expect(store.addFilter).toBeDefined()
+    expect(store.removeFilterElement).toBeDefined()
+    expect(store.writeFilterExpression).toBeDefined()
+    expect(store.applyFilterToMap).toBeDefined()
+    expect(store.getUniqueFeatures).toBeDefined()
+    expect(store.getFilteredFeatures).toBeDefined()
   })
 
   it('add and remove filter object to attribute filter', () => {
@@ -77,5 +86,24 @@ describe('Filter Store', () => {
         ['all', ['>=', ['get', 'q'], -3.85], ['<=', ['get', 'q'], 136.01]]
       )
     )
+  })
+
+  it('pass an array of feature and return arry containing only unique features', () => {
+    const store = useFilterStore()
+    const dummyFeatures = [
+      { properties: { ID: 1 } },
+      { properties: { ID: 2 } },
+      { properties: { ID: 2 } },
+      { properties: { ID: 3 } },
+      { properties: { ID: 3 } },
+      { properties: { ID: 4 } }
+    ]
+    const uniqueFeatures = store.getUniqueFeatures(dummyFeatures, 'ID')
+    expect(uniqueFeatures).toEqual([
+      { properties: { ID: 1 } },
+      { properties: { ID: 2 } },
+      { properties: { ID: 3 } },
+      { properties: { ID: 4 } }
+    ])
   })
 })

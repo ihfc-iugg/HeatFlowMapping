@@ -132,6 +132,7 @@ export const useFilterStore = defineStore('filter', () => {
     addFilter,
     removeFilterElement,
     applyFilterToMap,
+    getUniqueFeatures,
     getFilteredFeatures,
     writeFilterExpression
   }
