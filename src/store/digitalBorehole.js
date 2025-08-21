@@ -78,9 +78,9 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
    * @description Removes the last layer from the layers array if there is more than one layer.
    * @param {Array} layers
    */
-  function removeLastLayer(layers) {
-    if (layers.length > 1) {
-      layers.pop()
+  function removeLastLayer() {
+    if (layers.value.length > 1) {
+      layers.value.pop()
     }
   }
 
@@ -98,10 +98,26 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
   }
 
   /**
+   * @description calculates the heat flow at the bottom of a layer
+   * @param {number} qTop in W/m^2
+   * @param {number} dZ thickness of layer in m
+   * @param {number} a heat production in µW/m^3
+   * @returns qBot in W/m^2
+   */
+  function calculateHeatFlowAtBottom(qTop, dZ, a) {
+    if (qTop === null || dZ === null || a === null) {
+      return null
+    } else {
+      // a is in µW/m^3 and set here to W/m^3
+      return qTop - (a / 1000000) * dZ
+    }
+  }
+
+  /**
    * @description Bootstrapping the layers with initial values for temperature and heat flow.
    * @param {Array} layers
    * @param {number} t0 °C
-   * @param {number} q0 mW/m^2 10^-3
+   * @param {number} q0 mW/m^2, 10^-3W
    */
   function bootstrapping(layers, t0, q0) {
     // q0 mW 10^-3 (Milliwatt)
@@ -114,7 +130,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     for (let ix = 0; ix < layers.length; ix++) {
       let l = layers[ix]
       // calc q at the bottom if the ix layer
-      l.qBot = l.qTop - (l.a / 1000000) * l.dZ
+      l.qBot = calculateHeatFlowAtBottom(l.qTop, l.dZ, l.a)
       // sum temperature
       temp = temp + calculateTemperature(l.qTop, l.dZ, l.k, l.a)
       l.tBot = structuredClone(temp)
@@ -321,9 +337,12 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
     setLayer,
     removeLastLayer,
     calculateTemperature,
+    calculateHeatFlowAtBottom,
     bootstrapping,
     getNearestNeighbor,
     highlightNearestNeighbor,
+    calcXValuesUncertainty,
+    calcYValuesContinuousErrorBars,
     drawChart
   }
 })
