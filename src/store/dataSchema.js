@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
+import $RefParser from '@apidevtools/json-schema-ref-parser'
 
 export const useDataSchemaStore = defineStore('dataSchema', () => {
   /**
@@ -99,7 +100,7 @@ export const useDataSchemaStore = defineStore('dataSchema', () => {
     console.log('API Data Schema')
 
     try {
-      await globalThis.$RefParser.dereference(url).then((apiSchema) => {
+      await $RefParser.dereference(url).then((apiSchema) => {
         dataSchema.value = apiSchema.components.schemas.Measurement
         dataVersion.value = 'ghfdb' + apiSchema.info.version //TODO: has to be adjusted with some real key describing the versioning
         console.log(dataVersion.value)
