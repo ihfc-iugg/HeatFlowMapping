@@ -135,7 +135,7 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
           circleColor
         ],
         'circle-radius': circleRadius,
-        'circle-stroke-width': 0.5,
+        'circle-stroke-width': 0.0,
         'circle-stroke-color': '#a1dab4'
       },
       layout: {
