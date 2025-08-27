@@ -11,18 +11,17 @@ describe('Map settings store', () => {
     setActivePinia(createPinia())
   })
 
-  it('Check initial state of activeBaseLayer', () => {
+  it('Check initial state', () => {
     const settings = useSettingsStore()
-    expect(settings.activeBaseLayer).toEqual('')
+    expect(settings.activeBaseLayer).toBeDefined()
+    expect(settings.circleRadius).toBeDefined()
+    expect(settings.circleColor).toBeDefined()
   })
 
-  it('Check initial state of circleRadius', () => {
+  it('Check initial values', () => {
     const settings = useSettingsStore()
-    expect(settings.circleRadius).toEqual(4)
-  })
-
-  it('Check initial state of circleColor', () => {
-    const settings = useSettingsStore()
-    expect(settings.circleColor).toEqual('#41b6c4')
+    expect(settings.activeBaseLayer).toBe('bm_esri_world_physical')
+    expect(settings.circleRadius).toBe(3)
+    expect(settings.circleColor).toBe('#E31E24')
   })
 })
