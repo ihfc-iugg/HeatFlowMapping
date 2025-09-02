@@ -29,7 +29,7 @@ const navBar = useNavigationBarStore()
       @click="(navBar.toggleIsCollapsed(), navBar.toggleVisibleScrolling())"
     ></button>
   </div>
-  <div class="offcanvas-body p-0">
+  <div class="offcanvas-body p-0" :id="navBar.panelTitle">
     <KeepAlive>
       <SettingsPanel v-if="navBar.panelTitle === 'Settings'" />
     </KeepAlive>

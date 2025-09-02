@@ -14,7 +14,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="accordion-item">
+  <div class="accordion-item" :id="id + '-accordion-item'">
     <h2 class="accordion-header">
       <button
         class="accordion-button"

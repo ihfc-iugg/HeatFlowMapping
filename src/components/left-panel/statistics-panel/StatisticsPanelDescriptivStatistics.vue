@@ -100,6 +100,7 @@ function setPropertyDataType(property) {
   <AccordionItem title="Descriptive Statistics" id="descriptivStatistics"
     ><VueMultiselect
       class="py-1"
+      id="statisticsDataSourceSelect"
       v-model="selectedSourceTitle"
       :options="options"
       :allow-empty="false"
@@ -111,6 +112,7 @@ function setPropertyDataType(property) {
 
     <VueMultiselect
       class="py-1"
+      id="statisticsPropertySelect"
       v-model="selectedProperty"
       :options="schema.selectableProperties"
       label="title"

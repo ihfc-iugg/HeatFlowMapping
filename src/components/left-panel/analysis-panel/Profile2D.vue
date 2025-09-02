@@ -32,7 +32,7 @@ watch(profile, () => {
   }
 })
 
-/**
+/** 
  * @description Sets the active tab for the 2D Profile panel.
  * @param {String} tab
  */

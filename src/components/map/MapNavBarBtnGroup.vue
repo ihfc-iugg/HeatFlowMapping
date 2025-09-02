@@ -29,6 +29,7 @@ function controlNavbarOffcanvasInteraction(clickedPanel, navBar) {
     <button
       v-for="item in navBar.navigationElements"
       :key="item.title"
+      :id="item.title + 'navBarBtn'"
       type="button"
       class="btn btn-primary flex-fill"
       data-bs-toggle="offcanvas"
