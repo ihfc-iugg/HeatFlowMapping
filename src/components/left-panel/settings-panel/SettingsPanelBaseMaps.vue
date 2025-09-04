@@ -32,10 +32,16 @@ function changeBaseLayer(oldBaseLayerId, newBaseLayerId) {
         <div
           class="card h-100"
           role="button"
+          :id="'baseMapCard-' + baseMap.id"
           :key="baseMap.id"
           @click="changeBaseLayer(settings.activeBaseLayer, baseMap.id)"
         >
-          <img class="card-img-top" :src="baseMap.cardImage" alt="Card image cap" />
+          <img
+            class="card-img-top"
+            :src="baseMap.cardImage"
+            alt="Card image cap"
+            :id="'img-' + baseMap.id"
+          />
           <p class="fs-7 text-center">{{ baseMap.title }}</p>
         </div>
       </div>

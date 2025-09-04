@@ -36,7 +36,7 @@ watch(
 
 <template>
   <!-- Circle Size  -->
-  <AccordionItem title="Heat Flow Models" id="heaFlowModels">
+  <AccordionItem title="Heat Flow Models" id="heatFlowModels">
     <div class="form-check">
       <input
         class="form-check-input"
