@@ -21,11 +21,8 @@ export const useSphericalTrigonometry = defineStore('spherical trgonometry', () 
     // Ensure that the sides are in radians
     try {
       const cosA = (Math.cos(a) - Math.cos(b) * Math.cos(c)) / (Math.sin(b) * Math.sin(c))
-      console.log('cosA: ' + cosA)
-
-      // Clamp the value to avoid NaN from acos
+      // Clamp the value to avoid NaN from acos. De to floating-point arithmetic, you might get values slightly outside this range like 1.0000000000000002 or -1.0000000000000002
       const angleA = Math.acos(Math.max(-1, Math.min(1, cosA)))
-      console.log('A: ' + angleA)
       return angleA // Returns angle A in radians
     } catch (error) {
       console.log('Error in calculating angle alpha')
