@@ -1,5 +1,5 @@
 # Einfacher Workflow zur Bereitstellung von statischem Inhalt auf GitHub Pages
-name: Statischen Inhalt auf Pages bereitstellen
+name: Deploying a Static Site to GitHub Pages
 
 on:
   # Wird bei Pushes auf den Standard-Zweig ausgeführt
