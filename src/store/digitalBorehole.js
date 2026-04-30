@@ -109,7 +109,7 @@ export const useDigitalBoreholeStore = defineStore('digitalBorehole', () => {
       return null
     } else {
       // a is in µW/m^3 and set here to W/m^3
-      return qTop - (a / 1000000) * dZ
+      return qTop + (a / 1000000) * dZ
     }
   }
 
