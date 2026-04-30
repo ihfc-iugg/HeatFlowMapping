@@ -1,5 +1,6 @@
 .DS_Store
 node_modules
+package-lock.json
 
 
 # local env files
@@ -14,19 +15,15 @@ pnpm-debug.log*
 
 # Editor directories and files
 .idea
-.vscode
+.vscode 
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
 *.sw?
 
-# Local test data
-# src/assets/data
-
+# coverage directory used by tools like istanbul
+coverage/
 
 # statistics about bundeled packages
 dist/
-
-# config
-vite.config-chatgpt.js

@@ -14,7 +14,13 @@ export default defineConfig((configEnv) =>
         globals: true,
         // simulate DOM with happy-dom
         // (requires installing happy-dom as a peer dependency)
-        environment: 'happy-dom'
+        environment: 'happy-dom',
+        coverage: {
+          provider: 'v8',
+          enabled: true,
+          extensions: ['.js', '.vue'],
+          reporter: ['text', 'json', 'html', 'json-summary']
+        }
       }
     })
   )

@@ -4,7 +4,6 @@ import vue from '@vitejs/plugin-vue'
 import { polyfillNode } from 'esbuild-plugin-polyfill-node'
 import { defineConfig, loadEnv } from 'vite'
 import viteCompression from 'vite-plugin-compression'
-import VueDevTools from 'vite-plugin-vue-devtools'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
