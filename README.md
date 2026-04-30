@@ -1,6 +1,8 @@
 <!-- inspiration for readme https://www.freecodecamp.org/news/how-to-write-a-good-readme-file/ -->
 ![GHFDB Logo](./src/assets/img/ghfdb_logo.svg)
 
+[![Deploying a Static Site to GitHub Pages](https://github.com/ihfc-iugg/HeatFlowMapping/actions/workflows/deploy.yml/badge.svg)](https://github.com/ihfc-iugg/HeatFlowMapping/actions/workflows/deploy.yml)
+
 # Global Heat Flow Database - Web Mapping Application
 
 The [Global Heat Flow Database - Web Map Application](https://portal.heatflow.world/explore/) was developed as part of the World Heat Flow Database Project. Its primary objective is to provide easy, browser-based access to the Global Heat Flow Database (GHFDB) with minimal user effort. This application allows users to quickly explore heat flow data without the need to download or import it into a GIS.
