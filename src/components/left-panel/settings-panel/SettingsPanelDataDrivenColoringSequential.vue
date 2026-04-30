@@ -6,11 +6,13 @@ import { useMapStore } from '@/store/map.js'
 import { useDataCrivenColoringStore } from '@/store/dataDrivenColoring.js'
 import { useDataDrivenColoringSequentialStore } from '@/store/dataDrivenColoringSequential.js'
 import { useLegendStore } from '@/store/legend.js'
+import { useGHFDBStore } from '@/store/ghfdb'
 
 const mapStore = useMapStore()
 const dataColoringStore = useDataCrivenColoringStore()
 const sequentialStore = useDataDrivenColoringSequentialStore()
 const legendStore = useLegendStore()
+const ghfdbStore = useGHFDBStore()
 </script>
 
 <template>
@@ -24,9 +26,10 @@ const legendStore = useLegendStore()
     :allow-empty="false"
     @select="
       (sequentialStore.setClassBreaks(
-        mapStore.map.getSource('ghfdb')._data,
+        ghfdbStore.geojson,
         dataColoringStore.selectedProperty.key,
-        dataColoringStore.numberOfClasses
+        dataColoringStore.numberOfClasses,
+        sequentialStore.classification.name
       ),
       dataColoringStore.setClasses(
         dataColoringStore.propertyDataType,
@@ -80,9 +83,10 @@ const legendStore = useLegendStore()
     :allow-empty="false"
     @select="
       (sequentialStore.setClassBreaks(
-        mapStore.map.getSource('ghfdb')._data,
+        ghfdbStore.geojson,
         dataColoringStore.selectedProperty.key,
-        dataColoringStore.numberOfClasses
+        dataColoringStore.numberOfClasses,
+        sequentialStore.classification.name
       ),
       dataColoringStore.setColorPaletteOptions(
         dataColoringStore.natureOfData,
