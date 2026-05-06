@@ -171,7 +171,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
   function drawProfile(line, selectedPnts, selectedProperty) {
     const projectedPoinsts = projectingDataOnLine(line, selectedPnts)
 
-    const alongLineDdistance = projectedPoinsts.map((pnt) => pnt.b)
+    const alongLineDistance = projectedPoinsts.map((pnt) => pnt.b)
     const offset = projectedPoinsts.map((pnt) => pnt.a)
     const uncertainty = projectedPoinsts.map((pnt) => pnt.uncertainty)
     const propertyValues = projectedPoinsts.map((pnt) => pnt[selectedProperty])
@@ -181,7 +181,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
 
     // Data property values
     const propertyValuesTrace = {
-      x: alongLineDdistance,
+      x: alongLineDistance,
       y: propertyValues,
       error_y: {
         type: 'data',
@@ -195,8 +195,8 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
       hovertemplate: '<b>%{text}</b>' + '<br><b>x</b>: %{x}' + '<br><b>y</b>: %{y}',
       text: pntIds,
       marker: {
-        size: new Array(alongLineDdistance.length).fill(10), // Initialize all points with size 10
-        color: new Array(alongLineDdistance.length).fill(settings.circleColor) // Initialize all points with the default color
+        size: new Array(alongLineDistance.length).fill(10), // Initialize all points with size 10
+        color: new Array(alongLineDistance.length).fill(settings.circleColor) // Initialize all points with the default color
       },
       xaxis: 'x',
       yaxis: 'y1'
@@ -222,7 +222,7 @@ export const use2DProfileStore = defineStore('2DProfile', () => {
 
     // Data vertical distance of point to line
     const offsetTrace = {
-      x: alongLineDdistance,
+      x: alongLineDistance,
       y: offset,
       name: 'Offset',
       type: 'bar',
