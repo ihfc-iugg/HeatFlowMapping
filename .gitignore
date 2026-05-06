@@ -24,6 +24,9 @@ pnpm-debug.log*
 # Local test data
 # src/assets/data
 
+# test coverage
+coverage
+
 
 # statistics about bundeled packages
 dist/
