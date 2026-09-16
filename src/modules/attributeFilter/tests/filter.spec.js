@@ -1,7 +1,7 @@
 import { describe, beforeEach, it, expect } from 'vitest'
 
 import { setActivePinia, createPinia } from 'pinia'
-import { useFilterStore } from '@/store/filter'
+import { useFilterStore } from '@/modules/attributeFilter/stores/attributeFilter'
 
 describe('Filter Store', () => {
   beforeEach(() => {
