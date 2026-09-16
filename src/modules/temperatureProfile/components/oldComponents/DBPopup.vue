@@ -1,4 +1,4 @@
-<!-- Show popup containing infos of point (on click) -->
+<!-- Show popup containing infos of point (on click)
 <script setup>
 import { h, ref, render, watch } from 'vue'
 import { Popup, Marker } from 'maplibre-gl'
@@ -6,7 +6,7 @@ import { Popup, Marker } from 'maplibre-gl'
 import DBAddLayerBtn from './DBAddLayerBtn.vue'
 import DBRemoveLastLayerBtn from './DBRemoveLastLayerBtn.vue'
 
-import { useDigitalBoreholeStore } from '@/store/digitalBorehole.js'
+import { useDigitalBoreholeStore } from '@/modules/profileAlongDepth/stores/digitalBorehole.js'
 import { useMapStore } from '@/store/map'
 
 const dB = useDigitalBoreholeStore()
@@ -73,4 +73,4 @@ function appendLayerHandlingBtnToPopup(parentElement) {
 
 <template></template>
 
-<style></style>
+<style></style> -->
