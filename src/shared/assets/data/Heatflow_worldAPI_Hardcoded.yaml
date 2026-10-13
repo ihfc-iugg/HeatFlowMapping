@@ -1101,7 +1101,7 @@ components:
           format: double
           maximum: 999999.9
           minimum: -999999.9
-          title: Heat-flow value
+          title: Heat-flow density
           description: Heat-flow density for the location after all corrections for
             instrumental and environmental effects.
           units: mW/m²
