@@ -3,7 +3,7 @@ import { ref } from 'vue'
 import { useTemperatureProfileStore } from '../stores/temperatureProfile'
 import AttributionBtn from '@/modules/attribution/components/AttributionBtn.vue'
 import AttributionCard from '@/modules/attribution/components/AttributionCard.vue'
-import { CRUST1, NOAA } from '@/core/constants/externalGeoData'
+import { CRUST1, NOAA } from '@/shared/constants/externalGeoData'
 
 const tempProfile = useTemperatureProfileStore()
 </script>

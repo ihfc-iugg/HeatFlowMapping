@@ -4,18 +4,17 @@ import colorbrewer from 'colorbrewer'
 import { feature } from '@turf/turf'
 
 export const useTemperatureProfileStore = defineStore('Temperature Profile store', () => {
-  const activeTab = ref('calculationSetup') // default
+  const selectedTab = ref('settings') // default
   const geoPoint = ref(null)
   const layers = ref([])
   const nearestPoint = ref(null)
-  const openPopup = ref(false)
+  const hasPopup = ref(false)
   const popup = ref(null)
   const useCrust1 = ref(true)
   const useNOAA = ref(true)
 
   // Parameter for WMS GetFeatureInfo
   const screenPoint = ref({ x: null, y: null })
-  // const mapBounds = ref(undefined)
   const mapBoundsSW = ref({ lng: null, lat: null })
   const mapBoundsNE = ref({ lng: null, lat: null })
   const mapCanvas = ref({ width: null, height: null })
@@ -23,15 +22,12 @@ export const useTemperatureProfileStore = defineStore('Temperature Profile store
     if (
       screenPoint.value.x &&
       screenPoint.value.y &&
-      // mapBounds.value &&
       mapBoundsSW.value.lng &&
       mapBoundsSW.value.lat &&
       mapBoundsNE.value.lng &&
       mapBoundsNE.value.lat &&
       mapCanvas.value.width &&
       mapCanvas.value.height
-      // mapCanvas.value.width &&
-      // mapCanvas.value.height
     ) {
       return true
     } else {
@@ -101,27 +97,29 @@ export const useTemperatureProfileStore = defineStore('Temperature Profile store
     }
   }
 
-  function toggleOpenPopup() {
-    openPopup.value = false === openPopup.value ? true : false
+  /**
+   * @description
+   */
+  function toggleHasPopup() {
+    hasPopup.value = false === hasPopup.value ? true : false
   }
 
   return {
-    activeTab,
+    selectedTab,
     geoPoint,
     layers,
     nearestPoint,
-    openPopup,
+    hasPopup,
     popup,
     useCrust1,
     useNOAA,
     screenPoint,
-    // mapBounds,
     mapBoundsSW,
     mapBoundsNE,
     mapCanvas,
     wmsParameterLoaded,
     addLayer,
     removeLayer,
-    toggleOpenPopup
+    toggleHasPopup
   }
 })
