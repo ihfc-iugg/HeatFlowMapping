@@ -1,7 +1,7 @@
 <script setup>
 import { watch } from 'vue'
-import AccordionItem from '@/core/components/AccordionItem.vue'
-import Card from '@/core/components/Card.vue'
+import AccordionItem from '@/shared/components/AccordionItem.vue'
+import Card from '@/shared/components/Card.vue'
 import NavBarButtonGroup from './NavBarButtonGroup.vue'
 import DrawToolboxCardBody from './DrawToolboxCardBody.vue'
 import InfoCardBody from './InfoCardBody.vue'
