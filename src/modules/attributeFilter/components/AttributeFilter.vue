@@ -1,12 +1,10 @@
 <script setup>
-import AccordionItem from '@/core/components/AccordionItem.vue'
+import AccordionItem from '@/shared/components/AccordionItem.vue'
 import ButtonAddFilter from './ButtonAddFilter.vue'
 import FilterElement from './FilterElement.vue'
 
-import { useFilterStore } from '../stores/attributeFilter.js'
 import { useApplicationStore } from '@/core/stores/app.js'
 
-// const filter = useFilterStore()
 const app = useApplicationStore()
 </script>
 

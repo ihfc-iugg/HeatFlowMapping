@@ -2,11 +2,11 @@
 import { defineProps, ref, watch } from 'vue'
 import ButtonRemoveFilter from './ButtonRemoveFilter.vue'
 import ButtonResetValues from './ButtonResetValues.vue'
-import SelectProperty from '@/modules/selectProperty/components/SelectProperty.vue'
+import SelectProperty from '@/shared/components/SelectProperty.vue'
 import MultiSelectPropertyValues from './MultiSelectPropertyValues.vue'
 import RangeSlider from './RangeSlider.vue'
 import { useFilterStore } from '../stores/attributeFilter'
-import { useProperties } from '@/core/composables/useProperties.js'
+import { useProperties } from '@/shared/composables/useProperties.js'
 import { useApplicationStore } from '@/core/stores/app.js'
 
 const { getBooleanValues, getEnumValues, getRange, getNumberValues } = useProperties()
