@@ -11,6 +11,7 @@ export const CLASSIFIER = Object.freeze({
     desc: 'Each class has the same range of values',
     src: 'https://pro.arcgis.com/en/pro-app/latest/help/mapping/layer-properties/data-classification-methods.htm#ESRI_SECTION1_B47C458CFF6A4EEC933A8C7612DA558B'
   }
+  // TODO: find alternative to geostats getjenks -> method slow
   // jenks: {
   //   name: 'jenks',
   //   title: 'Jenks',
