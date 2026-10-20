@@ -1,12 +1,12 @@
 <script setup>
-import Accordion from '../components/Accordion.vue'
-import AttributeFilterContainer from '@/modules/attributeFilter/components/AttributeFilterContainer.vue'
+import Accordion from '@/shared/components/Accordion.vue'
+import AttributeFilter from '@/modules/attributeFilter/components/AttributeFilter.vue'
 import SpatialFilter from '@/modules/spatialFilter/components/SpatialFilter.vue'
 </script>
 
 <template>
   <Accordion accordionId="attribute-filter-accordion">
-    <AttributeFilterContainer />
+    <AttributeFilter />
   </Accordion>
   <Accordion accordionId="spatial-filter-accordion">
     <SpatialFilter />

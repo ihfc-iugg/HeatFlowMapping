@@ -1,6 +1,6 @@
 <script setup>
-import Accordion from '../components/Accordion.vue'
-import AccordionItem from '../components/AccordionItem.vue'
+import Accordion from '@/shared/components/Accordion.vue'
+import AccordionItem from '@/shared/components/AccordionItem.vue'
 import Distribution from '@/modules/distribution/components/Distribution.vue'
 import { KeepAlive } from 'vue'
 </script>
