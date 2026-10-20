@@ -1,10 +1,10 @@
 import { Map } from 'maplibre-gl'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import { BASEMAPS } from '@/core/constants/externalGeoData'
+import { BASEMAPS } from '@/shared/constants/externalGeoData'
 
 export const useBaseMapsStore = defineStore('baseMaps', () => {
-  const selectedLayer = ref(BASEMAPS.bm_osm.id)
+  const selectedLayer = ref(BASEMAPS.open_street_map.id)
 
   /**
    * @description create object for base map sources

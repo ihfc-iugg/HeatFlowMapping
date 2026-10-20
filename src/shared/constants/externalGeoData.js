@@ -1,21 +1,21 @@
 export const BASEMAPS = Object.freeze({
-  bm_osm: {
-    id: 'bm_osm',
+  open_street_map: {
+    id: 'open_street_map',
     title: 'OpenStreetMap',
     cardImage: 'https://a.tile.openstreetmap.org/0/0/0.png',
     tiles: 'https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',
     attribution: '&copy; OpenStreetMap Contributors'
   },
-  bm_otm: {
-    id: 'bm_otm',
+  open_topo_map: {
+    id: 'open_topo_map',
     title: 'OpenTopoMap',
     cardImage: 'https://a.tile.opentopomap.org/0/0/0.png',
     tiles: 'https://a.tile.opentopomap.org/{z}/{x}/{y}.png',
     attribution:
       "Kartendaten: <a href='https://openstreetmap.org/copyright'>© OpenStreetMap-Mitwirkende</a>, <a href='http://viewfinderpanoramas.org/'>SRTM</a> | Kartendarstellung: <a href='https://opentopomap.org/'>© OpenTopoMap</a> <a href='https://creativecommons.org/licenses/by-sa/3.0/'>CC-BY-SA</a>"
   },
-  bm_world_bathymetry: {
-    id: 'bm_world_bathymetry',
+  world_bathymetry: {
+    id: 'world_bathymetry',
     title: 'World Bathymetry',
     cardImage:
       'https://services.ga.gov.au/gis/rest/services/World_Bathymetry_Base_Map/MapServer/WMTS/tile/1.0.0/World_Bathymetry_Base_Map/default/default028mm/0/0/0.png',
@@ -24,8 +24,8 @@ export const BASEMAPS = Object.freeze({
     attribution:
       "Map tiles by <a href='https://ecat.ga.gov.au/geonetwork/srv/api/records/62030aca-329d-44b2-8b36-c74a5ac1f574'>World Bathymetry Base Map WMTS</a>, <a href='https://creativecommons.org/licenses/'>CC BY 4.0</a>"
   },
-  bm_esri_world_physical: {
-    id: 'bm_esri_world_physical',
+  esri_world_physical: {
+    id: 'esri_world_physical',
     title: 'ESRI World Physical',
     cardImage:
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/0/0/0.png',
@@ -33,8 +33,8 @@ export const BASEMAPS = Object.freeze({
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}.png',
     attribution: 'Tiles &copy; Esri &mdash; Source: US National Park Service'
   },
-  bm_esri_world_imagery: {
-    id: 'bm_esri_world_imagery',
+  esri_world_imagery: {
+    id: 'esri_world_imagery',
     title: 'ESRI World Imagery',
     cardImage:
       'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/0/0/0.png',
@@ -43,8 +43,8 @@ export const BASEMAPS = Object.freeze({
     attribution:
       'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
   },
-  bm_esri_ocean_basemap: {
-    id: 'bm_esri_ocean_basemap',
+  esri_ocean_basemap: {
+    id: 'esri_ocean_basemap',
     title: 'ESRI Ocean Basemap',
 
     cardImage:
@@ -54,8 +54,8 @@ export const BASEMAPS = Object.freeze({
     attribution:
       'Tiles &copy; Esri &mdash; Sources: GEBCO, NOAA, CHS, OSU, UNH, CSUMB, National Geographic, DeLorme, NAVTEQ, and Esri'
   },
-  bm_world_light_gray: {
-    id: 'bm_world_light_gray',
+  world_light_gray: {
+    id: 'world_light_gray',
     title: 'World Light Gray',
     cardImage:
       'https://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/0/0/0.png',
@@ -64,8 +64,8 @@ export const BASEMAPS = Object.freeze({
     attribution:
       'Sources: Esri, HERE, Garmin, © OpenStreetMap contributors, and the GIS User Community'
   },
-  bm_bluemarble: {
-    id: 'bm_bluemarble',
+  bluemarble: {
+    id: 'bluemarble',
     title: 'Bluemarble',
     cardImage:
       'https://sdi.gfz.de/geoserver/gwc/service/wmts/rest/geonode:basemap_bluemarble/EPSG:3857x2/EPSG:3857x2:0/0/0?format=image/png',

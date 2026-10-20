@@ -1,9 +1,9 @@
 <script setup>
 import { useBaseMapsStore } from '@/modules/baseMaps/stores/baseMapsStore.js'
 import { useApplicationStore } from '@/core/stores/app'
-import { BASEMAPS } from '@/core/constants/externalGeoData'
+import { BASEMAPS } from '@/shared/constants/externalGeoData'
 
-import AccordionItem from '@/core/components/AccordionItem.vue'
+import AccordionItem from '@/shared/components/AccordionItem.vue'
 import { onMounted, watch } from 'vue'
 
 const baseMaps = useBaseMapsStore()
