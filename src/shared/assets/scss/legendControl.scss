@@ -1,0 +1,51 @@
+// .legend-ctrl {
+//   display: flex;
+//   flex-direction: column;
+//   align-items: stretch;
+//   background: transparent; // override the group's white box
+//   box-shadow: none;
+//   border-radius: 0;
+//   gap: 6px;
+
+//   .card {
+//     background: #fff;
+//     border-radius: 4px;
+//     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+//     padding: 12px;
+//     min-width: 220px;
+//     max-width: 320px;
+//     max-height: 60vh;
+//     overflow-y: auto;
+//     align-self: flex-end;
+//   }
+
+//   > button {
+//     align-self: flex-end;
+//     width: 29px;
+//     height: 29px;
+//     background: #fff;
+//     border: none;
+//     border-radius: 4px;
+//     box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+//     cursor: pointer;
+//   }
+// }
+
+.legend-ctrl {
+  position: relative;
+
+
+    #legend-control-panel {
+    position: absolute;
+    bottom: calc(100% + 8px);   /* sits above the button */
+    right: 0;
+    background: #fff;
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+    padding: 12px;
+    min-width: 220px;
+    max-height: 60vh;
+    overflow-y: auto;
+    z-index: 1;
+    }
+}

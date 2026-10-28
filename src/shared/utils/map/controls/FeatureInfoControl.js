@@ -60,7 +60,7 @@ export class FeatureInfoControl {
   _setupUI() {
     const button = (this._featureInfoButton = document.createElement('button'))
     button.type = 'button'
-    button.className = 'mapboxgl-ctrl-icon'
+    button.className = 'maplibregl-ctrl-icon'
     button.setAttribute('title', 'Disable point info on click')
     button.innerHTML = this._svg
     this._enableFeatureInfo()

@@ -44,3 +44,14 @@ export const GHFDB = Object.freeze({
     url: 'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/refs/heads/main/assets/ghfdb/IHFC_2024_GHFDB.zip'
   }
 })
+
+export const SCHEMA = Object.freeze({
+  r2024: {
+    id: 'schema_r_2024',
+    url: '@/shared/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
+  }
+  // r2027: {
+  //   id: 'ghfdb_r_2027',
+  //   url: ''
+  // }
+})

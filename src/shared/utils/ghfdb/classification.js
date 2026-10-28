@@ -22,27 +22,6 @@ export function classesLength(property, dataType, dataSchema) {
 }
 
 /**
- * @description Helper function for Math.quantileSeq() to collect only the values of a single property within one array
- * @param {Object} featureCollection
- * @param {String} property
- * @returns {Array}
- */
-export function aggregateValues(featureCollection, property) {
-  if (!featureCollection || !property) throw new Error('no arguments')
-
-  let values = []
-
-  featureCollection.features.forEach((feature) => {
-    let value = feature.properties[property]
-    // to filter sting values, e.g. q_uncertainty contains a value of type string ([Unspecified])
-    if (typeof value === 'number') {
-      values.push(value)
-    }
-  })
-  return values
-}
-
-/**
  * @description Calculate breaks for jenks classification
  * @param {Object} featureCollection
  * @param {String} property
@@ -65,16 +44,16 @@ export function jenksNaturalBreaks(values, property, nrOfClasses) {
  * @param {Number} nrOfClasses
  * @returns {Array}
  */
-export function quantilBreaks(values, property, nrOfClasses) {
+export function quantilBreaks(values, min, max, property, nrOfClasses) {
   if (!values || !property || !nrOfClasses) throw new Error('no arguments')
 
   const breaks = quantileSeq(values, nrOfClasses - 1)
 
   // add min value to beginning of array
-  breaks.unshift(Math.min.apply(null, values))
+  breaks.unshift(min)
 
   // add max value to end of array
-  breaks.push(Math.max.apply(null, values))
+  breaks.push(max)
 
   return breaks
 }
@@ -86,16 +65,14 @@ export function quantilBreaks(values, property, nrOfClasses) {
  * @param {Number} nrOfClasses
  * @returns {Array}
  */
-export function equalIntervalBreaks(values, property, nrOfClasses) {
+export function equalIntervalBreaks(values, min, max, property, nrOfClasses) {
   if (!values || !property || !nrOfClasses) throw new Error('no arguments')
 
-  const minValue = Math.min.apply(null, values)
-  const maxValue = Math.max.apply(null, values)
-  const stepSize = (maxValue - minValue) / nrOfClasses
+  const stepSize = (max - min) / nrOfClasses
   let breaks = []
 
   for (let i = 0; i <= nrOfClasses; i++) {
-    breaks.push(minValue + i * stepSize)
+    breaks.push(min + i * stepSize)
   }
 
   return breaks
@@ -108,16 +85,15 @@ export function equalIntervalBreaks(values, property, nrOfClasses) {
  * @param {Number} nrOfClasses
  * @returns
  */
-export function defineClassBreaks(featureCollection, property, nrOfClasses, method) {
-  if (!featureCollection || !property || !nrOfClasses || !method) throw new Error('no arguments')
+export function defineClassBreaks(values, min, max, property, nrOfClasses, method) {
+  if (!values || !property || !nrOfClasses || !method) throw new Error('no arguments')
 
-  const values = aggregateValues(featureCollection, property).filter(Boolean)
-  let breaks = undefined
+  let breaks
 
   if (method == 'quantil') {
-    breaks = quantilBreaks(values, property, nrOfClasses)
+    breaks = quantilBreaks(values, min, max, property, nrOfClasses)
   } else if (method == 'equal') {
-    breaks = equalIntervalBreaks(values, property, nrOfClasses)
+    breaks = equalIntervalBreaks(values, min, max, property, nrOfClasses)
   } else if (method == 'jenks') {
     breaks = jenksNaturalBreaks(values, property, nrOfClasses)
   }

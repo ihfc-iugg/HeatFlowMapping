@@ -46,7 +46,7 @@ export function getRange(values) {
   const min = Math.floor(Math.min.apply(null, values))
   const max = Math.ceil(Math.max.apply(null, values))
 
-  return [min, max]
+  return { min: min, max: max }
 }
 
 /**
@@ -87,7 +87,7 @@ export function getDataType(property, dataSchema) {
 
 /**
  * @description
- * @param {*} schema
+ * @param {Object} schema
  */
 export function getSelectableProperties(schema) {
   if (!schema) throw new Error('no arguments')
@@ -104,4 +104,25 @@ export function getSelectableProperties(schema) {
     }
   }
   return properties
+}
+
+/**
+ * @description Helper function for Math.quantileSeq() to collect only the values of a single property within one array
+ * @param {Object} featureCollection
+ * @param {String} property
+ * @returns {Array}
+ */
+export function aggregateValues(featureCollection, property) {
+  if (!featureCollection || !property) throw new Error('no arguments')
+
+  let values = []
+
+  featureCollection.features.forEach((feature) => {
+    let value = feature.properties[property]
+    // to filter sting values, e.g. q_uncertainty contains a value of type string ([Unspecified])
+    if (typeof value === 'number') {
+      values.push(value)
+    }
+  })
+  return values
 }

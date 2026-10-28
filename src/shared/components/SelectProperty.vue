@@ -30,14 +30,17 @@ const selectable = computed(() => {
     }
   }
 
-  if (props.ofType == 'all') {
-    return number.concat(string, bool)
-  } else if (props.ofType == 'number') {
-    return number
-  } else if (props.ofType == 'string') {
-    return string
-  } else if (props.ofType == 'boolean') {
-    return bool
+  switch (props.ofType) {
+    case 'all':
+      return number.concat(string, bool)
+    case 'number':
+      return number
+    case 'string':
+      return string
+    case 'boolean':
+      return bool
+    default:
+      return null
   }
 })
 

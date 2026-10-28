@@ -1,13 +1,5 @@
 import { Map, IControl } from 'maplibre-gl'
 import listSVG from '@/shared/assets/icons/list-ul.svg?raw'
-import observer from '../observer/observer'
-
-function testObserer() {
-  console.log('hallöchen inside testObserver')
-  console.log(app.map.getPaintProperty(GHFDB.r2024.id, 'circle-color'))
-}
-
-observer.subscribe(testObserer)
 
 /**
  * @implements {IControl}
@@ -18,7 +10,7 @@ export class LegendControl {
   _container = null
   _button = null
   _panel = null
-  isOpen = false
+  _isOpen = false
   layer = null
   eventTarget = new EventTarget()
 
@@ -48,17 +40,12 @@ export class LegendControl {
 
     this._map = map
 
-    // this._mapContainer = map.getContainer()
     this._container = this._createContainer()
-    console.log('this._container')
-    console.log(this._container)
+    this._panel = this._createPanel()
     this._button = this._createButton()
-    console.log('this._button')
-    console.log(this._button)
-    // this._panel = this._createPanel()
 
+    this._container.appendChild(this._panel)
     this._container.appendChild(this._button)
-    // this._mapContainer.appendChild(this._panel)
 
     return this._container
   }
@@ -92,7 +79,7 @@ export class LegendControl {
    */
   _createContainer() {
     const container = document.createElement('div')
-    container.className = 'maplibregl-ctrl maplibregl-ctrl-group'
+    container.className = 'maplibregl-ctrl maplibregl-ctrl-group legend-ctrl'
 
     return container
   }
@@ -105,24 +92,30 @@ export class LegendControl {
     const button = (this._button = document.createElement('button'))
 
     button.type = 'button'
-    button.className = 'mapboxgl-ctrl-icon'
+    button.className = 'maplibregl-ctrl-icon'
+    button.id = 'legend-control'
     button.setAttribute('title', 'Open Legend')
     button.innerHTML = listSVG
+    button.setAttribute('aria-expanded', 'false')
+    button.setAttribute('aria-controls', 'legend-control-panel')
     this._setSVGColor(this._isOpen ? '#55C2E9' : '#000000')
     button.addEventListener('click', () => this._toggleLegend())
 
     return button
   }
 
-  //   /**
-  //    * @description
-  //    * @returns {HTMLElement}
-  //    */
-  //   _createPanel() {
-  //     let panel = document.createElement('div')
+  /**
+   * @description
+   * @returns {HTMLElement}
+   */
+  _createPanel() {
+    const panel = document.createElement('div')
+    panel.className = 'card pb-2'
+    panel.id = 'legend-control-panel'
+    panel.hidden = true
 
-  //     return panel
-  //   }
+    return panel
+  }
 
   /**
    * @description Find the SVG element inside the button and set its fill color
@@ -133,8 +126,6 @@ export class LegendControl {
 
     const svg = this._button.querySelector('svg')
     if (svg) {
-      // this._svg.setAttribute('fill', color)
-      // Also set fill for all paths inside the SVG
       svg.querySelectorAll('path').forEach((path) => {
         path.setAttribute('fill', color)
       })
@@ -144,13 +135,13 @@ export class LegendControl {
   /**
    * @description
    */
-  _toggleLegend() {
+  _toggleLegend(force) {
     this._isOpen = !this._isOpen
     if (this._isOpen) {
-      this._openLegend()
-    } else this._closeLegend()
+      this._openLegend(force)
+    } else this._closeLegend(force)
     const event = new CustomEvent('onOpen', {
-      detail: { isOpen: this.isOpen } // Pass the new state in the event detail
+      detail: { isOpen: this._isOpen } // Pass the new state in the event detail
     })
     this.eventTarget.dispatchEvent(event) // Dispatch the event
   }
@@ -158,32 +149,39 @@ export class LegendControl {
   /**
    * @description
    */
-  _openLegend() {
+  _openLegend(force) {
     this._button.title = 'Close Legend'
     this._setSVGColor('#55C2E9')
+    this._togglePanel(force)
   }
 
   /**
    * @description
    */
-  _closeLegend() {
+  _closeLegend(force) {
     this._button.title = 'Open Legend'
     this._setSVGColor('#000000')
+    this._togglePanel(force)
+  }
+
+  _togglePanel(force) {
+    const open = force ?? this._panel.hidden
+    this._panel.hidden = !open
+    this._button.setAttribute('aria-expanded', String(open))
   }
 
   /**
-   * @description Use this method to listen to changes in hasPopup from the Vue component
+   * @description Use this method to listen to changes in isOpen from a Vue component
    * @param {*} callback
    */
   onOpen(callback) {
     if (!callback) throw new Error('no arguments')
 
     this.eventTarget.addEventListener('onOpen', (event) => {
-      callback(event.detail.isOpen) // Pass the updated selectedPoint value
+      callback(event.detail.isOpen)
     })
   }
 }
-
 // /**
 //  * A `GlobeControl` control contains a button for toggling the map projection between "mercator" and "globe".
 //  *
