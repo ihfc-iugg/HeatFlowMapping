@@ -1,7 +1,7 @@
 <script setup>
-import { defineProps, watch } from 'vue'
+import { defineProps, onMounted, watch } from 'vue'
 import colorbrewer from 'colorbrewer'
-import { useColorPaletteStore } from '../stores/colorPalette'
+import { useDataDrivenColoringStore } from '../stores/dataDrivenColoring'
 
 const props = defineProps({
   id: {
@@ -17,15 +17,17 @@ const props = defineProps({
     required: true
   }
 })
-const colorPalette = useColorPaletteStore()
+const dataDriven = useDataDrivenColoringStore()
 
 /**
  * @description
  * @param {String} schema
  */
 function setColorPalette(schema) {
+  console.log('setcolorpalette schema')
+  console.log(schema)
   if (schema) {
-    colorPalette.selectedColorSchema = schema
+    dataDriven.selectedColorSchema = schema
   }
 }
 
@@ -45,7 +47,7 @@ function handleHighlightedSchema(newSchema, rgba) {
 }
 
 watch(
-  () => colorPalette.selectedColorSchema,
+  () => dataDriven.selectedColorSchema,
   (newSchema) => {
     //if color schema is selected, highlight it
     handleHighlightedSchema(newSchema, 'rgba(227,30,36,0.4)')
@@ -56,14 +58,18 @@ watch(
   () => props.natureOfData,
   () => {
     //if nature of data is changing, adjust the related color palettes
-    colorPalette.selectedColorSchema = colorbrewer.schemeGroups[props.natureOfData][0]
-    handleHighlightedSchema(colorPalette.selectedColorSchema, 'rgba(227,30,36,0.4)')
+    dataDriven.selectedColorSchema = colorbrewer.schemeGroups[props.natureOfData][0]
+    handleHighlightedSchema(dataDriven.selectedColorSchema, 'rgba(227,30,36,0.4)')
   }
 )
+
+onMounted(() => {
+  handleHighlightedSchema(dataDriven.selectedColorSchema, 'rgba(227,30,36,0.4)')
+})
 </script>
 
 <template>
-  <label class="pt-2 pb-1" for="schemaGroups">{{ colorPalette.selectedColorSchema }}</label>
+  <label class="pt-2 pb-1" for="schemaGroups">{{ dataDriven.selectedColorSchema }}</label>
   <div id="schemaGroups" class="d-flex">
     <div
       v-for="schema in colorbrewer.schemeGroups[props.natureOfData]"

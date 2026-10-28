@@ -1,105 +1,50 @@
+// 3. party
 import { defineStore } from 'pinia'
-import { computed, ref } from 'vue'
-import { Map } from 'maplibre-gl'
+import { computed, ref, toRefs } from 'vue'
+import colorbrewer from 'colorbrewer'
 
-import { useClassifierStore } from './classifier'
-import { useColorPaletteStore } from './colorPalette'
-import { useGHFDBStore } from '@/core/stores/ghfdb'
+// stores composables
+import { useColorbrewer } from '../composables/useColorbrewer'
+import { aggregateValues } from '@/shared/utils/ghfdb/properties'
 import { useApplicationStore } from '@/core/stores/app'
-import { useSchemaStore } from '@/core/stores/schema'
+import { getRange } from '@/shared/utils/ghfdb/properties'
+
+// constants
+import { CLASSIFIER } from '@/shared/constants/classificationMethods'
+import { NATUREOFDATA } from '@/shared/constants/colorBrewer'
 
 export const useDataDrivenColoringStore = defineStore('Data driven coloring', () => {
-  const classifier = useClassifierStore()
-  const colorPalette = useColorPaletteStore()
-  const ghfdb = useGHFDBStore()
+  const { getSchemaColors } = useColorbrewer()
   const app = useApplicationStore()
-  const schema = useSchemaStore()
 
-  const property = ref('p')
+  const property = ref('q')
   const dataType = ref('number')
-  const nrOfClasses = computed(() => classifier.nrOfClasses)
-  const ghfdbName = computed(() => ghfdb.name)
-  const dataSchema = computed(() => app.dataSchema)
-
-  /**
-   * @description write array containg maplibre conform expressions for properties with enum values. Legal values are according to predefined classes
-   * @param {String} property
-   * @param {Array} classes
-   * @param {Array} colors
-   * @returns {Array} ["match", ["get", "property"], class, #color, ..., #colorOthers] --> https://docs.mapbox.com/mapbox-gl-js/example/data-driven-circle-colors/
-   */
-  function classifiedPaintProperty(property, classes, colorPalette) {
-    let paintProperty = []
-
-    paintProperty.push('match')
-    paintProperty.push(['get', property])
-
-    classes.forEach((value, index) => {
-      paintProperty.push(value, colorPalette[index])
-    })
-
-    // others
-    paintProperty.push('#ccc')
-
-    return paintProperty
-  }
-
-  /**
-   * @description write array containg maplibre conform expressions for properties with continous number values. Each class (start value - end value) one color value is assigned.
-   * @param {String} property
-   * @param {Array} classBreaks
-   * @param {Array} colorPalette
-   * @returns {Array}
-   * @example ["step", ["get", "property"], #color, NUMBER, #color, ...]
-   */
-  function numericPaintProperty(property, classBreaks, colorPalette) {
-    let paintProperty = []
-    let k = 1
-
-    paintProperty.push('step')
-    paintProperty.push(['get', property])
-
-    for (var i = 0; i < colorPalette.length; i++) {
-      paintProperty.push(colorPalette[i])
-      if (i < colorPalette.length - 1) {
-        paintProperty.push(classBreaks[k])
-        k++
-      }
-    }
-
-    return paintProperty
-  }
-
-  /**
-   * @description
-   * @param {Object} featureCollection
-   * @param {Map} map
-   */
-  function applyColoringLogic(featureCollection, map) {
-    let paintProperty = null
-    const colors = colorPalette.getSchemaColors(nrOfClasses.value)
-
-    if (dataType.value == 'number') {
-      const classBreaks = classifier.calculateClassBreaks(
-        featureCollection,
-        property.value,
-        nrOfClasses.value
-      )
-      paintProperty = numericPaintProperty(property.value, classBreaks, colors)
-    } else if (dataType.value == 'enum') {
-      const classes = schema.getEnumClasses(property.value, dataSchema.value)
-      paintProperty = classifiedPaintProperty(property.value, classes, colors)
-    } else if (dataType.value == 'boolean') {
-      const classes = schema.getBooleanClasses(property.value, dataSchema.value)
-      paintProperty = classifiedPaintProperty(property.value, classes, colors)
-    }
-
-    map.setPaintProperty(ghfdbName.value, 'circle-color', paintProperty)
-  }
+  const nrOfClasses = ref(3)
+  const selectedMethod = ref(CLASSIFIER.quantil)
+  const selectedNatureOfData = ref(NATUREOFDATA[0].id)
+  const selectedColorSchema = ref(colorbrewer.schemeGroups[selectedNatureOfData.value][0])
+  const colors = computed(() => getSchemaColors(selectedColorSchema.value, nrOfClasses.value))
+  const values = computed(() => {
+    if (dataType.value === 'number')
+      return aggregateValues(app.geojson, property.value).filter(Boolean)
+    else return null
+  })
+  const range = computed(() => {
+    if (values.value) return getRange(values.value)
+  })
+  // const max = computed(() => {
+  //   if (values.value) return Math.max.apply(null, values.value)
+  // })
 
   return {
     property,
     dataType,
-    applyColoringLogic
+    nrOfClasses,
+    selectedMethod,
+    selectedNatureOfData,
+    selectedColorSchema,
+    colors,
+    values,
+    range
   }
 })

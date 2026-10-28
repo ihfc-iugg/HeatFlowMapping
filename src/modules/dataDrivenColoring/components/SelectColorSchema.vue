@@ -1,10 +1,9 @@
 <script setup>
 import ColorSchema from './ColorSchema.vue'
-import { useColorPaletteStore } from '../stores/colorPalette'
-import { useClassifierStore } from '../stores/classifier.js'
+import { useDataDrivenColoringStore } from '../stores/dataDrivenColoring.js'
+import { NATUREOFDATA } from '@/shared/constants/colorBrewer.js'
 
-const colorPalette = useColorPaletteStore()
-const classifier = useClassifierStore()
+const dataDriven = useDataDrivenColoringStore()
 </script>
 
 <template>
@@ -13,14 +12,14 @@ const classifier = useClassifierStore()
   </div>
   <div class="row">
     <div class="col-md-auto">
-      <div v-for="type in colorPalette.typesNatureOfData" class="form-check form-check-inline">
+      <div v-for="type in NATUREOFDATA" class="form-check form-check-inline">
         <input
           class="form-check-input"
           type="radio"
           name="exampleRadios"
           :id="type.id"
           :value="type.id"
-          v-model="colorPalette.selectedNatureOfData"
+          v-model="dataDriven.selectedNatureOfData"
         />
         <label class="form-check-label" :for="type.id"> {{ type.title }} </label>
       </div>
@@ -29,7 +28,7 @@ const classifier = useClassifierStore()
 
   <ColorSchema
     id="colorSchemas"
-    :classes="classifier.nrOfClasses"
-    :nature-of-data="colorPalette.selectedNatureOfData"
+    :classes="dataDriven.nrOfClasses"
+    :nature-of-data="dataDriven.selectedNatureOfData"
   />
 </template>
