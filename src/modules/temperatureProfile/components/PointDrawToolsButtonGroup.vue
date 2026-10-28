@@ -1,9 +1,10 @@
 <script setup>
-import { ref, defineEmits } from 'vue'
+import { defineEmits } from 'vue'
 import { useApplicationStore } from '@/core/stores/app'
 import { useTemperatureProfileStore } from '../stores/temperatureProfile'
-import { useWMS } from '@/shared/composables/useWMS'
 import { removePreviousPoints, highlightNearestPoint, nearestPoint } from '../service'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
+import { CIRCLE } from '@/shared/constants/application'
 
 import GeoAltSVG from '@/shared/assets/icons/geo-alt-bootstrap.svg'
 import HandIndexSVG from '@/shared/assets/icons/hand-index-bootstrap.svg'
@@ -17,8 +18,6 @@ const emit = defineEmits(['pointDeleted'])
 
 /**
  * @description
- * @param {String} property
- * @param {String} dataType
  */
 function deletePoint() {
   emit('pointDeleted')
@@ -39,13 +38,12 @@ function onDelete() {
     tempProfile.mapBoundsSW = { lng: null, lat: null }
     tempProfile.mapBoundsNE = { lng: null, lat: null }
     tempProfile.mapCanvas = { width: null, height: null }
-    app.map.setPaintProperty('ghfdb', 'circle-color', '#000000')
+    app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', CIRCLE.styling.defaultColor)
   }
 }
 
 /**
  * @description Logic for drawing polygons.
- *
  */
 app.draw.on('finish', async (id, context) => {
   const features = app.draw.getSnapshot()
@@ -56,25 +54,28 @@ app.draw.on('finish', async (id, context) => {
       app.draw.removeFeatures(pointsToRemove)
       tempProfile.geoPoint = feature
       tempProfile.nearestPoint = nearestPoint(tempProfile.geoPoint, app.geojson)
-      const highlightNearesPoint = highlightNearestPoint(tempProfile.nearestPoint.id, '#000000')
-      app.map.setPaintProperty('ghfdb', 'circle-color', highlightNearesPoint)
+      const highlightNearesPoint = highlightNearestPoint(tempProfile.nearestPoint.id)
+      app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', highlightNearesPoint)
       app.draw.setMode('select')
     } else if (context.action === 'dragFeature') {
       tempProfile.geoPoint = feature
       tempProfile.nearestPoint = nearestPoint(tempProfile.geoPoint, app.geojson)
-      const highlightNearesPoint = highlightNearestPoint(tempProfile.nearestPoint.id, '#000000')
-      app.map.setPaintProperty('ghfdb', 'circle-color', highlightNearesPoint)
+      const highlightNearesPoint = highlightNearestPoint(tempProfile.nearestPoint.id)
+      app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', highlightNearesPoint)
     } else if (context.action === 'dragCoordinate') {
       tempProfile.geoPoint = feature
       tempProfile.nearestPoint = nearestPoint(tempProfile.geoPoint, app.geojson)
-      const highlightNearesPoint = highlightNearestPoint(tempProfile.nearestPoint.id, '#000000')
-      app.map.setPaintProperty('ghfdb', 'circle-color', highlightNearesPoint)
+      const highlightNearesPoint = highlightNearestPoint(tempProfile.nearestPoint.id)
+      app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', highlightNearesPoint)
     } else if (context.action === 'dragCoordinateResize') {
       tempProfile.geoPoint = feature
     }
   }
 })
 
+/**
+ * @description
+ */
 app.map.on('click', async function (e) {
   if (app.selectedPanel.id == 'analysis') {
     tempProfile.screenPoint = e.point

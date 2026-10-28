@@ -1,4 +1,5 @@
 import { nearestPoint as turfNearestPoint } from '@turf/turf'
+import { CIRCLE } from '@/shared/constants/application'
 
 /**
  * @description
@@ -32,6 +33,11 @@ export function nearestPoint(point, data) {
  * @description colors nearest neighbor red
  * @param {String} pointID
  */
-export function highlightNearestPoint(pointID, circleColor) {
-  return ['case', ['==', ['get', 'ID'], pointID], 'red', circleColor]
+export function highlightNearestPoint(pointID) {
+  return [
+    'case',
+    ['==', ['get', 'ID'], pointID],
+    CIRCLE.styling.highlightColor,
+    CIRCLE.styling.defaultColor
+  ]
 }

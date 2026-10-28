@@ -6,10 +6,9 @@ import AddLayerBtn from './AddLayerBtn.vue'
 import RemoveLastLayerBtn from './RemoveLastLayerBtn.vue'
 import { useApplicationStore } from '@/core/stores/app.js'
 import { useTemperatureProfileStore } from '../stores/temperatureProfile'
-import { useMapLibrePopup } from '@/shared/composables/useMapLibrePopup.js'
 import { useTemperatureProfile } from '../composables/useTemperatureProfile.js'
+import { generatePopup } from '@/shared/utils/map/maplibregl.js'
 
-const { generatePopup } = useMapLibrePopup()
 const { generatePlotPamareter } = useTemperatureProfile()
 
 const app = useApplicationStore()
