@@ -45,6 +45,27 @@ export function orderPointsInBBox(allPoints, orientedBBox, lineString, options =
 }
 
 /**
+ * Pull feature ids out of the corridor result objects, skipping
+ * malformed entries and de-duplicating.
+ */
+export function extractIds(orderedPoints) {
+  if (!Array.isArray(orderedPoints)) return []
+
+  const ids = new Set()
+
+  for (const entry of orderedPoints) {
+    const feature = entry?.point
+    if (!feature) continue
+
+    const id = feature.id
+
+    if (id !== undefined && id !== null) ids.add(id)
+  }
+
+  return [...ids]
+}
+
+/**
  * @description
  * @param {Object} feature
  * @returns {Object}

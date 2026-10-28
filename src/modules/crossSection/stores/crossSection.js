@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
-import { calculateOrientedBBox } from '@/shared/services/geo/orientedBBox'
+import { calculateOrientedBBox } from '@/shared/utils/geo/orientedBBox'
 import { pointsWithinPolygon, point } from '@turf/turf'
 import { bearing as bearingTurfJS } from '@turf/turf'
 import { useApplicationStore } from '@/core/stores/app'
-import { orderPointsInBBox } from '../service'
+import { extractIds, orderPointsInBBox } from '../service'
 
 export const useCrossSectionStore = defineStore('Cross Section Store', () => {
   const app = useApplicationStore()
@@ -53,6 +53,13 @@ export const useCrossSectionStore = defineStore('Cross Section Store', () => {
   })
 
   /**
+   *
+   */
+  const idsOfPntWithin = computed(() => {
+    return extractIds(orderedPntsWithinBBox.value)
+  })
+
+  /**
    * @description
    * @returns {boolean} returns boolean if all neccessery inputs are set to run the calculaiton
    */
@@ -88,6 +95,7 @@ export const useCrossSectionStore = defineStore('Cross Section Store', () => {
     orientedBBoxId,
     orientedBBoxLabelId,
     orderedPntsWithinBBox,
+    idsOfPntWithin,
     hasValidinputs,
     toggleHasPopup
   }

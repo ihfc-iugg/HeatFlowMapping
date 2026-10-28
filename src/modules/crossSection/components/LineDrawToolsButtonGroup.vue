@@ -9,6 +9,10 @@ import TrashSVG from '@/shared/assets/icons/trash-bootstrap.svg'
 import { useCrossSectionStore } from '../stores/crossSection'
 import { useApplicationStore } from '@/core/stores/app'
 import { removeLayerAndSource, addLineStringLable, addOrientedBBoxToMap } from '../service'
+import { buildCasePaintProperty } from '@/shared/utils/map/styling/buildPaintProerty'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
+import { COLORS } from '@/shared/constants/temperatureProfile'
+import { CIRCLE } from '@/shared/constants/application'
 
 const crossSection = useCrossSectionStore()
 const app = useApplicationStore()
@@ -46,6 +50,7 @@ function onDelete() {
   app.draw.removeFeatures([lineStringID])
   crossSection.lineString = null
   app.map.setBearing(0)
+  app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', CIRCLE.styling.defaultColor)
 }
 
 /**
@@ -56,6 +61,16 @@ function onFinish(feature) {
   crossSection.lineString = feature
   addLineStringLable(feature, crossSection.orientedBBoxLabelId, app.map)
   addOrientedBBoxToMap(crossSection.orientedBBox, crossSection.orientedBBoxId, app.map)
+  /**
+   * array of ids of points within polygon
+   * buldCasePaintProperty
+   */
+  const expression = buildCasePaintProperty(
+    crossSection.idsOfPntWithin,
+    CIRCLE.styling.defaultColor,
+    CIRCLE.styling.highlightColor
+  )
+  app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', expression)
 }
 
 /**

@@ -6,11 +6,10 @@ import Card from '@/shared/components/Card.vue'
 import { useApplicationStore } from '@/core/stores/app'
 import { useCrossSectionStore } from '../stores/crossSection'
 import { useCrossSection } from '../composables/useCrossSection.js'
-import { useMapLibrePopup } from '@/shared/composables/useMapLibrePopup.js'
 import { calculateZoomDelta } from '../service'
+import { generatePopup } from '@/shared/utils/map/maplibregl'
 
 const { generatePlotPamareter } = useCrossSection()
-const { generatePopup } = useMapLibrePopup()
 
 const app = useApplicationStore()
 const crossSection = useCrossSectionStore()

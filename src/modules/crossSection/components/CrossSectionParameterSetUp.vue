@@ -3,6 +3,9 @@ import SelectProperty from '@/shared/components/SelectProperty.vue'
 import { useCrossSectionStore } from '../stores/crossSection'
 import { removeLayerAndSource, addOrientedBBoxToMap } from '../service'
 import { useApplicationStore } from '@/core/stores/app'
+import { buildCasePaintProperty } from '@/shared/utils/map/styling/buildPaintProerty'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
+import { CIRCLE } from '@/shared/constants/application'
 
 const crossSection = useCrossSectionStore()
 const app = useApplicationStore()
@@ -19,6 +22,12 @@ function handleSelection(property) {
 function onInput() {
   removeLayerAndSource([crossSection.orientedBBoxId], crossSection.orientedBBoxId, app.map)
   addOrientedBBoxToMap(crossSection.orientedBBox, crossSection.orientedBBoxId, app.map)
+  const expression = buildCasePaintProperty(
+    crossSection.idsOfPntWithin,
+    CIRCLE.styling.defaultColor,
+    CIRCLE.styling.highlightColor
+  )
+  app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', expression)
 }
 </script>
 
