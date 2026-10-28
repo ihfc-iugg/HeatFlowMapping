@@ -6,10 +6,14 @@ import SelectProperty from '@/shared/components/SelectProperty.vue'
 import MultiSelectPropertyValues from './MultiSelectPropertyValues.vue'
 import RangeSlider from './RangeSlider.vue'
 import { useFilterStore } from '../stores/attributeFilter'
-import { useProperties } from '@/shared/composables/useProperties.js'
 import { useApplicationStore } from '@/core/stores/app.js'
+import {
+  getEnumValues,
+  getBooleanValues,
+  getRange,
+  getNumberValues
+} from '@/shared/utils/ghfdb/properties.js'
 
-const { getBooleanValues, getEnumValues, getRange, getNumberValues } = useProperties()
 const filter = useFilterStore()
 const app = useApplicationStore()
 const options = ref(null)
@@ -37,14 +41,18 @@ watch(
     filter.resetFilterObject(props.uuid)
     const dataType = props.filterObj.dataType
     const property = props.filterObj.property
-    if (dataType == 'enum') {
-      options.value = getEnumValues(property)
-    } else if (dataType == 'boolean') {
-      options.value = getBooleanValues(property)
-    } else if (dataType == 'number') {
-      data.value = getNumberValues(app.geojson, props.filterObj.property)
-      range.value = getRange(data.value)
-      props.filterObj.values = range.value
+
+    switch (dataType) {
+      case 'number':
+        data.value = getNumberValues(app.geojson, props.filterObj.property)
+        range.value = getRange(data.value)
+        props.filterObj.values = range.value
+      case 'enum':
+        options.value = getEnumValues(property, app.dataSchema)
+      case 'boolean':
+        options.value = getBooleanValues(property, app.dataSchema)
+      default:
+        return null
     }
   }
 )

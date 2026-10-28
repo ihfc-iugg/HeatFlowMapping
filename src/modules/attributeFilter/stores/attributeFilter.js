@@ -1,12 +1,10 @@
-import { Map } from 'maplibre-gl'
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { v4 as uuidv4 } from 'uuid'
-import { useProperties } from '@/shared/composables/useProperties'
 import { useApplicationStore } from '@/core/stores/app'
+import { getRange, getNumberValues } from '@/shared/utils/ghfdb/properties'
 
 export const useFilterStore = defineStore('filter', () => {
-  const { getRange, getNumberValues } = useProperties()
   const app = useApplicationStore()
   const limit = computed(() => {
     return Object.keys(app.attributeFilter).length < 10 ? false : true
