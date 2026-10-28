@@ -4,7 +4,8 @@ import App from './App.vue'
 import { Buffer } from 'buffer'
 
 // import global css styles
-import './assets/scss/bootstrap.scss'
+import '@/shared/assets/scss/bootstrap.scss'
+import '@/shared/assets/scss/legendControl.scss'
 import 'bootstrap/dist/js/bootstrap.js'
 import 'maplibre-gl/dist/maplibre-gl.css'
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'

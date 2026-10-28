@@ -1,5 +1,5 @@
 <script setup>
-import SelectProperty from '@/modules/selectProperty/components/SelectProperty.vue'
+import SelectProperty from '@/shared/components/SelectProperty.vue'
 import HistogramPlot from './HistogramPlot.vue'
 import TableBodyNumericValues from './TableBodyNumericValues.vue'
 import TableBodyCountValues from './TableBodyCountValues.vue'

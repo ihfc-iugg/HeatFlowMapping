@@ -26,6 +26,7 @@ export const useDrawStore = defineStore('Setup and access draw tool', () => {
   )
   const lineMode = ref(
     new TerraDrawLineStringMode({
+      pointLimit: 2,
       styles: {
         lineStringColor: '#EA5E20',
         lineStringWidth: 2

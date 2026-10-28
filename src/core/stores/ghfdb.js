@@ -5,35 +5,15 @@ import JSZip from 'jszip'
 import { featureCollection, point } from '@turf/turf'
 import Papa from 'papaparse'
 import { Map } from 'maplibre-gl'
-import { useIndexDBStore } from './indexDBTools'
-import { useApplicationStore } from './app'
+import { useIndexDB } from '@/shared/composables/useIndexDB'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
+
+const { getData, saveData, removeData } = useIndexDB()
 
 export const useGHFDBStore = defineStore('global heat flow database', () => {
-  const indexDB = useIndexDBStore()
-  const app = useApplicationStore()
-
-  const name = ref('ghfdb')
   const inProcess = ref(true)
   const hasCSV = ref(false)
   const successfulConvertion = ref(false)
-  const parentProperties = ref([
-    'q',
-    'q_uncertainty',
-    'name',
-    // 'lat_NS',
-    // 'long_EW',
-    'elevation',
-    'environment',
-    'p_comment',
-    'corr_HP_flag',
-    'total_depth_MD',
-    'total_depth_TVD',
-    'explo_method',
-    'explo_purpose',
-    'ID',
-    'ID_parent',
-    'Quality_Code'
-  ])
 
   /**
    * @description toggles the inProcess state.
@@ -117,28 +97,28 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
    * @description: Handles the initial data fetching and processing for the GHFDB and the schema file
    */
   async function initData() {
+    let geojson
+
     try {
-      indexDB.removeData('ghfdbDatabase', 'ghfdbStore', 'ghfdb')
-      let storedData = await indexDB.getData('ghfdbDatabase', 'ghfdbStore', 'ghfdb_release_2024')
-      let geojson = null
+      // indexDB.removeData('ghfdbDatabase', 'ghfdbStore', GHFDB.r2024.id)
+      let storedData = await getData('ghfdbDatabase', 'ghfdbStore', GHFDB.r2024.id)
+      console.log('storedData')
+      console.log(storedData)
 
       if (!storedData) {
-        indexDB.hasGHFDB = false
-        const strValues = await getGhfdbFromAPI(
-          'https://raw.githubusercontent.com/ihfc-iugg/ghfdb-portal/refs/heads/main/assets/ghfdb/IHFC_2024_GHFDB.zip'
-        )
+        // indexDB.hasGHFDB = false
+        const strValues = await getGhfdbFromAPI(GHFDB.r2024.url)
         const json = await csv2JSON(strValues)
-        geojson = json2GeoJSON(json.data, parentProperties.value)
-        indexDB.saveData('ghfdbDatabase', 'ghfdbStore', {
-          id: 'ghfdb_release_2024',
-          release: 2024, // store version of release to query if data in DB is up to date
+        geojson = json2GeoJSON(json.data, GHFDB.r2024.parentProperties)
+        saveData('ghfdbDatabase', 'ghfdbStore', {
+          id: GHFDB.r2024.id,
+          release: GHFDB.r2024.release, // store version of release to query if data in DB is up to date
           data: geojson
-          //   data: JSON.parse(JSON.stringify(geojson))
         })
 
         console.log('GeoJSON data saved to IndexedDB')
       } else {
-        indexDB.hasGHFDB = true
+        // indexDB.hasGHFDB = true
         geojson = storedData.data
         console.log(storedData.data)
         console.log('GeoJSON data retrieved from IndexedDB')
@@ -146,9 +126,6 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
 
       toggleInProcess()
       return geojson
-      //   addGhfdbToMap(app.map, geojson, settings.circleColor, settings.circleRadius)
-
-      //   hfModels.addModelsToMap(mapStore.map)
     } catch (error) {
       console.error('Error handling GeoJSON data:', error)
     }
@@ -162,15 +139,15 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
    * @param {Number} circleRadius
    */
   async function addGhfdbToMap(map, ghfdb, circleColor, circleRadius) {
-    map.addSource(name.value, {
+    map.addSource(GHFDB.r2024.id, {
       type: 'geojson',
       data: ghfdb
     })
 
     map.addLayer({
-      id: name.value,
+      id: GHFDB.r2024.id,
       type: 'circle',
-      source: name.value,
+      source: GHFDB.r2024.id,
       paint: {
         'circle-color': [
           'case',
@@ -186,24 +163,12 @@ export const useGHFDBStore = defineStore('global heat flow database', () => {
         visibility: 'visible'
       }
     })
-
-    map.addLayer({
-      id: 'clickableLayer',
-      type: 'circle',
-      source: name.value,
-      paint: {
-        'circle-color': 'rgba(0,0,0,0)',
-        'circle-radius': 15
-      }
-    })
   }
 
   return {
-    name,
     inProcess,
     hasCSV,
     successfulConvertion,
-    parentProperties,
     getGhfdbFromAPI,
     initData,
     addGhfdbToMap

@@ -6,17 +6,17 @@ const app = useApplicationStore()
 
 <template>
   <div
-    class="offcanvas offcanvas-start overflow-auto"
+    class="offcanvas offcanvas-start overflow-auto m-2 h-auto"
     data-bs-scroll="true"
     data-bs-backdrop="false"
     tabindex="-1"
     id="offcanvasPanel"
     aria-labelledby="offcanvasPanelLabel"
   >
-    <div class="offcanvas-header bg-primary">
+    <div class="offcanvas-header bg-primary text-light">
       <div class="row">
         <div class="col">
-          <div class="col-md-auto text-light" v-html="app.selectedPanel.svgElement"></div>
+          <component :is="app.selectedPanel.svg" />
         </div>
         <div class="col col-md-auto">
           <h5 class="offcanvas-title text-light">

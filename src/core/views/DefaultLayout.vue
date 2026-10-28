@@ -10,27 +10,32 @@ import StatisticsPanelLayout from './StatisticsPanelLayout.vue'
 import AnalysisPanelLayout from './AnalysisPanelLayout.vue'
 import CursorLocation from '@/modules/cursorLocation/components/CursorLocation.vue'
 import PointAttributeTablePopup from '@/modules/infoPopup/components/PointAttributeTablePopup.vue'
+import LegendControlPanel from '@/modules/legend/components/LegendControlPanel.vue'
 
 import { useSchemaStore } from '../stores/schema'
 import { useApplicationStore } from '../stores/app'
 import { useGHFDBStore } from '../stores/ghfdb.js'
-import { useCircleStylingStore } from '@/modules/circleStyling/stores/circleStyling.js'
 import { useDrawStore } from '../stores/draw.js'
 
-import schemaURL from '@/shared/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
+import { CIRCLE } from '@/shared/constants/application.js'
+import { SCHEMA } from '@/shared/constants/globalHeatFlowDatabase.js'
 
 const schema = useSchemaStore()
 const app = useApplicationStore()
 const ghfdb = useGHFDBStore()
-const circle = useCircleStylingStore()
 const draw = useDrawStore()
 
 onMounted(async () => {
   app.geojson = await ghfdb.initData()
-  ghfdb.addGhfdbToMap(app.map, app.geojson, circle.color, circle.radius)
+  ghfdb.addGhfdbToMap(
+    app.map,
+    app.geojson,
+    CIRCLE.styling.defaultColor,
+    CIRCLE.styling.defaultRadius
+  )
   draw.setDraw(app.map)
 
-  await schema.fetchDataSchema(schemaURL)
+  await schema.fetchDataSchema(SCHEMA.r2024.url)
 })
 </script>
 
@@ -40,6 +45,7 @@ onMounted(async () => {
     <CursorLocation />
     <PointAttributeTablePopup />
     <PanelSwitcherButtonGroup />
+    <LegendControlPanel />
     <Offcanvase v-if="app.selectedPanel">
       <LayerPanelLayout v-if="app.selectedPanel.id == 'layers'" />
       <FilterPanelLayout v-if="app.selectedPanel.id == 'filter'" />

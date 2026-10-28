@@ -1,6 +1,7 @@
 import { Map } from 'maplibre-gl'
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
 
 export const useFilterStore = defineStore('filter', () => {
   // const filterIDs = ref([]);
@@ -80,7 +81,7 @@ export const useFilterStore = defineStore('filter', () => {
   function applyFilterToMap(mapObject) {
     const expression = writeFilterExpression()
 
-    mapObject.setFilter('ghfdb', expression)
+    mapObject.setFilter(GHFDB.r2024.id, expression)
   }
 
   /**
@@ -110,8 +111,8 @@ export const useFilterStore = defineStore('filter', () => {
    */
   function getFilteredFeatures(mapObject) {
     let filterExpression = writeFilterExpression()
-    let queriedFeatures = mapObject.querySourceFeatures('ghfdb', {
-      sourceLayer: 'ghfdb',
+    let queriedFeatures = mapObject.querySourceFeatures(GHFDB.r2024.id, {
+      sourceLayer: GHFDB.r2024.id,
       filter: filterExpression
     })
     const uniqueFeatures = getUniqueFeatures(queriedFeatures, 'ID')

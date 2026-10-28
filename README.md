@@ -69,6 +69,9 @@ serve -s dist
 
 ### Credits
 
+Porject struture is based on a modular approach accordign to [How to Structure Vue Projects](https://alexop.dev/posts/how-to-structure-vue-projects/)
+also inspired by [Modular Architecture for Scalable Frontend Development](https://dev.to/amirrezasalimi/modular-architecture-for-scalable-frontend-development-2emb)
+
 ### License
 
 <!-- ## Migration from VueCLI to Vite

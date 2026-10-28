@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
-import schemaURL from '@/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
+import schemaURL from '@/shared/assets/data/Heatflow_worldAPI_Hardcoded.yaml'
 
 import $RefParser from '@apidevtools/json-schema-ref-parser'
 

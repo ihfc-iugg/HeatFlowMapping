@@ -1,26 +1,27 @@
 import { defineStore, storeToRefs } from 'pinia'
 import { computed, ref, watch } from 'vue'
-import { useNavButtonGroupStore } from '@/modules/navButtonGroup/stores/navButtonGroup'
+import { usePanelSwitcherStore } from '@/modules/panelSwitcher/stores/panelSwitcher'
 import { useSchemaStore } from './schema'
 import { useMapStore } from '@/modules/map/stores/map'
 import { useDrawStore } from './draw'
-import { v4 as uuidv4 } from 'uuid'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
 
 export const useApplicationStore = defineStore(
   'Gloabl states related to the entire application',
   () => {
     const schema = useSchemaStore()
-    const nav = useNavButtonGroupStore()
+    const panelSwitcher = usePanelSwitcherStore()
     const mapStore = useMapStore()
     const drawStore = useDrawStore()
 
     const geojson = ref(null)
     const map = computed(() => mapStore.map)
     const dataSchema = computed(() => schema.data)
-    const selectedPanel = computed(() => nav.selected) // set layers as default panel
+    const selectedPanel = computed(() => panelSwitcher.selected) // set layers as default panel
     const attributeFilter = ref({})
     const spatialFilter = ref({})
     const draw = computed(() => drawStore.tools)
+    const controls = ref(null)
 
     function applyFilter() {
       let expression = ['all']
@@ -35,7 +36,7 @@ export const useApplicationStore = defineStore(
         }
       }
 
-      map.value.setFilter('ghfdb', expression)
+      map.value.setFilter(GHFDB.r2024.id, expression)
     }
 
     watch([attributeFilter.value, spatialFilter.value], () => {
@@ -49,7 +50,8 @@ export const useApplicationStore = defineStore(
       selectedPanel,
       attributeFilter,
       spatialFilter,
-      draw
+      draw,
+      controls
     }
   }
 )

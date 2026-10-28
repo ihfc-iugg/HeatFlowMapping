@@ -2,8 +2,9 @@
 import { useApplicationStore } from '@/core/stores/app'
 import { useCircleStylingStore } from '../stores/circleStyling'
 import CircleStylingContainer from './CircleStylingContainer.vue'
+import { GHFDB } from '@/shared/constants/globalHeatFlowDatabase'
 
-import AccordionItem from '@/core/components/AccordionItem.vue'
+import AccordionItem from '@/shared/components/AccordionItem.vue'
 
 const app = useApplicationStore()
 const circleStyling = useCircleStylingStore()
@@ -13,7 +14,7 @@ const circleStyling = useCircleStylingStore()
  * @param {number} circleRadius
  */
 function setCircleRadius(circleRadius) {
-  app.map.setPaintProperty('ghfdb', 'circle-radius', parseInt(circleRadius))
+  app.map.setPaintProperty(GHFDB.r2024.id, 'circle-radius', parseInt(circleRadius))
 }
 
 /**
@@ -22,10 +23,10 @@ function setCircleRadius(circleRadius) {
  * @returns {Void}
  */
 function setCircleColor(colorHEX) {
-  if (app.map.getPaintProperty('ghfdb', 'circle-color') == colorHEX) {
+  if (app.map.getPaintProperty(GHFDB.r2024.id, 'circle-color') == colorHEX) {
     return
   } else {
-    app.map.setPaintProperty('ghfdb', 'circle-color', colorHEX)
+    app.map.setPaintProperty(GHFDB.r2024.id, 'circle-color', colorHEX)
   }
 }
 </script>
